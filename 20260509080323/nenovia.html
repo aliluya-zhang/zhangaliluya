@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NenoVia 霓诺 — 产品全案设计</title>
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: #e1e3e7;
+  color: #fff;
+  font-family: 'Inter', 'Helvetica Neue', 'PingFang SC', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* ── Custom Cursor ── */
+#cursor {
+  position: fixed; top: 0; left: 0;
+  width: 16px; height: 16px;
+  border-radius: 50%; background: rgba(218, 160, 175, 0.8);
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+}
+#cursor.hover { width: 40px; height: 40px; background: rgba(200, 155, 165, 0.9); }
+@media (pointer: coarse) { #cursor { display: none; } }
+
+/* ── Navbar ── */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 48px;
+  transition: background 0.3s;
+}
+.navbar.scrolled { background: rgba(225,227,231,0.95); backdrop-filter: blur(16px); }
+.nav-logo {
+  font-size: 16px; font-weight: 700; letter-spacing: 0.12em;
+  color: #daa0af;
+}
+.nav-back {
+  font-size: 13px; letter-spacing: 0.08em;
+  color: rgba(41,41,41,0.6);
+  transition: color 0.2s;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-back:hover { color: #daa0af; }
+.nav-back svg { width: 16px; height: 16px; }
+
+/* ── Hero Section ── */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: space-between; align-items: center;
+  padding: 120px 48px 0;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url('img/nanovia-1.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(41,41,41,0.3) 0%, rgba(41,41,41,0.7) 100%);
+}
+.hero-accent {
+  position: absolute; width: 600px; height: 600px;
+  border-radius: 50%; filter: blur(120px);
+  opacity: 0.15;
+}
+.hero-accent-1 {
+  background: #daa0af; top: -200px; left: -200px;
+}
+.hero-accent-2 {
+  background: #e8c4a0; bottom: -300px; right: -150px;
+}
+.hero-content {
+  position: relative; z-index: 10;
+  text-align: center; max-width: 900px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.hero-tag {
+  font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: rgba(255,255,255,0.8); margin-bottom: 24px;
+}
+.hero-title {
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 800; line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  color: #ffffff;
+}
+.hero-logo {
+  height: clamp(48px, 8vw, 96px);
+  width: auto;
+}
+.hero-subtitle {
+  font-size: clamp(16px, 2vw, 20px);
+  color: #ffffff;
+  line-height: 1.7; max-width: 600px;
+  text-align: center;
+}
+.hero-meta {
+  margin-top: 48px;
+  display: flex; gap: 48px; justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.hero-meta-item {
+  text-align: center;
+}
+.hero-meta-label {
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6); margin-bottom: 8px;
+}
+.hero-meta-value {
+  font-size: 15px; color: #ffffff;
+}
+.hero-bottom {
+  margin-top: 80px;
+  text-align: center;
+}
+.scroll-hint {
+  position: absolute; bottom: 48px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  color: rgba(255,255,255,0.4); font-size: 11px; letter-spacing: 0.2em;
+  animation: float 2s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ── Section Common ── */
+.section {
+  padding: 120px 48px;
+  position: relative;
+}
+@media (max-width: 768px) { .section { padding: 80px 24px; } }
+.section-label {
+  font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: rgba(41,41,41,0.5); margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800; line-height: 1.15; margin-bottom: 12px;
+  color: #292929;
+}
+.section-desc {
+  font-size: 16px; color: rgba(41,41,41,0.6);
+  line-height: 1.8; max-width: 640px;
+}
+
+/* ── Brand Story ── */
+.brand-story {
+  background: #e1e3e7;
+  padding: 100px 60px;
+}
+.brand-story-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+@media (max-width: 1100px) {
+  .brand-story-inner { grid-template-columns: 1fr; gap: 48px; }
+}
+.brand-left {
+  text-align: left;
+  padding-top: 20px;
+}
+.brand-left h2 {
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 800; line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #292929;
+}
+.brand-right { color: #292929; }
+.brand-intro {
+  font-size: 15px; line-height: 1.9;
+  color: rgba(41,41,41,0.7);
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(41,41,41,0.1);
+}
+.brand-section-title {
+  font-size: 28px; font-weight: 700; line-height: 1.3;
+  margin-bottom: 16px; color: #292929;
+}
+.brand-tags {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 36px;
+}
+.brand-tag {
+  padding: 10px 18px;
+  background: rgba(41,41,41,0.08);
+  border: 1px solid rgba(41,41,41,0.15);
+  border-radius: 24px;
+  font-size: 13px; color: rgba(41,41,41,0.75);
+  transition: all 0.2s;
+}
+.brand-tag:hover {
+  background: rgba(218,160,175,0.15);
+  border-color: rgba(218,160,175,0.3);
+  color: rgba(41,41,41,0.9);
+}
+.brand-tag-circle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(218,160,175,0.2), rgba(232,196,160,0.2));
+  border: 2px solid rgba(218,160,175,0.3);
+  font-size: 12px; text-align: center; line-height: 1.3;
+  color: rgba(41,41,41,0.8);
+  padding: 8px;
+}
+.brand-goal-text {
+  font-size: 15px; line-height: 1.9;
+  color: rgba(41,41,41,0.7);
+  margin-top: 20px; margin-bottom: 36px;
+}
+.brand-keywords {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+/* ── Brand Statement ── */
+.brand-statement {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.statement-bg {
+  position: absolute; inset: 0; z-index: 0;
+}
+.statement-bg video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.statement-content {
+  position: relative; z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 80px 48px;
+}
+.statement-img {
+  max-width: 500px;
+  width: 100%;
+}
+.statement-label {
+  font-size: clamp(20px, 4vw, 26px);
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+.statement-tagline {
+  font-size: clamp(12px, 2vw, 16px);
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.1em;
+}
+
+/* ── Color Palette ── */
+.color-section {
+  background: #e1e3e7;
+  padding-top: 50px;
+}
+.color-palette {
+  display: flex; gap: 24px; flex-wrap: nowrap;
+  margin-top: 20px;
+  max-width: 1400px; margin-left: auto; margin-right: auto;
+}
+.color-item {
+  flex: 1; min-width: 200px;
+  border-radius: 16px; overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(41,41,41,0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+.color-swatch {
+  height: 120px;
+}
+.color-info { padding: 20px; }
+.color-name {
+  font-size: 14px; font-weight: 600; color: #292929; margin-bottom: 4px;
+}
+.color-hex {
+  font-size: 12px; color: rgba(41,41,41,0.5); font-family: monospace;
+}
+
+/* ── Typography ── */
+.typo-section { background: #e1e3e7; padding-bottom: 0; }
+.typo-showcase {
+  margin-top: 48px;
+}
+.typo-primary {
+  font-size: clamp(48px, 10vw, 120px);
+  font-weight: 800; line-height: 1;
+  background: linear-gradient(135deg, #daa0af, #e8c4a0);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 24px;
+}
+.typo-secondary {
+  font-size: 24px; font-weight: 400; color: rgba(41,41,41,0.6);
+  margin-bottom: 48px;
+}
+.typo-sizes { margin-top: 64px; }
+.typo-size-item {
+  display: flex; align-items: baseline; gap: 24px;
+  padding: 16px 0; border-bottom: 1px solid rgba(41,41,41,0.08);
+}
+.typo-size-label {
+  width: 80px; font-size: 11px; color: rgba(41,41,41,0.4);
+  letter-spacing: 0.1em;
+}
+.typo-size-demo {
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  color: #292929;
+}
+.logo-desc {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #292929;
+  max-width: 800px;
+}
+.logo-design-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .logo-design-inner { grid-template-columns: 1fr; gap: 40px; }
+}
+.logo-design-left { padding-right: 20px; }
+.logo-design-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo-design-img {
+  max-width: 100%;
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.logo-design-img.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.logo-design-img:hover {
+  transform: scale(1.03);
+}
+
+/* ── Virtual Model Section ── */
+.virtual-model-section {
+  background: #ffffff;
+  padding: 0;
+}
+.virtual-model-hero {
+  position: relative;
+  width: 100%;
+  height: 1080px;
+  overflow: hidden;
+}
+.virtual-model-hero > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 1.2s ease, transform 1.5s ease;
+}
+.virtual-model-hero > img.in-view {
+  opacity: 1;
+  transform: scale(1);
+}
+.virtual-model-hero-text {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 1080px;
+  padding: 80px 48px;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
+}
+.virtual-model-hero-text.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.virtual-model-hero-text .section-title {
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+.virtual-model-hero-text .section-desc {
+  color: rgba(255,255,255,0.85);
+  font-size: 15px;
+  line-height: 1.9;
+}
+.virtual-model-images {
+  width: 100%;
+  padding: 80px 48px;
+}
+.virtual-model-images img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.virtual-model-images img.img-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.virtual-model-images img:nth-child(2) {
+  transition-delay: 0.2s;
+  margin-top: 24px;
+}
+@media (max-width: 900px) {
+  .virtual-model-hero { min-height: 60vh; }
+  .virtual-model-hero-text { min-height: 60vh; padding: 0 24px; }
+  .virtual-model-images { padding: 48px 24px; }
+}
+@media (max-width: 768px) {
+  .virtual-model-section { padding: 80px 0 0 0; }
+}
+
+/* ── Virtual Model Waterfall ── */
+.virtual-model-waterfall {
+  background: #ffffff;
+  padding: 80px 48px 120px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.virtual-model-waterfall .waterfall-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.virtual-model-waterfall .waterfall-item {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.virtual-model-waterfall .waterfall-item.img-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.virtual-model-waterfall .waterfall-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+}
+.virtual-model-waterfall .waterfall-item video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+}
+@media (max-width: 900px) {
+  .virtual-model-waterfall { padding: 60px 24px 80px; }
+  .virtual-model-waterfall .waterfall-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .virtual-model-waterfall .waterfall-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Brand Format Section ── */
+.brand-format-section {
+  background: #fff;
+  padding: 100px 48px;
+}
+.brand-format-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px;
+}
+.brand-format-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.brand-format-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+}
+@media (max-width: 900px) {
+  .brand-format-section { padding: 60px 24px; }
+  .brand-format-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .brand-format-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Comparison Table ── */
+.comparison-section {
+  background: #fff;
+  padding: 100px 48px;
+}
+.comparison-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px;
+}
+.comparison-header .section-title {
+  color: #1a1a1a;
+  font-size: clamp(28px, 4vw, 42px);
+  margin-bottom: 16px;
+}
+.comparison-header .section-desc {
+  color: #666;
+  font-size: clamp(15px, 2vw, 18px);
+}
+.comparison-table {
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow-x: auto;
+}
+.comparison-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.comparison-table th {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 16px 24px;
+  text-align: left;
+  font-weight: 600;
+}
+.comparison-table th:first-child {
+  border-radius: 12px 0 0 0;
+}
+.comparison-table th:last-child {
+  border-radius: 0 12px 0 0;
+}
+.comparison-table td {
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e5e5;
+  color: #333;
+}
+.comparison-table tr:last-child td:first-child {
+  border-radius: 0 0 0 12px;
+}
+.comparison-table tr:last-child td:last-child {
+  border-radius: 0 0 12px 0;
+}
+.comparison-table tr:nth-child(even) {
+  background: #f9f7f5;
+}
+.comparison-table td:first-child {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+@media (max-width: 768px) {
+  .comparison-section { padding: 60px 24px; }
+  .comparison-table th, .comparison-table td { padding: 12px 16px; font-size: 14px; }
+}
+.comparison-summary {
+  max-width: 1000px;
+  margin: 60px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.comparison-summary-item {
+  background: #f9f7f5;
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+}
+.comparison-summary-item p {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.8;
+}
+.comparison-summary-item strong {
+  color: #1a1a1a;
+}
+@media (max-width: 768px) {
+  .comparison-summary { grid-template-columns: 1fr; }
+}
+
+/* ── Gallery / Masonry ── */
+.gallery-section { background: #e1e3e7; }
+.gallery-header {
+  text-align: center; max-width: 700px; margin: 0 auto 64px;
+}
+.gallery-masonry {
+  columns: 3 280px;
+  column-gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+@media (max-width: 900px) { .gallery-masonry { columns: 2 260px; } }
+@media (max-width: 540px) { .gallery-masonry { columns: 1; } }
+.gallery-item {
+  break-inside: avoid; margin-bottom: 20px;
+  border-radius: 16px; overflow: hidden;
+  position: relative; cursor: pointer;
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  background: #fff;
+}
+.gallery-item.in-view { opacity: 1; transform: translateY(0); }
+.gallery-item img {
+  width: 100%; height: auto;
+  transition: transform 0.5s ease;
+}
+.gallery-item:hover img { transform: scale(1.05); }
+.gallery-item-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(transparent 50%, rgba(41,41,41,0.9));
+  opacity: 0; transition: opacity 0.35s;
+  display: flex; align-items: flex-end; padding: 24px;
+}
+.gallery-item:hover .gallery-item-overlay { opacity: 1; }
+.gallery-item-title {
+  font-size: 18px; font-weight: 600; color: #fff;
+}
+
+/* ── Product Color ── */
+/* Product Color 复用 logo-design 布局 */
+.product-color-section {
+  background: #f4f4f4;
+  text-align: center;
+}
+.product-color-section .logo-design-left {
+  padding-top: 0;
+}
+.product-color-section .logo-design-img {
+  border-radius: 16px;
+}
+.product-color-block {
+  margin-top: 40px;
+}
+.product-color-block-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: #292929;
+  margin-bottom: 10px;
+}
+/* ── Product Analysis Row ── */
+.product-analysis-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 60px;
+  max-width: 1400px;
+  margin: 40px auto 0;
+}
+.product-analysis-block {
+  flex: 1;
+  max-width: 560px;
+  text-align: left;
+}
+.product-analysis-divider {
+  width: 1px;
+  align-self: stretch;
+  background: #ddd;
+  margin-top: 40px;
+}
+
+.product-color-block-desc {
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(41,41,41,0.75);
+}
+.product-color-block-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+/* ── Color Swatches Carousel ── */
+
+
+
+/* ── Product Showcase ── */
+.product-section {
+  background: #e1e3e7;
+}
+.product-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 32px; margin-top: 64px;
+}
+.product-card {
+  background: #fff;
+  border: 1px solid rgba(41,41,41,0.08);
+  border-radius: 20px; overflow: hidden;
+  transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+}
+.product-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(218,160,175,0.3);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+.product-card-img {
+  aspect-ratio: 4/3; overflow: hidden;
+  background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+}
+.product-card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.product-card-info { padding: 24px; }
+.product-card-title {
+  font-size: 16px; font-weight: 600; color: #292929; margin-bottom: 8px;
+}
+.product-card-desc {
+  font-size: 13px; color: rgba(41,41,41,0.6); line-height: 1.6;
+}
+
+/* ── Package Design ── */
+.package-section { background: #e1e3e7; }
+.package-showcase {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; margin-top: 64px;
+  align-items: center;
+}
+@media (max-width: 768px) { .package-showcase { grid-template-columns: 1fr; } }
+.package-image {
+  border-radius: 24px; overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+.package-image img { width: 100%; }
+.package-details { padding: 24px; }
+.package-list {
+  list-style: none; margin-top: 32px;
+}
+.package-list li {
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(41,41,41,0.08);
+  display: flex; align-items: center; gap: 16px;
+  font-size: 15px; color: rgba(41,41,41,0.75);
+}
+.package-list li::before {
+  content: '';
+  width: 8px; height: 8px; border-radius: 50%;
+  background: linear-gradient(135deg, #daa0af, #e8c4a0); flex-shrink: 0;
+}
+
+/* ── Awards / Credibility ── */
+.credibility-section {
+  background: #e1e3e7;
+  text-align: center;
+}
+.credibility-badges {
+  display: flex; gap: 32px; justify-content: center;
+  margin-top: 48px; flex-wrap: wrap;
+}
+.badge {
+  padding: 20px 32px;
+  background: #fff;
+  border: 1px solid rgba(41,41,41,0.08);
+  border-radius: 12px;
+  display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+.badge-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: linear-gradient(135deg, #daa0af, #e8c4a0);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.badge-text { text-align: left; }
+.badge-title { font-size: 14px; font-weight: 600; color: #292929; }
+.badge-sub { font-size: 11px; color: rgba(41,41,41,0.5); }
+
+/* ── Footer ── */
+.footer {
+  padding: 64px 48px;
+  background: #292929;
+  text-align: center;
+}
+.footer-logo {
+  font-size: 18px; font-weight: 700; letter-spacing: 0.1em;
+  color: #daa0af; margin-bottom: 16px;
+}
+.footer-text {
+  font-size: 12px; color: rgba(255,255,255,0.4);
+}
+.footer-link {
+  display: inline-block; margin-top: 24px;
+  font-size: 13px; color: rgba(218,160,175,0.8);
+  transition: color 0.2s;
+}
+.footer-link:hover { color: #daa0af; }
+
+/* ── Scroll Reveal ── */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #e1e3e7; }
+::-webkit-scrollbar-thumb { background: rgba(218,160,175,0.3); border-radius: 2px; }
+
+/* ── Scroll Narrative ── */
+/* ── Color Story 全屏视觉板块 ── */
+/* ==========================================
+   Color Story — 四帧滚动序列
+   ========================================== */
+.color-story {
+  position: relative;
+  width: 100%;
+  height: 400vh;  /* 4帧 × 100vh */
+}
+.cs-sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+/* 左侧文字叠加层 */
+.cs-text {
+  position: absolute;
+  left: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  color: #000;
+  pointer-events: none;
+}
+.cs-text .cs-label {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #000;
+  margin-bottom: 16px;
+}
+.cs-text .cs-title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  color: #000;
+}
+.cs-text .cs-subtitle {
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(0,0,0,0.75);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+.cs-text .cs-desc {
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(0,0,0,0.6);
+}
+/* 帧容器 */
+.cs-frames {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.cs-frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.cs-frame.active {
+  opacity: 1;
+}
+/* 每帧内的三层叠层 */
+.cs-frame img,
+.cs-frame video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cs-frame .start-img { z-index: 1; opacity: 1; }
+.cs-frame .video    { z-index: 2; opacity: 0; }
+.cs-frame .end-img  { z-index: 3; opacity: 0; }
+
+.cs-frame.playing .start-img { opacity: 0; }
+.cs-frame.playing .video    { opacity: 1; }
+.cs-frame.ended .start-img  { opacity: 0; }
+.cs-frame.ended .video      { opacity: 0; }
+.cs-frame.ended .end-img    { opacity: 1; }
+/* 进度指示器 */
+.cs-progress {
+  position: absolute;
+  right: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cs-progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  background: transparent;
+  transition: background 0.3s, border-color 0.3s;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.cs-progress-dot.active {
+  background: #c9a96e;
+  border-color: #c9a96e;
+}
+@media (max-width: 768px) {
+  .cs-frame {
+    flex-direction: column !important;
+  }
+  .cs-frame .cs-text-col {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    max-width: 100% !important;
+    padding: 24px 24px 16px !important;
+    background: rgba(255,255,255,0.85) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+  }
+  .cs-frame .cs-video-col {
+    width: 100% !important;
+    height: 56vw !important;
+    min-height: 240px !important;
+  }
+  .cs-text .cs-title {
+    font-size: clamp(22px, 5vw, 32px) !important;
+  }
+  .cs-progress {
+    right: 16px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">NenoVia</div>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    返回作品集
+  </a>
+</nav>
+
+<!-- 1. Hero Section -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-accent hero-accent-1"></div>
+  <div class="hero-accent hero-accent-2"></div>
+    <div class="hero-content">
+    <div class="hero-tag">Brand Design · Package · CG Rendering</div>
+    <h1 class="hero-title"><img src="img/nanovialogo.png" alt="NenoVia" class="hero-logo"></h1>
+    <div class="hero-bottom">
+      <p class="hero-subtitle">
+        在"专业科技"与"女性温和"之间找到平衡，<br>
+        建立一套有辨识度、可执行、可感知的品牌视觉体系
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="hero-meta-label">服务内容</div>
+          <div class="hero-meta-value">全案品牌视觉升级 | logo重塑 | 包装设计 | 线上宣发物料</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-label">品牌调性</div>
+          <div class="hero-meta-value">专业而不冰冷，科技而有温度</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- 2. Brand Story -->
+<section class="section brand-story">
+  <div class="brand-story-inner">
+    <div class="brand-left reveal">
+      <h2>分析<br>核心问题</h2>
+    </div>
+    <div class="brand-right">
+      <p class="brand-intro reveal">
+        品牌方是一家拥有20年OEM/ODM出口经验、产品远销全球100+国家的公司。NenoVia是该公司的自有品牌产品。
+      </p>
+
+      <h3 class="brand-section-title reveal">问题分析</h3>
+      <div class="brand-tags reveal">
+        <span class="brand-tag">品牌早期视觉体系混乱：配色偏男性化、包装风格且不统一</span>
+      </div>
+
+      <h3 class="brand-section-title reveal">设计目标</h3>
+      <div class="brand-tags reveal">
+        <span class="brand-tag">重塑产品配色</span>
+        <span class="brand-tag">重塑logo标识</span>
+        <span class="brand-tag">重塑包装配件</span>
+        <span class="brand-tag">设计线上宣发物料</span>
+      </div>
+      <p class="brand-goal-text reveal">
+        <strong>核心命题：</strong>在"专业科技"与"女性温和"之间找到平衡，建立有辨识度、可执行、可感知的品牌视觉体系，适配欧美海外市场。
+      </p>
+
+      <h3 class="brand-section-title reveal">风格关键词</h3>
+      <div class="brand-keywords reveal">
+        <span class="brand-tag-circle">暖调<br>科技感</span>
+        <span class="brand-tag-circle">柔肤<br>几何</span>
+        <span class="brand-tag-circle">专业</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Brand Statement -->
+<section class="section brand-statement">
+  <div class="statement-bg">
+    <video autoplay muted loop playsinline>
+      <source src="img/nanovia-s1.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="statement-content">
+    <img src="img/nanovialogo.png" alt="NenoVia" class="statement-img">
+    <div class="statement-label">专业而不冰冷，科技而有温度</div>
+    <div class="statement-tagline">Precision with care. Technology with touch.</div>
+  </div>
+</section>
+
+<!-- 4. Logo Design -->
+<section class="section typo-section">
+  <div class="logo-design-inner">
+    <div class="logo-design-left reveal">
+      <div class="section-label">Logo Design</div>
+      <h2 class="section-title">logo设计</h2>
+      <div class="logo-desc">
+        Logo图形以N字为基础，塑造出"渗透感"的视觉意象，与产品"打开肌肤通道、促进精华吸收"的核心功能高度契合。用户看到符号就能联想到补水、渗透、水润。
+      </div>
+    </div>
+    <div class="logo-design-right reveal">
+      <img src="img/nanovialogo-3.png" alt="NenoVia Logo" class="logo-design-img">
+    </div>
+  </div>
+</section>
+
+<!-- 5. Color & Visual Identity -->
+<section class="section color-section">
+  <div class="color-palette">
+    <div class="color-item reveal">
+      <div class="color-swatch" style="background: #727174;"></div>
+      <div class="color-info">
+        <div class="color-name">中性灰</div>
+        <div class="color-hex">#727174</div>
+      </div>
+    </div>
+    <div class="color-item reveal">
+      <div class="color-swatch" style="background: #dfb398;"></div>
+      <div class="color-info">
+        <div class="color-name">暖粉</div>
+        <div class="color-hex">#DFB398</div>
+      </div>
+    </div>
+    <div class="color-item reveal">
+      <div class="color-swatch" style="background: #e0b2b2;"></div>
+      <div class="color-info">
+        <div class="color-name">柔粉</div>
+        <div class="color-hex">#E0B2B2</div>
+      </div>
+    </div>
+    <div class="color-item reveal">
+      <div class="color-swatch" style="background: #e7e7e7;"></div>
+      <div class="color-info">
+        <div class="color-name">浅灰白</div>
+        <div class="color-hex">#E7E7E7</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Product Color -->
+<section class="section product-color-section">
+  <div class="section-label">Product Color</div>
+  <h2 class="section-title">重塑产品颜色</h2>
+  <div class="product-analysis-row">
+    <div class="product-analysis-block reveal">
+      <div class="product-color-block-label">问题分析</div>
+      <p class="product-color-block-desc">接手时产品外观已定型：黑色机身 + 亮面银饰环。工程、材质、工艺、参数都达标，但风格偏硬朗、男性化，而目标用户是25-40岁女性，审美需求不匹配。</p>
+      <img src="img/nanovia-jiu.png" alt="问题分析" style="max-width:100%;border-radius:12px;margin-top:16px;">
+    </div>
+    <div class="product-analysis-divider"></div>
+    <div class="product-analysis-block reveal">
+      <div class="product-color-block-label">设计分析</div>
+      <p class="product-color-block-desc">配色需兼顾三重定位：功能精准温和，情感松弛有仪式感，专业又有温度。</p>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- 8. Color Story -->
+<section class="color-story" id="colorStory">
+  <div class="cs-sticky">
+    <!-- 左侧文字 (固定) -->
+    <div class="cs-text">
+      <div class="cs-label">Color System</div>
+      <h2 class="cs-title">最后敲定主题方向</h2>
+      <div class="cs-subtitle">沉稳温润，触感高级，低调内敛不冷感</div>
+      <p class="cs-desc">哑光玫瑰金 + 磨砂质感，搭配裸色柔化视觉，奠定品牌雅致调性。</p>
+    </div>
+    <!-- 右侧进度指示器 -->
+    <div class="cs-progress">
+      <div class="cs-progress-dot active" data-frame="0"></div>
+      <div class="cs-progress-dot" data-frame="1"></div>
+      <div class="cs-progress-dot" data-frame="2"></div>
+      <div class="cs-progress-dot" data-frame="3"></div>
+    </div>
+    <!-- 四帧视觉内容 -->
+    <div class="cs-frames">
+      <!-- 帧0：00.loop.jpg → 00.loop (2).mp4 → 01.loop.jpg -->
+      <div class="cs-frame active" data-frame="0">
+        <img src="img/00.loop.jpg" alt="Frame 0 Start" class="start-img">
+        <video class="video" muted playsinline data-src="img/00.loop%20(2).mp4" data-rev-src="img/00.loop_f.mp4">
+          <source src="img/00.loop%20(2).mp4" type="video/mp4">
+        </video>
+        <img src="img/01.loop.jpg" alt="Frame 0 End" class="end-img">
+      </div>
+      <!-- 帧1：01.loop.jpg → 01.loop (2).mp4 → 02.loop.jpg -->
+      <div class="cs-frame" data-frame="1">
+        <img src="img/01.loop.jpg" alt="Frame 1 Start" class="start-img">
+        <video class="video" muted playsinline data-src="img/01.loop%20(2).mp4" data-rev-src="img/01.loop_f.mp4">
+          <source src="img/01.loop%20(2).mp4" type="video/mp4">
+        </video>
+        <img src="img/02.loop.jpg" alt="Frame 1 End" class="end-img">
+      </div>
+      <!-- 帧2：02.loop.jpg → 02.loop.mp4 → 03,loop.jpg -->
+      <div class="cs-frame" data-frame="2">
+        <img src="img/02.loop.jpg" alt="Frame 2 Start" class="start-img">
+        <video class="video" muted playsinline data-src="img/02.loop.mp4" data-rev-src="img/02.loop_f.mp4">
+          <source src="img/02.loop.mp4" type="video/mp4">
+        </video>
+        <img src="img/03,loop.jpg" alt="Frame 2 End" class="end-img">
+      </div>
+      <!-- 帧4（最终定格）：03,loop.jpg，无视频 -->
+      <div class="cs-frame" data-frame="3">
+        <img src="img/03,loop.jpg" alt="Frame 4 Final" class="start-img">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. Product Showcase -->
+<section class="section product-section">
+  <div class="section-label">Products</div>
+  <h2 class="section-title">产品矩阵</h2>
+  <p class="section-desc">
+    围绕纳米微晶笔核心单品，构建完整家用美容仪器产品线，覆盖补水/抗衰精华液、一次性针头、修复面膜等多种护肤需求。
+  </p>
+  <div class="product-grid">
+    <div class="product-card reveal">
+      <div class="product-card-img">
+        <img src="img/peijian04.jpeg" alt="套盒包装">
+      </div>
+      <div class="product-card-info">
+        <div class="product-card-title">套盒包装设计</div>
+        <div class="product-card-desc"></div>
+      </div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-card-img">
+        <img src="img/peijian01.jpg" alt="配套精华液">
+      </div>
+      <div class="product-card-info">
+        <div class="product-card-title">配套精华液系列</div>
+        <div class="product-card-desc">医美级配方，精准导入，直达肌底</div>
+      </div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-card-img">
+        <img src="img/peijian02.jpg" alt="配套针头">
+      </div>
+      <div class="product-card-info">
+        <div class="product-card-title">配套一次性针头</div>
+        <div class="product-card-desc">一次性，安全可靠</div>
+      </div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-card-img">
+        <img src="img/peijian03.jpg" alt="修复面膜">
+      </div>
+      <div class="product-card-info">
+        <div class="product-card-title">修复面膜</div>
+        <div class="product-card-desc">独家研发，快速修复</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 10.5 Virtual Model -->
+<section class="section virtual-model-section">
+  <div class="virtual-model-hero">
+    <img src="img/XNJSE.png" alt="品牌虚拟模特">
+    <div class="virtual-model-hero-text">
+      <h2 class="section-title">品牌虚拟模特</h2>
+      <p class="section-desc">通过品牌虚拟模特统一视觉输出，建立与用户的长期情感连接。</p>
+    </div>
+  </div>
+  <!-- Virtual Model Waterfall -->
+  <div class="virtual-model-waterfall">
+    <div class="waterfall-grid" id="waterfall-grid">
+      <!-- 图片将由JavaScript动态加载 -->
+    </div>
+  </div>
+</section>
+
+<!-- 10.7 Brand Format -->
+<section class="section brand-format-section">
+  <div class="brand-format-header reveal">
+    <div class="section-label">Brand Format</div>
+    <h2 class="section-title">品牌版式</h2>
+    <p class="section-desc">品牌版式是品牌在视觉沟通之中使用最为频繁的形式之一，传递规范、专业、可信赖的品牌形象</p>
+  </div>
+  <div class="brand-format-grid reveal">
+    <img src="img/pp/pai.jpg" alt="品牌版式1">
+    <img src="img/pp/pai1.jpg" alt="品牌版式2">
+    <img src="img/pp/pai2.jpg" alt="品牌版式3">
+    <img src="img/pp/pai3.jpg" alt="品牌版式4">
+    <img src="img/pp/pai4.jpg" alt="品牌版式5">
+    <img src="img/pp/pai5.jpg" alt="品牌版式6">
+    <img src="img/pp/pai6.jpg" alt="品牌版式7">
+    <img src="img/pp/pai7.jpg" alt="品牌版式8">
+    <img src="img/pp/pai8.jpg" alt="品牌版式9">
+  </div>
+</section>
+
+<!-- 11. Gallery -->
+<section class="section gallery-section" style="display:none">
+  <div class="gallery-header reveal">
+    <div class="section-label">Gallery</div>
+    <h2 class="section-title">项目图库</h2>
+    <p class="section-desc">
+      从概念到落地，完整呈现 NenoVia 品牌全案设计的每一处细节。
+    </p>
+  </div>
+  <div class="gallery-masonry" id="gallery">
+    <div class="gallery-item">
+      <img src="img/XM/KV5.jpg" alt="KV5">
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">KV5</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="img/XM/kv1.jpg" alt="KV1">
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">KV1</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="img/XM/KV2.jpg" alt="KV2">
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">KV2</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="img/XM/新品1.jpg" alt="新品1">
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">新品1</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="img/XM/新品123.jpg" alt="新品123">
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">新品123</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="img/XM/新品14.jpg" alt="新品14">
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">新品14</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="img/XM/XMU.jpg" alt="XMU">
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">XMU</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="img/XM/pai1.jpg" alt="pai1">
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-title">pai1</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 升级前后对比总结 -->
+<section class="section comparison-section">
+  <div class="comparison-header reveal">
+    <h2 class="section-title">升级前后对比总结</h2>
+    <p class="section-desc">从"黑色工具感"到"有温度的品牌系统"</p>
+  </div>
+  <div class="comparison-table reveal">
+    <table>
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th>升级前</th>
+          <th>升级后</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>目标客群</td>
+          <td>模糊 / 偏男性化</td>
+          <td>25-40岁欧美女性</td>
+        </tr>
+        <tr>
+          <td>品牌主张</td>
+          <td>未明确</td>
+          <td>专业而不冰冷，科技而有温度</td>
+        </tr>
+        <tr>
+          <td>配色</td>
+          <td>黑色70% + 银色30%</td>
+          <td>暗调玫瑰金70% + 裸色20% + 暖白10%</td>
+        </tr>
+        <tr>
+          <td>产品外观</td>
+          <td>黑银磨砂，指纹明显</td>
+          <td>暗调玫瑰金细磨砂 + 抗指纹涂层</td>
+        </tr>
+        <tr>
+          <td>充电方式</td>
+          <td>有线充电，易忘充</td>
+          <td>磁吸底座，随放随充，无电池焦虑</td>
+        </tr>
+        <tr>
+          <td>营销内容</td>
+          <td>产品参数堆砌</td>
+          <td>系列海外海报 + 虚拟角色 Via</td>
+        </tr>
+        <tr>
+          <td>耗材</td>
+          <td>无</td>
+          <td>一次性无菌针头 + 可替换精华</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="comparison-summary reveal">
+    <div class="comparison-summary-item">
+      <p><strong>对消费者：</strong>一台愿意摆在梳妆台上的美容仪，而非藏在抽屉里的工具</p>
+    </div>
+    <div class="comparison-summary-item">
+      <p><strong>对代理商：</strong>一套利润透明、复购稳定、售后省心的赚钱系统</p>
+    </div>
+    <div class="comparison-summary-item">
+      <p><strong>对品牌方：</strong>一个可延续、可迭代、有数据验证的品牌资产</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- 12. Footer -->
+<footer class="footer">
+  <div class="footer-logo">NenoVia</div>
+  <p class="footer-text">© 2026 阿莉路亚作品集 · 品牌全案设计</p>
+  <a href="index.html" class="footer-link">← 返回作品集</a>
+</footer>
+
+<script>
+// Custom Cursor
+(function() {
+  const cursor = document.getElementById('cursor');
+  if (!cursor) return;
+  let mx = -100, my = -100;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animate() {
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+    requestAnimationFrame(animate);
+  }
+  animate();
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest('a, button, .gallery-item, .product-card')) cursor.classList.add('hover');
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('a, button, .gallery-item, .product-card')) cursor.classList.remove('hover');
+  });
+})();
+
+// Navbar scroll style
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Scroll Reveal
+(function() {
+  const items = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  items.forEach(el => observer.observe(el));
+})();
+
+// Gallery Staggered Reveal
+(function() {
+  const gallery = document.getElementById('gallery');
+  if (!gallery) return;
+  const items = gallery.querySelectorAll('.gallery-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        items.forEach((item, i) => {
+          setTimeout(() => item.classList.add('in-view'), i * 150);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  observer.observe(gallery);
+})();
+
+// Logo Design image reveal
+(function() {
+  const img = document.querySelector('.logo-design-img');
+  if (!img) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        img.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  observer.observe(img);
+})();
+
+// Product Color images reveal
+(function() {
+  const imgs = document.querySelectorAll('.product-color-item-img');
+  if (!imgs.length) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  imgs.forEach(img => observer.observe(img));
+})();
+
+// Virtual Model hero fade-in
+(function() {
+  const hero = document.querySelector('.virtual-model-hero');
+  if (!hero) return;
+  const heroImg = hero.querySelector('img');
+  const heroText = hero.querySelector('.virtual-model-hero-text');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (heroImg) heroImg.classList.add('in-view');
+        setTimeout(() => {
+          if (heroText) heroText.classList.add('in-view');
+        }, 300);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  observer.observe(hero);
+})();
+
+// Virtual Model image fade-in
+(function() {
+  const img = document.querySelector('.virtual-model-images img');
+  if (!img) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('img-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  observer.observe(img);
+})();
+
+// Virtual Model waterfall - 动态加载 img/xuni/ 目录下的所有文件
+// 当您向 img/xuni/ 文件夹放入新图片时，请更新此文件列表
+(function() {
+  const waterfallGrid = document.getElementById('waterfall-grid');
+  if (!waterfallGrid) return;
+  
+  // img/xuni/ 目录下的文件列表 - 请在新图片放入后更新此列表
+  const xuniFiles = [
+    '1.png',
+    '2.png',
+    '3.png',
+    '4.png',
+    '5.png',
+    '6.mp4',
+    '7.jpg'
+  ];
+  
+  // 生成HTML
+  const html = xuniFiles.map(file => {
+    const isVideo = file.endsWith('.mp4');
+    if (isVideo) {
+      return `
+      <div class="waterfall-item reveal">
+        <video autoplay muted loop playsinline>
+          <source src="img/xuni/${file}" type="video/mp4">
+        </video>
+      </div>`;
+    } else {
+      return `
+      <div class="waterfall-item reveal">
+        <img src="img/xuni/${file}" alt="NenoVia产品展示">
+      </div>`;
+    }
+  }).join('');
+  
+  waterfallGrid.innerHTML = html;
+  
+  // 添加渐入动画
+  const items = waterfallGrid.querySelectorAll('.waterfall-item');
+  if (!items.length) return;
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('img-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  items.forEach((item, i) => {
+    item.style.transitionDelay = `${i * 100}ms`;
+    observer.observe(item);
+  });
+})();
+
+// Color Story：四帧滚动序列控制器（支持正向/反向）
+(function() {
+  const section  = document.getElementById('colorStory');
+  if (!section) return;
+
+  const TOTAL_FRAMES = 4;
+  const STICKY      = section.querySelector('.cs-sticky');
+  const FRAMES      = section.querySelectorAll('.cs-frame');
+  const DOTS        = section.querySelectorAll('.cs-progress-dot');
+  const VIDEOS      = section.querySelectorAll('.cs-frame video');
+
+  let activeFrame  = 0;      // 当前激活帧 (0-3)
+  let frameState   = {};      // 每帧状态：'idle' | 'playing' | 'ended' | 'rev-playing' | 'rev-ended'
+  let revPlayed    = {};      // 每帧反向视频是否已播放过
+  let prevDir      = null;    // 'down' | 'up' | null，追踪滚动方向
+
+  /* ── 初始化 ── */
+  FRAMES.forEach((f, i) => {
+    frameState[i] = 'idle';
+    revPlayed[i]  = false;
+    const v = f.querySelector('video');
+    if (v) {
+      // 统一用 addEventListener，避免被 onended 覆盖
+      v.addEventListener('ended', () => {
+        const isRev = frameState[i] === 'rev-playing';
+        f.classList.remove('playing', 'rev-playing');
+        f.classList.add(isRev ? 'rev-ended' : 'ended');
+        frameState[i] = isRev ? 'rev-ended' : 'ended';
+        console.log('[ColorStory] Frame', i, 'ended, isRev=', isRev, 'classes=', f.className);
+      });
+    }
+  });
+
+  /* ── 滚动方向检测 ── */
+  function getScrollDirection(scrollY) {
+    if (scrollY === 0) return 'down';  // 初始向下
+    const delta = scrollY - lastScrollY;
+    return delta >= 0 ? 'down' : 'up';
+  }
+
+  let lastScrollY = 0;
+
+  /* ── 切换帧（仅激活指定帧） ── */
+  function switchFrame(idx) {
+    FRAMES.forEach((f, i) => {
+      const wasActive = f.classList.contains('active');
+      f.classList.toggle('active', i === idx);
+      // 切走时：隐藏整帧、重置状态和CSS类（下次进帧重新播放）
+      if (wasActive && i !== idx) {
+        f.style.opacity = '0';          // 隐藏整帧，避免旧帧的 end-img 覆盖新帧
+        frameState[i] = 'idle';
+        revPlayed[i]  = false;
+        f.classList.remove('playing', 'ended', 'rev-ended');
+        const v = f.querySelector('video');
+        if (v) { v.pause(); v.currentTime = 0; v.removeAttribute('src'); }
+      }
+      // 入帧时：恢复透明度
+      if (i === idx) {
+        f.style.opacity = '';
+      }
+    });
+    activeFrame = idx;
+  }
+
+  /* ── 正向播放视频 ── */
+  function playForward(frameIdx) {
+    const f = FRAMES[frameIdx];
+    if (!f || frameState[frameIdx] !== 'idle') return;
+    const v = f.querySelector('video');
+    if (!v) return;
+    revPlayed[frameIdx] = false;
+    f.classList.remove('ended', 'rev-ended');
+    f.classList.add('playing');
+    frameState[frameIdx] = 'playing';
+    // 通过 source 元素设置 src，确保兼容性和正确加载
+    const src = v.dataset.src || '';
+    const source = v.querySelector('source');
+    if (source) source.src = src;
+    else v.src = src;
+    v.load();
+    v.currentTime = 0;
+    v.play().catch(() => {});
+  }
+
+  /* ── 反向播放视频 ── */
+  function playReverse(frameIdx) {
+    const f = FRAMES[frameIdx];
+    if (!f || revPlayed[frameIdx]) return;
+    const v = f.querySelector('video');
+    if (!v || !v.dataset.revSrc) return;
+    revPlayed[frameIdx] = true;
+    f.classList.remove('ended', 'rev-ended');
+    f.classList.add('playing');
+    frameState[frameIdx] = 'rev-playing';
+    // 通过 source 元素设置 src
+    const src = v.dataset.revSrc;
+    const source = v.querySelector('source');
+    if (source) source.src = src;
+    else v.src = src;
+    v.load();
+    v.currentTime = 0;
+    v.play().catch(() => {});
+  }
+
+  /* ── 主滚动处理 ── */
+  function onScroll() {
+    const rect   = section.getBoundingClientRect();
+    const viewH  = window.innerHeight;
+    if (rect.top >= viewH || rect.bottom <= 0) return;
+
+    const scrollY = window.scrollY;
+    const dir     = getScrollDirection(scrollY);
+    lastScrollY   = scrollY;
+
+    // 进度：scrolled ∈ [0, 1]，对应 section 从顶部进入 → 底部离开
+    const scrolled = (viewH - rect.top) / (viewH * TOTAL_FRAMES);
+    const clamped = Math.max(0, Math.min(1, scrolled));
+    // 关键修复：raw-1e-9 防止刚好整数边界时提前进入下一帧
+    const raw      = clamped * TOTAL_FRAMES;
+    const frameIdx = Math.min(Math.floor(raw - 1e-9), TOTAL_FRAMES - 1);
+    const frameProg = raw - frameIdx; // 当前帧内进度 0→1
+
+    /* ── 检测帧切换 ── */
+    if (frameIdx !== activeFrame) {
+      // 强制结束离开帧的播放
+      const prev = activeFrame;
+      if (frameState[prev] === 'playing' || frameState[prev] === 'rev-playing') {
+        const f = FRAMES[prev];
+        const v = f.querySelector('video');
+        if (v) { v.pause(); }
+        f.classList.remove('playing', 'rev-playing');
+        f.classList.add(frameState[prev] === 'rev-playing' ? 'rev-ended' : 'ended');
+        frameState[prev] = frameState[prev] === 'rev-playing' ? 'rev-ended' : 'ended';
+      }
+      switchFrame(frameIdx);
+      // 进入新帧时：立即触发视频（帧内不再依赖进度阈值）
+      const curState = frameState[frameIdx];
+      if (curState === 'idle') {
+        playForward(frameIdx);
+      }
+    }
+
+    /* ── 帧内回滚检测（定格后才检测）── */
+    const curFrame = FRAMES[frameIdx];
+    const curState = frameState[frameIdx];
+    const revSrc   = curFrame?.querySelector('video')?.dataset?.revSrc;
+
+    if (curState === 'ended') {
+      // 帧已正向定格：回滚检测
+      if (dir === 'up' && revSrc && !revPlayed[frameIdx]) {
+        playReverse(frameIdx);
+      }
+    }
+
+    // 更新进度点
+    DOTS.forEach((d, i) => d.classList.toggle('active', i === frameIdx));
+  }
+
+  /* ── 点击进度点跳转 ── */
+  DOTS.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const idx = parseInt(dot.dataset.frame, 10);
+      const targetScroll = window.scrollY + section.getBoundingClientRect().top
+                         + idx * window.innerHeight;
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    });
+  });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); // 初始化
+})();
+
+
+</script>
+</body>
+</html>

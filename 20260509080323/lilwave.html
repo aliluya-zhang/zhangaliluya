@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lil Wave · 小畏</title>
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: linear-gradient(to bottom, #0345b3, #ffffff);
+  color: #1a1a1a;
+  font-family: 'Inter', 'Helvetica Neue', 'PingFang SC', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* ── Custom Cursor ── */
+#cursor {
+  position: fixed; top: 0; left: 0;
+  width: 16px; height: 16px;
+  border-radius: 50%; background: rgba(0,0,0,0.6);
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+}
+#cursor.hover { width: 40px; height: 40px; background: rgba(0,0,0,0.9); }
+@media (pointer: coarse) { #cursor { display: none; } }
+
+/* ── Navbar ── */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 48px;
+  transition: background 0.3s;
+}
+.navbar.scrolled { background: rgba(9,57,140,0.95); backdrop-filter: blur(16px); }
+.nav-logo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+}
+.nav-back {
+  font-size: 13px; letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.6);
+  transition: color 0.2s;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-back:hover { color: #fff; }
+.nav-back svg { width: 16px; height: 16px; }
+
+/* ── Hero Section ── */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url('img/wave/0.png');
+  background-size: cover;
+  background-position: bottom center;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60%;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.hero-label {
+  font-size: 12px; letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.8);
+}
+.hero-title {
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 800; line-height: 1;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.hero-desc {
+  font-size: clamp(15px, 2vw, 18px);
+  line-height: 1.9; color: rgba(26,26,26,0.7);
+  max-width: 700px;
+  margin-bottom: 32px;
+}
+.hero-slogan {
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.05em;
+  margin-bottom: 24px;
+}
+.hero-tag {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.05em;
+  margin-top: 16px;
+}
+
+/* ── Story Section ── */
+.story-section {
+  background: transparent;
+  padding: 80px 48px;
+}
+.story-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+.story-desc {
+  font-size: clamp(15px, 2vw, 18px);
+  line-height: 1.9;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 32px;
+}
+.story-slogan {
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.05em;
+  margin-bottom: 24px;
+}
+.story-tag {
+  display: inline-block;
+  font-size: 12px;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.05em;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 6px;
+  padding: 10px 20px;
+  margin-top: 16px;
+}
+
+/* ── Gallery Grid ── */
+.gallery-section {
+  padding: 60px 48px 120px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.gallery-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.gallery-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+}
+.gallery-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 16px;
+}
+.gallery-desc {
+  font-size: clamp(14px, 1.5vw, 16px);
+  line-height: 1.9;
+  color: rgba(255,255,255,0.85);
+}
+.gallery-tag {
+  display: inline-block;
+  font-size: 12px;
+  color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 6px;
+  padding: 8px 16px;
+  margin-bottom: 12px;
+}
+.gallery-tag-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+}
+.gallery-item img,
+.gallery-item video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+}
+.gallery-item video {
+  border-radius: 16px;
+}
+.gallery-item-full {
+  max-width: 1400px;
+  margin: 0 auto 24px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.gallery-item-full.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.gallery-item-full img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+/* ── Footer ── */
+.footer {
+  background: #1a1a1a; padding: 60px 48px;
+  text-align: center;
+}
+.footer-logo {
+  font-size: 24px; font-weight: 700;
+  letter-spacing: 0.12em; color: #fff; margin-bottom: 16px;
+}
+.footer-text {
+  font-size: 13px; color: rgba(255,255,255,0.4);
+  margin-bottom: 24px;
+}
+.footer-link {
+  font-size: 13px; letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.5); transition: color 0.2s;
+}
+.footer-link:hover { color: #fff; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .navbar { padding: 20px 24px; }
+  .hero { padding: 100px 24px 60px; }
+  .gallery-section { padding: 40px 24px 80px; }
+  .footer { padding: 40px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <img src="img/wave/LOGO.png" alt="ALUYA" class="nav-logo">
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 5l-7 7 7 7"/>
+    </svg>
+    返回作品集
+  </a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-label">ORIGINAL IP DESIGN</span>
+    <h1 class="hero-title">Lil Wave · 小畏</h1>
+  </div>
+</section>
+
+<!-- Story Section -->
+<section class="story-section">
+  <div class="story-inner">
+    <p class="story-desc">一个始于个人练习的虚构品牌项目，却意外迎来了现实的浪花，这是一只"反英雄"式的海鸥。它调皮搞怪，虽然喜欢冲浪却并不擅长，但它拥有无所畏惧的精神。它闲暇时最爱吃薯条和可乐。通过塑造一个"不完美但勇敢"的形象，我们希望传递，即使不擅长，也要勇敢去尝试。</p>
+    <p class="story-slogan">No Wave, No Surf — 无浪不冲。<br>勇敢去冲，不要错过每一个浪。</p>
+    <div class="story-tag">已授权上实城开（股票代码：0363.HK）非独家部分商业使用 · 雕塑装置落地进行中</div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="gallery-section">
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="img/wave/图片沙子效果替换-(3).png" alt="Lil Wave 4"></div>
+    <div class="gallery-item gallery-text">
+      <p class="gallery-desc">与品牌设计师weason合作孵化冲浪文化品牌 Hi WAVE。我热爱海洋，潜水，而海鸥形象则源于彼时流行的"去码头整点薯条"网络梗图，两种渴望碰撞融合：一边是冲向大海的自由，一边是整点薯条的日常幽默。该项目最初旨在探索"品牌人格化"的可能性。</p>
+    </div>
+    <div class="gallery-item"><img src="img/wave/06.jpg" alt="Lil Wave 6"></div>
+    <div class="gallery-item gallery-text">
+      <p class="gallery-desc">令人惊喜的是，项目发布后获得上实城开 [股票代码：0363.HK] 关注，目前已签署授权协议，计划将IP形象转化为公共艺术雕塑装置，落地于上海临港新区103地块项目中。</p>
+    </div>
+  </div>
+</section>
+
+<!-- File Package Section -->
+<section class="gallery-section" style="padding-top: 40px;">
+  <div class="gallery-item-full"><img src="img/wave/1/02.jpg" alt="文件包 1"></div>
+  <div class="gallery-item-full"><img src="img/wave/1/03.png" alt="文件包 2"></div>
+  <div class="gallery-item-full"><img src="img/wave/1/04.png" alt="文件包 3"></div>
+  <div class="gallery-item-full"><img src="img/wave/1/05.jpg" alt="文件包 4"></div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-logo">ALUYA</div>
+  <p class="footer-text">© 2026 阿莉路亚作品集 · 品牌全案设计</p>
+  <a href="index.html" class="footer-link">← 返回作品集</a>
+</footer>
+
+<script>
+// Custom Cursor
+(function() {
+  const cursor = document.getElementById('cursor');
+  if (!cursor) return;
+  let mx = -100, my = -100;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animate() {
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+    requestAnimationFrame(animate);
+  }
+  animate();
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest('a, button')) cursor.classList.add('hover');
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('a, button')) cursor.classList.remove('hover');
+  });
+})();
+
+// Navbar scroll
+(function() {
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+})();
+
+// Gallery Reveal Animation
+(function() {
+  const items = document.querySelectorAll('.gallery-item, .gallery-item-full');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => {
+          e.target.classList.add('visible');
+        }, i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  items.forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>

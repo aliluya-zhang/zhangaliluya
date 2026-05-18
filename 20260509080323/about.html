@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About · 阿莉路亚</title>
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: #e1e3e7;
+  color: #1a1a1a;
+  font-family: 'Inter', 'Helvetica Neue', 'PingFang SC', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* ── Custom Cursor ── */
+#cursor {
+  position: fixed; top: 0; left: 0;
+  width: 16px; height: 16px;
+  border-radius: 50%; background: rgba(0,0,0,0.6);
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+}
+#cursor.hover { width: 40px; height: 40px; background: rgba(0,0,0,0.9); }
+@media (pointer: coarse) { #cursor { display: none; } }
+
+/* ── Navbar ── */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 48px;
+  transition: background 0.3s;
+}
+.navbar.scrolled { background: rgba(232,233,235,0.95); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(0,0,0,0.08); }
+.nav-logo {
+  font-size: 18px; font-weight: 700; letter-spacing: 0.05em; color: #0054ff;
+}
+.nav-back {
+  font-size: 13px; letter-spacing: 0.08em;
+  color: rgba(0,0,0,0.5);
+  transition: color 0.2s;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-back:hover { color: #0054ff; }
+.nav-back svg { width: 16px; height: 16px; }
+
+/* ── Hero ── */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(135deg, #e1e3e7 0%, #d8d9dd 50%, #e1e3e7 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 900px;
+  padding: 0 48px;
+}
+.hero-label {
+  font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: rgba(0,0,0,0.35); margin-bottom: 24px; font-family: monospace;
+}
+.hero-title {
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 900; line-height: 1.1;
+  color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 32px;
+}
+.hero-desc {
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.8; color: rgba(26,26,26,0.7);
+  max-width: 700px; margin: 0 auto 40px;
+}
+
+/* ── About Section ── */
+.about-section {
+  background: #e1e3e7;
+  padding: 120px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.about-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-bottom: 120px;
+  align-items: center;
+}
+.about-intro-img img {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.1);
+}
+.about-intro-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 0;
+}
+.about-intro-text h2 {
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 800; line-height: 1.2;
+  color: #1a1a1a; margin-bottom: 16px;
+}
+.about-intro-text p {
+  font-size: clamp(12px, 1.2vw, 14px);
+  line-height: 1.6;
+  color: rgba(26,26,26,0.75);
+  margin-bottom: 8px;
+}
+
+/* ── Skills Section ── */
+.skills-section {
+  padding: 120px 48px;
+  background: #292929;
+}
+.skills-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+.skills-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800; color: #fff; margin-bottom: 64px;
+}
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.skill-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 48px 32px;
+  text-align: center;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.skill-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255,255,255,0.25);
+}
+.skill-icon {
+  font-size: 48px; margin-bottom: 24px;
+}
+.skill-card h3 {
+  font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 16px;
+}
+.skill-card p {
+  font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7;
+}
+
+/* ── Experience Section ── */
+.experience-section {
+  padding: 120px 48px;
+  background: #e1e3e7;
+}
+.experience-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+.experience-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800; color: #1a1a1a; margin-bottom: 64px;
+}
+.experience-item {
+  text-align: left;
+  padding: 40px;
+  background: #fff;
+  border-radius: 20px;
+  margin-bottom: 32px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.experience-item h3 {
+  font-size: 22px; font-weight: 700; color: #1a1a1a; margin-bottom: 12px;
+}
+.experience-item .year {
+  font-size: 13px; color: #0054ff; font-weight: 600; letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+.experience-item p {
+  font-size: 15px; color: rgba(26,26,26,0.7); line-height: 1.8;
+}
+
+/* ── Social Links ── */
+.social-links {
+  display: flex;
+  gap: 40px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+.social-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.social-label {
+  font-size: 14px;
+  color: rgba(26,26,26,0.6);
+  font-weight: 500;
+}
+.social-qr {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ── CTA Section ── */
+.cta-section {
+  padding: 120px 48px;
+  background: #1a1a1a;
+  text-align: center;
+}
+.cta-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800; color: #fff; margin-bottom: 24px;
+}
+.cta-desc {
+  font-size: 18px; color: rgba(255,255,255,0.6);
+  margin-bottom: 40px;
+}
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 18px 48px;
+  background: #0054ff;
+  color: #fff;
+  border-radius: 50px;
+  font-size: 15px; font-weight: 600; letter-spacing: 0.03em;
+  transition: background 0.3s, transform 0.3s;
+}
+.cta-btn:hover { background: #0044cc; transform: scale(1.02); }
+
+/* ── Footer ── */
+.footer {
+  background: #000; padding: 60px 48px;
+  text-align: center;
+}
+.footer-logo {
+  font-size: 24px; font-weight: 700;
+  letter-spacing: 0.12em; color: #0054ff; margin-bottom: 16px;
+}
+.footer-text {
+  font-size: 13px; color: rgba(255,255,255,0.4);
+  margin-bottom: 24px;
+}
+.footer-link {
+  font-size: 13px; letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.5); transition: color 0.2s;
+}
+.footer-link:hover { color: #fff; }
+
+/* ── Reveal Animation ── */
+.reveal {
+  opacity: 0; transform: translateY(50px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .about-intro { grid-template-columns: 1fr; gap: 48px; }
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .navbar { padding: 20px 24px; }
+  .hero { padding: 120px 24px 60px; }
+  .about-section, .skills-section, .experience-section, .cta-section { padding: 80px 24px; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .footer { padding: 40px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo"><img src="img/LOGO1.png" alt="Aliluya" style="height: 32px; width: auto;"></div>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 5l-7 7 7 7"/>
+    </svg>
+    返回作品集
+  </a>
+</nav>
+
+
+
+<!-- About Intro -->
+<section class="about-section">
+  <div class="about-intro">
+    <div class="about-intro-img reveal">
+      <img src="img/xx.png" alt="阿莉路亚">
+    </div>
+    <div class="about-intro-text reveal">
+      <h2>干设计第8年了。</h2>
+      <p>自由职业期间做过游戏海报《王者荣耀》造物节七周年、王者好物周年庆。</p>
+      <p>也蹲过美容仪器工厂，从配色、包装到展会物料，从0到1把整个品牌视觉搭起来。</p>
+      <p>闲不住的时候，自己折腾了个IP叫 Lil Wave，结果被上市公司上实城开（0363.HK）看上了，直接签了一年版权独占。</p>
+      <p>那会儿觉得：好好做内容，真有人愿意用钱投票。</p>
+      <p>你要问我到底是什么设计师？</p>
+      <p>我最享受的，是产品落地那一瞬间的成就感。</p>
+      <p>从图纸到实物，从打样到上架——那种"成了"的感觉，比什么都值。</p>
+      <div class="social-links">
+        <div class="social-item">
+          <span class="social-label">微信二维码：</span>
+          <img src="img/微信截图_20260515160334.png" alt="微信二维码" class="social-qr">
+        </div>
+        <div class="social-item">
+          <span class="social-label">小红书：</span>
+          <img src="img/微信截图_20260515160400.png" alt="小红书" class="social-qr">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section class="skills-section">
+  <div class="skills-inner">
+    <h2 class="skills-title reveal">专业能力</h2>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon">🎨</div>
+        <h3>品牌全案设计</h3>
+        <p>从用户调研到产品定义，主导品牌视觉重塑，落地包装、物料及社媒宣发全链路。</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">✨</div>
+        <h3>CG渲染</h3>
+        <p>三维建模、材质渲染、后期合成，擅长产品级视觉表现，输出高质量商业素材。</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🚀</div>
+        <h3>动态海报</h3>
+        <p>创意构图与动态渲染结合，打造具有视觉冲击力的品牌动态内容。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section class="experience-section">
+  <div class="experience-inner">
+    <h2 class="experience-title reveal">项目经历</h2>
+    <div class="experience-item reveal">
+      <h3>NenoVia 产品全案设计</h3>
+      <div class="year">品牌设计 · 2024</div>
+      <p>从用户调研到产品定义，主导品牌视觉重塑，并落地包装、物料及社媒宣发全链路。构建完整的品牌视觉体系。</p>
+    </div>
+    <div class="experience-item reveal">
+      <h3>ODI美容仪器产品全案设计</h3>
+      <div class="year">品牌设计 · 2024</div>
+      <p>在职期间主导美容仪器产品配色设计、包装配套及全链路物料落地。从0到1构建品牌视觉体系。</p>
+    </div>
+    <div class="experience-item reveal">
+      <h3>王者荣耀造物节七周年动态海报</h3>
+      <div class="year">三维渲染 · 2024</div>
+      <p>参与构图以及渲染环节，与官方团队协作完成年度IP节点动态海报创作。</p>
+    </div>
+    <div class="experience-item reveal">
+      <h3>Lil Wave 自创IP</h3>
+      <div class="year">IP设计 · 2023</div>
+      <p>项目发布后获得上实城开（股票代码：0363.HK）关注，已签署授权协议，计划将IP形象转化为公共艺术雕塑装置，落地于上海临港新区103地块项目中。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="reveal">
+    <h2 class="cta-title">Let's Create Together</h2>
+    <p class="cta-desc">如果你也有品牌设计或视觉创作的需求，欢迎联系我</p>
+    <a href="mailto:aliluya@example.com" class="cta-btn">
+      联系我
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-logo">ALUYA</div>
+  <p class="footer-text">© 2026 阿莉路亚作品集 · 品牌全案设计</p>
+  <a href="index.html" class="footer-link">← 返回作品集</a>
+</footer>
+
+<script>
+// Custom Cursor
+(function() {
+  const cursor = document.getElementById('cursor');
+  if (!cursor) return;
+  let mx = -100, my = -100;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animate() {
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+    requestAnimationFrame(animate);
+  }
+  animate();
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest('a, button')) cursor.classList.add('hover');
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('a, button')) cursor.classList.remove('hover');
+  });
+})();
+
+// Navbar scroll
+(function() {
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+})();
+
+// Reveal Animation
+(function() {
+  const items = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => {
+          e.target.classList.add('in-view');
+        }, i * 100);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  items.forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
