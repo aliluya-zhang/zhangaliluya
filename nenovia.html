@@ -169,7 +169,7 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 100px 60px;
 }
 .brand-story-inner {
-  max-width: 1400px; margin: 0 auto;
+  max-width: 1100px; margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
@@ -347,6 +347,8 @@ img { max-width: 100%; height: auto; display: block; }
   grid-template-columns: 1fr 1fr;
   gap: 64px;
   align-items: start;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 @media (max-width: 900px) {
   .logo-design-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -535,11 +537,18 @@ img { max-width: 100%; height: auto; display: block; }
 .comparison-section {
   background: #fff;
   padding: 100px 48px;
+  text-align: center;
 }
 .comparison-header {
   text-align: center;
   max-width: 800px;
   margin: 0 auto 60px;
+}
+.comparison-section .section-title,
+.comparison-section .section-desc {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 .comparison-header .section-title {
   color: #1a1a1a;
@@ -662,7 +671,17 @@ img { max-width: 100%; height: auto; display: block; }
 /* Product Color 复用 logo-design 布局 */
 .product-color-section {
   background: #f4f4f4;
-  text-align: center;
+  text-align: left;
+}
+.product-color-section {
+  padding: 120px 48px;
+}
+.product-color-section > .section-label,
+.product-color-section > .section-title {
+  text-align: left;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .product-color-section .logo-design-left {
   padding-top: 0;
@@ -680,26 +699,93 @@ img { max-width: 100%; height: auto; display: block; }
   margin-bottom: 10px;
 }
 /* ── Product Analysis Row ── */
-.product-analysis-row {
+.product-redesign-row {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 60px;
-  max-width: 1400px;
-  margin: 40px auto 0;
+  gap: 32px;
+  max-width: 1300px;
+  margin: 40px auto;
+  align-items: stretch;
 }
-.product-analysis-block {
+.product-redesign-img {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+.product-redesign-img img {
+  width: auto;
+  height: auto;
+  max-height: 520px;
+  max-width: 100%;
+  border-radius: 20px;
+  display: block;
+}
+.product-redesign-text {
   flex: 1;
-  max-width: 560px;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
-.product-analysis-divider {
-  width: 1px;
-  align-self: stretch;
-  background: #ddd;
-  margin-top: 40px;
+.redesign-block {
+  background: #e0e0e0;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
-
+.redesign-header {
+  background: #a0a0a0;
+  padding: 14px 40px;
+}
+.redesign-header span {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.redesign-body {
+  padding: 32px 40px 36px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.redesign-body h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #292929;
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+}
+.redesign-body p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(41,41,41,0.75);
+  margin: 0;
+}
+.redesign-points {
+  display: flex;
+  gap: 32px;
+  margin-top: 8px;
+}
+.r-point {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.r-point strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: #292929;
+}
+.r-point span {
+  font-size: 14px;
+  color: rgba(41,41,41,0.65);
+  line-height: 1.6;
+}
 .product-color-block-desc {
   font-size: 15px;
   line-height: 1.9;
@@ -731,7 +817,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .product-grid {
   display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 32px; margin-top: 64px;
+  gap: 32px; margin-top: 64px; max-width: 1300px; margin-left: auto; margin-right: auto;
 }
 .product-card {
   background: #fff;
@@ -1024,6 +1110,17 @@ img { max-width: 100%; height: auto; display: block; }
   .comparison-table th, .comparison-table td { padding: 12px 14px; font-size: 13px; }
   .comparison-summary { grid-template-columns: 1fr; gap: 16px; }
   .comparison-summary-item { padding: 20px 18px; }
+  .product-analysis-row { grid-template-columns: 1fr; gap: 20px; }
+  .product-analysis-block { padding: 28px 24px; }
+  .product-redesign-row { flex-direction: column; gap: 28px; }
+  .product-redesign-img { justify-content: center; }
+  .product-redesign-img img { max-height: 360px; width: auto; }
+  .redesign-body { padding: 24px 24px 28px; }
+  .redesign-body h3 { font-size: 18px; }
+  .redesign-header { padding: 12px 24px; }
+  .redesign-points { flex-direction: column; gap: 20px; }
+  .r-point strong { font-size: 14px; }
+  .r-point span { font-size: 13px; }
   .footer { padding: 40px 20px; }
   .footer-logo { font-size: 16px; }
   .cs-frame { flex-direction: column !important; }
@@ -1206,16 +1303,42 @@ img { max-width: 100%; height: auto; display: block; }
 <section class="section product-color-section">
   <div class="section-label">Product Color</div>
   <h2 class="section-title">重塑产品颜色</h2>
-  <div class="product-analysis-row">
-    <div class="product-analysis-block reveal">
-      <div class="product-color-block-label">问题分析</div>
-      <p class="product-color-block-desc">接手时产品外观已定型：黑色机身 + 亮面银饰环。工程、材质、工艺、参数都达标，但风格偏硬朗、男性化，而目标用户是25-40岁女性，审美需求不匹配。</p>
-      <img src="img/nanovia-jiu.png" alt="问题分析" style="max-width:100%;border-radius:12px;margin-top:16px;">
+  <div class="product-redesign-row">
+    <div class="product-redesign-img reveal">
+      <img src="img/xin.png" alt="原有外观与包装">
     </div>
-    <div class="product-analysis-divider"></div>
-    <div class="product-analysis-block reveal">
-      <div class="product-color-block-label">设计分析</div>
-      <p class="product-color-block-desc">配色需兼顾三重定位：功能精准温和，情感松弛有仪式感，专业又有温度。</p>
+    <div class="product-redesign-text reveal">
+      <div class="redesign-block">
+        <div class="redesign-header">
+          <span>问题诊断</span>
+        </div>
+        <div class="redesign-body">
+          <h3>原有外观与目标用户不匹配</h3>
+          <p>接手时产品外观已定型：黑色机身 + 亮面银饰环。工程、材质、工艺、参数都达标，但风格偏硬朗、男性化，而目标用户是25-40岁女性，审美需求不匹配。</p>
+        </div>
+      </div>
+      <div class="redesign-block">
+        <div class="redesign-header">
+          <span>设计方向</span>
+        </div>
+        <div class="redesign-body">
+          <h3>兼顾三重定位的配色策略</h3>
+          <div class="redesign-points">
+            <div class="r-point">
+              <strong>功能定位</strong>
+              <span>精准温和，不刺激敏感肌</span>
+            </div>
+            <div class="r-point">
+              <strong>情感定位</strong>
+              <span>松弛有仪式感，使用过程愉悦</span>
+            </div>
+            <div class="r-point">
+              <strong>品牌定位</strong>
+              <span>专业又有温度，可信赖不冰冷</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1275,11 +1398,13 @@ img { max-width: 100%; height: auto; display: block; }
 
 <!-- 10. Product Showcase -->
 <section class="section product-section">
-  <div class="section-label">Products</div>
-  <h2 class="section-title">产品矩阵</h2>
-  <p class="section-desc">
-    围绕纳米微晶笔核心单品，构建完整家用美容仪器产品线，覆盖补水/抗衰精华液、一次性针头、修复面膜等多种护肤需求。
-  </p>
+  <div style="max-width:1300px;margin:0 auto;text-align:left;">
+    <div class="section-label">Products</div>
+    <h2 class="section-title">产品矩阵</h2>
+    <p class="section-desc">
+      围绕纳米微晶笔核心单品，构建完整家用美容仪器产品线，覆盖补水/抗衰精华液、一次性针头、修复面膜等多种护肤需求。
+    </p>
+  </div>
   <div class="product-grid">
     <div class="product-card reveal">
       <div class="product-card-img">
