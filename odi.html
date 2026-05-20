@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ODI 美容仪器 — 产品全案设计</title>
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: #1a1a1a;
+  color: #fff;
+  font-family: 'Inter', 'Helvetica Neue', 'PingFang SC', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* ── Custom Cursor ── */
+#cursor {
+  position: fixed; top: 0; left: 0;
+  width: 16px; height: 16px;
+  border-radius: 50%; background: rgba(200,200,200,0.8);
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+}
+#cursor.hover { width: 40px; height: 40px; background: rgba(255,255,255,0.9); }
+@media (pointer: coarse) { #cursor { display: none; } }
+
+/* ── Navbar ── */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 48px;
+  transition: background 0.3s;
+}
+.navbar.scrolled { background: rgba(26,26,26,0.95); backdrop-filter: blur(16px); }
+.nav-logo {
+  font-size: 16px; font-weight: 700; letter-spacing: 0.12em;
+  color: #fff;
+}
+.nav-back {
+  font-size: 13px; letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.6);
+  transition: color 0.2s;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-back:hover { color: #fff; }
+.nav-back svg { width: 16px; height: 16px; }
+
+/* ── Hero Section ── */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: flex-end; align-items: center;
+  padding: 120px 48px 80px;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url('img/ODI/02.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(26,26,26,0.9) 100%);
+}
+.hero-accent {
+  position: absolute; width: 600px; height: 600px;
+  border-radius: 50%; filter: blur(120px);
+  opacity: 0.12;
+}
+.hero-accent-1 {
+  background: #e0e0e0; bottom: -200px; right: -200px;
+}
+.hero-content {
+  position: relative; z-index: 2; text-align: center;
+  max-width: 800px;
+}
+.hero-label {
+  font-size: 12px; letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.5); margin-bottom: 20px;
+}
+.hero-title {
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 700; line-height: 1.1; margin-bottom: 24px;
+  color: #fff;
+}
+.hero-desc {
+  font-size: clamp(15px, 2vw, 18px);
+  line-height: 1.8; color: rgba(255,255,255,0.7);
+}
+.hero-scroll {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: rgba(255,255,255,0.4); font-size: 11px; letter-spacing: 0.15em;
+  z-index: 2;
+}
+.hero-scroll-line {
+  width: 1px; height: 48px; background: rgba(255,255,255,0.3);
+  animation: scrollLine 2s ease infinite;
+}
+@keyframes scrollLine {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ── Section Base ── */
+.section {
+  padding: 100px 48px;
+  max-width: 1400px; margin: 0 auto;
+}
+.section-label {
+  font-size: 11px; letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.4); margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700; margin-bottom: 16px; color: #fff;
+}
+.section-desc {
+  font-size: clamp(15px, 2vw, 18px);
+  line-height: 1.8; color: rgba(255,255,255,0.6);
+}
+
+/* ── Reveal Animation ── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+
+/* ── ODI Evolution Section ── */
+.odi-evolution {
+  padding: 120px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.odi-evolution-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.odi-evolution-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 40px;
+  color: #fff;
+}
+.odi-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.odi-info-card {
+  background: #1f1f1f;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 24px 20px;
+}
+.odi-info-card h4 {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.odi-info-card p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+}
+.odi-challenge {
+  background: #1f1f1f;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  padding: 36px 32px;
+  margin-top: 48px;
+}
+.odi-challenge p {
+  font-size: 14px;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.7);
+}
+.odi-challenge strong {
+  color: rgba(255,255,255,0.9);
+}
+.odi-design-role {
+  margin-top: 24px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+}
+
+/* ── ODI Diagnosis Section ── */
+.odi-diagnosis {
+  padding: 100px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.odi-diagnosis-inner {
+  display: flex;
+  gap: 64px;
+  align-items: flex-start;
+}
+.odi-diagnosis-image {
+  flex: 1;
+  min-width: 0;
+}
+.odi-diagnosis-image img {
+  width: 100%;
+  height: 500px;
+  object-fit: contain;
+  border-radius: 16px;
+  display: block;
+}
+.odi-diagnosis-content {
+  flex: 1;
+  min-width: 0;
+}
+.odi-diagnosis-title {
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #fff;
+}
+.odi-pain-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.odi-pain-item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: #1f1f1f;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 24px;
+}
+.odi-pain-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.odi-pain-text h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.odi-pain-text p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.65);
+}
+.odi-insight {
+  background: #1f1f1f;
+  border-left: 4px solid #c8a87c;
+  border-radius: 0 12px 12px 0;
+  padding: 28px 32px;
+  max-width: 800px;
+}
+.odi-insight p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.8);
+}
+.odi-insight strong {
+  color: #c8a87c;
+}
+@media (max-width: 900px) {
+  .odi-evolution-inner { flex-direction: column; }
+  .odi-info-grid { grid-template-columns: 1fr; }
+  .odi-pain-grid { grid-template-columns: 1fr; }
+  .odi-diagnosis-inner { flex-direction: column; }
+  .odi-waterfall { grid-template-columns: 1fr; }
+}
+
+/* ── ODI Strategy Section ── */
+.odi-strategy {
+  padding: 120px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.odi-strategy-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.odi-strategy-header h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  color: #fff;
+}
+.odi-strategy-core {
+  max-width: 700px;
+  margin: 0 auto 64px;
+  padding: 20px 28px;
+  border-left: 4px solid #E85D04;
+  background: #1f1f1f;
+  border-radius: 0 12px 12px 0;
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.85);
+}
+.odi-color-evolution {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 64px;
+}
+.odi-color-old,
+.odi-color-new {
+  background: #1f1f1f;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 24px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.7);
+}
+.odi-color-old strong,
+.odi-color-new strong {
+  display: block;
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  opacity: 0.5;
+}
+.odi-color-palette {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.odi-color-block {
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.odi-color-block p {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  opacity: 0.7;
+}
+.odi-color-block-dark {
+  color: #fff;
+}
+.odi-color-block-light {
+  color: #333;
+}
+.odi-design-principles {
+  text-align: center;
+  padding: 32px;
+  background: #1f1f1f;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  font-size: 15px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.8;
+}
+.odi-design-principles strong {
+  color: #E85D04;
+}
+@media (max-width: 900px) {
+  .odi-color-evolution { grid-template-columns: 1fr; }
+  .odi-color-palette { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .odi-color-palette { grid-template-columns: 1fr; }
+}
+
+/* ── Product Showcase (placeholder) ── */
+.product-section { background: #1a1a1a; }
+.product-intro {
+  text-align: center; max-width: 700px; margin: 0 auto 64px;
+}
+.product-intro .section-title { color: #fff; }
+.product-intro .section-desc { color: rgba(255,255,255,0.6); }
+
+/* ── ODI Upgrade Section ── */
+.odi-upgrade {
+  padding: 120px 48px;
+  max-width: none;
+  margin: 0 auto;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.section-header .section-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 12px;
+  display: block;
+}
+.odi-upgrade .section-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  color: #fff;
+}
+.odi-upgrade-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.odi-upgrade-subtitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 24px;
+}
+.odi-upgrade-subtitle svg {
+  color: #E85D04;
+}
+.odi-upgrade-desc {
+  font-size: clamp(15px, 2vw, 18px);
+  line-height: 1.8;
+  color: rgba(255,255,255,0.7);
+}
+
+/* 第5屏：瀑布流 */
+.odi-waterfall {
+  max-width: 1400px;
+  margin: 64px auto 0;
+  columns: 2;
+  column-gap: 16px;
+}
+.wf-item {
+  break-inside: avoid;
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.wf-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.wf-item img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+@media (max-width: 900px) {
+  .odi-waterfall { columns: 1; }
+}
+
+/* 第6屏：渠道适配 */
+.odi-channel {
+  background: #1a1a1a;
+  padding: 80px 48px;
+  text-align: center;
+}
+.odi-channel-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 48px;
+}
+.odi-channel-block {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  text-align: left;
+}
+.odi-channel-block-title {
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 600;
+  color: #E85D04;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.odi-channel-block-desc {
+  font-size: clamp(14px, 1.8vw, 17px);
+  line-height: 1.9;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+}
+
+/* 线上渠道两列网格 */
+.odi-xq-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.odi-xq-grid .cw-item img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+
+/* ── 其他产品线配色扩展方案 ── */
+.odi-color-expand {
+  padding: 100px 48px 120px;
+  background: linear-gradient(to bottom, #cadcec 0%, #ffffff 100%);
+}
+.odi-color-expand-inner {
+  max-width: 1902px;
+  margin: 0 auto;
+}
+.odi-color-expand-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.odi-color-expand-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 24px;
+}
+.odi-color-expand-subtitle {
+  font-size: clamp(14px, 1.8vw, 17px);
+  line-height: 1.9;
+  color: rgba(41,41,41,0.75);
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+.odi-color-expand-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+.expand-row {
+  width: 100%;
+  display: grid;
+  gap: 16px;
+}
+.expand-row-center {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.expand-row-4 {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1300px;
+}
+.expand-row-2 {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 1300px;
+}
+.expand-row-1 {
+  grid-template-columns: 1fr;
+  max-width: 1300px;
+}
+.expand-row-1 .expand-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+.expand-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.expand-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.expand-item-wide img {
+  width: 100%;
+  max-width: 1300px;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+.expand-row-4 .expand-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+.expand-row-2 .expand-item:first-child img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+.expand-item-split {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+}
+.expand-item-split img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+@media (max-width: 900px) {
+  .expand-row-4 { grid-template-columns: repeat(2, 1fr); }
+  .expand-row-2 { grid-template-columns: 1fr; }
+  .odi-color-expand { padding: 60px 24px 80px; }
+}
+@media (max-width: 540px) {
+  .expand-row-4 { grid-template-columns: 1fr; }
+}
+
+/* 渠道三列网格 */
+.odi-channel-waterfall {
+  max-width: 1400px;
+  margin: 64px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.cw-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.cw-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.cw-item img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+@media (max-width: 900px) {
+  .odi-channel-waterfall { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .odi-channel-waterfall { grid-template-columns: 1fr; }
+}
+
+/* 升级对比表格 */
+.odi-comparison {
+  background: #fff;
+  padding: 100px 48px;
+}
+.odi-comparison-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.odi-comparison-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 48px;
+}
+.odi-comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  color: #333;
+}
+.odi-comparison-table th,
+.odi-comparison-table td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+  line-height: 1.6;
+}
+.odi-comparison-table th {
+  background: #1a1a1a;
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+}
+.odi-comparison-table th:nth-child(2) {
+  background: #888;
+}
+.odi-comparison-table th:nth-child(3) {
+  background: #E85D04;
+}
+.odi-comparison-table td:nth-child(1) {
+  font-weight: 600;
+  color: #1a1a1a;
+  width: 180px;
+}
+.odi-comparison-table tr:last-child td {
+  border-bottom: none;
+}
+.odi-comparison-conclusion {
+  max-width: 900px;
+  margin: 48px auto 0;
+  padding: 28px 32px;
+  background: #f5f5f5;
+  border-left: 4px solid #E85D04;
+  border-radius: 0 12px 12px 0;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #333;
+}
+.odi-comparison-conclusion strong {
+  color: #E85D04;
+}
+@media (max-width: 768px) {
+  .odi-comparison-table th,
+  .odi-comparison-table td {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+  .odi-comparison-table td:nth-child(1) {
+    width: 120px;
+  }
+}
+
+/* ── Footer ── */
+.footer {
+  background: #111; padding: 60px 48px;
+  text-align: center;
+}
+.footer-logo {
+  font-size: 24px; font-weight: 700;
+  letter-spacing: 0.12em; color: #fff; margin-bottom: 16px;
+}
+.footer-text {
+  font-size: 13px; color: rgba(255,255,255,0.4);
+  margin-bottom: 24px;
+}
+.footer-link {
+  font-size: 13px; letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.5); transition: color 0.2s;
+}
+.footer-link:hover { color: #fff; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .navbar { padding: 16px 20px; }
+  .nav-logo { font-size: 14px; }
+  .nav-back { font-size: 12px; gap: 4px; }
+  .hero { padding: 100px 20px 60px; min-height: auto; }
+  .hero-label { font-size: 10px; margin-bottom: 16px; }
+  .hero-title { font-size: clamp(28px, 7vw, 48px); }
+  .hero-desc { font-size: clamp(13px, 3vw, 15px); }
+  .hero-scroll { bottom: 24px; font-size: 10px; }
+  .hero-scroll-line { height: 36px; }
+  .section { padding: 60px 20px; max-width: 100%; }
+  .section-label { font-size: 10px; }
+  .section-title { font-size: clamp(24px, 6vw, 36px); }
+  .section-desc { font-size: clamp(14px, 2.5vw, 16px); }
+  .odi-evolution { padding: 60px 20px; }
+  .odi-evolution-title { font-size: clamp(24px, 6vw, 36px); margin-bottom: 28px; }
+  .odi-info-grid { grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
+  .odi-info-card { padding: 20px 16px; }
+  .odi-challenge { padding: 24px 20px; margin-top: 32px; }
+  .odi-challenge p { font-size: 13px; }
+  .odi-design-role { font-size: 12px; }
+  .odi-diagnosis { padding: 60px 20px; }
+  .odi-diagnosis-title { font-size: clamp(20px, 5vw, 28px); margin-bottom: 32px; }
+  .odi-diagnosis-inner { flex-direction: column; gap: 32px; }
+  .odi-diagnosis-image img { height: auto; }
+  .odi-pain-list { gap: 12px; margin-bottom: 32px; }
+  .odi-pain-item { padding: 20px; }
+  .odi-pain-icon { font-size: 24px; }
+  .odi-pain-text h4 { font-size: 15px; }
+  .odi-pain-text p { font-size: 13px; }
+  .odi-insight { padding: 20px 24px; }
+  .odi-insight p { font-size: 14px; }
+  .odi-strategy { padding: 60px 20px; }
+  .odi-strategy-core { padding: 16px 20px; font-size: 14px; }
+  .odi-color-evolution { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+  .odi-color-palette { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 32px; }
+  .odi-color-block { padding: 28px 16px; font-size: 13px; }
+  .odi-design-principles { padding: 24px 20px; font-size: 14px; }
+  .product-section { padding: 60px 20px; }
+  .product-intro { margin-bottom: 40px; }
+  .odi-upgrade { padding: 60px 20px; }
+  .section-header { margin-bottom: 32px; }
+  .odi-upgrade-subtitle { font-size: clamp(16px, 4vw, 20px); margin-bottom: 20px; }
+  .odi-upgrade-desc { font-size: clamp(14px, 2.5vw, 16px); }
+  .odi-waterfall { margin-top: 40px; }
+  .wf-item { margin-bottom: 12px; }
+  .odi-channel { padding: 60px 20px; }
+  .odi-channel-title { font-size: clamp(24px, 6vw, 36px); margin-bottom: 32px; }
+  .odi-channel-block { margin-bottom: 28px; }
+  .odi-channel-block-title { font-size: clamp(14px, 3.5vw, 18px); margin-bottom: 12px; }
+  .odi-channel-block-desc { font-size: clamp(13px, 2.5vw, 15px); }
+  .odi-channel-waterfall { grid-template-columns: repeat(2, 1fr); margin-top: 40px; }
+  .odi-xq-grid { grid-template-columns: 1fr; }
+  .odi-color-expand { padding: 60px 20px 80px; }
+  .odi-color-expand-title { font-size: clamp(24px, 6vw, 36px); margin-bottom: 20px; }
+  .odi-color-expand-subtitle { font-size: clamp(13px, 2.5vw, 15px); }
+  .odi-color-expand-header { margin-bottom: 40px; }
+  .expand-row-4 { grid-template-columns: repeat(2, 1fr); }
+  .expand-row-2 { grid-template-columns: 1fr; }
+  .odi-comparison { padding: 60px 20px; }
+  .odi-comparison-title { font-size: clamp(24px, 6vw, 36px); margin-bottom: 32px; }
+  .odi-comparison-table { font-size: 12px; }
+  .odi-comparison-table th, .odi-comparison-table td { padding: 10px 12px; }
+  .odi-comparison-table td:first-child { width: 100px; }
+  .odi-comparison-conclusion { padding: 20px 20px; font-size: 14px; margin-top: 32px; }
+  .footer { padding: 40px 20px; }
+  .footer-logo { font-size: 18px; }
+}
+@media (max-width: 540px) {
+  .odi-color-palette { grid-template-columns: 1fr; }
+  .odi-channel-waterfall { grid-template-columns: 1fr; }
+  .expand-row-4 { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">ODI</div>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 5l-7 7 7 7"/>
+    </svg>
+    返回作品集
+  </a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-accent hero-accent-1"></div>
+  <div class="hero-content">
+    <div class="hero-label">BRAND DESIGN</div>
+    <h1 class="hero-title">ODI 美容仪器<br>产品全案设计</h1>
+    <p class="hero-desc">品牌化思维——全链条开发，黑橙配色直接炸场，把实力秀成客户看得懂的视觉亮点。</p>
+  </div>
+  <div class="hero-scroll">
+    <span>SCROLL</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ODI Evolution -->
+<section class="odi-evolution">
+  <div class="odi-evolution-inner reveal">
+    <div class="odi-evolution-text">
+      <h2 class="odi-evolution-title">20年技术积淀，<br>一次面向全球的品牌进化</h2>
+      <div class="odi-info-grid">
+        <div class="odi-info-card">
+          <h4>品牌</h4>
+          <p>ODI（欧的科技）</p>
+        </div>
+        <div class="odi-info-card">
+          <h4>业务</h4>
+          <p>OEM/ODM出口 → 品牌化转型（2020起）</p>
+        </div>
+        <div class="odi-info-card">
+          <h4>覆盖</h4>
+          <p>出口全球100+国家，国内B2B美容院/代理商</p>
+        </div>
+      </div>
+      <div class="odi-challenge">
+        <p><strong>挑战陈述：</strong>2020年启动国内业务线后，原有展示物料仍沿用"工厂思维"——大段文字、堆砌厂房证书，缺乏对美容院/代理商的情感吸引力，信息层级混乱，导致客户决策成本高。</p>
+        <p style="margin-top:20px;"><strong>我负责：</strong>全案品牌视觉升级、产品手册框架重构、展会物料规范、线上详情页标准化。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ODI Diagnosis -->
+<section class="odi-diagnosis">
+  <h3 class="odi-diagnosis-title" style="text-align:center;margin-bottom:48px;">旧物料诊断：足够"硬"，但不够"直观"</h3>
+  <div class="odi-diagnosis-inner">
+    <div class="odi-diagnosis-image">
+      <img src="img/ODI/03.jpg" alt="原版物料">
+    </div>
+    <div class="odi-diagnosis-content">
+      <div class="odi-pain-list">
+        <div class="odi-pain-item">
+          <div class="odi-pain-icon">🏭</div>
+          <div class="odi-pain-text">
+            <h4>工厂思维过重</h4>
+            <p>罗列厂房面积、生产线数量、ISO证书，缺乏对客户（代理商/美容院）的情感吸引力。</p>
+          </div>
+        </div>
+        <div class="odi-pain-item">
+          <div class="odi-pain-icon">📄</div>
+          <div class="odi-pain-text">
+            <h4>信息层级不清</h4>
+            <p>大段文字堆砌，无核心价值提炼，客户难以在短时间内抓住差异化优势。</p>
+          </div>
+        </div>
+        <div class="odi-pain-item">
+          <div class="odi-pain-icon">📷</div>
+          <div class="odi-pain-text">
+            <h4>视觉品质低</h4>
+            <p>只拍机器本身，无场景、无技术可视化，阅读成本高，品牌溢价感为零。</p>
+          </div>
+        </div>
+      </div>
+      <div class="odi-insight">
+        <p><strong>关键洞察：</strong>客户要的不是一张冷冰冰的参数表，而是一套有研发底子、有落地经验、能帮他稳稳拿下市场的专业美容解决方案。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ODI Strategy -->
+<section class="odi-strategy">
+  <div class="odi-strategy-header reveal">
+    <h2>设计策略与视觉重塑</h2>
+  </div>
+    <div class="odi-strategy-core reveal">
+    几次参展后，我发觉展会上全是银白灰的机器，看多了真的脸盲。<br><br>
+    我向公司提议：不如来一波大的？反正我们外观、配色、技术全链条都能自己搞定，干嘛要跟别人长一样。<br><br>
+    于是直接把整条产品线换成黑橙——<br>
+    结果展会现场，好多客户路过都停下来问："诶，这是哪家？"<br><br>
+    所以升级这次不是"卖机器"，是把技术实力摆到了台面上。
+    </div>
+  <div class="odi-color-evolution reveal">
+    <div class="odi-color-old">
+      <strong>旧</strong>
+      医疗银灰色（冰冷、同质化）
+    </div>
+    <div class="odi-color-new">
+      <strong>新</strong>
+      黑橙主色调（黑=专业/科技感，橙=活力/美学/温暖）
+    </div>
+  </div>
+  <div class="odi-color-palette reveal">
+    <div class="odi-color-block odi-color-block-dark" style="background:#0A0A0A;">
+      #0A0A0A
+      <p>黑 – 主色</p>
+    </div>
+    <div class="odi-color-block odi-color-block-dark" style="background:#E85D04;">
+      #E85D04
+      <p>橙 – 强调色</p>
+    </div>
+    <div class="odi-color-block odi-color-block-light" style="background:#939393;">
+      #939393
+      <p>浅灰 – 背景</p>
+    </div>
+    <div class="odi-color-block odi-color-block-light" style="background:#FFFFFF; border:1px solid #444;">
+      #FFFFFF
+      <p>白 – 留白</p>
+    </div>
+  </div>
+  <div class="odi-design-principles reveal">
+    <strong>设计原则提炼：</strong>极简留白 + 信息层级 + 场景化渲染 → 建立高端品牌溢价
+  </div>
+  <div class="odi-product-showcase reveal" style="margin-top:64px;">
+    <img src="img/ODI/02.jpg" alt="ODI产品展示" style="width:100%;border-radius:16px;display:block;">
+  </div>
+</section>
+
+<!-- 第5屏：核心物料升级 -->
+<section class="odi-upgrade section">
+  <div class="section-header reveal">
+    <h2 class="section-title">技术可视化</h2>
+  </div>
+  <div class="odi-upgrade-content reveal">
+    <div class="odi-upgrade-subtitle">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;">
+        <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+      </svg>
+      让"看不见的专业"自己说话
+    </div>
+    <div class="odi-upgrade-desc">
+      将枯燥激光参数，转化为原理示意与独家核心零件展示——懂行客户一眼识别技术壁垒
+    </div>
+  </div>
+
+  <div class="odi-waterfall">
+    <div class="wf-item"><img src="img/ODI/zs/03.jpg" alt="技术可视化"></div>
+    <div class="wf-item"><img src="img/ODI/zs/04.jpg" alt="技术可视化"></div>
+    <div class="wf-item"><img src="img/ODI/zs/05.jpg" alt="技术可视化"></div>
+    <div class="wf-item"><img src="img/ODI/zs/06.jpg" alt="技术可视化"></div>
+    <div class="wf-item"><img src="img/ODI/zs/07.jpg" alt="技术可视化"></div>
+    <div class="wf-item"><img src="img/ODI/zs/08.jpg" alt="技术可视化"></div>
+    <div class="wf-item"><img src="img/ODI/zs/09.jpg" alt="技术可视化"></div>
+    <div class="wf-item"><img src="img/ODI/zs/10.jpg" alt="技术可视化"></div>
+  </div>
+</section>
+
+<!-- 第6屏：渠道适配 -->
+<section class="odi-channel section">
+  <h2 class="odi-channel-title">渠道适配与长效运营</h2>
+
+  <div class="odi-channel-block">
+    <div class="odi-channel-block-title">渠道一致性 + 标准化输出，建立完整品牌资产库</div>
+    <div class="odi-channel-block-desc">制作展架、灯箱、宣传册，确保在美博会等大型展会上，品牌形象整齐划一，彻底摆脱"小作坊"感。</div>
+  </div>
+
+  <div class="odi-channel-waterfall">
+    <div class="cw-item"><img src="img/ODI/zw/2.png" alt="渠道素材1"></div>
+    <div class="cw-item"><img src="img/ODI/zw/ZW3.jpeg" alt="渠道素材2"></div>
+    <div class="cw-item"><img src="img/ODI/zw/ZW4.jpeg" alt="渠道素材3"></div>
+  </div>
+</section>
+
+<!-- 第7屏：线上渠道 -->
+<section class="section" style="background:#1a1a1a;padding:80px 48px;text-align:center;">
+  <h2 style="font-size:clamp(24px,3.5vw,42px);font-weight:700;color:#fff;margin-bottom:48px;">线上渠道</h2>
+  <div style="max-width:900px;margin:0 auto 48px;text-align:center;">
+    <div style="font-size:clamp(14px,1.8vw,17px);line-height:1.9;color:rgba(255,255,255,0.7);">
+      将产品手册中的高清图、图标化参数直接转化为详情页素材，确保线上浏览体验与线下画册一致，帮助海外客户快速理解产品价值。
+    </div>
+  </div>
+  <div class="odi-xq-grid">
+    <div class="cw-item"><img src="img/ODI/XQ/04-1-1.jpg" alt="阿里国际站详情页1"></div>
+    <div class="cw-item"><img src="img/ODI/XQ/04-1-2.jpg" alt="阿里国际站详情页2"></div>
+    <div class="cw-item"><img src="img/ODI/XQ/04-1-22.jpg" alt="阿里国际站详情页4"></div>
+    <div class="cw-item"><img src="img/ODI/XQ/ZQ1.png" alt="阿里国际站详情页3"></div>
+  </div>
+</section>
+
+<!-- 第8屏：其他产品线配色扩展方案 -->
+<section class="odi-color-expand" id="colorExpand">
+  <div class="odi-color-expand-inner">
+    <div class="odi-color-expand-header reveal">
+      <h2 class="odi-color-expand-title">其他产品线配色扩展方案</h2>
+      <p class="odi-color-expand-subtitle">原有黑橙主色调基础上，为其他产品线或子品牌设计一套"蓝橙渐变过渡"配色方案。这套方案保持橙色核心记忆点，同时引入蓝色作为科技/冷静/专业的延伸，实现自然过渡与多场景适配。</p>
+    </div>
+    
+    <div class="odi-color-expand-showcase">
+      <!-- 第一行：1.png 单独一行 -->
+      <div class="expand-row expand-row-1">
+        <div class="expand-item">
+          <img src="img/ODI/XQ2/1.png" alt="配色方案1">
+        </div>
+      </div>
+      
+      <!-- 第二行：2.png 单独一行 -->
+      <div class="expand-row expand-row-1">
+        <div class="expand-item">
+          <img src="img/ODI/XQ2/2.png" alt="配色方案2">
+        </div>
+      </div>
+      
+      <!-- 第二行：一行4张图 -->
+      <div class="expand-row expand-row-4">
+        <div class="expand-item">
+          <img src="img/ODI/XQ2/7.png" alt="配色方案7">
+        </div>
+        <div class="expand-item">
+          <img src="img/ODI/XQ2/4.png" alt="配色方案4">
+        </div>
+        <div class="expand-item">
+          <img src="img/ODI/XQ2/5.png" alt="配色方案5">
+        </div>
+        <div class="expand-item">
+          <img src="img/ODI/XQ2/6.png" alt="配色方案6">
+        </div>
+      </div>
+      
+      <!-- 第三行：两列 -->
+      <div class="expand-row expand-row-2">
+        <div class="expand-item">
+          <img src="img/ODI/XQ2/8.png" alt="配色方案8">
+        </div>
+        <div class="expand-item">
+          <img src="img/ODI/XQ2/9.png" alt="配色方案9">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 升级前后对比 -->
+<section class="odi-comparison">
+  <div class="odi-comparison-inner">
+    <h2 class="odi-comparison-title">升级前后对比</h2>
+    <table class="odi-comparison-table">
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th>旧版 Before</th>
+          <th>升级后 After</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>品牌定位</td>
+          <td>代工厂（OEM/ODM出口商）</td>
+          <td>从外观到核心零件都能解决的美容光学品牌</td>
+        </tr>
+        <tr>
+          <td>核心逻辑</td>
+          <td>工厂自述：厂房面积、产线数量、ISO证书</td>
+          <td>品牌叙事：独家技术、对比效果、可视化原理图</td>
+        </tr>
+        <tr>
+          <td>目标客户感知</td>
+          <td>"又一个代工厂"</td>
+          <td>"有研发能力的技术伙伴"</td>
+        </tr>
+        <tr>
+          <td>视觉主色调</td>
+          <td>医疗银灰（冰冷、同质）</td>
+          <td>黑橙主色（专业+活力），可扩展蓝橙渐变</td>
+        </tr>
+        <tr>
+          <td>视觉风格</td>
+          <td>文字堆砌、图片低质、排版杂乱</td>
+          <td>极简留白、高清渲染、信息层级清晰</td>
+        </tr>
+        <tr>
+          <td>产品展示方式</td>
+          <td>参数表 + 产品单图</td>
+          <td>原理图解 + 核心零件拆解 + 场景应用 + 前后对比</td>
+        </tr>
+        <tr>
+          <td>技术沟通方式</td>
+          <td>罗列功率、波长数字</td>
+          <td>可视化原理图 + 独家技术展示</td>
+        </tr>
+        <tr>
+          <td>物料体系</td>
+          <td>PPT随意拼凑，无统一规范</td>
+          <td>VI手册 + 产品画册 + 展会规范 + 品牌资产库</td>
+        </tr>
+        <tr>
+          <td>线上线下一致性</td>
+          <td>各自为政，形象割裂</td>
+          <td>统一黑橙识别，详情页直接复用画册素材</td>
+        </tr>
+        <tr>
+          <td>客户决策成本</td>
+          <td>高（需反复解释参数）</td>
+          <td>低（一眼看懂技术优势）</td>
+        </tr>
+        <tr>
+          <td>身份认同</td>
+          <td>无品牌人格，仅比价</td>
+          <td>代理商愿用ODI为自己专业背书</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="odi-comparison-conclusion">
+      <strong>从"卖机器"到"经营身份认同"</strong>——我通过这套设计，让ODI不再是参数表里的代工厂，而变成一个客户愿意主动推荐的技术品牌。
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-logo">ODI</div>
+  <p class="footer-text">© 2026 阿莉路亚作品集 · 品牌全案设计</p>
+  <a href="index.html" class="footer-link">← 返回作品集</a>
+</footer>
+
+<script>
+// Custom Cursor
+(function() {
+  const cursor = document.getElementById('cursor');
+  if (!cursor) return;
+  let mx = -100, my = -100;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animate() {
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+    requestAnimationFrame(animate);
+  }
+  animate();
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest('a, button')) cursor.classList.add('hover');
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('a, button')) cursor.classList.remove('hover');
+  });
+})();
+
+// Navbar scroll
+(function() {
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+})();
+
+// Reveal on scroll
+(function() {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('in-view');
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+})();
+
+// 瀑布流渐变进入动画
+(function() {
+  const wfItems = document.querySelectorAll('.wf-item');
+  const wfIO = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => {
+          e.target.classList.add('visible');
+        }, i * 80);
+        wfIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  wfItems.forEach(el => wfIO.observe(el));
+
+  // 渠道瀑布流渐变
+  const cwItems = document.querySelectorAll('.cw-item');
+  const cwIO = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => {
+          e.target.classList.add('visible');
+        }, i * 80);
+        cwIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  cwItems.forEach(el => cwIO.observe(el));
+
+  // 配色扩展方案图片渐变
+  const expandItems = document.querySelectorAll('.expand-item');
+  const expandIO = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => {
+          e.target.classList.add('visible');
+        }, i * 80);
+        expandIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  expandItems.forEach(el => expandIO.observe(el));
+})();
+</script>
+</body>
+</html>

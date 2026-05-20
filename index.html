@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>阿莉路亚 — 个人作品集</title>
+<script src="https://cdn.jsdelivr.net/npm/framer-motion@11.15.0/dist/framer-motion.js"></script>
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overscroll-behavior: none; background: #ffffff; user-select: none; -webkit-user-select: none; }
+img, video { pointer-events: none; -webkit-user-drag: none; user-select: none; -webkit-user-select: none; }
+body {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #1a1a1a; font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+@media (pointer: coarse) { body { cursor: auto; } }
+a, button { cursor: pointer; }
+@media (pointer: coarse) { a, button { cursor: auto; } }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #e8e9eb; }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #aaa; }
+
+/* ── Navbar ── */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 48px;
+  background: transparent;
+}
+
+.nav-logo-img { height: 28px; width: auto; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { 
+  color: #fff; text-decoration: none; font-size: 13px; letter-spacing: 0.1em; 
+  font-weight: 600; padding: 8px 18px; border-radius: 8px; 
+  background: transparent; transition: background 0.2s;
+}
+.nav-links a:hover { background: #2c46ab; }
+.nav-dropdown { position: relative; display: flex; align-items: center; gap: 4px; }
+.nav-dropdown > span { 
+  color: #fff; font-size: 13px; letter-spacing: 0.1em; 
+  cursor: pointer; padding: 8px 18px; border-radius: 8px; font-weight: 600;
+  background: transparent; transition: background 0.2s;
+}
+.nav-dropdown > span:hover { background: #2c46ab; }
+.nav-dropdown > span::after { content: '▾'; font-size: 10px; margin-left: 6px; }
+.nav-dropdown-panel {
+  position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%);
+  background: #2c46ab; border-radius: 12px;
+  padding: 10px 0; min-width: 220px; box-shadow: 0 8px 24px rgba(44,70,171,0.4);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 300;
+}
+.nav-dropdown:hover .nav-dropdown-panel,
+.nav-dropdown:focus-within .nav-dropdown-panel {
+  opacity: 1; pointer-events: all;
+}
+.nav-dropdown-item {
+  display: block; padding: 10px 20px; color: #ffffff !important; text-decoration: none;
+  font-size: 13px; letter-spacing: 0.05em; transition: background 0.15s;
+}
+.nav-dropdown-item:hover { background: rgba(255,255,255,0.15); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: #fff; transition: 0.3s; }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .navbar { padding: 16px 24px; }
+
+  /* Hero */
+  .hero-content { padding-bottom: 12%; }
+  .hero-title { font-size: clamp(28px, 12vw, 64px); }
+
+  /* Manifesto */
+  .manifesto-section { padding: 80px 24px 60px; }
+  .manifesto-heading { font-size: clamp(28px, 10vw, 64px); margin-bottom: 48px; }
+  .manifesto-columns { flex-direction: column; gap: 32px; }
+  .manifesto-col.left, .manifesto-col.right { text-align: center; }
+  .manifesto-logo { width: 64px; height: 64px; }
+  .manifesto-col { min-width: auto; }
+  .manifesto-top { display: none; }
+  .manifesto-bottom { margin-top: 48px; }
+
+  /* Gallery */
+  .gallery-section { padding: 40px 16px 80px; }
+  .gallery-row { flex-direction: column; gap: 20px; }
+  .gallery-card { width: 100%; max-width: 550px; height: 230px; }
+  .gallery-card img,
+  .gallery-card video { width: 100%; height: 230px; }
+  .gallery-row + .gallery-row { margin-top: 20px; }
+
+  /* Footer */
+  .footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
+}
+
+/* ── Hamburger Menu Overlay ── */
+.menu-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.5);
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.menu-overlay.open { opacity: 1; pointer-events: all; }
+.menu-panel {
+  position: fixed; top: 0; right: 0; width: 320px; height: 100vh;
+  background: #2c46ab; z-index: 201;
+  transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  display: flex; flex-direction: column; justify-content: center; padding: 48px;
+}
+.menu-panel.open { transform: translateX(0); }
+.menu-panel a {
+  display: block; color: #fff; text-decoration: none;
+  font-size: 32px; font-weight: 700; margin-bottom: 24px;
+  opacity: 0; transform: translateX(30px);
+  transition: opacity 0.3s, transform 0.3s, color 0.2s;
+}
+.menu-panel.open a { opacity: 1; transform: translateX(0); }
+.menu-panel a:nth-child(2) { transition-delay: 0.05s; }
+.menu-panel a:nth-child(3) { transition-delay: 0.10s; }
+.menu-panel a:nth-child(4) { transition-delay: 0.15s; }
+.menu-panel a:nth-child(5) { transition-delay: 0.20s; }
+.menu-panel a:hover { color: rgba(255,255,255,0.6); }
+.menu-close {
+  position: absolute; top: 24px; right: 24px;
+  background: none; border: none; color: #fff; font-size: 28px; cursor: pointer;
+}
+
+/* ── Hero Section ── */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #2a43ad;
+  z-index: 1;
+}
+/* Video fixed，铺满全屏并始终固定在背景 */
+#hero-video {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  object-fit: cover;
+  z-index: 1;
+}
+/* 遮罩也固定，随滚动加深 */
+.hero-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0);
+  z-index: 2;
+  pointer-events: none;
+}
+/* Logo 和文字浮在视频上方，z-index 高于 video */
+.hero-logo {
+  position: fixed;
+  top: 28px;
+  left: 48px;
+  z-index: 10;
+  height: 28px;
+  width: auto;
+  opacity: 0;
+  animation: logoFadeIn 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+}
+@keyframes logoFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 5%;
+}
+.hero-content-inner {
+  opacity: 0;
+  animation: heroFadeIn 1.4s cubic-bezier(0.16,1,0.3,1) 0.6s forwards;
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-title {
+  font-size: clamp(32px, 8vw, 160px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  text-align: center;
+}
+.hero-subtitle {
+  font-size: clamp(14px, 2vw, 24px);
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.8);
+  margin-top: 16px;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* ── Manifesto Section ── */
+.manifesto-section {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 48px 80px;
+  background: transparent;
+}
+.manifesto-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 60px;
+}
+.manifesto-top span {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.manifesto-heading {
+  font-size: clamp(32px, 7vw, 96px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 0 80px;
+}
+.manifesto-columns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+}
+.manifesto-col {
+  text-align: center;
+  min-width: 200px;
+}
+.manifesto-col.left { text-align: right; }
+.manifesto-col.right { text-align: left; }
+.manifesto-col .label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.6);
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.manifesto-col .desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.9);
+  margin: 0;
+  line-height: 1.6;
+}
+.manifesto-logo {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.manifesto-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.manifesto-bottom {
+  margin-top: 80px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.manifesto-bottom::before,
+.manifesto-bottom::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+  max-width: 200px;
+}
+.manifesto-bottom p {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.manifesto-bottom span {
+  font-size: 1.3em;
+  opacity: 0.4;
+}
+
+/* ── Gallery Section ── */
+.gallery-section {
+  position: relative;
+  z-index: 5;
+  padding: 60px 48px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+}
+.gallery-row {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.gallery-row + .gallery-row {
+  margin-top: 32px;
+}
+.gallery-card {
+  width: 550px;
+  height: 310px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.gallery-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.gallery-card img,
+.gallery-card video {
+  width: 550px;
+  height: 310px;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+}
+.gallery-card .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.gallery-card:hover .overlay {
+  opacity: 1;
+}
+.gallery-card .overlay h3 {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ── Footer ── */
+.footer {
+  padding: 48px;
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #ffffff;
+  position: relative;
+  z-index: 5;
+}
+
+
+/* ── Scroll-triggered animation ── */
+.reveal {
+  opacity: 0; transform: translateY(50px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+
+/* ── Mobile Responsive ── */
+@media (max-width: 768px) {
+  /* Navbar */
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .navbar { padding: 16px 24px; }
+
+  /* Hero */
+  .hero-content { padding-bottom: 12%; }
+  .hero-title { font-size: clamp(28px, 12vw, 64px); }
+
+  /* Manifesto */
+  .manifesto-section { padding: 80px 24px 60px; }
+  .manifesto-heading { font-size: clamp(28px, 10vw, 64px); margin-bottom: 48px; }
+  .manifesto-columns { flex-direction: column; gap: 32px; }
+  .manifesto-col.left, .manifesto-col.right { text-align: center; }
+  .manifesto-logo { width: 64px; height: 64px; }
+  .manifesto-col { min-width: auto; }
+  .manifesto-top { display: none; }
+  .manifesto-bottom { margin-top: 48px; gap: 12px; }
+
+  /* Gallery */
+  .gallery-section { padding: 40px 16px 80px; }
+  .gallery-row { flex-direction: column; gap: 20px; align-items: center; }
+  .gallery-card { width: 100%; max-width: 550px; height: 230px; }
+  .gallery-card img,
+  .gallery-card video { width: 100%; height: 230px; }
+  .gallery-row + .gallery-row { margin-top: 20px; }
+
+  /* Footer */
+  .footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <img src="img/LOGO1.png" alt="Aliluya" class="nav-logo-img">
+  <div class="nav-links">
+    <div class="nav-dropdown">
+      <span>Portfolio Selection</span>
+      <div class="nav-dropdown-panel">
+        <a class="nav-dropdown-item" href="nenovia.html">NenoVia 产品全案设计</a>
+        <a class="nav-dropdown-item" href="odi.html">ODI美容仪器产品全案设计</a>
+        <a class="nav-dropdown-item" href="wzmj.html">王者荣耀造物节七周年动态海报</a>
+        <a class="nav-dropdown-item" href="lilwave.html">IP设计 Lil Wave</a>
+      </div>
+    </div>
+    <a href="about.html">About</a>
+  </div>
+  <button class="hamburger" id="hamburger-btn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Hamburger Menu -->
+<div class="menu-overlay" id="menu-overlay"></div>
+<div class="menu-panel" id="menu-panel">
+  <button class="menu-close" id="menu-close">✕</button>
+  <a href="nenovia.html">NenoVia 产品全案设计</a>
+  <a href="odi.html">ODI美容仪器产品全案设计</a>
+  <a href="wzmj.html">王者荣耀造物节七周年动态海报</a>
+  <a href="lilwave.html">IP设计 Lil Wave</a>
+  <a href="about.html">About</a>
+</div>
+
+<!-- [1] Hero Section -->
+<section class="hero" id="hero">
+  <video id="hero-video" autoplay muted playsinline>
+    <source src="img/5月11日.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay" id="hero-overlay"></div>
+  <div class="hero-content" id="hero-content">
+    <div class="hero-content-inner">
+      <h1 class="hero-title">HELLO！<span style="color:#2c46ab;">{</span> I'M 阿莉路亚<span style="color:#2c46ab;">}</span></h1>
+    </div>
+  </div>
+</section>
+
+<!-- [2] Manifesto Section -->
+<section class="manifesto-section reveal" id="manifesto">
+  <div class="manifesto-top">
+    <span>PORTFOLIO SELECTION</span>
+    <span>PORTFOLIO SELECTION</span>
+  </div>
+
+  <h1 class="manifesto-heading">
+    DESIGN THAT WORKS.<br>RESULTS THAT LAST.
+  </h1>
+
+  <div class="manifesto-columns">
+    <div class="manifesto-col left">
+      <p class="label">PORTFOLIO</p>
+      <p class="desc">Portfolio Selection<br>产品全案设计<br>线上线下物料</p>
+    </div>
+    <div class="manifesto-logo">
+      <img src="img/LOGO12.png" alt="ALI LUYA">
+    </div>
+    <div class="manifesto-col right">
+      <p class="label">DESIGNER</p>
+      <p class="desc">项目精选<br>小小小更新一下</p>
+    </div>
+  </div>
+
+  <div class="manifesto-bottom">
+    <p>
+      <span>[</span>
+      PERSONAL DESIGN PORTFOLIO
+      <span>]</span>
+    </p>
+  </div>
+</section>
+
+<!-- [3] Gallery Section -->
+<section class="gallery-section reveal" id="gallery">
+  <!-- 第1行 -->
+  <div class="gallery-row">
+    <div class="gallery-card">
+      <a href="nenovia.html" style="display:block;">
+        <img src="img/XNJSE.png" alt="NenoVia 产品">
+        <div class="overlay">
+          <h3>NenoVia 产品全案设计</h3>
+        </div>
+      </a>
+    </div>
+    <div class="gallery-card">
+      <a href="odi.html" style="display:block;">
+        <img src="img/3.jpg" alt="ODI美容仪器">
+        <div class="overlay">
+          <h3>ODI美容仪器产品全案设计</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 第2行 -->
+  <div class="gallery-row">
+    <div class="gallery-card">
+      <a href="wzmj.html" style="display:block;">
+        <video autoplay muted loop playsinline>
+          <source src="img/04.mp4" type="video/mp4">
+        </video>
+        <div class="overlay">
+          <h3>王者荣耀造物节七周年动态海报</h3>
+        </div>
+      </a>
+    </div>
+    <div class="gallery-card">
+      <a href="lilwave.html" style="display:block;">
+        <video autoplay muted loop playsinline>
+          <source src="img/video3.mp4" type="video/mp4">
+        </video>
+        <div class="overlay">
+          <h3>自创IP Lil Wave</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div>© 2026 阿莉路亚. All rights reserved.</div>
+  <div><img src="img/LOGO12.png" alt="ALUYA" style="height:24px;width:auto;"></div>
+  <div>Built with Next.js · Three.js · Framer Motion</div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+// 禁用右键菜单
+document.addEventListener('contextmenu', e => e.preventDefault());
+// 禁用图片拖拽
+document.addEventListener('dragstart', e => e.preventDefault());
+
+// Hamburger Menu
+(function initMenu() {
+  const overlay = document.getElementById('menu-overlay');
+  const panel   = document.getElementById('menu-panel');
+  const openBtn = document.getElementById('hamburger-btn');
+  const closeBtn = document.getElementById('menu-close');
+
+  function open()  { overlay.classList.add('open'); panel.classList.add('open'); }
+  function close() { overlay.classList.remove('open'); panel.classList.remove('open'); }
+
+  openBtn && openBtn.addEventListener('click', open);
+  closeBtn && closeBtn.addEventListener('click', close);
+  overlay && overlay.addEventListener('click', close);
+})();
+
+// Navbar scroll style
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if (!nav) return;
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Hero video auto-play + replay after 4s when ended
+window.addEventListener('load', () => {
+  const video = document.getElementById('hero-video');
+  if (!video) return;
+
+  // When video ends, wait 4s then replay
+  video.addEventListener('ended', () => {
+    setTimeout(() => video.play(), 4000);
+  });
+
+  video.play().catch(() => {
+    const playVideo = () => { video.play(); document.removeEventListener('click', playVideo); };
+    document.addEventListener('click', playVideo, { once: true });
+  });
+});
+
+// Hero overlay darken on scroll
+window.addEventListener('scroll', () => {
+  const overlay = document.getElementById('hero-overlay');
+  const hero = document.getElementById('hero');
+  if (!overlay || !hero) return;
+
+  const scrollY = window.scrollY;
+  const heroHeight = hero.offsetHeight;
+  const progress = Math.min(1, scrollY / (heroHeight * 0.6));
+
+  // Darken from 0 to 0.75 as user scrolls
+  const opacity = progress * 0.75;
+  overlay.style.background = `rgba(0,0,0,${opacity})`;
+}, { passive: true });
+
+
+
+// Scroll Reveal (IntersectionObserver)
+(function initReveal() {
+  const items = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in-view'), i * 100);
+      }
+    });
+  }, { threshold: 0.15 });
+  items.forEach(el => observer.observe(el));
+})();
+
+// Gallery cards scroll reveal
+(function initGalleryReveal() {
+  const cards = document.querySelectorAll('.gallery-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 120);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(card => observer.observe(card));
+})();
+</script>
+</body>
+</html>

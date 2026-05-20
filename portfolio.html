@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>阿莉路亚 · Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ───────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #e8c4a0;
+      --bg:   #0c0c0c;
+      --text: #f0ece6;
+      --sub:  #a09080;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Kanit', 'Noto Sans SC', sans-serif;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Fixed Video Background ─────────────────────────── */
+    #bg-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* ─── Scroll Overlay (darkens as user scrolls) ───────── */
+    #scroll-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(12, 12, 12, 0);
+      z-index: -1;
+      pointer-events: none;
+      transition: background 0.12s linear;
+    }
+
+    /* ─── Navigation ─────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 6vw;
+      transition: background 0.4s, backdrop-filter 0.4s, padding 0.4s;
+    }
+    nav.scrolled {
+      padding: 14px 6vw;
+      background: rgba(12, 12, 12, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(232, 196, 160, 0.1);
+    }
+    .nav-logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text);
+      opacity: 0.75;
+      transition: opacity 0.25s, color 0.25s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+    /* Hamburger (mobile) */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav drawer */
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(12, 12, 12, 0.96);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      transition: color 0.2s, opacity 0.2s;
+    }
+    .nav-drawer a:hover { color: var(--gold); opacity: 1; }
+
+    /* ─── Hero Section ───────────────────────────────────── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 8vh;
+      text-align: center;
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 7vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      color: #fff;
+      /* 轻微渐变文字 */
+      background: linear-gradient(135deg, #ffffff 40%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      will-change: transform;
+      transition: transform 0.08s ease-out;
+    }
+    .hero-sub {
+      margin-top: 18px;
+      font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      animation: bounceY 2.4s ease-in-out infinite;
+    }
+    .hero-scroll-hint svg { opacity: 0.4; }
+    @keyframes bounceY {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ─── Content Sections ───────────────────────────────── */
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 6vw;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 32px;
+    }
+    .section-body {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: rgba(240,236,230,0.75);
+      max-width: 600px;
+    }
+
+    /* Divider */
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-bottom: 32px;
+    }
+
+    /* ─── About ──────────────────────────────────────────── */
+    #about {
+      background: rgba(12, 12, 12, 0.82);
+      backdrop-filter: blur(2px);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+    .tag {
+      padding: 6px 18px;
+      border: 1px solid rgba(232,196,160,0.3);
+      border-radius: 100px;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      transition: background 0.25s;
+    }
+    .tag:hover { background: rgba(232,196,160,0.12); }
+    .about-image-placeholder {
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, rgba(232,196,160,0.08) 0%, rgba(12,12,12,0.6) 100%);
+      border: 1px solid rgba(232,196,160,0.15);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.15);
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+    }
+
+    /* ─── Works Grid ─────────────────────────────────────── */
+    #works {
+      background: rgba(8, 8, 8, 0.88);
+    }
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .work-card {
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 4/3;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.4s cubic-bezier(.22,.68,0,1.2), border-color 0.3s;
+    }
+    .work-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      border-color: rgba(232,196,160,0.25);
+    }
+    .work-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .work-card:hover .work-card-img { transform: scale(1.06); }
+    .work-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(12,12,12,0.9) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.35s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+    }
+    .work-card:hover .work-card-overlay { opacity: 1; }
+    .work-card-title { font-size: 1rem; font-weight: 600; }
+    .work-card-cat   { font-size: 0.72rem; color: var(--gold); letter-spacing: 0.15em; margin-top: 4px; }
+
+    /* Work card placeholder */
+    .work-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      opacity: 0.12;
+    }
+
+    /* ─── Contact ─────────────────────────────────────────── */
+    #contact {
+      background: rgba(12, 12, 12, 0.9);
+      text-align: center;
+    }
+    #contact .section-title { margin: 0 auto 16px; }
+    #contact .section-body  { margin: 0 auto 48px; }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border: 1px solid rgba(232,196,160,0.35);
+      border-radius: 100px;
+      font-size: 0.82rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transition: background 0.25s, border-color 0.25s, transform 0.2s;
+    }
+    .contact-btn:hover {
+      background: rgba(232,196,160,0.1);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    /* ─── Footer ─────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 40px 6vw;
+      text-align: center;
+      background: rgba(0,0,0,0.7);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.25);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+    }
+
+    /* ─── Scroll-in Animation ────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── Responsive ─────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .about-grid { grid-template-columns: 1fr; gap: 36px; }
+      .about-image-placeholder { display: none; }
+      .works-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .works-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ░░ Fixed Video Background ░░ -->
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="C:/Users/lili/Downloads/豆包.mp4" type="video/mp4" />
+  </video>
+
+  <!-- ░░ Scroll Darkening Overlay ░░ -->
+  <div id="scroll-overlay"></div>
+
+  <!-- ░░ Navigation ░░ -->
+  <nav id="navbar">
+    <div class="nav-logo">阿莉路亚</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#works">Works</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-toggle" id="nav-toggle" aria-label="Menu" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="nav-drawer" id="nav-drawer">
+    <a href="#about"   onclick="closeDrawer()">About</a>
+    <a href="#works"   onclick="closeDrawer()">Works</a>
+    <a href="#contact" onclick="closeDrawer()">Contact</a>
+  </div>
+
+  <!-- ░░ Hero ░░ -->
+  <section id="hero">
+    <div>
+      <h1 class="hero-title" id="hero-title">Hi~ I'm 阿莉路亚</h1>
+      <p class="hero-sub">Brand Designer &nbsp;·&nbsp; Creative Director &nbsp;·&nbsp; Visual Artist</p>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
+        <path d="M8 0v20M1 13l7 7 7-7" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ░░ About ░░ -->
+  <section id="about">
+    <div class="section">
+      <p class="section-label reveal">About Me</p>
+      <div class="divider reveal"></div>
+      <div class="about-grid">
+        <div>
+          <h2 class="section-title reveal">品牌设计师<br/>& 视觉艺术家</h2>
+          <p class="section-body reveal">
+            专注于品牌视觉设计与创意方向，曾主导多个商业 IP 从零到一的全案落地。
+            热衷于将东方美学与现代设计语言融合，创造兼具温度与精准感的视觉体验。
+          </p>
+          <div class="about-tags reveal">
+            <span class="tag">Brand Identity</span>
+            <span class="tag">UI / UX</span>
+            <span class="tag">Motion Design</span>
+            <span class="tag">Art Direction</span>
+            <span class="tag">IP Design</span>
+          </div>
+        </div>
+        <div class="about-image-placeholder reveal">PHOTO</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ Works ░░ -->
+  <section id="works">
+    <div class="section">
+      <p class="section-label reveal">Selected Works</p>
+      <div class="divider reveal"></div>
+      <h2 class="section-title reveal">近期项目</h2>
+      <div class="works-grid">
+
+        <div class="work-card reveal">
+          <div class="work-placeholder">✦</div>
+          <div class="work-card-overlay">
+            <div class="work-card-title">NenoVia 纳米微晶笔</div>
+            <div class="work-card-cat">Brand Identity · Packaging</div>
+          </div>
+        </div>
+
+        <div class="work-card reveal">
+          <div class="work-placeholder">✦</div>
+          <div class="work-card-overlay">
+            <div class="work-card-title">Securify 数据安全 SaaS</div>
+            <div class="work-card-cat">Web Design · UI System</div>
+          </div>
+        </div>
+
+        <div class="work-card reveal">
+          <div class="work-placeholder">✦</div>
+          <div class="work-card-overlay">
+            <div class="work-card-title">王者荣耀游戏海报</div>
+            <div class="work-card-cat">Key Visual · Illustration</div>
+          </div>
+        </div>
+
+        <div class="work-card reveal">
+          <div class="work-placeholder">✦</div>
+          <div class="work-card-overlay">
+            <div class="work-card-title">Jack 3D 创作者作品集</div>
+            <div class="work-card-cat">Web Design · 3D Art Direction</div>
+          </div>
+        </div>
+
+        <div class="work-card reveal">
+          <div class="work-placeholder">✦</div>
+          <div class="work-card-overlay">
+            <div class="work-card-title">太空旅行主题单页</div>
+            <div class="work-card-cat">Interactive · Motion</div>
+          </div>
+        </div>
+
+        <div class="work-card reveal">
+          <div class="work-placeholder">✦</div>
+          <div class="work-card-overlay">
+            <div class="work-card-title">个人作品集 poch.studio</div>
+            <div class="work-card-cat">Next.js · Editorial Design</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ Contact ░░ -->
+  <section id="contact">
+    <div class="section">
+      <p class="section-label reveal">Get In Touch</p>
+      <div class="divider" style="margin: 0 auto 32px;"></div>
+      <h2 class="section-title reveal">一起创作吧</h2>
+      <p class="section-body reveal">
+        有品牌项目、创意合作或有趣的想法？<br/>随时欢迎与我联系。
+      </p>
+      <div class="contact-links reveal">
+        <a class="contact-btn" href="mailto:hello@alilua.com">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><polyline points="22,4 12,13 2,4"/></svg>
+          Email
+        </a>
+        <a class="contact-btn" href="#" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          Instagram
+        </a>
+        <a class="contact-btn" href="#" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 2H3v16h5l4 4 4-4h5V2z"/></svg>
+          WeChat
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ Footer ░░ -->
+  <footer>
+    <span>© 2026 阿莉路亚 · All Rights Reserved</span>
+  </footer>
+
+  <script>
+    /* ── Scroll: overlay darkening + nav glass ── */
+    const overlay = document.getElementById('scroll-overlay');
+    const navbar  = document.getElementById('navbar');
+    const maxScroll = window.innerHeight * 0.8; // 80vh 时遮罩达到最深
+
+    function easeInOut(t) {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const progress = Math.min(scrollY / maxScroll, 1);
+      const alpha    = easeInOut(progress) * 0.88;
+
+      overlay.style.background = `rgba(12, 12, 12, ${alpha})`;
+
+      if (scrollY > 60) navbar.classList.add('scrolled');
+      else              navbar.classList.remove('scrolled');
+    }, { passive: true });
+
+    /* ── Mouse parallax on hero title ── */
+    const heroTitle = document.getElementById('hero-title');
+    document.addEventListener('mousemove', (e) => {
+      const cx = window.innerWidth  / 2;
+      const cy = window.innerHeight / 2;
+      const dx = (e.clientX - cx) / cx;
+      const dy = (e.clientY - cy) / cy;
+      heroTitle.style.transform = `translate(${dx * 8}px, ${dy * 5}px)`;
+    });
+
+    /* ── IntersectionObserver: scroll-in reveal ── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ── Mobile nav ── */
+    const toggle = document.getElementById('nav-toggle');
+    const drawer = document.getElementById('nav-drawer');
+
+    toggle.addEventListener('click', () => {
+      const open = drawer.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      toggle.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* keyboard close */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeDrawer();
+    });
+  </script>
+</body>
+</html>
