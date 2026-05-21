@@ -900,6 +900,14 @@ section.odi-channel {
   .expand-row-4 { grid-template-columns: 1fr; }
 }
 </style>
+<script>
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if (e.key === 'F12' || (e.ctrlKey && e.key === 's') || (e.ctrlKey && e.key === 'u') || (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'C' || e.key === 'J'))) {
+    e.preventDefault();
+  }
+});
+</script>
 </head>
 <body>
 

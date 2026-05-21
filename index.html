@@ -433,6 +433,23 @@ a, button { cursor: pointer; }
   .footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
 }
 </style>
+<script>
+// 禁止右键菜单
+document.addEventListener('contextmenu', e => e.preventDefault());
+// 禁止快捷键：Ctrl+S, Ctrl+U, Ctrl+Shift+I, F12
+document.addEventListener('keydown', e => {
+  if (
+    e.key === 'F12' ||
+    (e.ctrlKey && e.key === 's') ||
+    (e.ctrlKey && e.key === 'u') ||
+    (e.ctrlKey && e.shiftKey && e.key === 'i') ||
+    (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+    (e.ctrlKey && e.shiftKey && e.key === 'J')
+  ) {
+    e.preventDefault();
+  }
+});
+</script>
 </head>
 <body>
 
