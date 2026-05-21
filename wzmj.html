@@ -201,15 +201,15 @@ document.addEventListener('keydown', e => {
 <!-- Gallery -->
 <section class="gallery-section">
   <div class="gallery-grid">
-    <div class="gallery-item"><img src="img/WZRY/01.png" alt="01"></div>
-    <div class="gallery-item"><img src="img/WZRY/02.png" alt="02"></div>
-    <div class="gallery-item"><img src="img/WZRY/03.png" alt="03"></div>
+    <div class="gallery-item"><img src="img/WZRY/01.webp" alt="01"></div>
+    <div class="gallery-item"><img src="img/WZRY/02.webp" alt="02"></div>
+    <div class="gallery-item"><img src="img/WZRY/03.webp" alt="03"></div>
     <div class="gallery-item">
       <video src="img/WZRY/04.mp4" autoplay muted loop playsinline style="width:100%;border-radius:12px;"></video>
     </div>
-    <div class="gallery-item"><img src="img/WZRY/05.png" alt="05"></div>
-    <div class="gallery-item"><img src="img/WZRY/06.jpg" alt="06"></div>
-    <div class="gallery-item"><img src="img/WZRY/07.jpg" alt="07"></div>
+    <div class="gallery-item"><img src="img/WZRY/05.webp" alt="05"></div>
+    <div class="gallery-item"><img src="img/WZRY/06.webp" alt="06"></div>
+    <div class="gallery-item"><img src="img/WZRY/07.webp" alt="07"></div>
   </div>
 </section>
 
@@ -219,8 +219,8 @@ document.addEventListener('keydown', e => {
     <h2 class="section-title">其他KV海报</h2>
   </div>
   <div class="gallery-grid" style="margin-top:40px;">
-    <div class="gallery-item"><img src="img/WZRY/08.jpg" alt="08"></div>
-    <div class="gallery-item"><img src="img/WZRY/09.jpg" alt="09"></div>
+    <div class="gallery-item"><img src="img/WZRY/08.webp" alt="08"></div>
+    <div class="gallery-item"><img src="img/WZRY/09.webp" alt="09"></div>
   </div>
 </section>
 
@@ -275,6 +275,12 @@ document.addEventListener('keydown', e => {
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   items.forEach(el => io.observe(el));
 })();
+</script>
+<script>
+document.querySelectorAll('img:not([loading])').forEach(img => {
+  img.loading = 'lazy';
+  img.decoding = 'async';
+});
 </script>
 </body>
 </html>

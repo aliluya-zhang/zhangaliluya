@@ -455,7 +455,7 @@ document.addEventListener('keydown', e => {
 
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
-  <img src="img/LOGO1.png" alt="Aliluya" class="nav-logo-img">
+  <img src="img/LOGO1.webp" alt="Aliluya" class="nav-logo-img">
   <div class="nav-links">
     <div class="nav-dropdown">
       <span>Portfolio Selection</span>
@@ -487,7 +487,7 @@ document.addEventListener('keydown', e => {
 <!-- [1] Hero Section -->
 <section class="hero" id="hero">
   <video id="hero-video" autoplay muted playsinline>
-    <source src="img/5月11日.mp4" type="video/mp4">
+    <source src="img/hero.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay" id="hero-overlay"></div>
   <div class="hero-content" id="hero-content">
@@ -514,7 +514,7 @@ document.addEventListener('keydown', e => {
       <p class="desc">Portfolio Selection<br>产品全案设计<br>线上线下物料</p>
     </div>
     <div class="manifesto-logo">
-      <img src="img/LOGO12.png" alt="ALI LUYA">
+      <img src="img/LOGO12.webp" alt="ALI LUYA">
     </div>
     <div class="manifesto-col right">
       <p class="label">DESIGNER</p>
@@ -537,7 +537,7 @@ document.addEventListener('keydown', e => {
   <div class="gallery-row">
     <div class="gallery-card">
       <a href="nenovia.html" style="display:block;">
-        <img src="img/XNJSE.png" alt="NenoVia 产品">
+        <img src="img/XNJSE.webp" alt="NenoVia 产品">
         <div class="overlay">
           <h3>NenoVia 产品全案设计</h3>
         </div>
@@ -545,7 +545,7 @@ document.addEventListener('keydown', e => {
     </div>
     <div class="gallery-card">
       <a href="odi.html" style="display:block;">
-        <img src="img/3.jpg" alt="ODI美容仪器">
+        <img src="img/3.webp" alt="ODI美容仪器">
         <div class="overlay">
           <h3>ODI美容仪器产品全案设计</h3>
         </div>
@@ -558,7 +558,7 @@ document.addEventListener('keydown', e => {
     <div class="gallery-card">
       <a href="wzmj.html" style="display:block;">
         <video autoplay muted loop playsinline>
-          <source src="img/04.mp4" type="video/mp4">
+          <source src="img/04_.mp4" type="video/mp4">
         </video>
         <div class="overlay">
           <h3>王者荣耀造物节七周年动态海报</h3>
@@ -568,7 +568,7 @@ document.addEventListener('keydown', e => {
     <div class="gallery-card">
       <a href="lilwave.html" style="display:block;">
         <video autoplay muted loop playsinline>
-          <source src="img/video3.mp4" type="video/mp4">
+          <source src="img/video3_.mp4" type="video/mp4">
         </video>
         <div class="overlay">
           <h3>自创IP Lil Wave</h3>
@@ -581,7 +581,7 @@ document.addEventListener('keydown', e => {
 <!-- Footer -->
 <footer class="footer">
   <div>© 2026 阿莉路亚. All rights reserved.</div>
-  <div><img src="img/LOGO12.png" alt="ALUYA" style="height:24px;width:auto;"></div>
+  <div><img src="img/LOGO12.webp" alt="ALUYA" style="height:24px;width:auto;"></div>
   <div>Built with Next.js · Three.js · Framer Motion</div>
 </footer>
 
@@ -672,6 +672,13 @@ window.addEventListener('scroll', () => {
   }, { threshold: 0.15 });
   cards.forEach(card => observer.observe(card));
 })();
+</script>
+<script>
+// 图片懒加载：除 Logo 外全部延迟加载
+document.querySelectorAll('img:not(.nav-logo-img):not([loading])').forEach(img => {
+  img.loading = 'lazy';
+  img.decoding = 'async';
+});
 </script>
 </body>
 </html>

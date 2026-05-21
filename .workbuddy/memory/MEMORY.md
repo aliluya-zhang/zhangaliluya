@@ -3,8 +3,9 @@
 ## 网站部署
 - **GitHub 仓库**: zhangaliluya (public)
 - **Cloudflare Pages**: zhangaliluya.pages.dev
-- **域名**: aliluya.asia（阿里云购买，DNS 已改为 Cloudflare nameservers）
-- DNS 生效中，等待 Cloudflare 验证完成
+- **域名**: aliluya.asia（阿里云购买）
+- **Cloudflare nameservers**: bob.ns.cloudflare.com / riya.ns.cloudflare.com（注意不是通用的 ns1/ns2！）
+- DNS 已生效，aliluya.asia 已添加到 Cloudflare Pages 自定义域名，等待 SSL 验证
 
 ## 首页结构（当前）
 1. Hero: Hi~ I'm 阿莉路亚

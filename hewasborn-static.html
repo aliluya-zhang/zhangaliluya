@@ -343,6 +343,14 @@ a, button { cursor: pointer; }
 
 
 </style>
+<script>
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if (e.key === 'F12' || (e.ctrlKey && e.key === 's') || (e.ctrlKey && e.key === 'u') || (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'C' || e.key === 'J'))) {
+    e.preventDefault();
+  }
+});
+</script>
 </head>
 <body>
 
@@ -727,6 +735,12 @@ window.addEventListener('load', () => {
   setTimeout(() => {
     document.getElementById('hero-content')?.classList.add('visible');
   }, 2200); // after wave animation has played
+});
+</script>
+<script>
+document.querySelectorAll('img:not([loading])').forEach(img => {
+  img.loading = 'lazy';
+  img.decoding = 'async';
 });
 </script>
 </body>

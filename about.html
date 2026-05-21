@@ -167,6 +167,14 @@ img { max-width: 100%; height: auto; display: block; }
   .footer-logo { font-size: 18px; }
 }
 </style>
+<script>
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if (e.key === 'F12' || (e.ctrlKey && e.key === 's') || (e.ctrlKey && e.key === 'u') || (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'C' || e.key === 'J'))) {
+    e.preventDefault();
+  }
+});
+</script>
 </head>
 <body>
 
@@ -175,7 +183,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
-  <div class="nav-logo"><img src="img/LOGO1.png" alt="Aliluya"></div>
+  <div class="nav-logo"><img src="img/LOGO1.webp" alt="Aliluya"></div>
   <a href="index.html" class="nav-back">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M19 12H5M12 5l-7 7 7 7"/>
@@ -188,7 +196,7 @@ img { max-width: 100%; height: auto; display: block; }
 <section class="about-section">
   <div class="about-intro">
     <div class="about-intro-img">
-      <img src="img/xx.png" alt="阿莉路亚">
+      <img src="img/xx.webp" alt="阿莉路亚">
     </div>
     <div class="about-intro-text">
       <h2>9年产品全案设计<br>+CG渲染全流程实战经验</h2>
@@ -198,11 +206,11 @@ img { max-width: 100%; height: auto; display: block; }
       <p>从 0 到 1 构建品牌视觉体系，从洞察到落地，用设计连接商业。</p>
       <div class="social-links">
         <div class="social-item">
-          <img src="img/微信截图_20260515160334.png" alt="微信" class="social-qr">
+          <img src="img/微信截图_20260515160334.webp" alt="微信" class="social-qr">
           <span class="social-label">微信</span>
         </div>
         <div class="social-item">
-          <img src="img/微信截图_20260515160400.png" alt="小红书" class="social-qr">
+          <img src="img/微信截图_20260515160400.webp" alt="小红书" class="social-qr">
           <span class="social-label">小红书</span>
         </div>
       </div>
@@ -212,7 +220,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 <!-- Footer -->
 <footer class="footer">
-  <img src="img/LOGO12.png" alt="ALUYA" style="height: 32px; margin: 0 auto 16px;">
+  <img src="img/LOGO12.webp" alt="ALUYA" style="height: 32px; margin: 0 auto 16px;">
   <p class="footer-text">© 2026 阿莉路亚作品集 · 品牌全案设计</p>
   <a href="index.html" class="footer-link">← 返回作品集</a>
 </footer>
@@ -245,6 +253,12 @@ img { max-width: 100%; height: auto; display: block; }
     navbar.classList.toggle('scrolled', window.scrollY > 60);
   });
 })();
+</script>
+<script>
+document.querySelectorAll('img:not([loading])').forEach(img => {
+  img.loading = 'lazy';
+  img.decoding = 'async';
+});
 </script>
 </body>
 </html>
