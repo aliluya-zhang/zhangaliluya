@@ -8,11 +8,11 @@
 <style>
 /* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overscroll-behavior: none; background: #ffffff; user-select: none; -webkit-user-select: none; }
+html { scroll-behavior: smooth; overscroll-behavior: none; background: #e5e7eb; user-select: none; -webkit-user-select: none; }
 img, video { pointer-events: none; -webkit-user-drag: none; user-select: none; -webkit-user-select: none; }
 body {
   min-height: 100vh;
-  background: #ffffff;
+  background: #e5e7eb;
   color: #1a1a1a; font-family: 'Inter', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased; overflow-x: hidden;
 }
@@ -137,7 +137,7 @@ a, button { cursor: pointer; }
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: #2a43ad;
+  background: #e5e7eb;
   z-index: 1;
 }
 /* Video fixed，铺满全屏并始终固定在背景 */
@@ -147,6 +147,8 @@ a, button { cursor: pointer; }
   width: 100vw; height: 100vh;
   object-fit: cover;
   z-index: 1;
+  transform: scale(0.85);
+  transform-origin: center center;
 }
 /* 遮罩也固定，随滚动加深 */
 .hero-overlay {
