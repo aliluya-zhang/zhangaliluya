@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>王者荣耀造物节七周年动态海报</title>
+<title>海报KV — 王者荣耀</title>
 <style>
 /* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -90,6 +90,67 @@ img { max-width: 100%; height: auto; display: block; }
   letter-spacing: 0.05em;
 }
 
+/* ── Project Intro ── */
+.project-intro {
+  background: #111;
+  padding: 40px 48px 0;
+}
+.project-intro-grid {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.project-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+.badge-num {
+  font-size: 64px;
+  font-weight: 700;
+  color: #2a43ad;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.badge-tag {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.06em;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+.project-body {
+  padding-top: 4px;
+}
+.project-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+.project-role {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.04em;
+  margin-bottom: 24px;
+}
+.project-desc p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.9;
+  letter-spacing: 0.03em;
+  margin-bottom: 12px;
+}
+.project-desc p:last-child {
+  margin-bottom: 0;
+}
+
 /* ── Gallery Grid ── */
 .gallery-section {
   padding: 60px 48px 120px;
@@ -153,6 +214,10 @@ img { max-width: 100%; height: auto; display: block; }
   .hero-title { font-size: clamp(24px, 7vw, 40px); }
   .hero-desc { font-size: clamp(13px, 3vw, 15px); }
   .gallery-section { padding: 40px 20px 60px; }
+  .project-intro { padding: 20px 20px 0; }
+  .project-intro-grid { grid-template-columns: 1fr; gap: 24px; }
+  .badge-num { font-size: 48px; }
+  .badge-tag { writing-mode: horizontal-tb; }
   .gallery-grid { grid-template-columns: 1fr; gap: 12px; }
   .gallery-item { margin-bottom: 12px; }
   .gallery-item img { border-radius: 10px; }
@@ -193,23 +258,86 @@ document.addEventListener('keydown', e => {
   <div class="hero-bg"></div>
   <div class="hero-content">
     <div class="hero-label">DYNAMIC POSTER DESIGN</div>
-    <h1 class="hero-title">王者荣耀造物节&七周年动态海报</h1>
-    <p class="hero-desc">项目参与：三维建模搭框架、渲染</p>
+    <h1 class="hero-title">海报KV</h1>
   </div>
 </section>
 
-<!-- Gallery -->
+<!-- Project Intro -->
+<section class="project-intro">
+  <div class="project-intro-grid">
+    <div class="project-badge">
+      <span class="badge-num">01</span>
+      <span class="badge-tag">王者荣耀 × 王者好物</span>
+    </div>
+    <div class="project-body">
+      <h2 class="project-title">[ 王者荣耀造物节七周年KV渲染 ]</h2>
+      <p class="project-role">项目参与：三维建模搭框架、渲染</p>
+      <div class="project-desc">
+        <p>王者荣耀与品牌的合作需要巧妙地体现出三个元素：宠物用品、冰淇淋和密室逃脱。</p>
+        <p>在创作初期，我们设想了小兵驾驶飞船穿越这三个元素的场景，但在不断的沟通和修改中，我们最终选择了将三个元素转化为王者荣耀的logo，呈现在三个圆环中。</p>
+        <p>这三个元素也是生活中常见的物品，寓意着王者荣耀不仅存在于游戏中，更是与我们的日常生活紧密相连，伴随着我们的成长。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery 1 -->
 <section class="gallery-section">
   <div class="gallery-grid">
     <div class="gallery-item"><img src="img/WZRY/01.webp" alt="01"></div>
     <div class="gallery-item"><img src="img/WZRY/02.webp" alt="02"></div>
     <div class="gallery-item"><img src="img/WZRY/03.webp" alt="03"></div>
     <div class="gallery-item">
-      <video src="img/WZRY/04.mp4" autoplay muted loop playsinline style="width:100%;border-radius:12px;"></video>
+      <video src="img/WZRY/04_.mp4" autoplay muted loop playsinline style="width:100%;border-radius:12px;"></video>
     </div>
+</section>
+
+<!-- Project Intro 2 -->
+<section class="project-intro">
+  <div class="project-intro-grid">
+    <div class="project-intro-badge">
+      <div class="badge-num">02</div>
+      <div class="badge-dash"></div>
+      <div class="badge-tag">王者荣耀<br>× 王者好物</div>
+    </div>
+    <div class="project-intro-text">
+      <div class="intro-label">PROJECT</div>
+      <h2 class="intro-title">王者好物KV渲染</h2>
+      <p class="intro-role">项目参与：三维建模搭框架、渲染</p>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery 2 -->
+<section class="gallery-section">
+  <div class="gallery-grid">
     <div class="gallery-item"><img src="img/WZRY/05.webp" alt="05"></div>
     <div class="gallery-item"><img src="img/WZRY/06.webp" alt="06"></div>
     <div class="gallery-item"><img src="img/WZRY/07.webp" alt="07"></div>
+  </div>
+</section>
+
+<!-- Project Intro 3 -->
+<section class="project-intro">
+  <div class="project-intro-grid">
+    <div class="project-intro-badge">
+      <div class="badge-num">03</div>
+      <div class="badge-dash"></div>
+      <div class="badge-tag">腾讯游戏<br>官方赛事</div>
+    </div>
+    <div class="project-intro-text">
+      <div class="intro-label">PROJECT</div>
+      <h2 class="intro-title">腾讯游戏官方赛事服务平台：腾讯游戏人生</h2>
+      <p class="intro-role">项目参与：三维建模搭框架</p>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery 3 -->
+<section class="gallery-section">
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="img/WZRY/07-1.webp" alt="07-1"></div>
+    <div class="gallery-item"><img src="img/WZRY/07-2.webp" alt="07-2"></div>
   </div>
 </section>
 
