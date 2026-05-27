@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>精选项目 — 阿莉路亚</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overscroll-behavior: none; background: #0a0a0a; user-select: none; -webkit-user-select: none; }
+body {
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: #e8e8e8;
+  font-family: 'Inter', 'Helvetica Neue', 'PingFang SC', sans-serif;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; pointer-events: none; -webkit-user-drag: none; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+/* ── Navbar ── */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 48px;
+}
+.nav-logo-img { height: 28px; width: auto; display: block; }
+
+/* Nav Links */
+.nav-links {
+  display: flex; align-items: center; gap: 36px;
+}
+.nav-links > a, .nav-links > div > span {
+  font-size: 13px; letter-spacing: 0.1em; font-weight: 600;
+  color: rgba(255,255,255,0.5); text-transform: uppercase;
+  transition: color 0.2s; cursor: pointer;
+}
+.nav-links > a:hover, .nav-links > div > span:hover { color: #fff; }
+
+/* Nav Dropdown */
+.nav-dropdown { position: relative; }
+.nav-dropdown-panel {
+  position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: #2a43ad; border-radius: 8px;
+  padding: 12px 0; min-width: 260px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  margin-top: 12px;
+}
+.nav-dropdown-panel::before {
+  content: '';
+  position: absolute;
+  top: -12px; left: 0; right: 0;
+  height: 12px;
+}
+.nav-dropdown:hover .nav-dropdown-panel,
+.nav-dropdown:focus-within .nav-dropdown-panel {
+  opacity: 1; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dropdown-item {
+  display: block; padding: 10px 24px;
+  font-size: 14px; color: rgba(255,255,255,0.85);
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.nav-dropdown-item:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+/* Hamburger Button */
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer;
+  padding: 4px; z-index: 101;
+}
+.hamburger span {
+  display: block; width: 24px; height: 2px;
+  background: #fff; transition: 0.3s;
+}
+
+/* Mobile Menu */
+.hamburger-menu {
+  position: fixed; inset: 0; z-index: 99;
+  background: #2a43ad;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center; gap: 28px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.hamburger-menu.open { opacity: 1; pointer-events: auto; }
+.hamburger-menu a {
+  font-size: 24px; font-weight: 700; color: #fff;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .navbar { padding: 20px 24px; }
+}
+
+/* ── Main ── */
+main { padding: 100px 48px 80px; max-width: 1400px; margin: 0 auto; }
+
+/* ── Page Header ── */
+.page-header {
+  margin-bottom: 80px;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  padding-bottom: 40px;
+}
+.page-header .label {
+  font-size: 11px; letter-spacing: 0.2em; font-weight: 700;
+  color: rgba(255,255,255,0.35); text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.page-header h1 {
+  font-size: clamp(40px, 6vw, 80px); font-weight: 900;
+  letter-spacing: -0.04em; color: #fff; line-height: 0.95;
+}
+.page-header .subtitle {
+  font-size: 15px; color: rgba(255,255,255,0.5);
+  margin-top: 20px; max-width: 500px; line-height: 1.7;
+}
+
+/* ── Project Box ── */
+.project-box {
+  border: 1px solid rgba(255,255,255,0.12);
+  margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  min-height: 520px;
+}
+@media (max-width: 900px) {
+  .project-box { grid-template-columns: 1fr; }
+}
+
+/* ── Project Info (Left) ── */
+.project-info {
+  border-right: 1px solid rgba(255,255,255,0.12);
+  padding: 48px;
+  display: flex; flex-direction: column;
+}
+@media (max-width: 900px) {
+  .project-info { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.12); }
+}
+
+.project-num {
+  font-size: 13px; font-weight: 400; font-style: italic;
+  color: rgba(255,255,255,0.3); margin-bottom: 32px;
+}
+
+.project-tag {
+  font-size: 10px; letter-spacing: 0.25em; font-weight: 700;
+  color: rgba(255,255,255,0.4); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.project-title {
+  font-size: clamp(24px, 3vw, 36px); font-weight: 900;
+  letter-spacing: -0.02em; color: #fff; line-height: 1.1;
+  margin-bottom: 28px;
+}
+
+.project-role {
+  font-size: 13px; letter-spacing: 0.05em; font-weight: 600;
+  color: rgba(255,255,255,0.6); text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.project-role-list {
+  list-style: none; padding: 0;
+  font-size: 14px; color: rgba(255,255,255,0.45);
+  line-height: 1.9; margin-bottom: 32px;
+}
+
+.project-desc {
+  font-size: 14px; color: rgba(255,255,255,0.45);
+  line-height: 1.8; margin-bottom: 32px;
+  flex-grow: 1;
+}
+
+.project-meta {
+  display: flex; justify-content: space-between;
+  font-size: 11px; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.25); text-transform: uppercase;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 20px; margin-top: auto;
+}
+
+/* ── Project Visuals (Right) ── */
+.project-visuals {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+}
+@media (max-width: 900px) {
+  .project-visuals { padding: 24px; }
+}
+
+.project-visuals .img-main {
+  border-radius: 8px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.project-visuals .img-sub {
+  border-radius: 8px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.project-visuals-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  flex-direction: row !important;
+}
+.project-visuals img,
+.project-visuals video {
+  width: 100%; height: auto; display: block;
+}
+
+/* ── Footer ── */
+.footer {
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding: 32px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.25); text-transform: uppercase;
+  max-width: 1400px; margin: 0 auto;
+}
+@media (max-width: 768px) {
+  main { padding: 100px 24px 60px; }
+  .navbar { padding: 16px 24px; }
+  .footer { padding: 24px; flex-direction: column; gap: 8px; }
+  .project-box { margin-bottom: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <a href="index.html"><img src="img/LOGO1.webp" alt="Aliluya" class="nav-logo-img" decoding="async"></a>
+  <div class="nav-links">
+    <div class="nav-dropdown">
+      <span>Portfolio Selection</span>
+      <div class="nav-dropdown-panel">
+        <a class="nav-dropdown-item" href="nenovia.html">NenoVia 产品全案设计</a>
+        <a class="nav-dropdown-item" href="odi.html">ODI美容仪器产品全案设计</a>
+        <a class="nav-dropdown-item" href="wzmj.html">王者荣耀造物节七周年动态海报</a>
+        <a class="nav-dropdown-item" href="lilwave.html">IP设计 Lil Wave</a>
+        <a class="nav-dropdown-item" href="featured.html">精选项目</a>
+      </div>
+    </div>
+    <a href="about.html">About</a>
+  </div>
+  <button class="hamburger" id="hamburger-btn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="hamburger-menu" id="hamburger-menu">
+  <a href="nenovia.html">NenoVia 产品全案设计</a>
+  <a href="odi.html">ODI美容仪器产品全案设计</a>
+  <a href="wzmj.html">王者荣耀造物节七周年动态海报</a>
+  <a href="lilwave.html">IP设计 Lil Wave</a>
+  <a href="featured.html">精选项目</a>
+  <a href="about.html">About</a>
+</div>
+
+<main>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <p class="label">Featured Projects / 精选项目</p>
+    <h1>精选项目</h1>
+    <p class="subtitle">专注于以下高精度执行环节，以专业能力参与协作：</p>
+  </header>
+
+  <!-- 01 Champion 新年海报 -->
+  <div class="project-box">
+    <div class="project-info">
+      <div class="project-num">/01</div>
+      <p class="project-tag">KV · 3D Rendering</p>
+      <h2 class="project-title">Champion<br>新年海报</h2>
+      <p class="project-desc">参与新年主题场景的三维构建与渲染，涵盖模型整合、灯光系统、材质调校及输出。交付高精度场景，为最终画面提供专业视觉支持。</p>
+    </div>
+    <div class="project-visuals">
+      <div class="img-sub">
+        <img src="img/05/3 (2).webp" alt="Champion 腰包系列" loading="lazy" decoding="async">
+      </div>
+      <div class="img-sub">
+        <img src="img/05/3 (1).webp" alt="Champion 帽饰系列" loading="lazy" decoding="async">
+      </div>
+      <div class="img-sub">
+        <img src="img/05/3 (5).webp" alt="Champion 运动鞋" loading="lazy" decoding="async">
+      </div>
+      <div class="img-sub">
+        <img src="img/05/微信截图_20260527091807.webp" alt="Champion 新年海报项目brief" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 耳机渲染 -->
+  <div class="project-box">
+    <div class="project-info">
+      <div class="project-num">/02</div>
+      <p class="project-tag">Product Rendering · CG</p>
+      <h2 class="project-title">耳机渲染<br>产品静帧渲染</h2>
+      <p class="project-desc">独立完成材质定义、灯光搭建及渲染输出，确保产品质感精准呈现。</p>
+    </div>
+    <div class="project-visuals">
+      <div class="img-sub">
+        <img src="img/05/01-(1)_01.webp" alt="耳机静帧渲染 01" loading="lazy" decoding="async">
+      </div>
+      <div class="img-sub">
+        <img src="img/05/01-(1)_02.webp" alt="耳机静帧渲染 02" loading="lazy" decoding="async">
+      </div>
+      <div class="img-sub">
+        <img src="img/05/01-(2)_01.webp" alt="耳机静帧渲染 03" loading="lazy" decoding="async">
+      </div>
+      <div class="img-sub">
+        <img src="img/05/01-(2)_03.webp" alt="耳机静帧渲染 04" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 美容仪器圣诞海报 -->
+  <div class="project-box">
+    <div class="project-info">
+      <div class="project-num">/03</div>
+      <p class="project-tag">KV · 3D Rendering · Christmas</p>
+      <h2 class="project-title">美容仪器<br>圣诞海报</h2>
+      <p class="project-desc">负责构图、三维建模搭框架、渲染。海报的背景是一个浪漫的城市雪景，雪花飘落在橱窗前，橱窗里摆放着产品礼盒等，让人们感受到节日的喜悦和温馨。</p>
+    </div>
+    <div class="project-visuals project-visuals-grid">
+      <div class="img-sub">
+        <img src="img/05/图层-1.webp" alt="美容仪器圣诞海报 成品" loading="lazy" decoding="async">
+      </div>
+      <div class="img-sub">
+        <img src="img/05/08_04_03.webp" alt="美容仪器圣诞海报 白模" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 合创汽车春日海报 -->
+  <div class="project-box">
+    <div class="project-info">
+      <div class="project-num">/04</div>
+      <p class="project-tag">KV · 3D Rendering · Spring</p>
+      <h2 class="project-title">合创汽车<br>春日海报</h2>
+      <p class="project-desc">负责三维建模搭框架、渲染。将合创汽车、公路等元素融入海报中，突出春天的气息，延伸公路景色等来展示汽车春游的主题和魅力。</p>
+    </div>
+    <div class="project-visuals project-visuals-grid">
+      <div class="img-sub">
+        <img src="img/05/09_03.webp" alt="合创汽车春日海报 成品" loading="lazy" decoding="async">
+      </div>
+      <div class="img-sub">
+        <img src="img/05/09_06.webp" alt="合创汽车春日海报 白模" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div>© 2026 阿莉路亚. All rights reserved.</div>
+  <div>精选项目 · Featured Projects</div>
+</footer>
+
+<script>
+// Hamburger menu toggle
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const hamburgerMenu = document.getElementById('hamburger-menu');
+
+hamburgerBtn.addEventListener('click', () => {
+  hamburgerMenu.classList.toggle('open');
+  const spans = hamburgerBtn.querySelectorAll('span');
+  if (hamburgerMenu.classList.contains('open')) {
+    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+  } else {
+    spans[0].style.transform = 'none';
+    spans[1].style.opacity = '1';
+    spans[2].style.transform = 'none';
+  }
+});
+
+// Close menu when clicking a link
+hamburgerMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburgerMenu.classList.remove('open');
+    const spans = hamburgerBtn.querySelectorAll('span');
+    spans[0].style.transform = 'none';
+    spans[1].style.opacity = '1';
+    spans[2].style.transform = 'none';
+  });
+});
+</script>
+
+</body>
+</html>

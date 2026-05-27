@@ -381,6 +381,105 @@ a, button { cursor: pointer; }
   margin: 0;
 }
 
+/* ── Project List (portfolio style) ── */
+.gallery-section {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.project-item {
+  display: grid;
+  grid-template-columns: 80px 1fr 280px;
+  gap: 40px;
+  align-items: center;
+  padding: 50px 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.project-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .project-item {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    direction: ltr !important;
+    padding: 32px 24px;
+  }
+}
+.project-visual {
+  position: relative;
+  border-radius: 200px;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  background: #d4d6d9;
+}
+.project-visual img,
+.project-visual video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.project-visual:hover img,
+.project-visual:hover video {
+  transform: scale(1.04);
+}
+.project-visual a {
+  display: block;
+  width: 100%; height: 100%;
+}
+.project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.project-num-col {
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255,255,255,0.4);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  align-self: start;
+  padding-top: 8px;
+}
+.project-tag {
+  font-size: 11px; letter-spacing: 0.2em; font-weight: 700;
+  color: rgba(255,255,255,0.7); text-transform: uppercase;
+}
+.project-title {
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+.project-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.7);
+  max-width: 420px;
+}
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-transform: uppercase;
+  border-bottom: 2px solid rgba(255,255,255,0.5);
+  padding-bottom: 2px;
+  width: fit-content;
+  transition: opacity 0.2s;
+}
+.project-link:hover { opacity: 0.6; }
+.project-link::after { content: '→'; font-size: 16px; }
+
 /* ── Footer ── */
 .footer {
   padding: 48px;
@@ -457,8 +556,8 @@ document.addEventListener('keydown', e => {
 
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
-  <img src="img/LOGO1.webp" alt="Aliluya" class="nav-logo-img">
-  <div class="nav-links">
+  <img src="img/LOGO1.webp" alt="Aliluya" class="nav-logo-img" decoding="async">
+    <div class="nav-links">
     <div class="nav-dropdown">
       <span>Portfolio Selection</span>
       <div class="nav-dropdown-panel">
@@ -466,6 +565,7 @@ document.addEventListener('keydown', e => {
         <a class="nav-dropdown-item" href="odi.html">ODI美容仪器产品全案设计</a>
         <a class="nav-dropdown-item" href="wzmj.html">王者荣耀造物节七周年动态海报</a>
         <a class="nav-dropdown-item" href="lilwave.html">IP设计 Lil Wave</a>
+        <a class="nav-dropdown-item" href="featured.html">精选项目</a>
       </div>
     </div>
     <a href="about.html">About</a>
@@ -483,6 +583,7 @@ document.addEventListener('keydown', e => {
   <a href="odi.html">ODI美容仪器产品全案设计</a>
   <a href="wzmj.html">王者荣耀造物节七周年动态海报</a>
   <a href="lilwave.html">IP设计 Lil Wave</a>
+  <a href="featured.html">精选项目</a>
   <a href="about.html">About</a>
 </div>
 
@@ -516,7 +617,7 @@ document.addEventListener('keydown', e => {
       <p class="desc">Portfolio Selection<br>产品全案设计<br>线上线下物料</p>
     </div>
     <div class="manifesto-logo">
-      <img src="img/LOGO12.webp" alt="ALI LUYA">
+      <img src="img/LOGO12.webp" alt="ALI LUYA" decoding="async">
     </div>
     <div class="manifesto-col right">
       <p class="label">DESIGNER</p>
@@ -533,57 +634,99 @@ document.addEventListener('keydown', e => {
   </div>
 </section>
 
-<!-- [3] Gallery Section -->
+<!-- [3] Project List Section -->
 <section class="gallery-section reveal" id="gallery">
-  <!-- 第1行 -->
-  <div class="gallery-row">
-    <div class="gallery-card">
-      <a href="nenovia.html" style="display:block;">
-        <img src="img/XNJSE.webp" alt="NenoVia 产品">
-        <div class="overlay">
-          <h3>NenoVia 产品全案设计</h3>
-        </div>
+
+  <!-- 01 NenoVia -->
+  <div class="project-item">
+    <div class="project-num-col">/01</div>
+    <div class="project-visual">
+      <a href="nenovia.html">
+        <img src="img/XNJSE.webp" alt="NenoVia 产品全案设计" loading="lazy" decoding="async">
       </a>
     </div>
-    <div class="gallery-card">
-      <a href="odi.html" style="display:block;">
-        <img src="img/3.webp" alt="ODI美容仪器">
-        <div class="overlay">
-          <h3>ODI美容仪器产品全案设计</h3>
-        </div>
-      </a>
+    <div class="project-info">
+      <p class="project-tag">Brand · Product Design</p>
+      <h2 class="project-title">NenoVia<br>产品全案设计</h2>
+      <p class="project-desc">面向海外25-40岁女性市场，从0到1搭建NenoVia美容仪器品牌视觉体系，涵盖品牌策略、视觉语言、产品包装及全渠道物料设计。</p>
+      <a href="nenovia.html" class="project-link">查看项目</a>
     </div>
   </div>
 
-  <!-- 第2行 -->
-  <div class="gallery-row">
-    <div class="gallery-card">
-      <a href="wzmj.html" style="display:block;">
+  <!-- 02 ODI -->
+  <div class="project-item">
+    <div class="project-num-col">/02</div>
+    <div class="project-visual">
+      <a href="odi.html">
+        <img src="img/3.webp" alt="ODI 美容仪器产品全案设计" loading="lazy" decoding="async">
+      </a>
+    </div>
+    <div class="project-info">
+      <p class="project-tag">Product Design · CG</p>
+      <h2 class="project-title">ODI<br>美容仪器产品全案设计</h2>
+      <p class="project-desc">产品全案设计与CG渲染全流程实战，涵盖工业造型、材质表现与视觉呈现，打造高端美容仪器的整体品牌形象。</p>
+      <a href="odi.html" class="project-link">查看项目</a>
+    </div>
+  </div>
+
+  <!-- 03 王者荣耀 -->
+  <div class="project-item">
+    <div class="project-num-col">/03</div>
+    <div class="project-visual">
+      <a href="wzmj.html">
         <video autoplay muted loop playsinline>
           <source src="img/04_.mp4" type="video/mp4">
         </video>
-        <div class="overlay">
-          <h3>王者荣耀造物节七周年动态海报</h3>
-        </div>
       </a>
     </div>
-    <div class="gallery-card">
-      <a href="lilwave.html" style="display:block;">
+    <div class="project-info">
+      <p class="project-tag">KV · 3D Rendering</p>
+      <h2 class="project-title">王者荣耀<br>海报KV</h2>
+      <p class="project-desc">参与《王者荣耀》官方造物节七周年海报创作，负责三维建模框架搭建与渲染，将游戏IP与品牌合作元素融合，创作充满视觉张力的KV画面。</p>
+      <a href="wzmj.html" class="project-link">查看项目</a>
+    </div>
+  </div>
+
+  <!-- 04 Lil Wave -->
+  <div class="project-item">
+    <div class="project-num-col">/04</div>
+    <div class="project-visual">
+      <a href="lilwave.html">
         <video autoplay muted loop playsinline>
           <source src="img/video3_.mp4" type="video/mp4">
         </video>
-        <div class="overlay">
-          <h3>自创IP Lil Wave</h3>
-        </div>
       </a>
     </div>
+    <div class="project-info">
+      <p class="project-tag">IP Design · Illustration</p>
+      <h2 class="project-title">Lil Wave<br>自创IP设计</h2>
+      <p class="project-desc">自创IP Lil Wave，获上实城开（0363.HK）一年独家授权。从角色造型、世界观设定到IP周边开发，构建完整的原创IP视觉体系。</p>
+      <a href="lilwave.html" class="project-link">查看项目</a>
+    </div>
   </div>
+
+  <!-- 05 精选项目 -->
+  <div class="project-item">
+    <div class="project-num-col">/05</div>
+    <div class="project-visual">
+      <a href="featured.html">
+        <img src="img/05/3 (4).webp" alt="精选项目" loading="lazy" decoding="async">
+      </a>
+    </div>
+    <div class="project-info">
+      <p class="project-tag">Featured Projects</p>
+      <h2 class="project-title">精选项目</h2>
+      <p class="project-desc">更多精选设计作品持续更新中，涵盖品牌全案、产品视觉、IP设计等多个领域的深度项目展示。</p>
+      <a href="featured.html" class="project-link">查看项目</a>
+    </div>
+  </div>
+
 </section>
 
 <!-- Footer -->
 <footer class="footer">
   <div>© 2026 阿莉路亚. All rights reserved.</div>
-  <div><img src="img/LOGO12.webp" alt="ALUYA" style="height:24px;width:auto;"></div>
+  <div><img src="img/LOGO12.webp" alt="ALUYA" style="height:24px;width:auto;" decoding="async"></div>
   <div>Built with Next.js · Three.js · Framer Motion</div>
 </footer>
 
@@ -662,9 +805,9 @@ window.addEventListener('scroll', () => {
   items.forEach(el => observer.observe(el));
 })();
 
-// Gallery cards scroll reveal
+// Project items scroll reveal
 (function initGalleryReveal() {
-  const cards = document.querySelectorAll('.gallery-card');
+  const cards = document.querySelectorAll('.project-item');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
