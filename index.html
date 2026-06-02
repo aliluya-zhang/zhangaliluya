@@ -96,11 +96,7 @@ a, button { cursor: pointer; }
   .manifesto-bottom { margin-top: 48px; }
 
   /* Gallery */
-  .gallery-section { padding: 40px 16px 80px; }
-  .gallery-row { flex-direction: column; gap: 20px; }
-  .gallery-card { width: 100%; max-width: 550px; height: 230px; }
-  .gallery-card img,
-  .gallery-card video { width: 100%; height: 230px; }
+  /* gallery handled by main media query below */
   .gallery-row + .gallery-row { margin-top: 20px; }
 
   /* Footer */
@@ -218,6 +214,151 @@ a, button { cursor: pointer; }
   text-align: center;
 }
 
+/* ── Career Journey Section ── */
+.career-section {
+  position: relative;
+  z-index: 5;
+  padding: 100px 48px 80px;
+  overflow: hidden;
+}
+.career-deco {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(36px, 5vw, 80px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: rgba(255,255,255,0.06);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+.career-title {
+  font-size: clamp(24px, 4vw, 44px);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 60px;
+  text-align: center;
+  padding-left: 0;
+  letter-spacing: 0.08em;
+}
+.career-grid {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.career-card {
+  flex: 1;
+  min-width: 300px;
+  max-width: 420px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease;
+}
+.career-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  background: rgba(255,255,255,0.12);
+}
+.career-card-img-wrap {
+  position: relative;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.04);
+  padding: 20px 16px;
+  overflow: visible;
+}
+.career-img-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.career-img-stack img {
+  position: absolute;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease;
+  will-change: transform;
+  max-height: 200px;
+  max-width: 170px;
+  height: auto;
+}
+/* Left card */
+.career-img-stack img:nth-child(1) {
+  z-index: 1;
+  transform: translateX(-38%) rotate(-7deg);
+  opacity: 0.88;
+}
+/* Center card (front) */
+.career-img-stack img:nth-child(2) {
+  z-index: 3;
+  max-height: 230px;
+  max-width: 200px;
+  transform: translateX(0) scale(1);
+}
+/* Right card */
+.career-img-stack img:nth-child(3) {
+  z-index: 2;
+  transform: translateX(32%) rotate(6deg);
+  opacity: 0.88;
+}
+/* Hover: fan out more dramatically */
+.career-card:hover .career-img-stack img:nth-child(1) {
+  transform: translateX(-50%) rotate(-10deg);
+  opacity: 1;
+}
+.career-card:hover .career-img-stack img:nth-child(2) {
+  transform: scale(1.05) translateY(-6px);
+}
+.career-card:hover .career-img-stack img:nth-child(3) {
+  transform: translateX(44%) rotate(9deg);
+  opacity: 1;
+}
+.career-card-body {
+  position: relative;
+  z-index: 10;
+  margin-top: -90px;
+  padding: 28px 22px 30px;
+  background: #1a1a1c;
+  border-radius: 0 0 20px 20px;
+}
+.career-card-head {
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+.career-card-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+.career-card-keywords {
+  font-size: 11.5px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+
 /* ── Manifesto Section ── */
 .manifesto-section {
   position: relative;
@@ -324,173 +465,122 @@ a, button { cursor: pointer; }
   opacity: 0.4;
 }
 
-/* ── Gallery Section ── */
+/* ── [3] Project Grid — 2 columns, 16px gap ── */
 .gallery-section {
   position: relative;
   z-index: 5;
-  padding: 60px 48px 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: transparent;
+  padding: 16px 48px;
 }
-.gallery-row {
-  display: flex;
-  gap: 32px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.gallery-row + .gallery-row {
-  margin-top: 32px;
-}
-.gallery-card {
-  width: 550px;
-  height: 310px;
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
-}
-.gallery-card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.gallery-card img,
-.gallery-card video {
-  width: 550px;
-  height: 310px;
-  object-fit: cover;
-  display: block;
-  border-radius: 16px;
-}
-.gallery-card .overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.gallery-card:hover .overlay {
-  opacity: 1;
-}
-.gallery-card .overlay h3 {
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin: 0;
-}
-
-/* ── Project List (portfolio style) ── */
-.gallery-section {
-  max-width: 1100px;
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  max-width: 1300px;
   margin: 0 auto;
 }
-.project-item {
-  display: grid;
-  grid-template-columns: 80px 1fr 280px;
-  gap: 40px;
-  align-items: center;
-  padding: 50px 0;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
-}
-.project-item.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 
-@media (max-width: 768px) {
-  .project-item {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    direction: ltr !important;
-    padding: 32px 24px;
-  }
-}
-.project-visual {
+/* Each card */
+.proj-slide {
   position: relative;
-  border-radius: 200px;
+  display: block;
+  aspect-ratio: 4/3;
   overflow: hidden;
-  aspect-ratio: 16/9;
-  background: #d4d6d9;
+  border-radius: 14px;
+  text-decoration: none;
 }
-.project-visual img,
-.project-visual video {
+/* Background image/video */
+.proj-slide > img,
+.proj-slide > video {
+  position: absolute;
+  top: 0; left: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  display: block;
   transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
 }
-.project-visual:hover img,
-.project-visual:hover video {
-  transform: scale(1.04);
+.proj-slide:hover > img,
+.proj-slide:hover > video {
+  transform: scale(1.05);
 }
-.project-visual a {
-  display: block;
-  width: 100%; height: 100%;
+/* Bottom gradient overlay */
+.proj-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, rgba(0,0,0,0.55) 75%, rgba(0,0,0,0.85) 100%);
+  pointer-events: none;
+  z-index: 2;
 }
-.project-info {
+/* Text content — bottom-aligned */
+.proj-content {
+  position: absolute;
+  z-index: 3;
+  left: 24px; right: 24px; bottom: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 8px;
 }
-.project-num-col {
-  font-size: 18px;
-  font-weight: 400;
-  font-style: italic;
-  color: rgba(255,255,255,0.4);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  align-self: start;
-  padding-top: 8px;
+/* Small label */
+.proj-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
 }
-.project-tag {
-  font-size: 11px; letter-spacing: 0.2em; font-weight: 700;
-  color: rgba(255,255,255,0.7); text-transform: uppercase;
-}
-.project-title {
-  font-size: clamp(22px, 2.5vw, 32px);
+/* Title */
+.proj-title {
+  font-size: clamp(18px, 2vw, 26px);
   font-weight: 900;
   line-height: 1.2;
   letter-spacing: -0.01em;
   color: #ffffff;
+  margin: 0;
 }
-.project-desc {
+/* Description */
+.proj-desc {
   font-size: 15px;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.7);
-  max-width: 420px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.68);
+  max-width: 520px;
+  margin: 0;
 }
-.project-link {
+/* CTA button */
+.proj-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 800;
+  letter-spacing: 0.06em;
   color: #ffffff;
-  text-transform: uppercase;
-  border-bottom: 2px solid rgba(255,255,255,0.5);
-  padding-bottom: 2px;
+  border-bottom: 2px solid rgba(255,255,255,0.6);
+  padding-bottom: 3px;
   width: fit-content;
-  transition: opacity 0.2s;
+  transition: all 0.25s ease;
+  margin-top: 4px;
 }
-.project-link:hover { opacity: 0.6; }
-.project-link::after { content: '→'; font-size: 16px; }
+.proj-slide:hover .proj-btn {
+  color: #fff;
+  border-color: #fff;
+  transform: translateX(6px);
+}
 
+@media (max-width: 1024px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .gallery-section { padding: 12px 16px; }
+  .gallery-grid { grid-template-columns: 1fr; gap: 14px; }
+  .proj-content { left: 18px; right: 18px; bottom: 16px; gap: 6px; }
+  .proj-title { font-size: clamp(18px, 6vw, 24px); }
+  .proj-desc { font-size: 13px; max-height: 3.2em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+  .proj-btn { font-size: 11px; }
+}
+
+/* ── Footer ── */
 /* ── Footer ── */
 .footer {
   padding: 48px;
-  background: transparent;
+  background: #0a0a0a;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -528,14 +618,6 @@ a, button { cursor: pointer; }
   .manifesto-col { min-width: auto; }
   .manifesto-top { display: none; }
   .manifesto-bottom { margin-top: 48px; gap: 12px; }
-
-  /* Gallery */
-  .gallery-section { padding: 40px 16px 80px; }
-  .gallery-row { flex-direction: column; gap: 20px; align-items: center; }
-  .gallery-card { width: 100%; max-width: 550px; height: 230px; }
-  .gallery-card img,
-  .gallery-card video { width: 100%; height: 230px; }
-  .gallery-row + .gallery-row { margin-top: 20px; }
 
   /* Footer */
   .footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
@@ -607,6 +689,61 @@ document.addEventListener('keydown', e => {
   </div>
 </section>
 
+<!-- [1.5] Career Journey Section -->
+<section class="career-section reveal" id="career">
+  <div class="career-deco">CAREER PATH</div>
+  <h2 class="career-title">职业路径</h2>
+  <div class="career-grid">
+    <!-- Card I -->
+    <div class="career-card">
+      <div class="career-card-img-wrap">
+        <div class="career-img-stack">
+          <img src="img/INDEX/-1 (2).png" alt="">
+          <img src="img/INDEX/-1 (1).png" alt="">
+          <img src="img/INDEX/-1 (3).png" alt="">
+        </div>
+      </div>
+      <div class="career-card-body">
+        <div class="career-card-head">I 初创加入，获技术股(2015-2021)</div>
+        <div class="career-card-sub">设计经理|产品开发全案&amp;品牌视觉负责品牌视觉全链路(配色/包装/线上/展会)，参与开发5款美容仪，含华熙生物旗下美容仪产品，爆品年销量600万+。管理4人团队，从0到1搭建品牌视觉体系，获技术股。</div>
+        <div class="career-card-keywords">关键词:全链路视觉/0-1搭建/美容仪器/团队管理/技术股</div>
+      </div>
+    </div>
+
+    <!-- Card II -->
+    <div class="career-card">
+      <div class="career-card-img-wrap">
+        <div class="career-img-stack">
+          <img src="img/INDEX/06.jpg" alt="">
+          <img src="img/INDEX/-1 (1).jpg" alt="">
+          <img src="img/INDEX/-1 (4).jpg" alt="">
+        </div>
+      </div>
+      <div class="career-card-body">
+        <div class="career-card-head">II 大型美容仪器品牌视觉升级（2021）</div>
+        <div class="career-card-sub">资深视觉设计 | 渲染 & 品牌规范<br>专注美容仪器CG渲染、电商详情页、展会视觉及品牌标识系统。输出渲染图200+张，素材库效率提升50%。主导黑橙配色展位与产品，成展会差异化亮点。改版阿里国际站详情页，平均停留时长10秒→1分钟+。完成VI规范，客户认知从"代工厂"转为"技术伙伴"。建立品牌资产库（VI/图标/渲染模板/PPT），统一全触点。</div>
+        <div class="career-card-keywords">关键词：CG渲染 / 展会差异化 / 详情页优化 / 品牌规范 / 资产库</div>
+      </div>
+    </div>
+
+    <!-- Card III -->
+    <div class="career-card">
+      <div class="career-card-img-wrap">
+        <div class="career-img-stack">
+          <img src="img/INDEX/-1 (2).webp" alt="">
+          <img src="img/INDEX/-1 (3).jpg" alt="">
+          <img src="img/INDEX/-1 (2).jpg" alt="">
+        </div>
+      </div>
+      <div class="career-card-body">
+        <div class="career-card-head">III 自由职业设计（2022-2026）</div>
+        <div class="career-card-sub">视觉设计师｜KV / IP / 电商渲染 / 动态视频 / 亚马逊A+ / 跨境电商详情页<br>服务《王者荣耀》、美容仪器、箱包、家用小电器等。2021年参加白无常C4D线下培训，在150+名设计师中，个人渲染、带组团队渲染、毕业设计均进入前10名。自创IP获上市公司一年期独家版权签约，具备内容创作与商业转化的双重能力。跨类目适应能力强，能快速切入不同赛道并输出专业视觉。</div>
+        <div class="career-card-keywords">关键词：IP商业化 / 跨类目适应 / 电商渲染 / 动态视频 / 亚马逊A+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- [2] Manifesto Section -->
 <section class="manifesto-section reveal" id="manifesto">
   <div class="manifesto-top">
@@ -641,96 +778,75 @@ document.addEventListener('keydown', e => {
   </div>
 </section>
 
-<!-- [3] Project List Section -->
+<!-- [3] Project Grid — 2 columns -->
 <section class="gallery-section reveal" id="gallery">
+  <div class="gallery-grid">
 
   <!-- 01 NenoVia -->
-  <div class="project-item">
-    <div class="project-num-col">/01</div>
-    <div class="project-visual">
-      <a href="nenovia.html">
-        <img src="img/XNJSE.webp" alt="NenoVia 产品全案设计" loading="lazy" decoding="async">
-      </a>
+  <a href="nenovia.html" class="proj-slide">
+    <img src="img/XNJSE.webp" alt="NenoVia" loading="lazy" decoding="async">
+    <div class="proj-overlay"></div>
+    <div class="proj-content">
+      <span class="proj-label">BRAND · PRODUCT DESIGN</span>
+      <h2 class="proj-title">NenoVia<br>产品全案设计</h2>
+      <p class="proj-desc">面向海外25-40岁女性市场，从0到1搭建NenoVia美容仪器品牌视觉体系，涵盖品牌策略、视觉语言、产品包装及全渠道物料设计。</p>
+      <span class="proj-btn">查看项目 →</span>
     </div>
-    <div class="project-info">
-      <p class="project-tag">Brand · Product Design</p>
-      <h2 class="project-title">NenoVia<br>产品全案设计</h2>
-      <p class="project-desc">面向海外25-40岁女性市场，从0到1搭建NenoVia美容仪器品牌视觉体系，涵盖品牌策略、视觉语言、产品包装及全渠道物料设计。</p>
-      <a href="nenovia.html" class="project-link">查看项目</a>
-    </div>
-  </div>
+  </a>
 
   <!-- 02 ODI -->
-  <div class="project-item">
-    <div class="project-num-col">/02</div>
-    <div class="project-visual">
-      <a href="odi.html">
-        <img src="img/3.webp" alt="ODI 美容仪器产品全案设计" loading="lazy" decoding="async">
-      </a>
+  <a href="odi.html" class="proj-slide">
+    <img src="img/3.webp" alt="ODI" loading="lazy" decoding="async">
+    <div class="proj-overlay"></div>
+    <div class="proj-content">
+      <span class="proj-label">PRODUCT DESIGN · CG</span>
+      <h2 class="proj-title">ODI<br>美容仪器产品全案设计</h2>
+      <p class="proj-desc">产品全案设计与CG渲染全流程实战，涵盖工业造型、材质表现与视觉呈现，打造高端美容仪器的整体品牌形象。</p>
+      <span class="proj-btn">查看项目 →</span>
     </div>
-    <div class="project-info">
-      <p class="project-tag">Product Design · CG</p>
-      <h2 class="project-title">ODI<br>美容仪器产品全案设计</h2>
-      <p class="project-desc">产品全案设计与CG渲染全流程实战，涵盖工业造型、材质表现与视觉呈现，打造高端美容仪器的整体品牌形象。</p>
-      <a href="odi.html" class="project-link">查看项目</a>
-    </div>
-  </div>
+  </a>
 
   <!-- 03 王者荣耀 -->
-  <div class="project-item">
-    <div class="project-num-col">/03</div>
-    <div class="project-visual">
-      <a href="wzmj.html">
-        <video autoplay muted loop playsinline>
-          <source src="img/04_.mp4" type="video/mp4">
-        </video>
-      </a>
+  <a href="wzmj.html" class="proj-slide">
+    <video autoplay muted loop playsinline loading="lazy"><source src="img/04_.mp4" type="video/mp4"></video>
+    <div class="proj-overlay"></div>
+    <div class="proj-content">
+      <span class="proj-label">KV · 3D RENDERING</span>
+      <h2 class="proj-title">王者荣耀<br>海报KV</h2>
+      <p class="proj-desc">参与《王者荣耀》官方造物节七周年海报创作，负责三维建模框架搭建与渲染，将游戏IP与品牌合作元素融合。</p>
+      <span class="proj-btn">查看项目 →</span>
     </div>
-    <div class="project-info">
-      <p class="project-tag">KV · 3D Rendering</p>
-      <h2 class="project-title">王者荣耀<br>海报KV</h2>
-      <p class="project-desc">参与《王者荣耀》官方造物节七周年海报创作，负责三维建模框架搭建与渲染，将游戏IP与品牌合作元素融合，创作充满视觉张力的KV画面。</p>
-      <a href="wzmj.html" class="project-link">查看项目</a>
-    </div>
-  </div>
+  </a>
 
   <!-- 04 Lil Wave -->
-  <div class="project-item">
-    <div class="project-num-col">/04</div>
-    <div class="project-visual">
-      <a href="lilwave.html">
-        <video autoplay muted loop playsinline>
-          <source src="img/video3_.mp4" type="video/mp4">
-        </video>
-      </a>
+  <a href="lilwave.html" class="proj-slide">
+    <video autoplay muted loop playsinline loading="lazy"><source src="img/video3_.mp4" type="video/mp4"></video>
+    <div class="proj-overlay"></div>
+    <div class="proj-content">
+      <span class="proj-label">IP DESIGN · ILLUSTRATION</span>
+      <h2 class="proj-title">Lil Wave<br>自创IP设计</h2>
+      <p class="proj-desc">自创IP Lil Wave，获上实城开（0363.HK）一年独家授权。从角色造型、世界观设定到IP周边开发，构建完整的原创IP视觉体系。</p>
+      <span class="proj-btn">查看项目 →</span>
     </div>
-    <div class="project-info">
-      <p class="project-tag">IP Design · Illustration</p>
-      <h2 class="project-title">Lil Wave<br>自创IP设计</h2>
-      <p class="project-desc">自创IP Lil Wave，获上实城开（0363.HK）一年独家授权。从角色造型、世界观设定到IP周边开发，构建完整的原创IP视觉体系。</p>
-      <a href="lilwave.html" class="project-link">查看项目</a>
-    </div>
-  </div>
+  </a>
 
   <!-- 05 精选项目 -->
-  <div class="project-item">
-    <div class="project-num-col">/05</div>
-    <div class="project-visual">
-      <a href="featured.html">
-        <img src="img/05/3 (4).webp" alt="精选项目" loading="lazy" decoding="async">
-      </a>
+  <a href="featured.html" class="proj-slide">
+    <img src="img/05/3 (4).webp" alt="精选项目" loading="lazy" decoding="async">
+    <div class="proj-overlay"></div>
+    <div class="proj-content">
+      <span class="proj-label">FEATURED PROJECTS</span>
+      <h2 class="proj-title">精选项目</h2>
+      <p class="proj-desc">亚马逊A+设计、KV主视觉、电商渲染——涵盖跨境电商与品牌视觉的多领域项目实践，持续更新中。</p>
+      <span class="proj-btn">查看项目 →</span>
     </div>
-    <div class="project-info">
-      <p class="project-tag">Featured Projects</p>
-      <h2 class="project-title">精选项目</h2>
-      <p class="project-desc">更多精选设计作品持续更新中，涵盖品牌全案、产品视觉、IP设计等多个领域的深度项目展示。</p>
-      <a href="featured.html" class="project-link">查看项目</a>
-    </div>
-  </div>
+  </a>
 
+  </div><!-- /.gallery-grid -->
 </section>
 
 <!-- Footer -->
+
 <footer class="footer">
   <div>© 2026 阿莉路亚. All rights reserved.</div>
   <div><img src="img/LOGO12.webp" alt="ALUYA" style="height:24px;width:auto;" decoding="async"></div>
@@ -812,9 +928,9 @@ window.addEventListener('scroll', () => {
   items.forEach(el => observer.observe(el));
 })();
 
-// Project items scroll reveal
+// Project tiles scroll reveal
 (function initGalleryReveal() {
-  const cards = document.querySelectorAll('.project-item');
+  const cards = document.querySelectorAll('.proj-slide');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
@@ -824,6 +940,7 @@ window.addEventListener('scroll', () => {
   }, { threshold: 0.15 });
   cards.forEach(card => observer.observe(card));
 })();
+
 </script>
 <script>
 // 图片懒加载：除 Logo 外全部延迟加载
