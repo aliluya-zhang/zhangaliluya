@@ -4,7 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>阿莉路亚 — 个人作品集</title>
-<script src="https://cdn.jsdelivr.net/npm/framer-motion@11.15.0/dist/framer-motion.js"></script>
+<!-- 预加载首屏关键资源 -->
+<link rel="preload" href="img/LOGO1.webp" as="image" type="image/webp">
+<link rel="preload" href="img/XNJSE.webp" as="image" type="image/webp">
+<script src="https://cdn.jsdelivr.net/npm/framer-motion@11.15.0/dist/framer-motion.js" defer></script>
 <style>
 /* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -287,7 +290,8 @@ a, button { cursor: pointer; }
   justify-content: center;
   gap: 10px;
 }
-.career-img-stack img {
+.career-img-stack img,
+.career-img-stack picture img {
   position: absolute;
   border-radius: 20px;
   object-fit: cover;
@@ -297,6 +301,10 @@ a, button { cursor: pointer; }
   max-height: 200px;
   max-width: 170px;
   height: auto;
+}
+.career-img-stack picture {
+  position: absolute;
+  display: contents;
 }
 /* Left card */
 .career-img-stack img:nth-child(1) {
@@ -645,12 +653,12 @@ document.addEventListener('keydown', e => {
 
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
-  <img src="img/LOGO1.webp" alt="Aliluya" class="nav-logo-img" decoding="async">
+  <img src="img/LOGO1.webp" alt="Aliluya" class="nav-logo-img" decoding="sync" fetchpriority="high">
     <div class="nav-links">
     <div class="nav-dropdown">
       <span>Portfolio Selection</span>
       <div class="nav-dropdown-panel">
-        <a class="nav-dropdown-item" href="nenovia.html">NenoVia 产品全案设计</a>
+        <a class="nav-dropdown-item" href="1/nenovia.html">NenoVia 产品全案设计</a>
         <a class="nav-dropdown-item" href="odi.html">ODI美容仪器产品全案设计</a>
         <a class="nav-dropdown-item" href="wzmj.html">王者荣耀造物节七周年动态海报</a>
         <a class="nav-dropdown-item" href="lilwave.html">IP设计 Lil Wave</a>
@@ -668,7 +676,7 @@ document.addEventListener('keydown', e => {
 <div class="menu-overlay" id="menu-overlay"></div>
 <div class="menu-panel" id="menu-panel">
   <button class="menu-close" id="menu-close">✕</button>
-  <a href="nenovia.html">NenoVia 产品全案设计</a>
+  <a href="1/nenovia.html">NenoVia 产品全案设计</a>
   <a href="odi.html">ODI美容仪器产品全案设计</a>
   <a href="wzmj.html">王者荣耀造物节七周年动态海报</a>
   <a href="lilwave.html">IP设计 Lil Wave</a>
@@ -678,7 +686,7 @@ document.addEventListener('keydown', e => {
 
 <!-- [1] Hero Section -->
 <section class="hero" id="hero">
-  <video id="hero-video" autoplay muted playsinline>
+  <video id="hero-video" autoplay muted playsinline preload="metadata">
     <source src="img/hero.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay" id="hero-overlay"></div>
@@ -698,9 +706,9 @@ document.addEventListener('keydown', e => {
     <div class="career-card">
       <div class="career-card-img-wrap">
         <div class="career-img-stack">
-          <img src="img/INDEX/-1 (2).png" alt="">
-          <img src="img/INDEX/-1 (1).png" alt="">
-          <img src="img/INDEX/-1 (3).png" alt="">
+          <img src="img/INDEX/-1 (2).png" alt="" loading="lazy" decoding="async" width="170" height="200">
+          <img src="img/INDEX/-1 (1).png" alt="" loading="lazy" decoding="async" width="200" height="230">
+          <img src="img/INDEX/-1 (3).png" alt="" loading="lazy" decoding="async" width="170" height="200">
         </div>
       </div>
       <div class="career-card-body">
@@ -714,9 +722,9 @@ document.addEventListener('keydown', e => {
     <div class="career-card">
       <div class="career-card-img-wrap">
         <div class="career-img-stack">
-          <img src="img/INDEX/06.jpg" alt="">
-          <img src="img/INDEX/-1 (1).jpg" alt="">
-          <img src="img/INDEX/-1 (4).jpg" alt="">
+          <img src="img/INDEX/06.jpg" alt="" loading="lazy" decoding="async" width="170" height="200">
+          <img src="img/INDEX/-1 (1).jpg" alt="" loading="lazy" decoding="async" width="200" height="230">
+          <img src="img/INDEX/-1 (4).jpg" alt="" loading="lazy" decoding="async" width="170" height="200">
         </div>
       </div>
       <div class="career-card-body">
@@ -730,9 +738,12 @@ document.addEventListener('keydown', e => {
     <div class="career-card">
       <div class="career-card-img-wrap">
         <div class="career-img-stack">
-          <img src="img/INDEX/-1 (2).webp" alt="">
-          <img src="img/INDEX/-1 (3).jpg" alt="">
-          <img src="img/INDEX/-1 (2).jpg" alt="">
+          <picture>
+            <source srcset="img/INDEX/-1 (2).webp" type="image/webp">
+            <img src="img/INDEX/-1 (2).jpg" alt="" loading="lazy" decoding="async" width="170" height="200">
+          </picture>
+          <img src="img/INDEX/-1 (3).jpg" alt="" loading="lazy" decoding="async" width="200" height="230">
+          <img src="img/INDEX/-1 (2).jpg" alt="" loading="lazy" decoding="async" width="170" height="200">
         </div>
       </div>
       <div class="career-card-body">
@@ -761,7 +772,7 @@ document.addEventListener('keydown', e => {
       <p class="desc">Portfolio Selection<br>产品全案设计<br>线上线下物料</p>
     </div>
     <div class="manifesto-logo">
-      <img src="img/LOGO12.webp" alt="ALI LUYA" decoding="async">
+      <img src="img/LOGO12.webp" alt="ALI LUYA" decoding="async" width="80" height="80" loading="lazy">
     </div>
     <div class="manifesto-col right">
       <p class="label">DESIGNER</p>
@@ -783,8 +794,8 @@ document.addEventListener('keydown', e => {
   <div class="gallery-grid">
 
   <!-- 01 NenoVia -->
-  <a href="nenovia.html" class="proj-slide">
-    <img src="img/XNJSE.webp" alt="NenoVia" loading="lazy" decoding="async">
+  <a href="1/nenovia.html" class="proj-slide">
+    <img src="img/XNJSE.webp" alt="NenoVia" loading="lazy" decoding="async" fetchpriority="high">
     <div class="proj-overlay"></div>
     <div class="proj-content">
       <span class="proj-label">BRAND · PRODUCT DESIGN</span>
@@ -849,7 +860,7 @@ document.addEventListener('keydown', e => {
 
 <footer class="footer">
   <div>© 2026 阿莉路亚. All rights reserved.</div>
-  <div><img src="img/LOGO12.webp" alt="ALUYA" style="height:24px;width:auto;" decoding="async"></div>
+  <div><img src="img/LOGO12.webp" alt="ALUYA" style="height:24px;width:auto;" decoding="async" loading="lazy" width="80" height="24"></div>
   <div>Built with Next.js · Three.js · Framer Motion</div>
 </footer>
 
