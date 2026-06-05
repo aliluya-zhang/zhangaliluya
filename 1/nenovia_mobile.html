@@ -455,11 +455,83 @@
       color: #666;
       text-shadow: none;
     }
+    /* 升级前后总结 */
+    .section-summary {
+      background: #fff;
+      padding: 48px 20px 56px;
+    }
+    .section-summary .sec-en {
+      font-family: "Times New Roman", "Georgia", serif;
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: #333;
+      font-style: italic;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .section-summary .sec-cn {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: #222;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .summary-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .summary-card {
+      background: #fafafa;
+      border-radius: 10px;
+      padding: 16px 18px;
+      border-left: 3px solid #555;
+    }
+    .summary-card:nth-child(even) {
+      border-left-color: #888;
+    }
+    .summary-dim {
+      font-size: 13px;
+      font-weight: 600;
+      color: #222;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .summary-compare {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .summary-compare-line {
+      font-size: 12px;
+      line-height: 1.7;
+      letter-spacing: 0.5px;
+    }
+    .summary-compare-line .label {
+      font-size: 11px;
+      color: #aaa;
+      margin-right: 6px;
+    }
+    .summary-compare-line.before .label {
+      color: #aaa;
+    }
+    .summary-compare-line.before .text {
+      color: #999;
+      text-decoration: line-through;
+    }
+    .summary-compare-line.after .label {
+      color: #555;
+    }
+    .summary-compare-line.after .text {
+      color: #222;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
   <div class="page">
-    <img src="../img/sjd/mobile_reference_01.jpg" alt="" loading="eager">
+    <img src="../img/sjd/mobile_reference_01.jpg" alt="" fetchpriority="high" decoding="sync" loading="eager">
     <!-- 第二屏：品牌升级 文字版 -->
     <div class="section-brand-intro">
       <div class="brand-top-label">
@@ -480,9 +552,9 @@
         <p>品牌调性，专业而不冰冷，科技而有温度</p>
       </div>
     </div>
-    <img src="../img/sjd/mobile_reference_03.jpg" alt="" loading="lazy">
-    <img src="../img/sjd/mobile_reference_04.jpg" alt="" loading="lazy">
-    <img src="../img/sjd/mobile_reference_05.jpg" alt="" loading="lazy">
+    <img src="../img/sjd/mobile_reference_03.jpg" alt="" loading="lazy" decoding="async">
+    <img src="../img/sjd/mobile_reference_04.jpg" alt="" loading="lazy" decoding="async">
+    <img src="../img/sjd/mobile_reference_05.jpg" alt="" loading="lazy" decoding="async">
     <video src="../img/kuanp.mp4" autoplay muted loop playsinline width="100%" style="display:block;margin-bottom:-1px;" loading="lazy"></video>
     <!-- 核心问题分析 文字版 -->
     <div class="section-problem">
@@ -510,7 +582,7 @@
 
 
 
-    <img src="../img/sjd/mobile_reference_12.jpg" alt="" loading="lazy">
+    <img src="../img/sjd/mobile_reference_12.jpg" alt="" loading="lazy" decoding="async">
     <!-- 产品颜色重塑 文字版 -->
     <div class="section-color-redesign">
       <p class="sec-en">Product Color Redesign</p>
@@ -518,9 +590,9 @@
       <div class="cr-desc">从冷硬黑灰到温暖粉调<br>建立统一、可识别的品牌色系</div>
 
     </div>
-    <img src="../img/sjd/mobile_reference_15.jpg" alt="" loading="lazy">
-    <img src="../img/sjd/mobile_reference_16.jpg" alt="" loading="lazy">
-    <img src="../img/sjd/mobile_reference_17.jpg" alt="" loading="lazy">
+    <img src="../img/sjd/mobile_reference_15.jpg" alt="" loading="lazy" decoding="async">
+    <img src="../img/sjd/mobile_reference_16.jpg" alt="" loading="lazy" decoding="async">
+    <img src="../img/sjd/mobile_reference_17.jpg" alt="" loading="lazy" decoding="async">
     <!-- 品牌虚拟模特 文字版 -->
     <div class="section-model">
       <p class="sec-en">Product Matrix</p>
@@ -528,35 +600,71 @@
       <p class="model-name">Via</p>
       <p class="model-desc">NenoVia 品牌形象大使<br>温婉、专业、值得信赖的虚拟形象<br>代表品牌的精神内核——<br>「科技与美的融合」</p>
     </div>
+    <img src="../img/sjd/mobile_reference_24.jpg" alt="" loading="lazy" decoding="async">
+    <img src="../img/sjd/mobile_reference_26.jpg" alt="" loading="lazy" decoding="async">
     <!-- 品牌版式 文字版 -->
     <div class="section-format">
       <p class="sec-en">Brand Format</p>
       <p class="sec-cn">品牌版式</p>
-      <div class="format-rules">
-        <div class="format-rule">
-          <span class="format-dot"></span>
-          <p class="format-text"><strong>比例系统</strong> — 采用黄金比例分割，确保视觉节奏感</p>
+      <img src="../img/sjd/mobile_reference_28.jpg" alt="" loading="lazy" decoding="async">
+    </div>
+    <img src="../img/sjd/mobile_reference_29.jpg" alt="" loading="lazy" decoding="async">
+    <!-- 升级前后总结 -->
+    <div class="section-summary">
+      <p class="sec-en">Before &amp; After</p>
+      <p class="sec-cn">升级前后总结</p>
+      <div class="summary-cards">
+        <div class="summary-card">
+          <p class="summary-dim">目标客群</p>
+          <div class="summary-compare">
+            <p class="summary-compare-line before"><span class="label">升级前</span><span class="text">模糊 / 偏男性化</span></p>
+            <p class="summary-compare-line after"><span class="label">升级后</span><span class="text">25-40岁欧美女性</span></p>
+          </div>
         </div>
-        <div class="format-rule">
-          <span class="format-dot"></span>
-          <p class="format-text"><strong>字体层级</strong> — 标题与正文清晰区分，中英文协调搭配</p>
+        <div class="summary-card">
+          <p class="summary-dim">品牌主张</p>
+          <div class="summary-compare">
+            <p class="summary-compare-line before"><span class="label">升级前</span><span class="text">未明确</span></p>
+            <p class="summary-compare-line after"><span class="label">升级后</span><span class="text">专业而不冰冷，科技而有温度</span></p>
+          </div>
         </div>
-        <div class="format-rule">
-          <span class="format-dot"></span>
-          <p class="format-text"><strong>留白原则</strong> — 充裕留白营造呼吸感，避免信息拥挤</p>
+        <div class="summary-card">
+          <p class="summary-dim">配色</p>
+          <div class="summary-compare">
+            <p class="summary-compare-line before"><span class="label">升级前</span><span class="text">黑色70% + 银色30%</span></p>
+            <p class="summary-compare-line after"><span class="label">升级后</span><span class="text">暗调玫瑰金70% + 裸色20% + 暖白10%</span></p>
+          </div>
         </div>
-        <div class="format-rule">
-          <span class="format-dot"></span>
-          <p class="format-text"><strong>色彩克制</strong> — 主色调主导，点缀色提亮，不喧宾夺主</p>
+        <div class="summary-card">
+          <p class="summary-dim">产品外观</p>
+          <div class="summary-compare">
+            <p class="summary-compare-line before"><span class="label">升级前</span><span class="text">黑银磨砂，指纹明显</span></p>
+            <p class="summary-compare-line after"><span class="label">升级后</span><span class="text">暗调玫瑰金细磨砂 + 抗指纹涂层</span></p>
+          </div>
         </div>
-      </div>
-      <div class="format-showcase">
-        <div class="format-showcase-item">海报<br>Poster</div>
-        <div class="format-showcase-item">包装<br>Package</div>
-        <div class="format-showcase-item">卡片<br>Card</div>
+        <div class="summary-card">
+          <p class="summary-dim">充电方式</p>
+          <div class="summary-compare">
+            <p class="summary-compare-line before"><span class="label">升级前</span><span class="text">有线充电，易忘充</span></p>
+            <p class="summary-compare-line after"><span class="label">升级后</span><span class="text">磁吸底座，随放随充，无电池焦虑</span></p>
+          </div>
+        </div>
+        <div class="summary-card">
+          <p class="summary-dim">营销内容</p>
+          <div class="summary-compare">
+            <p class="summary-compare-line before"><span class="label">升级前</span><span class="text">产品参数堆砌</span></p>
+            <p class="summary-compare-line after"><span class="label">升级后</span><span class="text">系列海外海报 + 虚拟角色 Via</span></p>
+          </div>
+        </div>
+        <div class="summary-card">
+          <p class="summary-dim">耗材</p>
+          <div class="summary-compare">
+            <p class="summary-compare-line before"><span class="label">升级前</span><span class="text">—</span></p>
+            <p class="summary-compare-line after"><span class="label">升级后</span><span class="text">一次性无菌针头 + 可替换精华</span></p>
+          </div>
+        </div>
       </div>
     </div>
-    <img src="../img/sjd/mobile_reference_29.jpg" alt="" loading="lazy">
   </div>
 </body>
 </html>
