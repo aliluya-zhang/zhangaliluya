@@ -84,6 +84,67 @@
       margin-top: 28px;
       letter-spacing: 1px;
     }
+    /* 核心问题分析 */
+    .section-problem {
+      background: #fff;
+      padding: 44px 20px 52px;
+    }
+    .problem-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .problem-en {
+      font-family: "Times New Roman", "Georgia", serif;
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: #333;
+      font-style: italic;
+    }
+    .problem-cn {
+      font-size: 12px;
+      color: #999;
+      letter-spacing: 3px;
+      margin-top: 6px;
+    }
+    .problem-2col {
+      display: flex;
+      gap: 12px;
+    }
+    .problem-col {
+      flex: 1;
+    }
+    .problem-col-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+      padding-left: 4px;
+    }
+    .problem-col--left .problem-col-label {
+      color: #c88b9a;
+    }
+    .problem-col--right .problem-col-label {
+      color: #8aa89a;
+    }
+    .problem-pill {
+      display: inline-block;
+      width: 100%;
+      font-size: 11px;
+      line-height: 1.5;
+      padding: 10px 12px;
+      border-radius: 22px;
+      margin-bottom: 10px;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+    .problem-col--left .problem-pill {
+      background: #faf2f4;
+      color: #9a5f6e;
+    }
+    .problem-col--right .problem-pill {
+      background: #f2f4f1;
+      color: #5a7a64;
+    }
   </style>
 </head>
 <body>
@@ -113,7 +174,29 @@
     <img src="../img/sjd/mobile_reference_04.jpg" alt="" loading="lazy">
     <img src="../img/sjd/mobile_reference_05.jpg" alt="" loading="lazy">
     <video src="../img/kuanp.mp4" autoplay muted loop playsinline width="100%" style="display:block;margin-bottom:-1px;" loading="lazy"></video>
-    <img src="../img/sjd/mobile_reference_06.jpg" alt="" loading="lazy">
+    <!-- 核心问题分析 文字版 -->
+    <div class="section-problem">
+      <div class="problem-header">
+        <p class="problem-en">Current Issue</p>
+        <p class="problem-cn">核心问题分析</p>
+      </div>
+      <div class="problem-2col">
+        <div class="problem-col problem-col--left">
+          <p class="problem-col-label">当前问题</p>
+          <div class="problem-pill">视觉过冷，缺乏品牌感</div>
+          <div class="problem-pill">物料与材质混乱</div>
+          <div class="problem-pill">物料与包装材质粗糙</div>
+          <div class="problem-pill">零售露出无辨识度</div>
+        </div>
+        <div class="problem-col problem-col--right">
+          <p class="problem-col-label">设计策略</p>
+          <div class="problem-pill">从冷到暖 · 感官温和</div>
+          <div class="problem-pill">系统化 · 统一配色与符号</div>
+          <div class="problem-pill">质感升级 · 柔和包裹感</div>
+          <div class="problem-pill">品牌穿透 · 专业而温和</div>
+        </div>
+      </div>
+    </div>
     <img src="../img/sjd/mobile_reference_07.jpg" alt="" loading="lazy">
     <img src="../img/sjd/mobile_reference_08.jpg" alt="" loading="lazy">
     <img src="../img/sjd/mobile_reference_09.jpg" alt="" loading="lazy">
