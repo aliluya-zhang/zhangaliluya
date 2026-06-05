@@ -414,6 +414,47 @@
       color: #777;
       letter-spacing: 1px;
     }
+    /* 产品颜色重塑 */
+    .section-color-redesign {
+      background: #fff;
+      padding: 48px 24px 56px;
+      text-align: center;
+    }
+    .cr-desc {
+      font-size: 12px;
+      line-height: 1.9;
+      color: #888;
+      margin: 12px 0 32px;
+      letter-spacing: 1px;
+    }
+    .cr-palette {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .cr-swatch {
+      width: 90px;
+      height: 90px;
+      border-radius: 12px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .cr-swatch span {
+      font-size: 10px;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    .cr-swatch[style*="#f5e6d3"] span,
+    .cr-swatch[style*="#faf2f4"] span,
+    .cr-swatch[style*="#F5E6D3"] span,
+    .cr-swatch[style*="#FAF2F4"] span {
+      color: #666;
+      text-shadow: none;
+    }
   </style>
 </head>
 <body>
@@ -470,7 +511,21 @@
 
 
     <img src="../img/sjd/mobile_reference_12.jpg" alt="" loading="lazy">
-    <img src="../img/sjd/mobile_reference_13.jpg" alt="" loading="lazy">
+    <!-- 产品颜色重塑 文字版 -->
+    <div class="section-color-redesign">
+      <p class="sec-en">Product Color Redesign</p>
+      <p class="sec-cn">产品颜色重塑</p>
+      <div class="cr-desc">从冷硬黑灰到温暖粉调<br>建立统一、可识别的品牌色系</div>
+      <div class="cr-palette">
+        <div class="cr-swatch" style="background:#222222;"><span>深邃黑</span></div>
+        <div class="cr-swatch" style="background:#C88B9A;"><span>玫瑰粉</span></div>
+        <div class="cr-swatch" style="background:#E8C8B4;"><span>暖杏</span></div>
+        <div class="cr-swatch" style="background:#F5E6D3;"><span>奶油白</span></div>
+        <div class="cr-swatch" style="background:#D4A5A5;"><span>干枯玫瑰</span></div>
+        <div class="cr-swatch" style="background:#FAF2F4;"><span>浅粉底</span></div>
+      </div>
+    </div>
+    <img src="../img/sjd/mobile_reference_14.jpg" alt="" loading="lazy">
     <img src="../img/sjd/mobile_reference_14.jpg" alt="" loading="lazy">
     <img src="../img/sjd/mobile_reference_15.jpg" alt="" loading="lazy">
     <img src="../img/sjd/mobile_reference_16.jpg" alt="" loading="lazy">
