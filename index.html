@@ -686,7 +686,7 @@ document.addEventListener('keydown', e => {
 
 <!-- [1] Hero Section -->
 <section class="hero" id="hero">
-  <video id="hero-video" autoplay muted playsinline preload="metadata" poster="img/hero_poster.webp">
+  <video id="hero-video" autoplay muted playsinline preload="auto" loop>
     <source src="img/hero.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay" id="hero-overlay"></div>
@@ -896,16 +896,10 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
 
-// Hero video auto-play + replay after 4s when ended
+// Hero video auto-play (loop 由 video 标签属性控制)
 window.addEventListener('load', () => {
   const video = document.getElementById('hero-video');
   if (!video) return;
-
-  // When video ends, wait 4s then replay
-  video.addEventListener('ended', () => {
-    setTimeout(() => video.play(), 4000);
-  });
-
   video.play().catch(() => {
     const playVideo = () => { video.play(); document.removeEventListener('click', playVideo); };
     document.addEventListener('click', playVideo, { once: true });
