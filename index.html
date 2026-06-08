@@ -7,7 +7,7 @@
 <!-- 预加载首屏关键资源 -->
 <link rel="preload" href="img/LOGO1.webp" as="image" type="image/webp">
 <link rel="preload" href="img/XNJSE.webp" as="image" type="image/webp">
-<script src="https://cdn.jsdelivr.net/npm/framer-motion@11.15.0/dist/framer-motion.js" defer></script>
+<!-- 未使用的 framer-motion 已移除，节省约230KB -->
 <style>
 /* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -653,7 +653,7 @@ document.addEventListener('keydown', e => {
 
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
-  <img src="img/LOGO1.webp" alt="Aliluya" class="nav-logo-img" decoding="sync" fetchpriority="high">
+  <img src="img/LOGO1.webp" alt="Aliluya" class="nav-logo-img" decoding="sync" fetchpriority="high" width="112" height="28">
     <div class="nav-links">
     <div class="nav-dropdown">
       <span>Portfolio Selection</span>
@@ -686,7 +686,7 @@ document.addEventListener('keydown', e => {
 
 <!-- [1] Hero Section -->
 <section class="hero" id="hero">
-  <video id="hero-video" autoplay muted playsinline preload="metadata">
+  <video id="hero-video" autoplay muted playsinline preload="metadata" poster="img/hero_poster.webp">
     <source src="img/hero.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay" id="hero-overlay"></div>
@@ -706,9 +706,9 @@ document.addEventListener('keydown', e => {
     <div class="career-card">
       <div class="career-card-img-wrap">
         <div class="career-img-stack">
-          <img src="img/INDEX/-1 (2).png" alt="" loading="lazy" decoding="async" width="170" height="200">
-          <img src="img/INDEX/-1 (1).png" alt="" loading="lazy" decoding="async" width="200" height="230">
-          <img src="img/INDEX/-1 (3).png" alt="" loading="lazy" decoding="async" width="170" height="200">
+          <img src="img/INDEX/-1 (2).webp" alt="" loading="lazy" decoding="async" width="170" height="200">
+          <img src="img/INDEX/-1 (1).webp" alt="" loading="lazy" decoding="async" width="200" height="230">
+          <img src="img/INDEX/-1 (3).webp" alt="" loading="lazy" decoding="async" width="170" height="200">
         </div>
       </div>
       <div class="career-card-body">
@@ -742,8 +742,11 @@ document.addEventListener('keydown', e => {
             <source srcset="img/INDEX/-1 (2).webp" type="image/webp">
             <img src="img/INDEX/-1 (2).jpg" alt="" loading="lazy" decoding="async" width="170" height="200">
           </picture>
-          <img src="img/INDEX/-1 (3).jpg" alt="" loading="lazy" decoding="async" width="200" height="230">
-          <img src="img/INDEX/-1 (2).jpg" alt="" loading="lazy" decoding="async" width="170" height="200">
+          <img src="img/INDEX/-1 (3)_.webp" alt="" loading="lazy" decoding="async" width="200" height="230">
+          <picture>
+            <source srcset="img/INDEX/-1 (2).webp" type="image/webp">
+            <img src="img/INDEX/-1 (2).jpg" alt="" loading="lazy" decoding="async" width="170" height="200">
+          </picture>
         </div>
       </div>
       <div class="career-card-body">
@@ -795,7 +798,7 @@ document.addEventListener('keydown', e => {
 
   <!-- 01 NenoVia -->
   <a href="1/nenovia.html" class="proj-slide">
-    <img src="img/XNJSE.webp" alt="NenoVia" loading="lazy" decoding="async" fetchpriority="high">
+    <img src="img/XNJSE.webp" alt="NenoVia" loading="lazy" decoding="async" fetchpriority="high" width="800" height="600">
     <div class="proj-overlay"></div>
     <div class="proj-content">
       <span class="proj-label">BRAND · PRODUCT DESIGN</span>
@@ -807,7 +810,7 @@ document.addEventListener('keydown', e => {
 
   <!-- 02 ODI -->
   <a href="odi.html" class="proj-slide">
-    <img src="img/3.webp" alt="ODI" loading="lazy" decoding="async">
+    <img src="img/3.webp" alt="ODI" loading="lazy" decoding="async" width="800" height="600">
     <div class="proj-overlay"></div>
     <div class="proj-content">
       <span class="proj-label">PRODUCT DESIGN · CG</span>
@@ -831,7 +834,7 @@ document.addEventListener('keydown', e => {
 
   <!-- 04 Lil Wave -->
   <a href="lilwave.html" class="proj-slide">
-    <video autoplay muted loop playsinline loading="lazy"><source src="img/video3_.mp4" type="video/mp4"></video>
+    <video autoplay muted loop playsinline loading="lazy"><source src="img/video3_compressed.mp4" type="video/mp4"></video>
     <div class="proj-overlay"></div>
     <div class="proj-content">
       <span class="proj-label">IP DESIGN · ILLUSTRATION</span>
@@ -843,7 +846,7 @@ document.addEventListener('keydown', e => {
 
   <!-- 05 精选项目 -->
   <a href="featured.html" class="proj-slide">
-    <img src="img/05/3 (4).webp" alt="精选项目" loading="lazy" decoding="async">
+    <img src="img/05/3 (4).webp" alt="精选项目" loading="lazy" decoding="async" width="800" height="600">
     <div class="proj-overlay"></div>
     <div class="proj-content">
       <span class="proj-label">FEATURED PROJECTS</span>
