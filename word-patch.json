@@ -1,0 +1,170 @@
+{
+  "patches": [
+    {
+      "table": 0,
+      "row": 0,
+      "type": "2col",
+      "current": "📁 HTML 文件路径",
+      "new": "C:\\Users\\lili\\Desktop\\hewasborn-static.html"
+    },
+    {
+      "table": 0,
+      "row": 1,
+      "type": "2col",
+      "current": "🎬 背景视频路径",
+      "new": "C:\\Users\\lili\\Desktop\\豆包.mp4"
+    },
+    {
+      "table": 0,
+      "row": 2,
+      "type": "2col",
+      "current": "🖼️ 瀑布流图片目录",
+      "new": "C:\\Users\\lili\\WorkBuddy\\20260509080323\\img\\  （含 1.jpg ~ 6.jpg）"
+    },
+    {
+      "table": 0,
+      "row": 3,
+      "type": "2col",
+      "current": "📝 本文档路径",
+      "new": "C:\\Users\\lili\\Desktop\\aliluya-content-edit.docx"
+    },
+    {
+      "table": 13,
+      "row": 1,
+      "col": 2,
+      "type": "4col",
+      "new": "NenoVia 产品全案设计"
+    },
+    {
+      "table": 13,
+      "row": 1,
+      "col": 3,
+      "type": "4col",
+      "new": "从用户调研到产品定义，主导品牌视觉重塑，并落地包装、物料及社媒宣发。"
+    },
+    {
+      "table": 13,
+      "row": 2,
+      "col": 2,
+      "type": "4col",
+      "new": "ODI美容仪器产品全案设计"
+    },
+    {
+      "table": 13,
+      "row": 2,
+      "col": 3,
+      "type": "4col",
+      "new": "从用户调研到产品定义，主导品牌视觉重塑，并落地包装、物料及社媒宣发。"
+    },
+    {
+      "table": 13,
+      "row": 3,
+      "col": 2,
+      "type": "4col",
+      "new": "王者荣耀造物节七周年动态海报"
+    },
+    {
+      "table": 13,
+      "row": 3,
+      "col": 3,
+      "type": "4col",
+      "new": "参与构图以及渲染环节"
+    },
+    {
+      "table": 13,
+      "row": 4,
+      "col": 2,
+      "type": "4col",
+      "new": "王者好物周年官方海报"
+    },
+    {
+      "table": 13,
+      "row": 4,
+      "col": 3,
+      "type": "4col",
+      "new": "参与构图以及渲染环节"
+    },
+    {
+      "table": 13,
+      "row": 5,
+      "col": 2,
+      "type": "4col",
+      "new": "自创IP Lil Wave"
+    },
+    {
+      "table": 13,
+      "row": 5,
+      "col": 3,
+      "type": "4col",
+      "new": "项目发布后获得上实城开 [股票代码：0363.HK] 关注，目前已签署授权协议，计划将IP形象转化为公共艺术雕塑装置，落地于上海临港新区103地块项目中。"
+    }
+  ],
+  "applied": [
+    {
+      "MISS": "2col",
+      "cur": "📁 HTML 文件路径",
+      "new": "C:\\Users\\lili\\Desktop\\hewasborn-static.h"
+    },
+    {
+      "...": "skip-exists",
+      "new": "C:\\Users\\lili\\Desktop\\豆包.mp4"
+    },
+    {
+      "MISS": "2col",
+      "cur": "🖼️ 瀑布流图片目录",
+      "new": "C:\\Users\\lili\\WorkBuddy\\20260509080323\\i"
+    },
+    {
+      "MISS": "2col",
+      "cur": "📝 本文档路径",
+      "new": "C:\\Users\\lili\\Desktop\\aliluya-content-ed"
+    },
+    {
+      "...": "skip-exists",
+      "new": "NenoVia 产品全案设计"
+    },
+    {
+      "...": "skip-exists",
+      "new": "从用户调研到产品定义，主导品牌视觉重塑，并落地包装、物料及社媒宣发。"
+    },
+    {
+      "4col": 2,
+      "col": 2,
+      "new": "ODI美容仪器产品全案设计"
+    },
+    {
+      "...": "skip-exists",
+      "new": "从用户调研到产品定义，主导品牌视觉重塑，并落地包装、物料及社媒宣发。"
+    },
+    {
+      "4col": 3,
+      "col": 2,
+      "new": "王者荣耀造物节七周年动态海报"
+    },
+    {
+      "4col": 3,
+      "col": 3,
+      "new": "参与构图以及渲染环节"
+    },
+    {
+      "4col": 4,
+      "col": 2,
+      "new": "王者好物周年官方海报"
+    },
+    {
+      "4col": 4,
+      "col": 3,
+      "new": "参与构图以及渲染环节"
+    },
+    {
+      "4col": 5,
+      "col": 2,
+      "new": "自创IP Lil Wave"
+    },
+    {
+      "4col": 5,
+      "col": 3,
+      "new": "项目发布后获得上实城开 [股票代码：0363.HK] 关注，目前已签署授权协议，"
+    }
+  ]
+}

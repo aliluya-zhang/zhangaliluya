@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NenoVia</title>
+  <script>
+    if (window.innerWidth <= 768) {
+      window.location.replace("../nenovia_mobile.html");
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="nenovia.css?v=20260604v9">
+  <style>
+    /* ── 全局 ── */
+    body {
+      margin: 0;
+      background: #fff;
+    }
+
+    /* ══════════════════════════════════════
+       全局交互效果
+       ══════════════════════════════════════ */
+
+    /* 所有图片：悬停微亮（不缩放，避免底部溢出） */
+    img {
+      transition: filter 0.45s cubic-bezier(.25,.8,.25,1);
+    }
+    img:hover {
+      filter: brightness(1.04);
+    }
+
+    /* 带圆角的图片容器 - 防止缩放溢出 */
+    .img-hover-wrap {
+      overflow: hidden;
+      border-radius: inherit;
+    }
+    .img-hover-wrap img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .img-hover-wrap img:hover {
+      transform: scale(1.06);
+    }
+
+    /* Hero 遮罩层：悬停加深 */
+    .hero-overlay {
+      transition: background 0.5s ease;
+    }
+    .hero-wrap:hover .hero-overlay {
+      background: rgba(0,0,0,0.48) !important;
+    }
+
+    /* Hero 文字：悬停微上移 */
+    .hero-text {
+      transition: transform 0.45s cubic-bezier(.25,.8,.25,1),
+                  opacity 0.45s ease;
+    }
+    .hero-wrap:hover .hero-text {
+      transform: translateY(-6px);
+    }
+
+    /* 通用卡片/区块：悬停浮起 */
+    [class*="autoWrapper"]:hover,
+    [class*="rectangle"]:hover,
+    [class*="group"]:hover {
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    /* 表格行：悬停高亮 */
+    table tr:hover td {
+      background: #faf5f0 !important;
+      transition: background 0.3s ease;
+    }
+
+    /* 所有文字链接 / 按钮：悬停过渡 */
+    a, button, [class*="btn"], [class*="button"] {
+      transition: all 0.3s ease;
+    }
+
+    /* 导航栏：悬停效果 */
+    .navbar a {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 2px;
+      background: currentColor;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .navbar a:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* 视频：悬停播放时轻微放大 */
+    video {
+      transition: transform 0.45s cubic-bezier(.25,.8,.25,1),
+                  box-shadow 0.45s ease;
+    }
+    video:hover {
+      transform: scale(1.015);
+    }
+
+
+    /* ── 导航栏（浅色背景用深色文字） ── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 48px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .nav-logo-img { height: 24px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a {
+      color: #333; text-decoration: none; font-size: 12px; letter-spacing: 0.08em;
+      font-weight: 600; padding: 8px 16px; border-radius: 6px;
+      background: transparent; transition: all 0.2s;
+    }
+    .nav-links a:hover { background: #f0f0f0; color: #2c46ab; }
+    .nav-back {
+      color: #2c46ab; text-decoration: none; font-size: 12px;
+      font-weight: 600; letter-spacing: 0.06em;
+      padding: 8px 16px; border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .nav-back:hover { background: rgba(44,70,171,0.08); }
+
+    /* 下拉菜单 */
+    .nav-dropdown { position: relative; display: flex; align-items: center; gap: 4px; }
+    .nav-dropdown > span {
+      color: #333; font-size: 12px; letter-spacing: 0.08em;
+      font-weight: 600; padding: 8px 16px; border-radius: 6px;
+      cursor: pointer; user-select: none;
+      transition: background 0.2s;
+    }
+    .nav-dropdown > span:hover { background: #f0f0f0; }
+    .nav-dropdown-panel {
+      position: absolute; top: calc(100% + 4px); left: 0;
+      background: #fff; min-width: 220px;
+      border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      transform: translateY(-6px);
+    }
+    .nav-dropdown:hover .nav-dropdown-panel,
+    .nav-dropdown:focus-within .nav-dropdown-panel {
+      opacity: 1; pointer-events: all; transform: translateY(0);
+    }
+    .nav-dropdown-item {
+      display: block; padding: 10px 20px; color: #333 !important;
+      text-decoration: none; font-size: 12px; letter-spacing: 0.05em;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .nav-dropdown-item:first-child { border-radius: 12px 12px 0 0; }
+    .nav-dropdown-item:last-child { border-radius: 0 0 12px 12px; }
+    .nav-dropdown-item:hover { background: rgba(44,70,171,0.08); color: #2c46ab !important; }
+
+    /* 汉堡按钮 */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: #333; transition: 0.3s; }
+
+    /* 汉堡菜单面板 */
+    .menu-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.5);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .menu-overlay.open { opacity: 1; pointer-events: all; }
+    .menu-panel {
+      position: fixed; top: 0; right: 0; width: 280px; height: 100vh;
+      background: #2c46ab; z-index: 201;
+      transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      display: flex; flex-direction: column; justify-content: center; padding: 48px 32px;
+    }
+    .menu-panel.open { transform: translateX(0); }
+    .menu-panel a {
+      display: block; color: #fff; text-decoration: none;
+      font-size: 24px; font-weight: 700; margin-bottom: 20px;
+      opacity: 0; transform: translateX(20px);
+      transition: opacity 0.3s, transform 0.3s, color 0.2s;
+    }
+    .menu-panel.open a { opacity: 1; transform: translateX(0); }
+    .menu-panel a:nth-child(2) { transition-delay: 0.05s; }
+    .menu-panel a:nth-child(3) { transition-delay: 0.10s; }
+    .menu-panel a:nth-child(4) { transition-delay: 0.15s; }
+    .menu-panel a:nth-child(5) { transition-delay: 0.20s; }
+    .menu-panel a:nth-child(6) { transition-delay: 0.25s; }
+    .menu-panel a:hover { color: rgba(255,255,255,0.6); }
+    .menu-close {
+      position: absolute; top: 20px; right: 20px;
+      background: none; border: none; color: #fff; font-size: 24px; cursor: pointer;
+    }
+
+    /* 页尾 — 强制去阴影去边框 */
+    .site-footer {
+      text-align: center; padding: 40px 24px;
+      color: #999; font-size: 12px; letter-spacing: 0.05em;
+      line-height: 2;
+      border: none;
+      background: #fafafa;
+      box-shadow: none !important;
+    }
+    html, body { box-shadow: none !important; }
+    .site-footer img { height: 20px; width: auto; vertical-align: middle; }
+
+    /* frame22 顶部留出导航空间 */
+    .frame22 { margin-top: 0 !important; padding-top: 64px !important; }
+
+    /* 手机端 */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .navbar { padding: 12px 20px; }
+    }
+  </style>
+<!-- ═════════════════════════════════════
+     滚动渐入动画（fade-in + slide-up）
+     ═════════════════════════════════════ -->
+  <style>
+    /* 初始隐藏状态 */
+    .fade-in-on-scroll {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.8s cubic-bezier(.25,.8,.25,1),
+                  transform 0.8s cubic-bezier(.25,.8,.25,1);
+      will-change: opacity, transform;
+    }
+    /* 进入视口后的激活状态 */
+    .fade-in-on-scroll.is-visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+    /* 分级延迟：给子元素用 */
+    .fade-in-on-scroll.delay-1 { transition-delay: 0.1s; }
+    .fade-in-on-scroll.delay-2 { transition-delay: 0.22s; }
+    .fade-in-on-scroll.delay-3 { transition-delay: 0.38s; }
+    .fade-in-on-scroll.delay-4 { transition-delay: 0.52s; }
+  </style>
+
+  <script>
+    // ── 禁用右键保存 + 禁止拖拽图片 ──
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.closest('img, video, .hero-wrap')) e.preventDefault();
+    });
+    document.addEventListener('dragstart', function(e) {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
+
+    // 滚动渐入：Intersection Observer 实现
+    document.addEventListener('DOMContentLoaded', function() {
+      var els = document.querySelectorAll('.fade-in-on-scroll');
+      if (!els.length) return;
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            // 只触发一次，之后解除观察
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      els.forEach(function(el) { observer.observe(el); });
+    });
+  </script>
+
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav class="navbar" id="navbar">
+  <a href="../index.html" class="nav-back">← 返回作品集</a>
+  <div class="nav-links">
+    <div class="nav-dropdown">
+      <span>Portfolio Selection</span>
+      <div class="nav-dropdown-panel">
+        <span class="nav-dropdown-item" style="color:#999!important;pointer-events:none;cursor:default;">NenoVia 产品全案设计</span>
+        <a class="nav-dropdown-item" href="../odi.html">ODI美容仪器产品全案设计</a>
+        <a class="nav-dropdown-item" href="../wzmj.html">王者荣耀造物节七周年动态海报</a>
+        <a class="nav-dropdown-item" href="../lilwave.html">IP设计 Lil Wave</a>
+        <a class="nav-dropdown-item" href="../featured.html">精选项目</a>
+      </div>
+    </div>
+    <a href="../about.html">About</a>
+  </div>
+  <button class="hamburger" id="hamburger-btn" aria-label="打开菜单">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- 汉堡菜单 -->
+<div class="menu-overlay" id="menu-overlay"></div>
+<div class="menu-panel" id="menu-panel">
+  <button class="menu-close" id="menu-close">✕</button>
+  <span style="display:block;color:rgba(255,255,255,0.5);font-size:16px;font-weight:400;margin-bottom:12px;">当前页面</span>
+  <a href="../odi.html">ODI美容仪器产品全案设计</a>
+  <a href="../wzmj.html">王者荣耀造物节七周年动态海报</a>
+  <a href="../lilwave.html">IP设计 Lil Wave</a>
+  <a href="../featured.html">精选项目</a>
+  <a href="../about.html">About</a>
+  <a href="../index.html" style="font-size:16px;font-weight:400;margin-top:24px;opacity:0.7;">← 返回作品集</a>
+</div>
+
+  <!-- Hero 上方大图 + 遮罩 + 居中文字（参考ODI风格） -->
+  <div class="hero-wrap" style="position:relative; width:100%; height:950px; overflow:hidden; cursor:default;">
+    <img  src=".figma/image/nanovia-1.webp" style="width:100%; height:100%; object-fit:cover; display:block;" alt="NenoVia Hero" loading="eager" decoding="async">
+    <!-- 透明黑色遮罩 -->
+    <div class="hero-overlay" style="position:absolute; left:0; right:0; top:0; bottom:0; background:rgba(0,0,0,0.35); z-index:1; pointer-events:none;"></div>
+    <!-- 文字层 -->
+    <div class="hero-text" style="position:absolute; left:0; right:0; bottom:60px; display:flex; flex-direction:column; align-items:center; text-align:center; z-index:2; pointer-events:none;">
+      <span style="font-family:'Inter','Helvetica Neue',sans-serif; font-size:13px; font-weight:500; letter-spacing:0.25em; color:rgba(255,255,255,0.7); margin-bottom:20px;">BRAND UPGRADE</span>
+      <h1 style="font-family:'Inter','Noto Sans SC',sans-serif; font-size:52px; font-weight:800; color:#fff; margin:0 0 24px 0; letter-spacing:0.02em; line-height:1.25;">nanovia产品全案升级</h1>
+      <p style="font-family:'Noto Sans SC','Inter',sans-serif; font-size:17px; font-weight:400; color:rgba(255,255,255,0.85); margin:0; line-height:1.8; max-width:680px;">在"专业科技"与"女性温和"之间找到平衡，建立一套有辨识度、<br>可执行、可感知的品牌视觉体系。</p>
+    </div>
+  </div>
+
+  <div class="frame22">
+    <div class="frame1">
+      <div class="group4 fade-in-on-scroll">
+        <p class="fromToolToTouchAVisu">
+          From Tool to Touch <br>A Visual Rebirth
+        </p>
+        <p class="text">从黑色工具感，到有温度的视觉系统</p>
+        <div class="autoWrapper fade-in-on-scroll">
+          <p class="text4">
+            <span class="text2">
+              NenoVia 品牌视觉全案 <br>
+            </span>
+            <span class="text3">
+              配色 / 符号 / 材质 / 物料 / 统一性
+            </span>
+          </p>
+          <p class="text5">
+            在原产品模具不变的前提下，完成了一次从视觉到触觉的品牌重塑。
+            <br>
+            <br>
+            在"专业科技"与"女性温和"之间找到平衡，建立一套有辨识度、可执行、可感知的品牌视觉体系
+            <br>
+            品牌调性，专业而不冰冷，科技而有温度翻译
+          </p>
+        </div>
+        <p class="balanceProfessionali">
+          Balance professionalism & tech with gentle femininity, build a
+          distinctive, actionable, perceptible brand visual system.
+          <br>
+          Brand tonality: Professional without sterility, tech-driven yet
+          warm-hearted.
+        </p>
+        <div class="autoWrapper2 fade-in-on-scroll">
+          <img  src=".figma/image/webp/mpyx32yk-2ltihj8.webp" class="frame" loading="eager" decoding="async">
+          <p class="colorSymbolMaterialA">
+            Color · Symbol · Material · Asset · Consistency
+          </p>
+        </div>
+        <img  src=".figma/image/webp/mpyx32yk-en2qepz.webp" class="rectangle1 fade-in-on-scroll" loading="lazy" decoding="async">
+      </div>
+      <div class="autoWrapper9 fade-in-on-scroll">
+        <img  src=".figma/image/webp/mpyx32yk-n6a5lsv.webp" class="frame2" loading="lazy" decoding="async">
+        <div class="frame3">
+          <div class="autoWrapper7 fade-in-on-scroll">
+            <p class="aBoostsAbsorptionUpT">
+              (Boosts absorption up to 3x)
+            </p>
+            <p class="nanoMicroneedlingInf">
+              Nano‑Microneedling
+              <br>
+              Infusion Device
+            </p>
+          </div>
+          <div class="autoWrapper8 fade-in-on-scroll">
+            <p class="aSoYourSerumActually">
+              (so your serum actually works)
+              <br>
+            </p>
+            <img  src=".figma/image/webp/mpyx32yk-ggv5xy8.webp" class="a031" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+      <p class="currentIssue">Current Issue</p>
+      <p class="text6">核心问题分析</p>
+      <div class="group3 fade-in-on-scroll">
+        <div class="autoWrapper10 fade-in-on-scroll">
+          <div class="rectangle2 fade-in-on-scroll">
+            <p class="text9">
+              <span class="text7">
+                设计维度
+                <br>
+              </span>
+              <span class="text8">Design Area</span>
+            </p>
+          </div>
+          <div class="rectangle3 fade-in-on-scroll">
+            <p class="text9">
+              <span class="text7">
+                当前问题
+                <br>
+              </span>
+              <span class="text8">Current Issue</span>
+            </p>
+          </div>
+          <div class="rectangle4 fade-in-on-scroll">
+            <p class="text9">
+              <span class="text7">
+                设计策略
+                <br>
+              </span>
+              <span class="text8">Design Strategy</span>
+            </p>
+          </div>
+        </div>
+        <div class="autoWrapper11 fade-in-on-scroll">
+          <div class="rectangle5 fade-in-on-scroll">
+            <p class="text11">
+              <span class="text7">
+                整体视觉定位
+                <br>
+              </span>
+              <span class="text10">Overall Vision</span>
+            </p>
+          </div>
+          <div class="rectangle6 fade-in-on-scroll">
+            <p class="text12">
+              视觉体系混乱，偏男性化，缺乏统一性与品牌识别度。
+            </p>
+          </div>
+          <div class="rectangle7 fade-in-on-scroll">
+            <p class="text13">
+              确立「暖调科技感」为核心视觉语言：在专业护肤科技框架中融入柔和温暖的气质，避免冷硬或过度女性化。
+            </p>
+          </div>
+        </div>
+        <div class="autoWrapper12 fade-in-on-scroll">
+          <div class="rectangle8 fade-in-on-scroll">
+            <p class="text11">
+              <span class="text7">
+                产品配色重塑
+                <br>
+              </span>
+              <span class="text10">Product Color Palette</span>
+            </p>
+          </div>
+          <div class="rectangle9 fade-in-on-scroll">
+            <p class="text12">
+              配色偏男性化（如深蓝、黑、灰）
+              <br>
+              无法传递温和与柔肤感。
+            </p>
+          </div>
+          <div class="rectangle10 fade-in-on-scroll">
+            <p class="text14">
+              主色：裸粉色、淡玫瑰金。
+              <br>
+              辅色：暖灰、深灰
+              <br>
+              点缀色：柔光珊瑚橙或香槟金，用于科技感细节。
+            </p>
+          </div>
+        </div>
+        <div class="autoWrapper13 fade-in-on-scroll">
+          <div class="rectangle11 fade-in-on-scroll">
+            <p class="text11">
+              <span class="text7">
+                Logo 标识重塑
+                <br>
+              </span>
+              <span class="text10">Logo Redesign</span>
+            </p>
+          </div>
+          <div class="rectangle12 fade-in-on-scroll">
+            <p class="text12">现无形或缺乏专业与温和的平衡感。</p>
+          </div>
+          <div class="rectangle13 fade-in-on-scroll">
+            <p class="text15">
+              采用圆角无衬线字体，字形略带弧度。
+              <br>
+              图标结合抽象「N」+「水润结合」
+            </p>
+          </div>
+        </div>
+        <div class="autoWrapper14 fade-in-on-scroll">
+          <div class="rectangle14 fade-in-on-scroll">
+            <p class="text11">
+              <span class="text7">
+                包装与配件重塑
+                <br>
+              </span>
+              <span class="text10">Packaging & Accessories</span>
+            </p>
+          </div>
+          <div class="rectangle15 fade-in-on-scroll">
+            <p class="text12">
+              包装风格不统一，材质与结构缺乏品牌感。
+            </p>
+          </div>
+          <div class="rectangle16 fade-in-on-scroll">
+            <p class="text12">统一盒型结构</p>
+          </div>
+        </div>
+      </div>
+      <div class="autoWrapper17 fade-in-on-scroll">
+        <p class="basedOnTheLetterNThe">
+          Based on the letter "N," the logo uses diagonal lines and a gradient
+          from dense to sparse to create a sense of "surface-to-deep" penetration.
+          It directly echoes the product's core function — opening up skin
+          channels and boosting serum absorption.
+          <br>
+        </p>
+        <div class="rectangle22 fade-in-on-scroll">
+          <p class="a">①</p>
+          <p class="a2">②</p>
+          <p class="a3">③</p>
+          <div class="autoWrapper15 fade-in-on-scroll">
+            <p class="text16">
+              <br>
+              以字母"N"为基础，通过斜向线条与渐变疏密，塑造"由表及里"的渗透感，精准对应产品打开肌肤通道、促进精华吸收的核心功能。
+            </p>
+            <p class="text17">渗透+N</p>
+          </div>
+          <div class="autoWrapper16 fade-in-on-scroll">
+            <img  src=".figma/image/webp/mpyx32yk-e12s0wg.webp" class="frame4" loading="lazy" decoding="async">
+            <img  src=".figma/image/webp/n.webp" class="n" loading="lazy" decoding="async">
+            <img  src=".figma/image/webp/mpyx32yk-dast6cv.webp" class="a032" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+      <div class="autoWrapper19 fade-in-on-scroll">
+        <div class="autoWrapper18 fade-in-on-scroll">
+          <p class="text18">水润联想</p>
+          <p class="text19">
+            无需解释，一眼便能联想到补水、渗透、水润。符号即承诺：看到它，就想到肌肤喝饱水的状态。
+            <br>
+          </p>
+          <p class="withoutExplanationVi">
+            Without explanation, viewers immediately connect the symbol to
+            hydration, penetration, and moisture. The logo becomes a promise: see
+            it, and you think of skin that has drunk its fill of water.
+            <br>
+          </p>
+        </div>
+        <img  src=".figma/image/webp/mpyx32yk-d91yebr.webp" class="rectangle17 fade-in-on-scroll" loading="lazy" decoding="async">
+        <img  src=".figma/image/webp/mpyx32yk-475xhyd.webp" class="rectangle18 fade-in-on-scroll" loading="lazy" decoding="async">
+        <img  src=".figma/image/webp/mpyx32yk-utngn3h.webp" class="rectangle19 fade-in-on-scroll" loading="lazy" decoding="async">
+      </div>
+      <div class="autoWrapper20 fade-in-on-scroll">
+        <img  src=".figma/image/webp/mpyx32yk-5ik42q2.webp" class="ziwo1" loading="lazy" decoding="async">
+        <div class="rectangle38 fade-in-on-scroll">
+          <p class="aBoostsAbsorptionUpT">
+            (Boosts absorption up to 3x)
+          </p>
+          <img  src=".figma/image/webp/mpyx32yk-6oesgjg.webp" class="logo121" loading="lazy" decoding="async">
+          <p class="aSoYourSerumActually2">
+            (so your serum actually works)
+            <br>
+          </p>
+        </div>
+      </div>
+      <!-- 序列5下方：品牌视频 -->
+      <div style="width:100%; max-width:960px; margin:60px auto 0 auto; padding:0 40px;">
+        <video src="../img/kuanp.mp4" autoplay muted loop playsinline style="width:100%; height:auto; display:block; border-radius:12px;"></video>
+      </div>
+      <!-- 产品色板区 -->
+      <div style="width:100%; background-color:#fbfbfb; padding:60px 0;">
+        <div style="display:flex; align-items:flex-start; justify-content:center; margin:0 auto; width:1191px; height:938px;">
+          <img  src=".figma/image/webp/个人作品集_05.webp" style="width:100%; height:100%; object-fit:contain; border-radius:20px;" alt="Product Color Palette" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="group5 fade-in-on-scroll">
+        <p class="productColorRedesign">Product Color Redesign</p>
+        <p class="text20">产品颜色重塑</p>
+        <div class="autoWrapper21 fade-in-on-scroll">
+          <p class="text21">
+            <strong>建立"暖调科技感"主色调</strong><br>
+            提升亲和力与专业温度。
+          </p>
+          <p class="text22">
+            主色采用哑光玫瑰金，配合底部细磨砂外壳，让金属不再冰冷，而是沉稳、有触感。
+            <br>
+            引入裸粉色作为辅助点缀，柔化产品与环境的对比，整体视觉从"实验室工具"转向"浴室里的安静伴侣"。
+          </p>
+        </div>
+      </div>
+      <p class="thePrimaryColorIsAMa">
+        The primary color is a matte rose gold, paired with a fine matte finish on
+        the shell — turning the metal from cold to grounded and tactile.
+        <br>
+        Nude pink is introduced as an accent to soften the contrast between the
+        product and its environment, shifting the overall visual perception from
+        a lab tool to a quiet companion in the bathroom.
+      </p>
+      <div class="autoWrapper22 fade-in-on-scroll">
+        <!-- 行1: 复合小图 + 大图 -->
+        <div class="row1">
+          <img  src=".figma/image/webp/mpyx32yk-2k2276w.webp" class="rectBeforeAfter" loading="lazy" decoding="async">
+          <img  src=".figma/image/webp/mpywwrou-okf4vbh.webp" class="rectHero" loading="lazy" decoding="async">
+        </div>
+        <!-- 行2: 三张并排 -->
+        <div class="row2">
+          <img  src=".figma/image/webp/mpyx32yg-p9vv4jf.webp" class="rectStep1" loading="lazy" decoding="async">
+          <img  src=".figma/image/webp/mpyx32yg-n121a0o.webp" class="rectStep2" loading="lazy" decoding="async">
+          <img  src=".figma/image/webp/mpyx32yg-jxbhkhp.webp" class="rectStep3" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="rectangle45 fade-in-on-scroll">
+        <div class="autoWrapper23 fade-in-on-scroll">
+          <p class="productMatrix">
+            Product Matrix
+          </p>
+          <p class="text23">
+            产品矩阵
+          </p>
+        </div>
+        <div class="autoWrapper24 fade-in-on-scroll">
+          <p class="text24">
+            以纳米微晶笔为核心单品
+            <br>
+            构建覆盖"设备 + 耗材 + 修护"的全场景家用美容仪器产品线。
+            <br>
+          </p>
+          <p class="text25">
+            <br>
+            核心设备：纳米微晶笔（Mini / Core / Pro 三档可选）
+            <br>
+            配套耗材：一次性无菌 · 可替换精华舱（补水 / 抗衰）
+            <br>
+            修护辅助：nano修复面膜（微晶后镇静舒缓）
+            <br>
+            <br>
+          </p>
+        </div>
+        <p class="text26">
+          形成从导入 → 营养补充 → 术后修护的完整闭环，满足居家护肤的多层次需求。
+        </p>
+        <p class="builtAroundTheNanoMi">
+          Built around the nano‑microneedling pen as the core device, the product
+          line forms a complete home‑use beauty ecosystem covering "device +
+          consumables + recovery".
+          <br>
+          Core Device: Nano‑microneedling pen (available in Mini / Core / Pro
+          tiers)
+          <br>
+          Consumables: Single‑use sterile tips · Refillable serum cartridges
+          (Hydrating / Firming)
+          <br>
+          Recovery Aid: Centella recovery mask (post‑microneedling soothing)
+          <br>
+          The system creates a closed‑loop journey from infusion → nutrient
+          delivery → post‑care recovery, addressing multi‑level skincare needs at
+          home.
+          <br>
+        </p>
+        <div class="autoWrapper25 fade-in-on-scroll">
+          <img  src=".figma/image/webp/mpyx32yg-2pswpuf.webp" class="rectangle42 fade-in-on-scroll" loading="lazy" decoding="async">
+          <img  src=".figma/image/webp/mpyx32yg-3y0j4ir.webp" class="rectangle39 fade-in-on-scroll" loading="lazy" decoding="async">
+          <img  src=".figma/image/webp/mpyx32yg-5l6ooy9.webp" class="rectangle39 fade-in-on-scroll" loading="lazy" decoding="async">
+        </div>
+        <div class="autoWrapper26 fade-in-on-scroll">
+        </div>
+      </div>
+      <div style="width:100%; background-color:#fbfbfb; padding:60px 0;">
+        <div style="display:flex; align-items:flex-start; justify-content:center; margin:0 auto; width:1920px;">
+          <img  src=".figma/image/webp/个人作品集_08_02.webp" style="width:100%; height:auto; border-radius:20px;" alt="产品矩阵补充" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="autoWrapper27 fade-in-on-scroll">
+        <p class="text33">品牌虚拟模特</p>
+        <p class="productMatrix">
+          Product Matrix
+          <br>
+        </p>
+      </div>
+      <p class="via">via</p>
+      <p class="text34">
+        通过品牌虚拟模特统一视觉输出
+        <br>
+        建立与用户的长期情感连接。
+        <br>
+      </p>
+      <div class="autoWrapper28 fade-in-on-scroll">
+        <p class="text35">
+          配套一次性针头
+          <br>
+          一次性，安全可靠
+        </p>
+        <img  src=".figma/image/webp/mpyx32yk-vep1znr (2).webp" class="rectangle43 fade-in-on-scroll" loading="lazy" decoding="async">
+        <img  src=".figma/image/webp/mpyx32yk-vmlpg4v.webp" class="a41" loading="lazy" decoding="async">
+      </div>
+      <p class="text36">
+        Via 是 NenoVia
+        的品牌虚拟形象，以统一的视觉语言贯穿所有传播触点。她不是超模，也不是网红，而是一位
+        28
+        岁、住在哥本哈根的护肤品配方师。雀斑、浅金短发、温和自然的穿搭，让她看起来既真实又亲近。通过
+        Via
+        的品牌声线与视觉输出，我们与用户建立长期的情感连接——不是冷冰冰的代言，而是像朋友一样陪伴每一次护肤仪式。
+        <br>
+      </p>
+      <p class="viaIsTheBrandSVirtua">
+        Via is the brand's virtual identity, unifying every brand touchpoint with
+        a consistent visual language. She is not a supermodel or an influencer,
+        but a 28‑year‑old skincare formulator living in Copenhagen. With freckles,
+        ash‑blonde short hair, and a natural, understated wardrobe, she feels
+        authentic and approachable. Through Via's voice and imagery, NenoVia
+        builds an enduring emotional connection with users — not as a distant
+        spokesperson, but as a friend who accompanies them through every skincare
+        ritual.
+        <br>
+      </p>
+      <div class="autoWrapper29 fade-in-on-scroll">
+        <img  src=".figma/image/webp/mpyx32yk-cp9r6rz.webp" class="a11" loading="lazy" decoding="async">
+        <img  src=".figma/image/webp/mpyx32yk-rj6v7w8.webp" class="a21" loading="lazy" decoding="async">
+        <img  src=".figma/image/webp/mpyx32yk-lkirlel.webp" class="a51" loading="lazy" decoding="async">
+      </div>
+      <p class="brandFormat">
+        Brand Format
+        <br>
+        <br>
+      </p>
+      <p class="text37">品牌版式</p>
+      <div class="autoWrapper30 fade-in-on-scroll">
+        <p class="text38">
+          品牌版式是品牌在视觉沟通之中使用最为频繁的形式之一，传递规范、专业、可信赖的品牌形象
+          <br>
+        </p>
+        <p class="brandTypographyIsAmo">
+          Brand typography is among the most common visual communication tools —
+          delivering a consistent, professional, and reliable brand image.
+          <br>
+        </p>
+      </div>
+      <div class="autoWrapper31 fade-in-on-scroll">
+        <img  src=".figma/image/webp/mpyx32yk-545g55n.webp" class="pai11" loading="lazy" decoding="async">
+        <img  src=".figma/image/webp/mpyx32yk-7a1wtqz.webp" class="pai3" loading="lazy" decoding="async">
+        <img  src=".figma/image/webp/mpyx32yk-wpns4x3.webp" class="pai21" loading="lazy" decoding="async">
+      </div>
+      <div class="autoWrapper32 fade-in-on-scroll">
+        <img  src=".figma/image/webp/mpyx32yk-f5t3y8n.webp" class="pai71" loading="lazy" decoding="async">
+        <img  src=".figma/image/webp/mpyx32yk-lvd8v66.webp" class="pai71" loading="lazy" decoding="async">
+      </div>
+      <div class="rectangle44 fade-in-on-scroll">
+        <p class="text39">
+          升级前后总结
+        </p>
+        <table class="compareTable">
+          <thead>
+            <tr>
+              <th>维度</th>
+              <th>升级前</th>
+              <th>升级后</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>目标客群</td>
+              <td>模糊 / 偏男性化</td>
+              <td>25-40岁欧美女性</td>
+            </tr>
+            <tr>
+              <td>品牌主张</td>
+              <td>未明确</td>
+              <td>专业而不冰冷，科技而有温度</td>
+            </tr>
+            <tr>
+              <td>配色</td>
+              <td>黑色70% + 银色30%</td>
+              <td>暗调玫瑰金70% + 裸色20% + 暖白10%</td>
+            </tr>
+            <tr>
+              <td>产品外观</td>
+              <td>黑银磨砂，指纹明显</td>
+              <td>暗调玫瑰金细磨砂 + 抗指纹涂层</td>
+            </tr>
+            <tr>
+              <td>充电方式</td>
+              <td>有线充电，易忘充</td>
+              <td>磁吸底座，随放随充，无电池焦虑</td>
+            </tr>
+            <tr>
+              <td>营销内容</td>
+              <td>产品参数堆砌</td>
+              <td>系列海外海报 + 虚拟角色 Via</td>
+            </tr>
+            <tr>
+              <td>耗材</td>
+              <td>—</td>
+              <td>一次性无菌针头 + 可替换精华</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text40">
+          从"黑色工具感"到"有温度的品牌系统"
+          <br>
+        </p>
+      </div>
+    </div>
+  </div>
+
+<!-- 页尾 -->
+<footer class="site-footer">
+  <div>© 2026 阿莉路亚. All rights reserved.</div>
+  <div><img src="../img/LOGO12.webp" alt="ALUYA" decoding="async" loading="lazy"></div>
+  <div>Built with Next.js · Three.js · Framer Motion</div>
+</footer>
+
+<!-- 汉堡菜单 JS -->
+<script>
+(function initMenu() {
+  const overlay = document.getElementById('menu-overlay');
+  const panel   = document.getElementById('menu-panel');
+  const openBtn = document.getElementById('hamburger-btn');
+  const closeBtn = document.getElementById('menu-close');
+
+  function open()  { overlay.classList.add('open'); panel.classList.add('open'); }
+  function close() { overlay.classList.remove('open'); panel.classList.remove('open'); }
+
+  openBtn && openBtn.addEventListener('click', open);
+  closeBtn && closeBtn.addEventListener('click', close);
+  overlay && overlay.addEventListener('click', close);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NenoVia 品牌视觉全案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #FAF9F7;
+    --text-dark: #1A1A1A;
+    --text-mid: #444;
+    --text-gray: #888;
+    --border-e: #E8E6E3;
+  }
+
+  body { background: var(--bg); }
+
+  /* ===== SCREEN CONTAINER ===== */
+  .screen {
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .screen-inner {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  .serif {
+    font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  .sans { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+
+  .fw300 { font-weight: 300; }
+  .fw400 { font-weight: 400; }
+  .fw500 { font-weight: 500; }
+  .fw600 { font-weight: 600; }
+  .fw700 { font-weight: 700; }
+
+  /* ===== HERO LAYOUT ===== */
+  .hero-body {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px 120px;
+    align-items: start;
+  }
+
+  /* Left col */
+  .hero-left { padding-top: 40px; }
+
+  .hero-title {
+    font-size: clamp(36px, 4.5vw, 72px);
+    line-height: 1.08;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+  }
+  .hero-subtitle {
+    font-size: clamp(24px, 2.8vw, 48px);
+    line-height: 1.15;
+    color: var(--text-dark);
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+  .hero-cn-main {
+    font-size: clamp(16px, 1.5vw, 26px);
+    line-height: 1.45;
+    color: var(--text-dark);
+    margin-bottom: 32px;
+  }
+  .hero-tag {
+    margin-bottom: 24px;
+  }
+  .hero-tag-name {
+    font-size: clamp(13px, 1vw, 16px);
+    color: var(--text-dark);
+  }
+  .hero-tag-items {
+    font-size: clamp(13px, 1vw, 15px);
+    color: var(--text-mid);
+    margin-top: 4px;
+  }
+
+  /* Right col */
+  .hero-right {
+    padding-top: 140px;
+  }
+  .hero-desc {
+    font-size: clamp(14px, 1.1vw, 18px);
+    line-height: 1.85;
+    color: var(--text-mid);
+    margin-bottom: 20px;
+  }
+  .hero-en {
+    font-size: clamp(11px, 0.9vw, 14px);
+    line-height: 1.75;
+    color: var(--text-gray);
+  }
+
+  /* Footer bar */
+  .hero-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-e);
+    padding: 22px 0;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .brand-name {
+    font-size: clamp(13px, 1vw, 16px);
+    letter-spacing: 0.5px;
+    color: var(--text-dark);
+  }
+  .brand-name sup { font-size: 9px; font-weight: 400; top: -0.35em; }
+  .brand-keys {
+    font-size: clamp(11px, 0.85vw, 14px);
+    color: var(--text-gray);
+    letter-spacing: 0.3px;
+  }
+
+  /* ===== MOBILE (≤768px) ===== */
+  @media (max-width: 768px) {
+    .hero-body {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 60px 24px 0;
+    }
+    .hero-left { padding-top: 0; }
+    .hero-right { padding-top: 0; }
+    .hero-footer {
+      padding: 18px 24px;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .screen-inner { padding-top: 30px; }
+  }
+
+  @media (min-width: 769px) {
+    .hero-body { padding: 80px 100px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== SCREEN 1: HERO ==================== -->
+<section class="screen">
+  <div class="screen-inner">
+    <div class="hero-body">
+
+      <!-- LEFT COLUMN -->
+      <div class="hero-left">
+
+        <h1 class="serif hero-title">From Tool to Touch</h1>
+        <p class="serif hero-subtitle">A Visual Rebirth</p>
+
+        <p class="sans fw400 hero-cn-main">
+          从黑色工具感，到有温度的视觉系统
+        </p>
+
+        <div class="hero-tag">
+          <span class="sans fw500 hero-tag-name">NenoVia 品牌视觉全案</span><br>
+          <span class="sans fw300 hero-tag-items">配色 / 符号 / 材质 / 物料 / 统一性</span>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="hero-right">
+
+        <p class="sans fw300 hero-desc">
+          在原产品模具不变的条件下，完成了一次从视觉到触觉的品牌重塑。
+        </p>
+
+        <p class="sans fw300 hero-desc">
+          在"专业科技"与"女性温润"之间找到平衡，建立一套有辨识度、可执行、可感知的品牌视觉体系。<br>品牌调性，专业而不冰冷，科技而有温度翻译
+        </p>
+
+        <p class="sans fw300 hero-en">
+          Balance professionalism &amp; tech with gentle femininity, build a distinctive, actionable, perceptible brand visual system.<br>
+          Brand tonality: Professional without sterility, tech-driven yet warm-hearted.
+        </p>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER BAR -->
+  <footer class="hero-footer">
+    <span class="sans fw700 brand-name">nanovia<sup>®</sup></span>
+    <span class="sans fw400 brand-keys">Color · Symbol · Material · Asset · Consistency</span>
+  </footer>
+</section>
+
+</body>
+</html>
