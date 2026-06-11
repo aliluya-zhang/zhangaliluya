@@ -7,7 +7,7 @@
 <!-- 预加载首屏关键资源 -->
 <link rel="preload" href="img/LOGO1.webp" as="image" type="image/webp">
 <link rel="preload" href="img/XNJSE.webp" as="image" type="image/webp">
-<!-- 未使用的 framer-motion 已移除，节省约230KB -->
+<script src="https://cdn.jsdelivr.net/npm/framer-motion@11.15.0/dist/framer-motion.js" defer></script>
 <style>
 /* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -477,12 +477,12 @@ a, button { cursor: pointer; }
 .gallery-section {
   position: relative;
   z-index: 5;
-  padding: 16px 48px;
+  padding: 32px 48px 80px;
 }
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 32px;
   max-width: 1300px;
   margin: 0 auto;
 }
@@ -491,7 +491,7 @@ a, button { cursor: pointer; }
 .proj-slide {
   position: relative;
   display: block;
-  aspect-ratio: 4/3;
+  aspect-ratio: 16/9;
   overflow: hidden;
   border-radius: 14px;
   text-decoration: none;
@@ -521,10 +521,10 @@ a, button { cursor: pointer; }
 .proj-content {
   position: absolute;
   z-index: 3;
-  left: 24px; right: 24px; bottom: 20px;
+  left: 28px; right: 28px; bottom: 28px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 /* Small label */
 .proj-label {
@@ -576,9 +576,9 @@ a, button { cursor: pointer; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
-  .gallery-section { padding: 12px 16px; }
-  .gallery-grid { grid-template-columns: 1fr; gap: 14px; }
-  .proj-content { left: 18px; right: 18px; bottom: 16px; gap: 6px; }
+  .gallery-section { padding: 24px 16px 60px; }
+  .gallery-grid { grid-template-columns: 1fr; gap: 24px; }
+  .proj-content { left: 20px; right: 20px; bottom: 20px; gap: 10px; }
   .proj-title { font-size: clamp(18px, 6vw, 24px); }
   .proj-desc { font-size: 13px; max-height: 3.2em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
   .proj-btn { font-size: 11px; }
@@ -653,7 +653,7 @@ document.addEventListener('keydown', e => {
 
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
-  <img src="img/LOGO1.webp" alt="Aliluya" class="nav-logo-img" decoding="sync" fetchpriority="high" width="112" height="28">
+  <img src="img/LOGO1.webp" alt="Aliluya" class="nav-logo-img" decoding="sync" fetchpriority="high">
     <div class="nav-links">
     <div class="nav-dropdown">
       <span>Portfolio Selection</span>
@@ -686,68 +686,13 @@ document.addEventListener('keydown', e => {
 
 <!-- [1] Hero Section -->
 <section class="hero" id="hero">
-  <video id="hero-video" autoplay muted playsinline preload="auto" loop>
+  <video id="hero-video" autoplay muted playsinline preload="metadata">
     <source src="img/hero.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay" id="hero-overlay"></div>
   <div class="hero-content" id="hero-content">
     <div class="hero-content-inner">
       <h1 class="hero-title">Hi~ <span style="color:#2c46ab;">{</span>I'm阿莉路亚<span style="color:#2c46ab;">}</span></h1>
-    </div>
-  </div>
-</section>
-
-<!-- [1.5] Career Journey Section -->
-<section class="career-section reveal" id="career">
-  <div class="career-deco">CAREER PATH</div>
-  <h2 class="career-title">职业路径</h2>
-  <div class="career-grid">
-    <!-- Card I -->
-    <div class="career-card">
-      <div class="career-card-img-wrap">
-        <div class="career-img-stack">
-          <img src="img/INDEX/-1 (2).webp" alt="" loading="lazy" decoding="async" width="170" height="200">
-          <img src="img/INDEX/-1 (1).webp" alt="" loading="lazy" decoding="async" width="200" height="230">
-          <img src="img/INDEX/-1 (3).webp" alt="" loading="lazy" decoding="async" width="170" height="200">
-        </div>
-      </div>
-      <div class="career-card-body">
-        <div class="career-card-head">I 初创加入，获技术股(2015-2021)</div>
-        <div class="career-card-sub">设计经理|产品开发全案&amp;品牌视觉负责品牌视觉全链路(配色/包装/线上/展会)，参与开发5款美容仪，含华熙生物旗下美容仪产品，爆品年销量600万+。管理4人团队，从0到1搭建品牌视觉体系，获技术股。</div>
-        <div class="career-card-keywords">关键词:全链路视觉/0-1搭建/美容仪器/团队管理/技术股</div>
-      </div>
-    </div>
-
-    <!-- Card II -->
-    <div class="career-card">
-      <div class="career-card-img-wrap">
-        <div class="career-img-stack">
-          <img src="img/INDEX/06.jpg" alt="" loading="lazy" decoding="async" width="170" height="200">
-          <img src="img/INDEX/-1 (1).jpg" alt="" loading="lazy" decoding="async" width="200" height="230">
-          <img src="img/INDEX/-1 (4).jpg" alt="" loading="lazy" decoding="async" width="170" height="200">
-        </div>
-      </div>
-      <div class="career-card-body">
-        <div class="career-card-head">II 大型美容仪器品牌视觉升级（2021）</div>
-        <div class="career-card-sub">资深视觉设计 | 渲染 & 品牌规范<br>专注美容仪器CG渲染、电商详情页、展会视觉及品牌标识系统。输出渲染图200+张，素材库效率提升50%。主导黑橙配色展位与产品，成展会差异化亮点。改版阿里国际站详情页，平均停留时长10秒→1分钟+。完成VI规范，客户认知从"代工厂"转为"技术伙伴"。建立品牌资产库（VI/图标/渲染模板/PPT），统一全触点。</div>
-        <div class="career-card-keywords">关键词：CG渲染 / 展会差异化 / 详情页优化 / 品牌规范 / 资产库</div>
-      </div>
-    </div>
-
-    <!-- Card III -->
-    <div class="career-card">
-      <div class="career-card-img-wrap">
-        <div class="career-img-stack">
-          <img src="img/INDEX/-1 (2).webp" alt="" loading="lazy" decoding="async" width="170" height="200">
-          <img src="img/INDEX/-1 (3)_.webp" alt="" loading="lazy" decoding="async" width="200" height="230">
-          <img src="img/INDEX/-1 (1).webp" alt="" loading="lazy" decoding="async" width="170" height="200">
-        </div>
-      </div>
-      <div class="career-card-body">
-        <div class="career-card-head">III 自由职业设计（2022-2026）</div>
-        <div class="career-card-sub">视觉设计师｜KV / IP / 电商渲染 / 动态视频 / 亚马逊A+ / 跨境电商详情页<br>服务《王者荣耀》、美容仪器、箱包、家用小电器等。2021年参加白无常C4D线下培训，在150+名设计师中，个人渲染、带组团队渲染、毕业设计均进入前10名。自创IP获上市公司一年期独家版权签约，具备内容创作与商业转化的双重能力。跨类目适应能力强，能快速切入不同赛道并输出专业视觉。</div>
-        <div class="career-card-keywords">关键词：IP商业化 / 跨类目适应 / 电商渲染 / 动态视频 / 亚马逊A+</div>
-      </div>
     </div>
   </div>
 </section>
@@ -792,7 +737,7 @@ document.addEventListener('keydown', e => {
 
   <!-- 01 NenoVia -->
   <a href="1/nenovia.html" class="proj-slide">
-    <img src="img/XNJSE.webp" alt="NenoVia" loading="lazy" decoding="async" fetchpriority="high" width="800" height="600">
+    <img src="img/XNJSE.webp" alt="NenoVia" loading="lazy" decoding="async" fetchpriority="high">
     <div class="proj-overlay"></div>
     <div class="proj-content">
       <span class="proj-label">BRAND · PRODUCT DESIGN</span>
@@ -804,7 +749,7 @@ document.addEventListener('keydown', e => {
 
   <!-- 02 ODI -->
   <a href="odi.html" class="proj-slide">
-    <img src="img/3.webp" alt="ODI" loading="lazy" decoding="async" width="800" height="600">
+    <img src="img/3.webp" alt="ODI" loading="lazy" decoding="async">
     <div class="proj-overlay"></div>
     <div class="proj-content">
       <span class="proj-label">PRODUCT DESIGN · CG</span>
@@ -816,7 +761,7 @@ document.addEventListener('keydown', e => {
 
   <!-- 03 王者荣耀 -->
   <a href="wzmj.html" class="proj-slide">
-    <video autoplay muted loop playsinline loading="lazy"><source src="img/04_.mp4" type="video/mp4"></video>
+    <video autoplay muted loop playsinline loading="lazy"><source src="img/WeChat_20260611182308.mp4" type="video/mp4"></video>
     <div class="proj-overlay"></div>
     <div class="proj-content">
       <span class="proj-label">KV · 3D RENDERING</span>
@@ -828,7 +773,7 @@ document.addEventListener('keydown', e => {
 
   <!-- 04 Lil Wave -->
   <a href="lilwave.html" class="proj-slide">
-    <video autoplay muted loop playsinline loading="lazy"><source src="img/video3_compressed.mp4" type="video/mp4"></video>
+    <video autoplay muted loop playsinline loading="lazy"><source src="img/video3_.mp4" type="video/mp4"></video>
     <div class="proj-overlay"></div>
     <div class="proj-content">
       <span class="proj-label">IP DESIGN · ILLUSTRATION</span>
@@ -840,17 +785,87 @@ document.addEventListener('keydown', e => {
 
   <!-- 05 精选项目 -->
   <a href="featured.html" class="proj-slide">
-    <img src="img/05/3 (4).webp" alt="精选项目" loading="lazy" decoding="async" width="800" height="600">
+    <img src="img/05/11.jpg" alt="海报KV" loading="lazy" decoding="async">
     <div class="proj-overlay"></div>
     <div class="proj-content">
       <span class="proj-label">FEATURED PROJECTS</span>
-      <h2 class="proj-title">精选项目</h2>
-      <p class="proj-desc">亚马逊A+设计、KV主视觉、电商渲染——涵盖跨境电商与品牌视觉的多领域项目实践，持续更新中。</p>
+      <h2 class="proj-title">海报KV</h2>
+      <p class="proj-desc">品牌海报 KV · Champion新年/美容仪圣诞/合创汽车春日</p>
+      <span class="proj-btn">查看项目 →</span>
+    </div>
+  </a>
+
+  <!-- 06 亚马逊A+ -->
+  <a href="featured.html#tab-headphone" class="proj-slide">
+    <img src="img/YMS/车载充电器宣传海报介绍-(13).jpg" alt="亚马逊A+" loading="lazy" decoding="async">
+    <div class="proj-overlay"></div>
+    <div class="proj-content">
+      <span class="proj-label">AMAZON A+ · AI RENDERING</span>
+      <h2 class="proj-title">AI 驱动 · 亚马逊 A+</h2>
+      <p class="proj-desc">以 AI 为核心创作工具，完成从场景搭建、产品融合到质感精修的全流程 A+ 素材制作。</p>
       <span class="proj-btn">查看项目 →</span>
     </div>
   </a>
 
   </div><!-- /.gallery-grid -->
+</section>
+
+<!-- [5] Career Journey Section -->
+<section class="career-section reveal" id="career">
+  <div class="career-deco">CAREER PATH</div>
+  <h2 class="career-title">职业路径</h2>
+  <div class="career-grid">
+    <!-- Card I -->
+    <div class="career-card">
+      <div class="career-card-img-wrap">
+        <div class="career-img-stack">
+          <img src="img/INDEX/-1 (2).png" alt="" loading="lazy" decoding="async" width="170" height="200">
+          <img src="img/INDEX/-1 (1).png" alt="" loading="lazy" decoding="async" width="200" height="230">
+          <img src="img/INDEX/-1 (3).png" alt="" loading="lazy" decoding="async" width="170" height="200">
+        </div>
+      </div>
+      <div class="career-card-body">
+        <div class="career-card-head">I 初创加入，获技术股(2015-2021)</div>
+        <div class="career-card-sub">设计经理|产品开发全案&amp;品牌视觉负责品牌视觉全链路(配色/包装/线上/展会)，参与开发5款美容仪，含华熙生物旗下美容仪产品，爆品年销量600万+。管理4人团队，从0到1搭建品牌视觉体系，获技术股。</div>
+        <div class="career-card-keywords">关键词:全链路视觉/0-1搭建/美容仪器/团队管理/技术股</div>
+      </div>
+    </div>
+
+    <!-- Card II -->
+    <div class="career-card">
+      <div class="career-card-img-wrap">
+        <div class="career-img-stack">
+          <img src="img/INDEX/06.jpg" alt="" loading="lazy" decoding="async" width="170" height="200">
+          <img src="img/INDEX/-1 (1).jpg" alt="" loading="lazy" decoding="async" width="200" height="230">
+          <img src="img/INDEX/-1 (4).jpg" alt="" loading="lazy" decoding="async" width="170" height="200">
+        </div>
+      </div>
+      <div class="career-card-body">
+        <div class="career-card-head">II 大型美容仪器品牌视觉升级（2021）</div>
+        <div class="career-card-sub">资深视觉设计 | 渲染 & 品牌规范<br>专注美容仪器CG渲染、电商详情页、展会视觉及品牌标识系统。输出渲染图200+张，素材库效率提升50%。主导黑橙配色展位与产品，成展会差异化亮点。改版阿里国际站详情页，平均停留时长10秒→1分钟+。完成VI规范，客户认知从"代工厂"转为"技术伙伴"。建立品牌资产库（VI/图标/渲染模板/PPT），统一全触点。</div>
+        <div class="career-card-keywords">关键词：CG渲染 / 展会差异化 / 详情页优化 / 品牌规范 / 资产库</div>
+      </div>
+    </div>
+
+    <!-- Card III -->
+    <div class="career-card">
+      <div class="career-card-img-wrap">
+        <div class="career-img-stack">
+          <picture>
+            <source srcset="img/INDEX/-1 (2).webp" type="image/webp">
+            <img src="img/INDEX/-1 (2).jpg" alt="" loading="lazy" decoding="async" width="170" height="200">
+          </picture>
+          <img src="img/INDEX/-1 (3).jpg" alt="" loading="lazy" decoding="async" width="200" height="230">
+          <img src="img/INDEX/-1 (2).jpg" alt="" loading="lazy" decoding="async" width="170" height="200">
+        </div>
+      </div>
+      <div class="career-card-body">
+        <div class="career-card-head">III 自由职业设计（2022-2026）</div>
+        <div class="career-card-sub">视觉设计师｜KV / IP / 电商渲染 / 动态视频 / 亚马逊A+ / 跨境电商详情页<br>服务《王者荣耀》、美容仪器、箱包、家用小电器等。2021年参加白无常C4D线下培训，在150+名设计师中，个人渲染、带组团队渲染、毕业设计均进入前10名。自创IP获上市公司一年期独家版权签约，具备内容创作与商业转化的双重能力。跨类目适应能力强，能快速切入不同赛道并输出专业视觉。</div>
+        <div class="career-card-keywords">关键词：IP商业化 / 跨类目适应 / 电商渲染 / 动态视频 / 亚马逊A+</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Footer -->
@@ -890,10 +905,16 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
 
-// Hero video auto-play (loop 由 video 标签属性控制)
+// Hero video auto-play + replay after 4s when ended
 window.addEventListener('load', () => {
   const video = document.getElementById('hero-video');
   if (!video) return;
+
+  // When video ends, wait 4s then replay
+  video.addEventListener('ended', () => {
+    setTimeout(() => video.play(), 4000);
+  });
+
   video.play().catch(() => {
     const playVideo = () => { video.play(); document.removeEventListener('click', playVideo); };
     document.addEventListener('click', playVideo, { once: true });
