@@ -518,6 +518,21 @@ main { padding: 100px 48px 80px; max-width: 1400px; margin: 0 auto; }
   <div class="project-box" id="tab-youer">
     <div class="poster-wrapper">
 
+      <!-- 视频展示 -->
+      <div class="poster-item">
+        <div class="project-info">
+          <div class="project-num">/03 — 社媒海报</div>
+          <p class="project-tag">Social Media · Toy Design · Video</p>
+          <h2 class="project-title">幼儿玩具<br>社媒视频</h2>
+          <p class="project-desc">为幼儿玩具品牌创作社媒平台营销视频，结合产品特点与童趣视觉元素，打造吸引目标客群的动态视觉内容。</p>
+        </div>
+          <div class="project-visuals">
+          <video class="img-sub" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border:none;border-radius:0;" loading="lazy" oncontextmenu="return false;" ondragstart="return false;">
+            <source src="img/youer/01.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
       <div class="poster-item">
         <div class="project-info">
           <div class="project-num">/03 — 社媒海报</div>
@@ -629,6 +644,41 @@ hamburgerMenu.querySelectorAll('a').forEach(link => {
   }
   window.addEventListener('scroll', updateNavBg, { passive: true });
   updateNavBg();
+})();
+</script>
+
+<!-- 禁用右键另存功能 -->
+<script>
+(function() {
+  // 禁用右键菜单
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    return false;
+  });
+
+  // 禁用图片和视频拖拽
+  document.addEventListener('dragstart', function(e) {
+    if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO' || e.target.tagName === 'SOURCE') {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // 禁用图片选择
+  document.addEventListener('selectstart', function(e) {
+    if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // 禁用 Ctrl+S / Ctrl+U 快捷键
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'u' || e.key === 'S' || e.key === 'U')) {
+      e.preventDefault();
+      return false;
+    }
+  });
 })();
 </script>
 
