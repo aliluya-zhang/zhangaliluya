@@ -585,6 +585,15 @@ main { padding: 100px 48px 80px; max-width: 1400px; margin: 0 auto; }
     if (matchPanel) matchPanel.classList.add('active');
   }
 
+  // 根据页面 URL hash 自动切换到对应 Tab
+  const urlHash = window.location.hash.replace('#', '');
+  if (urlHash) {
+    const validIds = Array.from(tabs).map(t => t.dataset.target);
+    if (validIds.includes(urlHash)) {
+      activateTab(urlHash);
+    }
+  }
+  
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       activateTab(tab.dataset.target);
