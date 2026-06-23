@@ -1,1019 +1,459 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>阿莉路亚 — 个人作品集</title>
-<!-- 预加载首屏关键资源 -->
-<link rel="preload" href="img/LOGO1.webp" as="image" type="image/webp">
-<link rel="preload" href="img/XNJSE.webp" as="image" type="image/webp">
-<link rel="preload" href="img/hero.mp4" as="video" type="video/mp4">
-
-<style>
-/* ── Reset & Base ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overscroll-behavior: none; background: #e5e7eb; user-select: none; -webkit-user-select: none; }
-img, video { pointer-events: none; -webkit-user-drag: none; user-select: none; -webkit-user-select: none; }
-body {
-  min-height: 100vh;
-  background: #e5e7eb;
-  color: #1a1a1a; font-family: 'Inter', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased; overflow-x: hidden;
-}
-@media (pointer: coarse) { body { cursor: auto; } }
-a, button { cursor: pointer; }
-@media (pointer: coarse) { a, button { cursor: auto; } }
-
-/* ── Scrollbar ── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #e8e9eb; }
-::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: #aaa; }
-
-/* ── Navbar ── */
-.navbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 24px 48px;
-  background: rgba(0,0,0,0);
-}
-
-.nav-logo-img { height: 28px; width: auto; display: block; }
-.nav-links { display: flex; gap: 32px; align-items: center; }
-.nav-links a { 
-  color: #fff; text-decoration: none; font-size: 13px; letter-spacing: 0.1em; 
-  font-weight: 600; padding: 8px 18px; border-radius: 8px; 
-  background: transparent; transition: background 0.2s;
-}
-.nav-links a:hover { background: #2c46ab; }
-.nav-dropdown { position: relative; display: flex; align-items: center; gap: 4px; }
-.nav-dropdown > span { 
-  color: #fff; font-size: 13px; letter-spacing: 0.1em; 
-  cursor: pointer; padding: 8px 18px; border-radius: 8px; font-weight: 600;
-  background: transparent; transition: background 0.2s;
-}
-.nav-dropdown > span:hover { background: #2c46ab; }
-.nav-dropdown > span::after { content: '▾'; font-size: 10px; margin-left: 6px; }
-.nav-dropdown-panel {
-  position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-  background: #2c46ab; border-radius: 12px;
-  padding: 10px 0; min-width: 220px; box-shadow: 0 8px 24px rgba(44,70,171,0.4);
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  z-index: 300;
-  margin-top: 4px;
-}
-.nav-dropdown-panel::before {
-  content: '';
-  position: absolute;
-  top: -4px; left: 0; right: 0;
-  height: 4px;
-}
-.nav-dropdown:hover .nav-dropdown-panel,
-.nav-dropdown:focus-within .nav-dropdown-panel {
-  opacity: 1; pointer-events: all;
-}
-.nav-dropdown-item {
-  display: block; padding: 10px 20px; color: #ffffff !important; text-decoration: none;
-  font-size: 13px; letter-spacing: 0.05em; transition: background 0.15s;
-}
-.nav-dropdown-item:hover { background: rgba(255,255,255,0.15); }
-.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
-.hamburger span { display: block; width: 24px; height: 2px; background: #fff; transition: 0.3s; }
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
-  .navbar { padding: 16px 24px; }
-
-  /* Hero */
-  .hero-content { padding-bottom: 12%; }
-  .hero-title { font-size: clamp(28px, 12vw, 64px); }
-
-  /* Manifesto */
-  .manifesto-section { padding: 80px 24px 60px; }
-  .manifesto-heading { font-size: clamp(28px, 10vw, 64px); margin-bottom: 48px; }
-  .manifesto-columns { flex-direction: column; gap: 32px; }
-  .manifesto-col.left, .manifesto-col.right { text-align: center; }
-  .manifesto-logo { width: 64px; height: 64px; }
-  .manifesto-col { min-width: auto; }
-  .manifesto-top { display: none; }
-  .manifesto-bottom { margin-top: 48px; }
-
-  /* Gallery */
-  /* gallery handled by main media query below */
-  .gallery-row + .gallery-row { margin-top: 20px; }
-
-  /* Footer */
-  .footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
-}
-
-/* ── Hamburger Menu Overlay ── */
-.menu-overlay {
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(0,0,0,0.5);
-  opacity: 0; pointer-events: none; transition: opacity 0.3s;
-}
-.menu-overlay.open { opacity: 1; pointer-events: all; }
-.menu-panel {
-  position: fixed; top: 0; right: 0; width: 320px; height: 100vh;
-  background: #2c46ab; z-index: 201;
-  transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-  display: flex; flex-direction: column; justify-content: center; padding: 48px;
-}
-.menu-panel.open { transform: translateX(0); }
-.menu-panel a {
-  display: block; color: #fff; text-decoration: none;
-  font-size: 32px; font-weight: 700; margin-bottom: 24px;
-  opacity: 0; transform: translateX(30px);
-  transition: opacity 0.3s, transform 0.3s, color 0.2s;
-}
-.menu-panel.open a { opacity: 1; transform: translateX(0); }
-.menu-panel a:nth-child(2) { transition-delay: 0.05s; }
-.menu-panel a:nth-child(3) { transition-delay: 0.10s; }
-.menu-panel a:nth-child(4) { transition-delay: 0.15s; }
-.menu-panel a:nth-child(5) { transition-delay: 0.20s; }
-.menu-panel a:hover { color: rgba(255,255,255,0.6); }
-.menu-close {
-  position: absolute; top: 24px; right: 24px;
-  background: none; border: none; color: #fff; font-size: 28px; cursor: pointer;
-}
-
-/* ── Hero Section ── */
-.hero {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  background: #e5e7eb;
-  z-index: 1;
-}
-/* Video fixed，铺满全屏并始终固定在背景 */
-#hero-video {
-  position: fixed;
-  top: -1px; left: -1px;
-  width: calc(100vw + 2px); height: calc(100vh + 2px);
-  object-fit: cover;
-  z-index: 1;
-  transform: scale(0.85);
-  transform-origin: top center;
-}
-/* 遮罩也固定，随滚动加深 */
-.hero-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0);
-  z-index: 2;
-  pointer-events: none;
-}
-/* Logo 和文字浮在视频上方，z-index 高于 video */
-.hero-logo {
-  position: fixed;
-  top: 28px;
-  left: 48px;
-  z-index: 10;
-  height: 28px;
-  width: auto;
-  opacity: 0;
-  animation: logoFadeIn 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
-}
-@keyframes logoFadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.hero-content {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  padding-bottom: 2%;
-}
-.hero-content-inner {
-  opacity: 0;
-  animation: heroFadeIn 1.4s cubic-bezier(0.16,1,0.3,1) 0.6s forwards;
-}
-@keyframes heroFadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.hero-title {
-  font-size: clamp(32px, 8vw, 160px);
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: 0.02em;
-  color: #ffffff;
-  text-align: center;
-}
-.hero-subtitle {
-  font-size: clamp(14px, 2vw, 24px);
-  letter-spacing: 0.15em;
-  color: rgba(255,255,255,0.8);
-  margin-top: 16px;
-  text-transform: uppercase;
-  font-weight: 500;
-  text-align: center;
-}
-
-
-/* ── Manifesto Section ── */
-.manifesto-section {
-  position: relative;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 120px 48px 80px;
-  background: transparent;
-  content-visibility: auto;
-  contain-intrinsic-size: 0 600px;
-}
-.manifesto-top {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 60px;
-}
-.manifesto-top span {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: rgba(255,255,255,0.6);
-  text-transform: uppercase;
-  font-weight: 600;
-}
-.manifesto-heading {
-  font-size: clamp(32px, 7vw, 96px);
-  font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
-  color: #ffffff;
-  text-align: center;
-  text-transform: uppercase;
-  margin: 0 0 80px;
-}
-.manifesto-columns {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 48px;
-}
-.manifesto-col {
-  text-align: center;
-  min-width: 200px;
-}
-.manifesto-col.left { text-align: right; }
-.manifesto-col.right { text-align: left; }
-.manifesto-col .label {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: rgba(255,255,255,0.6);
-  margin: 0 0 8px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-.manifesto-col .desc {
-  font-size: 13px;
-  color: rgba(255,255,255,0.9);
-  margin: 0;
-  line-height: 1.6;
-}
-.manifesto-logo {
-  flex-shrink: 0;
-  width: 80px;
-  height: 80px;
-  border-radius: 8px;
-  overflow: hidden;
-}
-.manifesto-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.manifesto-bottom {
-  margin-top: 80px;
-  text-align: center;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-}
-.manifesto-bottom::before,
-.manifesto-bottom::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: rgba(255,255,255,0.2);
-  max-width: 200px;
-}
-.manifesto-bottom p {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 11px;
-  letter-spacing: 0.25em;
-  color: rgba(255,255,255,0.5);
-  font-weight: 600;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.manifesto-bottom span {
-  font-size: 1.3em;
-  opacity: 0.4;
-}
-
-/* ── [3] Project Grid — 2 columns, 16px gap ── */
-.gallery-section {
-  position: relative;
-  z-index: 5;
-  padding: 32px 48px 80px;
-  content-visibility: auto;
-  contain-intrinsic-size: 0 800px;
-}
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
-  max-width: 1300px;
-  margin: 0 auto;
-}
-
-/* Each card */
-.proj-slide {
-  position: relative;
-  display: block;
-  aspect-ratio: 16/9;
-  overflow: hidden;
-  border-radius: 14px;
-  text-decoration: none;
-}
-/* Background image/video */
-.proj-slide > img,
-.proj-slide > video {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
-}
-.proj-slide:hover > img,
-.proj-slide:hover > video {
-  transform: scale(1.05);
-}
-/* Bottom gradient overlay */
-.proj-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 35%, rgba(0,0,0,0.55) 75%, rgba(0,0,0,0.85) 100%);
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-.proj-slide:hover .proj-overlay {
-  opacity: 1;
-}
-/* Text content — bottom-aligned */
-.proj-content {
-  position: absolute;
-  z-index: 3;
-  left: 28px; right: 28px; bottom: 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-.proj-slide:hover .proj-content {
-  opacity: 1;
-}
-/* Small label */
-.proj-label {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-}
-/* Title */
-.proj-title {
-  font-size: clamp(18px, 2vw, 26px);
-  font-weight: 900;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  color: #ffffff;
-  margin: 0;
-}
-/* Description */
-.proj-desc {
-  font-size: 15px;
-  line-height: 1.75;
-  color: rgba(255,255,255,0.68);
-  max-width: 520px;
-  margin: 0;
-}
-/* CTA button */
-.proj-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: #ffffff;
-  border-bottom: 2px solid rgba(255,255,255,0.6);
-  padding-bottom: 3px;
-  width: fit-content;
-  transition: all 0.25s ease;
-  margin-top: 4px;
-}
-.proj-slide:hover .proj-btn {
-  color: #fff;
-  border-color: #fff;
-  transform: translateX(6px);
-}
-
-@media (max-width: 1024px) {
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 768px) {
-  .gallery-section { padding: 24px 16px 60px; }
-  .gallery-grid { grid-template-columns: 1fr; gap: 24px; }
-  .proj-content { left: 20px; right: 20px; bottom: 20px; gap: 10px; }
-  .proj-title { font-size: clamp(18px, 6vw, 24px); }
-  .proj-desc { font-size: 13px; max-height: 3.2em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-  .proj-btn { font-size: 11px; }
-}
-
-/* ── Works Mosaic Section ── */
-.works-mosaic-section {
-  position: relative;
-  z-index: 5;
-  padding: 80px 0 80px;
-  overflow: hidden;
-  background: #0a0a0a;
-}
-.works-mosaic-label {
-  text-align: center;
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  color: rgba(255,255,255,0.35);
-  text-transform: uppercase;
-  font-weight: 600;
-  margin-bottom: 48px;
-}
-.works-mosaic-scene {
-  /* perspective container */
-  perspective: 1200px;
-  perspective-origin: 50% 50%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.works-mosaic-stage {
-  transform-style: preserve-3d;
-  transform: rotateX(18deg) rotateY(0deg);
-  will-change: transform;
-  transition: transform 0.12s ease-out;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 20px 0 60px;
-}
-.mosaic-row {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-}
-.mosaic-row:nth-child(1) { transform: translateZ(-20px); }
-.mosaic-row:nth-child(2) { transform: translateZ(10px); }
-.mosaic-row:nth-child(3) { transform: translateZ(-20px); }
-.mosaic-card {
-  border-radius: 14px;
-  overflow: hidden;
-  flex-shrink: 0;
-  background: #1a1a1a;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  transition: box-shadow 0.3s ease;
-}
-.mosaic-card:hover {
-  box-shadow: 0 12px 48px rgba(0,0,0,0.7);
-}
-.mosaic-card img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-  -webkit-user-drag: none;
-}
-
-/* Row widths — row 1 & 3: 5 cards; row 2 (center): 5 cards, slightly larger */
-.mosaic-row:nth-child(1) .mosaic-card,
-.mosaic-row:nth-child(3) .mosaic-card {
-  width: 230px;
-  height: 145px;
-}
-.mosaic-row:nth-child(2) .mosaic-card {
-  width: 252px;
-  height: 158px;
-}
-
-@media (max-width: 900px) {
-  .works-mosaic-section { padding: 60px 0; }
-  .mosaic-row:nth-child(1) .mosaic-card,
-  .mosaic-row:nth-child(3) .mosaic-card { width: 160px; height: 100px; }
-  .mosaic-row:nth-child(2) .mosaic-card { width: 175px; height: 110px; }
-  .works-mosaic-stage { gap: 10px; }
-  .mosaic-row { gap: 10px; }
-}
-@media (max-width: 640px) {
-  .works-mosaic-section { padding: 40px 0; }
-  .mosaic-row:nth-child(1) .mosaic-card,
-  .mosaic-row:nth-child(3) .mosaic-card { width: 110px; height: 69px; }
-  .mosaic-row:nth-child(2) .mosaic-card { width: 120px; height: 75px; }
-  .works-mosaic-stage { gap: 7px; }
-  .mosaic-row { gap: 7px; }
-  .works-mosaic-scene { perspective: 700px; }
-}
-
-/* ── Footer ── */
-/* ── Footer ── */
-.footer {
-  padding: 48px;
-  background: #0a0a0a;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  color: #ffffff;
-  position: relative;
-  z-index: 5;
-}
-
-
-/* ── Scroll-triggered animation ── */
-.reveal {
-  opacity: 0; transform: translateY(50px);
-  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
-}
-.reveal.in-view { opacity: 1; transform: translateY(0); }
-
-/* ── Mobile Responsive ── */
-@media (max-width: 768px) {
-  /* Navbar */
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
-  .navbar { padding: 16px 24px; }
-
-  /* Hero */
-  .hero-content { padding-bottom: 12%; }
-  .hero-title { font-size: clamp(28px, 12vw, 64px); }
-
-  /* Manifesto */
-  .manifesto-section { padding: 80px 24px 60px; }
-  .manifesto-heading { font-size: clamp(28px, 10vw, 64px); margin-bottom: 48px; }
-  .manifesto-columns { flex-direction: column; gap: 32px; }
-  .manifesto-col.left, .manifesto-col.right { text-align: center; }
-  .manifesto-logo { width: 64px; height: 64px; }
-  .manifesto-col { min-width: auto; }
-  .manifesto-top { display: none; }
-  .manifesto-bottom { margin-top: 48px; gap: 12px; }
-
-  /* Footer */
-  .footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
-}
-</style>
-<script>
-// 禁止右键菜单
-document.addEventListener('contextmenu', e => e.preventDefault());
-// 禁止快捷键：Ctrl+S, Ctrl+U, Ctrl+Shift+I, F12
-document.addEventListener('keydown', e => {
-  if (
-    e.key === 'F12' ||
-    (e.ctrlKey && e.key === 's') ||
-    (e.ctrlKey && e.key === 'u') ||
-    (e.ctrlKey && e.shiftKey && e.key === 'i') ||
-    (e.ctrlKey && e.shiftKey && e.key === 'C') ||
-    (e.ctrlKey && e.shiftKey && e.key === 'J')
-  ) {
-    e.preventDefault();
-  }
-});
-</script>
-</head>
-<body>
-
-<!-- Navbar -->
-<nav class="navbar" id="navbar">
-  <img src="img/LOGO1.webp" alt="Aliluya" class="nav-logo-img" decoding="sync" fetchpriority="high">
-    <div class="nav-links">
-    <div class="nav-dropdown">
-      <span>Portfolio Selection</span>
-      <div class="nav-dropdown-panel">
-        <a class="nav-dropdown-item" href="1/nenovia.html">NenoVia 产品全案设计</a>
-        <a class="nav-dropdown-item" href="odi.html">ODI美容仪器产品全案设计</a>
-        <a class="nav-dropdown-item" href="wzmj.html">王者荣耀造物节七周年动态海报</a>
-        <a class="nav-dropdown-item" href="lilwave.html">IP设计 Lil Wave</a>
-        <a class="nav-dropdown-item" href="featured.html">精选项目</a>
-      </div>
-    </div>
-    <a href="about.html">About</a>
-  </div>
-  <button class="hamburger" id="hamburger-btn" aria-label="Open menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<!-- Hamburger Menu -->
-<div class="menu-overlay" id="menu-overlay"></div>
-<div class="menu-panel" id="menu-panel">
-  <button class="menu-close" id="menu-close">✕</button>
-  <a href="1/nenovia.html">NenoVia 产品全案设计</a>
-  <a href="odi.html">ODI美容仪器产品全案设计</a>
-  <a href="wzmj.html">王者荣耀造物节七周年动态海报</a>
-  <a href="lilwave.html">IP设计 Lil Wave</a>
-  <a href="featured.html">精选项目</a>
-  <a href="about.html">About</a>
-</div>
-
-<!-- [1] Hero Section -->
-<section class="hero" id="hero">
-  <video id="hero-video" autoplay muted playsinline preload="auto">
-    <source src="img/hero.mp4" type="video/mp4">
-  </video>
-  <div class="hero-overlay" id="hero-overlay"></div>
-  <div class="hero-content" id="hero-content">
-    <div class="hero-content-inner">
-      <h1 class="hero-title">Hi~ <span style="color:#2c46ab;">{</span>I'm阿莉路亚<span style="color:#2c46ab;">}</span></h1>
-    </div>
-  </div>
-</section>
-
-<!-- [2] Manifesto Section -->
-<section class="manifesto-section reveal" id="manifesto">
-  <div class="manifesto-top">
-    <span>PORTFOLIO SELECTION</span>
-    <span>PORTFOLIO SELECTION</span>
-  </div>
-
-  <h1 class="manifesto-heading">
-    DESIGN THAT WORKS.<br>RESULTS THAT LAST.
-  </h1>
-
-  <div class="manifesto-columns">
-    <div class="manifesto-col left">
-      <p class="label">PORTFOLIO</p>
-      <p class="desc">Portfolio Selection<br>产品全案设计<br>线上线下物料</p>
-    </div>
-    <div class="manifesto-logo">
-      <img src="img/LOGO12.webp" alt="ALI LUYA" decoding="async" width="80" height="80" loading="lazy">
-    </div>
-    <div class="manifesto-col right">
-      <p class="label">DESIGNER</p>
-      <p class="desc">项目精选<br>小小小更新一下</p>
-    </div>
-  </div>
-
-  <div class="manifesto-bottom">
-    <p>
-      <span>[</span>
-      PERSONAL DESIGN PORTFOLIO
-      <span>]</span>
-    </p>
-  </div>
-</section>
-
-<!-- [2.5] Works Mosaic — 3D perspective image grid -->
-<section class="works-mosaic-section" id="works-mosaic">
-  <p class="works-mosaic-label">SELECTED WORKS</p>
-  <div class="works-mosaic-scene" id="mosaicScene">
-    <div class="works-mosaic-stage" id="mosaicStage">
-
-      <!-- Row 1: 5 cards -->
-      <div class="mosaic-row">
-        <div class="mosaic-card"><img src="img/XNJSE.webp" alt="NenoVia" loading="lazy" decoding="async"></div>
-        <div class="mosaic-card"><img src="img/3.webp" alt="ODI" loading="lazy" decoding="async"></div>
-        <div class="mosaic-card"><img src="img/INDEX/-1 (1).webp" alt="Work" loading="lazy" decoding="async"></div>
-        <div class="mosaic-card"><img src="img/INDEX/-1 (2).webp" alt="Work" loading="lazy" decoding="async"></div>
-        <div class="mosaic-card"><img src="img/wzmj-poster.webp" alt="王者荣耀" loading="lazy" decoding="async"></div>
-      </div>
-
-      <!-- Row 2: 5 cards (center row, slightly larger) -->
-      <div class="mosaic-row">
-        <div class="mosaic-card"><img src="img/INDEX/-1 (3).webp" alt="Work" loading="lazy" decoding="async"></div>
-        <div class="mosaic-card"><img src="img/05/11.webp" alt="海报KV" loading="lazy" decoding="async"></div>
-        <div class="mosaic-card"><img src="img/YMS/车载充电器宣传海报介绍-(13).webp" alt="AI亚马逊" loading="lazy" decoding="async"></div>
-        <div class="mosaic-card"><img src="img/05/08_04_03.webp" alt="精选" loading="lazy" decoding="async"></div>
-        <div class="mosaic-card"><img src="img/lilwave-poster.webp" alt="Lil Wave" loading="lazy" decoding="async"></div>
-      </div>
-
-      <!-- Row 3: 5 cards -->
-      <div class="mosaic-row">
-        <div class="mosaic-card"><img src="img/INDEX/-1 (4).webp" alt="Work" loading="lazy" decoding="async"></div>
-        <div class="mosaic-card"><img src="img/05/09_03.webp" alt="精选" loading="lazy" decoding="async"></div>
-        <div class="mosaic-card"><img src="img/05/3 (1).webp" alt="精选" loading="lazy" decoding="async"></div>
-        <div class="mosaic-card"><img src="img/05/bluetooth54.webp" alt="精选" loading="lazy" decoding="async"></div>
-        <div class="mosaic-card"><img src="img/05/09_06.webp" alt="精选" loading="lazy" decoding="async"></div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- [3] Project Grid — 2 columns -->
-<section class="gallery-section reveal" id="gallery">
-  <div class="gallery-grid">
-
-  <!-- 01 NenoVia -->
-  <a href="1/nenovia.html" class="proj-slide">
-    <img src="img/XNJSE.webp" alt="NenoVia" loading="lazy" decoding="async" fetchpriority="high" width="960" height="540">
-    <div class="proj-overlay"></div>
-    <div class="proj-content">
-      <span class="proj-label">BRAND · PRODUCT DESIGN</span>
-      <h2 class="proj-title">NenoVia<br>产品全案设计</h2>
-      <p class="proj-desc">面向海外25-40岁女性市场，从0到1搭建NenoVia美容仪器品牌视觉体系，涵盖品牌策略、视觉语言、产品包装及全渠道物料设计。</p>
-    </div>
-  </a>
-
-  <!-- 02 ODI -->
-  <a href="odi.html" class="proj-slide">
-    <video class="lazy-video" autoplay muted loop playsinline preload="none" data-src="img/SP_ODI.mp4" poster="img/3.webp"></video>
-    <div class="proj-overlay"></div>
-    <div class="proj-content">
-      <span class="proj-label">PRODUCT DESIGN · CG</span>
-      <h2 class="proj-title">ODI<br>美容仪器产品全案设计</h2>
-      <p class="proj-desc">产品全案设计与CG渲染全流程实战，涵盖工业造型、材质表现与视觉呈现，打造高端美容仪器的整体品牌形象。</p>
-    </div>
-  </a>
-
-  <!-- 03 王者荣耀 -->
-  <a href="wzmj.html" class="proj-slide">
-    <video class="lazy-video" autoplay muted loop playsinline preload="none" data-src="img/WeChat_20260611182308.mp4" poster="img/wzmj-poster.webp"></video>
-    <div class="proj-overlay"></div>
-    <div class="proj-content">
-      <span class="proj-label">KV · 3D RENDERING</span>
-      <h2 class="proj-title">王者荣耀<br>海报KV</h2>
-      <p class="proj-desc">参与《王者荣耀》官方造物节七周年海报创作，负责三维建模框架搭建与渲染，将游戏IP与品牌合作元素融合。</p>
-    </div>
-  </a>
-
-  <!-- 04 Lil Wave -->
-  <a href="lilwave.html" class="proj-slide">
-    <video class="lazy-video" autoplay muted loop playsinline preload="none" data-src="img/video3_.mp4" poster="img/lilwave-poster.webp"></video>
-    <div class="proj-overlay"></div>
-    <div class="proj-content">
-      <span class="proj-label">IP DESIGN · ILLUSTRATION</span>
-      <h2 class="proj-title">Lil Wave<br>自创IP设计</h2>
-      <p class="proj-desc">自创IP Lil Wave，获上实城开（0363.HK）一年独家授权。从角色造型、世界观设定到IP周边开发，构建完整的原创IP视觉体系。</p>
-    </div>
-  </a>
-
-  <!-- 05 精选项目 -->
-  <a href="featured.html#tab-youer" class="proj-slide">
-    <video class="lazy-video" autoplay muted loop playsinline preload="none" data-src="img/05/06-1.mp4" poster="img/05/11.webp"></video>
-    <div class="proj-overlay"></div>
-    <div class="proj-content">
-      <span class="proj-label">FEATURED PROJECTS</span>
-      <h2 class="proj-title">海报KV</h2>
-      <p class="proj-desc">品牌海报 KV · Champion新年/美容仪圣诞/合创汽车春日</p>
-    </div>
-  </a>
-
-  <!-- 06 亚马逊A+ -->
-  <a href="featured.html#tab-headphone" class="proj-slide">
-    <video class="lazy-video" autoplay muted loop playsinline preload="none" data-src="img/YMS/wushuiyin.mp4" poster="img/YMS/车载充电器宣传海报介绍-(13).webp"></video>
-    <div class="proj-overlay"></div>
-    <div class="proj-content">
-      <span class="proj-label">AMAZON A+ · AI RENDERING</span>
-      <h2 class="proj-title">AI 驱动 · 亚马逊 A+</h2>
-      <p class="proj-desc">以 AI 为核心创作工具，完成从场景搭建、产品融合到质感精修的全流程 A+ 素材制作。</p>
-    </div>
-  </a>
-
-  </div><!-- /.gallery-grid -->
-</section>
-
-
-
-
-<!-- Footer -->
-
-<footer class="footer">
-  <div>© 2026 阿莉路亚. All rights reserved.</div>
-  <div><img src="img/LOGO12.webp" alt="ALUYA" style="height:24px;width:auto;" decoding="async" loading="lazy" width="80" height="24"></div>
-  <div>Built with Next.js · Three.js · Framer Motion</div>
-</footer>
-
-<!-- JavaScript -->
-<script>
-// 禁用右键菜单
-document.addEventListener('contextmenu', e => e.preventDefault());
-// 禁用图片拖拽
-document.addEventListener('dragstart', e => e.preventDefault());
-
-// Hamburger Menu
-(function initMenu() {
-  const overlay = document.getElementById('menu-overlay');
-  const panel   = document.getElementById('menu-panel');
-  const openBtn = document.getElementById('hamburger-btn');
-  const closeBtn = document.getElementById('menu-close');
-
-  function open()  { overlay.classList.add('open'); panel.classList.add('open'); }
-  function close() { overlay.classList.remove('open'); panel.classList.remove('open'); }
-
-  openBtn && openBtn.addEventListener('click', open);
-  closeBtn && closeBtn.addEventListener('click', close);
-  overlay && overlay.addEventListener('click', close);
-})();
-
-// Navbar scroll style
-window.addEventListener('scroll', () => {
-  const nav = document.getElementById('navbar');
-  if (!nav) return;
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
-
-// Hero video auto-play + replay after 4s when ended
-window.addEventListener('load', () => {
-  const video = document.getElementById('hero-video');
-  if (!video) return;
-
-  // When video ends, wait 4s then replay
-  video.addEventListener('ended', () => {
-    setTimeout(() => video.play(), 4000);
-  });
-
-  video.play().catch(() => {
-    const playVideo = () => { video.play(); document.removeEventListener('click', playVideo); };
-    document.addEventListener('click', playVideo, { once: true });
-  });
-});
-
-// Hero overlay darken on scroll
-window.addEventListener('scroll', () => {
-  const overlay = document.getElementById('hero-overlay');
-  const hero = document.getElementById('hero');
-  if (!overlay || !hero) return;
-
-  const scrollY = window.scrollY;
-  const heroHeight = hero.offsetHeight;
-  const progress = Math.min(1, scrollY / (heroHeight * 0.6));
-
-  // Darken from 0 to 0.75 as user scrolls
-  const opacity = progress * 0.75;
-  overlay.style.background = `rgba(0,0,0,${opacity})`;
-}, { passive: true });
-
-
-
-// Scroll Reveal (IntersectionObserver)
-(function initReveal() {
-  const items = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('in-view'), i * 100);
-      }
-    });
-  }, { threshold: 0.15 });
-  items.forEach(el => observer.observe(el));
-})();
-
-// Project tiles scroll reveal
-(function initGalleryReveal() {
-  const cards = document.querySelectorAll('.proj-slide');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 120);
-      }
-    });
-  }, { threshold: 0.15 });
-  cards.forEach(card => observer.observe(card));
-})();
-
-</script>
-<script>
-// 图片懒加载：除 Logo 外全部延迟加载
-document.querySelectorAll('img:not(.nav-logo-img):not([loading])').forEach(img => {
-  img.loading = 'lazy';
-  img.decoding = 'async';
-});
-
-// 视频懒加载：进入视口时才加载视频源并自动播放
-(function initLazyVideo() {
-  const videos = document.querySelectorAll('.lazy-video');
-  if (!videos.length) return;
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const video = entry.target;
-      const src = video.dataset.src;
-      if (!src) return;
-      video.src = src;
-      video.load();
-      video.play().catch(() => {});
-      observer.unobserve(video);
-    });
-  }, { rootMargin: '200px' });
-  videos.forEach(v => observer.observe(v));
-})();
-
-// Navbar scroll background
-(function() {
-  const navbar = document.querySelector('.navbar');
-  if (!navbar) return;
-  function updateNavBg() {
-    const scrollY = window.scrollY || window.pageYOffset;
-    const maxScroll = 300;
-    const opacity = Math.min(Math.max(scrollY / maxScroll, 0), 0.9);
-    navbar.style.background = `rgba(0,0,0,${opacity})`;
-  }
-  window.addEventListener('scroll', updateNavBg, { passive: true });
-  updateNavBg();
-})();
-
-// ── Works Mosaic Mouse Parallax ──
-(function initMosaicParallax() {
-  const stage = document.getElementById('mosaicStage');
-  const scene = document.getElementById('mosaicScene');
-  if (!stage || !scene) return;
-
-  // Base rotation
-  const BASE_RX = 18;  // base tilt (deg)
-  const MAX_RX = 6;    // max extra rotation on X axis from mouse
-  const MAX_RY = 8;    // max rotation on Y axis from mouse
-
-  let targetRx = BASE_RX, targetRy = 0;
-  let currentRx = BASE_RX, currentRy = 0;
-  let rafId = null;
-  let isHovering = false;
-
-  function lerp(a, b, t) { return a + (b - a) * t; }
-
-  function tick() {
-    currentRx = lerp(currentRx, targetRx, 0.08);
-    currentRy = lerp(currentRy, targetRy, 0.08);
-    stage.style.transform = `rotateX(${currentRx}deg) rotateY(${currentRy}deg)`;
-
-    const diffRx = Math.abs(currentRx - targetRx);
-    const diffRy = Math.abs(currentRy - targetRy);
-    if (diffRx > 0.01 || diffRy > 0.01) {
-      rafId = requestAnimationFrame(tick);
-    } else {
-      rafId = null;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALILUYA — Visual Designer</title>
+  <meta name="description" content="品牌视觉 · AI 图像生成 · 社媒海报 · 商业摄影后期">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- importmap -->
+  <script type="importmap">
+  {
+    "imports": {
+      "ogl": "https://cdn.jsdelivr.net/npm/ogl@1.0.11/src/index.js"
     }
   }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="is-home">
 
-  function startTick() {
-    if (!rafId) rafId = requestAnimationFrame(tick);
+
+
+
+  <!-- ===== GlassSurface SVG Filter ===== -->
+  <svg class="glass-filter-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <filter id="nav-glass-filter" color-interpolation-filters="sRGB"
+              x="-5%" y="-20%" width="110%" height="140%">
+        <feImage id="nav-glass-map" x="0" y="0" width="100%" height="100%"
+                 preserveAspectRatio="none" result="map" />
+        <feDisplacementMap id="nav-disp-r" in="SourceGraphic" in2="map"
+                           scale="-180" xChannelSelector="R" yChannelSelector="G" result="dispRed"/>
+        <feColorMatrix in="dispRed" type="matrix"
+          values="1 0 0 0 0   0 0 0 0 0   0 0 0 0 0   0 0 0 1 0" result="red"/>
+        <feDisplacementMap id="nav-disp-g" in="SourceGraphic" in2="map"
+                           scale="-170" xChannelSelector="R" yChannelSelector="G" result="dispGreen"/>
+        <feColorMatrix in="dispGreen" type="matrix"
+          values="0 0 0 0 0   0 1 0 0 0   0 0 0 0 0   0 0 0 1 0" result="green"/>
+        <feDisplacementMap id="nav-disp-b" in="SourceGraphic" in2="map"
+                           scale="-160" xChannelSelector="R" yChannelSelector="G" result="dispBlue"/>
+        <feColorMatrix in="dispBlue" type="matrix"
+          values="0 0 0 0 0   0 0 0 0 0   0 0 1 0 0   0 0 0 1 0" result="blue"/>
+        <feBlend in="red" in2="green" mode="screen" result="rg"/>
+        <feBlend in="rg"  in2="blue"  mode="screen" result="output"/>
+        <feGaussianBlur in="output" stdDeviation="0.7"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav-float" id="site-nav">
+    <div class="nav-pill" id="nav-pill">
+      <a href="index.html" class="nav-brand">
+        <img loading="lazy" src="img/LOGO12.png" class="brand-icon" alt="ALILUYA logo">
+        <span class="brand-name">ALILUYA</span>
+      </a>
+      <span class="nav-spacer"></span>
+      <a href="index.html"  class="nav-link is-active">HOME</a>
+      <a href="talk.html"   class="nav-link is-cta">
+        LET'S TALK
+        <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+          <path d="M1 7L7 1M7 1H2M7 1V6" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <!-- 背景视频 -->
+    <video class="hero-bg-video" src="img/hero.mp4" autoplay muted loop playsinline preload="auto"></video>
+    <!-- 底部黑色渐变遮罩 -->
+    <div class="hero-overlay"></div>
+    <!-- 背景粒子 -->
+    <div class="hero-grain"></div>
+
+    <!-- Hero 文字区 -->
+    <div class="hero-inner">
+        <!-- label：遮罩揭开 -->
+        <div class="reveal-clip">
+          <p class="hero-label" id="hero-label">
+            Hi, I'm&nbsp;<strong>阿莉路亚</strong>&nbsp;·&nbsp; Visual Designer &nbsp;·&nbsp; Brand &amp; IP Creative
+          </p>
+        </div>
+
+        <!-- TextPressure 大标题 Line 1：从下方压缩归位 -->
+        <div class="tp-wrap tp-line1" id="tp-line1"></div>
+        <!-- Line 2 -->
+        <div class="tp-wrap tp-line2" id="tp-line2"></div>
+
+        <!-- desc -->
+        <div class="reveal-clip reveal-clip--desc">
+          <p class="hero-desc" id="hero-desc">
+            品牌全案 &nbsp;·&nbsp; KV 主视觉 &nbsp;·&nbsp; IP 设计 &nbsp;·&nbsp; AI 图像创作 &nbsp;·&nbsp; 产品视觉
+          </p>
+        </div>
+
+        <!-- chips -->
+        <div class="hero-chips" id="hero-chips">
+          <span class="chip">Brand Visual</span>
+          <span class="chip">IP Design</span>
+          <span class="chip">KV Poster</span>
+          <span class="chip">AI Creative</span>
+          <span class="chip">Product Design</span>
+        </div>
+      </div>
+
+    <div class="scroll-hint" id="scroll-hint">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+  <!-- ===== SELECTED WORKS ===== -->
+  <section class="works-section" id="works">
+    <div class="works-header">
+      <span class="works-title">SELECTED WORKS</span>
+      <span class="works-sub">2021 — 2026</span>
+      <a href="work.html" class="works-viewall">VIEW ALL →</a>
+    </div>
+
+    <div class="works-grid" id="home-grid">
+
+      <!-- 01 王者荣耀 KV -->
+      <a href="work-wzry.html" class="card">
+        <div class="card-media">
+          <img src="img/image.png" alt="王者荣耀 KV 主视觉" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="card-foot">
+          <span class="card-title">王者荣耀 KV 主视觉</span>
+          <span class="card-tag">KV / 海报</span>
+        </div>
+      </a>
+
+      <!-- 02 亚马逊A+ -->
+      <a href="work-yms.html" class="card">
+        <div class="card-media">
+          <video src="img/YMS/wushuiyin.mp4" autoplay muted loop playsinline preload="none"></video>
+        </div>
+        <div class="card-foot">
+          <span class="card-title">AI 驱动 · 亚马逊A+</span>
+          <span class="card-tag">电商视觉</span>
+        </div>
+      </a>
+
+      <!-- 03 NenoVia -->
+      <a href="work-nenovia.html" class="card">
+        <div class="card-media">
+          <video src="img/nanovia-s.mp4" autoplay muted loop playsinline preload="none"></video>
+        </div>
+        <div class="card-foot">
+          <span class="card-title">NenoVia 产品全案设计</span>
+          <span class="card-tag">产品视觉</span>
+        </div>
+      </a>
+
+      <!-- 04 ODI 美容仪 -->
+      <a href="work-odi.html" class="card">
+        <div class="card-media">
+          <video src="img/SP_ODI.mp4" autoplay muted loop playsinline preload="none"></video>
+        </div>
+        <div class="card-foot">
+          <span class="card-title">ODI 美容仪器全案设计</span>
+          <span class="card-tag">品牌全案</span>
+        </div>
+      </a>
+
+      <!-- 05 LilWave -->
+      <a href="work-lilwave.html" class="card">
+        <div class="card-media">
+          <video src="img/wave/1/Video 16.mp4" autoplay muted loop playsinline preload="none"></video>
+        </div>
+        <div class="card-foot">
+          <span class="card-title">LilWave 品牌视觉</span>
+          <span class="card-tag">品牌 / IP</span>
+        </div>
+      </a>
+
+      <!-- 06 youer 品牌主视觉 -->
+      <a href="work-youer.html" class="card">
+        <div class="card-media">
+          <video src="img/youer/01.mp4" autoplay muted loop playsinline preload="none"></video>
+        </div>
+        <div class="card-foot">
+          <span class="card-title">社媒主视觉海报</span>
+          <span class="card-tag">Social Media Visual</span>
+        </div>
+      </a>
+
+      <!-- 07 包装设计 -->
+      <a href="work-bz.html" class="card">
+        <div class="card-media">
+          <img src="img/bz/设计工作室slogan及业务解读-(17).jpg" alt="包装设计" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="card-foot">
+          <span class="card-title">包装设计</span>
+          <span class="card-tag">包装设计</span>
+        </div>
+      </a>
+
+      <!-- 08 海报KV -->
+      <a href="work-hb.html" class="card">
+        <div class="card-media">
+          <img src="img/05/11.jpg" alt="海报KV" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="card-foot">
+          <span class="card-title">海报KV</span>
+          <span class="card-tag">海报KV</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <span>© 2026 ALILUYA</span>
+    <span>Visual Designer · Brand &amp; AI Creative</span>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="data.js"></script>
+
+  <!-- GSAP + ScrollTrigger (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+  /* ============================================================
+     TextPressure — plain JS port
+  ============================================================ */
+  (function () {
+    const fontLink = document.createElement('link');
+    fontLink.rel  = 'stylesheet';
+    fontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap';
+    document.head.appendChild(fontLink);
+
+    const lines = [
+      { id: 'tp-line1', text: 'Hello~' },
+      { id: 'tp-line2', text: "{I'm阿莉路亚}"},
+    ];
+
+    const mouse  = { x: 0, y: 0 };
+    const cursor = { x: 0, y: 0 };
+    let allSpans = [];
+
+    function dist(a, b) {
+      const dx = b.x - a.x, dy = b.y - a.y;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+    function getAttr(d, maxDist, minVal, maxVal) {
+      const val = maxVal - Math.abs((maxVal * d) / maxDist);
+      return Math.max(minVal, val + minVal);
+    }
+
+    lines.forEach(({ id, text }) => {
+      const container = document.getElementById(id);
+      if (!container) return;
+      const h1 = document.createElement('h1');
+      h1.className = 'tp-title';
+      h1.style.cssText = [
+        'font-family:"Roboto Flex",sans-serif',
+        'text-transform:uppercase',
+        'font-weight:100',
+        'margin:0',
+        'line-height:1',
+        'white-space:nowrap',
+        'display:flex',
+        'justify-content:space-between',
+        'width:100%',
+        'user-select:none',
+        'color:#fff',
+      ].join(';');
+      text.split('').forEach(ch => {
+        const span = document.createElement('span');
+        span.textContent = ch === ' ' ? '\u00A0' : ch;
+        span.style.display = 'inline-block';
+        h1.appendChild(span);
+        allSpans.push({ span, h1 });
+      });
+      container.appendChild(h1);
+    });
+
+    function setFontSizes() {
+      lines.forEach(({ id, text }) => {
+        const container = document.getElementById(id);
+        if (!container) return;
+        const h1 = container.querySelector('h1');
+        if (!h1) return;
+        const cw  = container.offsetWidth || 900;
+        const len = text.replace(/ /g, '').length + (text.split(' ').length - 1) * 0.5;
+        const size = Math.max(48, Math.min(cw / (len * 0.52), 160));
+        h1.style.fontSize = size + 'px';
+      });
+    }
+    setFontSizes();
+    window.addEventListener('resize', setFontSizes);
+
+    function initCenter() {
+      const hero = document.querySelector('.hero-inner');
+      if (!hero) return;
+      const r = hero.getBoundingClientRect();
+      mouse.x = cursor.x = r.left + r.width / 2;
+      mouse.y = cursor.y = r.top  + r.height / 2;
+    }
+    initCenter();
+
+    window.addEventListener('mousemove', e => { cursor.x = e.clientX; cursor.y = e.clientY; });
+    window.addEventListener('touchmove', e => {
+      cursor.x = e.touches[0].clientX; cursor.y = e.touches[0].clientY;
+    }, { passive: true });
+
+    function animate() {
+      mouse.x += (cursor.x - mouse.x) / 12;
+      mouse.y += (cursor.y - mouse.y) / 12;
+      allSpans.forEach(({ span, h1 }) => {
+        const titleRect = h1.getBoundingClientRect();
+        const maxDist   = titleRect.width / 2 || 400;
+        const rect      = span.getBoundingClientRect();
+        const d         = dist(mouse, { x: rect.left + rect.width/2, y: rect.top + rect.height/2 });
+        const wght = Math.floor(getAttr(d, maxDist, 100, 900));
+        const wdth = Math.floor(getAttr(d, maxDist, 25,  151));
+        const ital = getAttr(d, maxDist, 0, 1).toFixed(2);
+        span.style.fontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'ital' ${ital}`;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  })();
+
+  /* ============================================================
+     GlassSurface Nav
+  ============================================================ */
+  (function () {
+    const pill    = document.getElementById('nav-pill');
+    const feImage = document.getElementById('nav-glass-map');
+    if (!pill || !feImage) return;
+    const isChrome  = /Chrome/.test(navigator.userAgent) && !/Edg/.test(navigator.userAgent);
+    const supported = isChrome && CSS.supports('backdrop-filter', 'url(#x)');
+    if (!supported) return;
+    pill.classList.add('nav-glass-svg');
+    function buildMap() {
+      const rect = pill.getBoundingClientRect();
+      const w = rect.width || 400, h = rect.height || 46;
+      const uid = 'ng', bw = 0.07, edge = Math.min(w,h)*(bw*0.5);
+      const svg = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="rg-${uid}" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="#0000"/><stop offset="100%" stop-color="red"/>
+          </linearGradient>
+          <linearGradient id="bg-${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#0000"/><stop offset="100%" stop-color="blue"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="${w}" height="${h}" fill="black"/>
+        <rect x="0" y="0" width="${w}" height="${h}" rx="999" fill="url(#rg-${uid})"/>
+        <rect x="0" y="0" width="${w}" height="${h}" rx="999" fill="url(#bg-${uid})" style="mix-blend-mode:difference"/>
+        <rect x="${edge}" y="${edge}" width="${w-edge*2}" height="${h-edge*2}" rx="50"
+              fill="hsl(0 0% 50% / 0.93)" style="filter:blur(11px)"/>
+      </svg>`;
+      feImage.setAttribute('href', 'data:image/svg+xml,' + encodeURIComponent(svg));
+    }
+    buildMap();
+    new ResizeObserver(() => setTimeout(buildMap, 0)).observe(pill);
+  })();
+
+  /* ============================================================
+     Render project cards
+  ============================================================ */
+  (function() {
+    const grid = document.getElementById('home-grid');
+    if (grid && typeof projects !== 'undefined') {
+      renderGrid(grid, projects);
+    }
+  })();
+
+  /* ============================================================
+     GSAP ANIMATIONS — Opening + ScrollTrigger
+  ============================================================ */
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ------ 直接触发 Hero Opening ------ */
+  runHeroOpening();
+
+  /* ------ Hero Opening Animation ------ */
+  function runHeroOpening() {
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+
+    // Nav 从上滑入
+    tl.fromTo('#site-nav',
+      { yPercent: -120, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: 1.0 },
+      0
+    );
+
+    // Hero label：遮罩揭开（clip-path）
+    tl.fromTo('#hero-label',
+      { yPercent: 110 },
+      { yPercent: 0, duration: 0.9 },
+      0.35
+    );
+
+    // Line1：从下方大幅压进来，scaleY 0.3 → 1
+    tl.fromTo('#tp-line1',
+      { yPercent: 80, scaleY: 0.4, transformOrigin: 'bottom center', opacity: 0 },
+      { yPercent: 0,  scaleY: 1,   opacity: 1, duration: 1.1 },
+      0.52
+    );
+
+    // Line2：稍慢，带 xPercent
+    tl.fromTo('#tp-line2',
+      { yPercent: 100, scaleY: 0.3, transformOrigin: 'bottom center', opacity: 0 },
+      { yPercent: 0,   scaleY: 1,   opacity: 1, duration: 1.2 },
+      0.66
+    );
+
+    // desc：遮罩揭开
+    tl.fromTo('#hero-desc',
+      { yPercent: 110 },
+      { yPercent: 0, duration: 0.8 },
+      0.88
+    );
+
+    // chips：stagger 逐个进场
+    tl.fromTo('#hero-chips .chip',
+      { yPercent: 60, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: 0.65, stagger: 0.08 },
+      1.0
+    );
+
+    // scroll hint
+    tl.fromTo('#scroll-hint',
+      { opacity: 0, yPercent: 20 },
+      { opacity: 1, yPercent: 0, duration: 0.8 },
+      1.3
+    );
   }
 
-  // Mouse move on the whole scene
-  scene.addEventListener('mousemove', (e) => {
-    const rect = scene.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = (e.clientX - cx) / (rect.width / 2);   // -1 to 1
-    const dy = (e.clientY - cy) / (rect.height / 2);  // -1 to 1
+  </script>
 
-    targetRx = BASE_RX - dy * MAX_RX;
-    targetRy = dx * MAX_RY;
-    startTick();
-  }, { passive: true });
 
-  scene.addEventListener('mouseleave', () => {
-    targetRx = BASE_RX;
-    targetRy = 0;
-    startTick();
-  }, { passive: true });
 
-  // Touch support (mobile)
-  scene.addEventListener('touchmove', (e) => {
-    const touch = e.touches[0];
-    const rect = scene.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = (touch.clientX - cx) / (rect.width / 2);
-    const dy = (touch.clientY - cy) / (rect.height / 2);
-    targetRx = BASE_RX - dy * MAX_RX;
-    targetRy = dx * MAX_RY;
-    startTick();
-  }, { passive: true });
 
-  scene.addEventListener('touchend', () => {
-    targetRx = BASE_RX;
-    targetRy = 0;
-    startTick();
-  }, { passive: true });
-})();
-</script>
+
 </body>
 </html>

@@ -68,7 +68,7 @@ img { max-width: 100%; height: auto; display: block; }
 .hero-bg::after {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(to bottom, transparent 0%, rgba(26,26,26,0.9) 100%);
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.9) 100%);
 }
 .hero-accent {
   position: absolute; width: 600px; height: 600px;
@@ -1029,8 +1029,8 @@ document.addEventListener('keydown', e => {
     </div>
   </div>
   <div class="odi-color-palette reveal">
-    <div class="odi-color-block odi-color-block-dark" style="background:#0A0A0A;">
-      #0A0A0A
+    <div class="odi-color-block odi-color-block-dark" style="background:#000000;">
+      #000000
       <p>黑 – 主色</p>
     </div>
     <div class="odi-color-block odi-color-block-dark" style="background:#E85D04;">
@@ -1339,7 +1339,7 @@ document.addEventListener('keydown', e => {
 </script>
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
-  <img src="" alt="" id="lightbox-img">
+  <img loading="lazy" src="" alt="" id="lightbox-img">
 </div>
 
 <script>

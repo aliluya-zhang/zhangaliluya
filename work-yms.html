@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI 驱动 · 亚马逊A+ 页面设计</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:#000000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+
+  /* ── Nav ── */
+  .detail-nav-wrap{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:200}
+  .detail-nav-pill{display:flex;align-items:center;gap:2px;background:#000;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:5px 6px}
+  .detail-nav-pill a,.detail-nav-pill span{font-size:12px;letter-spacing:.06em;padding:7px 18px;border-radius:999px;color:rgba(255,255,255,0.45);text-decoration:none;transition:color .2s;white-space:nowrap}
+  .detail-nav-pill a:hover{color:#fff}
+  .detail-nav-pill .dn-close{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,0.4)}
+  .detail-nav-pill a.dn-cta{background:#fff;color:#0a0a0a !important;font-weight:600}
+  .detail-nav-pill a.dn-cta:hover{background:#e0e0e0;color:#0a0a0a !important}
+
+  /* ── Hero ── */
+  .detail-hero{position:relative;width:100%;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg img{width:100%;height:100%;object-fit:cover}
+  .hero-bg::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.80)}
+  .hero-inner{position:relative;z-index:2;width:100%;max-width:1200px;margin:0 auto;padding:120px 40px 80px;display:grid;grid-template-columns:380px 1fr;gap:60px;align-items:center}
+
+  /* ── Hero Left ── */
+  .hero-left{display:flex;flex-direction:column;gap:24px}
+  .hero-breadcrumb{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.35);font-size:12px;letter-spacing:1px;text-transform:uppercase}
+  .hero-breadcrumb span{color:rgba(255,255,255,.6)}
+  .hero-info{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .hero-info h2{font-size:18px;font-weight:600;color:#fff;margin:0 0 16px;letter-spacing:.5px}
+  .hero-meta{display:grid;grid-template-columns:1fr;gap:12px}
+  .hero-meta-item{display:flex;flex-direction:column;gap:4px}
+  .hero-meta-label{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase}
+  .hero-meta-value{font-size:14px;color:rgba(255,255,255,.8);font-weight:500}
+
+  /* ── Hero Right ── */
+  .hero-right{display:flex;flex-direction:column;gap:20px}
+  .hero-title{font-size:clamp(32px,5vw,52px);font-weight:700;color:#fff;letter-spacing:-.5px;line-height:1.15}
+  .hero-desc{font-size:16px;color:rgba(255,255,255,.45);line-height:1.8;max-width:520px}
+
+  /* ── Body ── */
+  .detail-body{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 40px 120px}
+  .body-section{padding-top:48px}
+  .body-section+.body-section{padding-top:32px}
+  .bs-label{display:inline-block;font-size:12px;color:rgba(255,255,255,.35);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;padding:6px 18px;border:1px solid rgba(255,255,255,.1);border-radius:20px}
+
+  /* ── Grids ── */
+  .media-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .media-grid-1{display:grid;grid-template-columns:1fr;gap:16px}
+  .media-cell{border-radius:14px;overflow:hidden}
+  .media-cell img{width:100%;display:block;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.25)}
+  .media-cell video{width:100%;display:block;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.25)}
+
+  /* ── Mobile ── */
+  @media (max-width:768px){
+    .detail-nav-wrap{top:12px}
+    .detail-nav-pill{padding:4px 5px}
+    .detail-nav-pill a,.detail-nav-pill span{font-size:11px;padding:6px 14px}
+    .detail-hero{min-height:90vh}
+    .hero-inner{grid-template-columns:1fr;gap:32px;padding:100px 18px 60px}
+    .hero-left{order:2;gap:16px}
+    .hero-right{order:1;gap:12px}
+    .hero-title{font-size:clamp(26px,8vw,40px)}
+    .hero-desc{font-size:14px}
+    .hero-info{padding:20px}
+    .hero-info h2{font-size:16px}
+    .detail-body{padding:0 18px 100px}
+    .body-section{padding-top:20px}
+    .body-section+.body-section{padding-top:16px}
+    .media-grid-3{grid-template-columns:1fr;gap:12px}
+    .media-grid-1{gap:12px}
+    .media-cell img{border-radius:12px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Floating Nav ── -->
+<div class="detail-nav-wrap">
+  <div class="detail-nav-pill">
+    <a href="index.html" class="dn-close">
+      <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+        <path d="M8 1L1 8M1 1l7 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      Back
+    </a>
+    <a href="talk.html" class="dn-cta">Let&apos;s Talk</a>
+  </div>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<header class="detail-hero">
+  <div class="hero-bg">
+    <img loading="lazy" src="img/YMS/车载充电器宣传海报介绍-(13).jpg" alt="车载充电器宣传海报">
+  </div>
+  <div class="hero-inner">
+    <!-- Left: Info Card -->
+    <div class="hero-left">
+      <div class="hero-breadcrumb">A+ Content / <span>亚马逊</span></div>
+      <div class="hero-info">
+        <h2>AI 驱动 · 亚马逊A+<br>页面设计</h2>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Client</span>
+            <span class="hero-meta-value">跨境电商品牌</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Role</span>
+            <span class="hero-meta-value">A+ 内容策划 · 视觉设计 · 3D 渲染</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Type</span>
+            <span class="hero-meta-value">亚马逊 A+ 内容 · 电商视觉</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right: Title -->
+    <div class="hero-right">
+      <h1 class="hero-title">AI 驱动<br>亚马逊 A+ 页面设计</h1>
+      <p class="hero-desc">结合 AI 生成技术与 3D 渲染能力，为跨境电商品牌打造高转化率的 Amazon A+ Content，提升品牌调性与视觉叙事。</p>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════ BODY ═══════════════ -->
+<div class="detail-body">
+
+  <!-- ── Section 1: 车载充电器 A+ ── -->
+  <div class="body-section">
+    <div class="bs-label">车载充电器 · A+ 模块</div>
+    <div class="media-grid-3">
+      <div class="media-cell"><img src="img/YMS/1.png" alt="车载充电器 A+ 1" loading="lazy"></div>
+      <div class="media-cell"><img src="img/YMS/1-2.png" alt="车载充电器 A+ 2" loading="lazy"></div>
+      <div class="media-cell"><img src="img/YMS/1-3.png" alt="车载充电器 A+ 3" loading="lazy"></div>
+    </div>
+  </div>
+
+  <!-- ── Section 2: 更多 A+ 模块 ── -->
+  <div class="body-section">
+    <div class="bs-label">充电器配件 · A+ 模块</div>
+    <div class="media-grid-3">
+      <div class="media-cell"><img src="img/YMS/1-4.png" alt="配件 A+ 4" loading="lazy"></div>
+      <div class="media-cell"><img src="img/YMS/1-5.webp" alt="配件 A+ 5" loading="lazy"></div>
+      <div class="media-cell"><img src="img/YMS/1-4.webp" alt="配件 A+ 6" loading="lazy"></div>
+    </div>
+  </div>
+
+  <!-- ── Section 3: 详情长图 ── -->
+  <div class="body-section">
+    <div class="bs-label">详情长图</div>
+    <div class="media-grid-1">
+      <div class="media-cell"><img src="img/YMS/1-7.webp" alt="详情长图" loading="lazy"></div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
