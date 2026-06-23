@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>海报KV — ALILUYA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter','Noto Sans SC',sans-serif;background:#000000;color:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+    img,video{max-width:100%;display:block}
+
+    /* ── Lightbox ── */
+    .lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s}
+    .lightbox.active{opacity:1;pointer-events:all}
+    .lightbox img{max-width:92vw;max-height:90vh;border-radius:8px;object-fit:contain}
+
+    /* ── Floating Nav Pill ── */
+    .detail-nav-wrap{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:200}
+    .detail-nav-pill{display:flex;align-items:center;gap:2px;background:#000;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:5px 6px}
+    .detail-nav-pill a,.detail-nav-pill span{font-size:12px;letter-spacing:.06em;padding:7px 18px;border-radius:999px;color:rgba(255,255,255,0.45);text-decoration:none;transition:color .2s;white-space:nowrap}
+    .detail-nav-pill a:hover{color:#fff}
+    .detail-nav-pill .dn-close{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,0.4)}
+    .detail-nav-pill a.dn-cta{background:#fff;color:#0a0a0a;font-weight:600}
+    .detail-nav-pill a.dn-cta:hover{background:#e0e0e0;color:#0a0a0a}
+    @media (max-width:768px){.detail-nav-wrap{top:12px}.detail-nav-pill{padding:4px 5px}.detail-nav-pill a,.detail-nav-pill span{font-size:11px;padding:6px 14px}}
+
+    /* ── Hero ── */
+    .detail-hero{position:relative;min-height:95vh;display:flex;align-items:end;overflow:hidden}
+    .hero-bg{position:absolute;inset:0}.hero-bg img{width:100%;height:100%;object-fit:cover}
+    .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.95) 0%,rgba(0,0,0,0.72) 40%,rgba(0,0,0,0.42) 70%,rgba(0,0,0,0.22) 100%)}
+
+    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:minmax(280px,38%) 1fr;gap:80px;width:100%;max-width:1400px;margin:0 auto;padding:160px 64px 100px;align-items:end}
+    .hero-left{display:flex;flex-direction:column;gap:28px}
+    .hero-tagline{font-size:12px;font-weight:600;letter-spacing:.1em;color:rgba(255,255,255,.28);text-transform:uppercase}
+    .info-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px 26px;backdrop-filter:blur(12px)}
+    .ic-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px}
+    .ic-desc{font-size:13px;line-height:1.85;color:rgba(255,255,255,.5)}
+    .hero-credits{display:flex;flex-direction:column;gap:20px}
+    .hc-item{display:flex;flex-direction:column;gap:3px}
+    .hc-label{font-size:10px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.22);text-transform:uppercase}
+    .hc-value{font-size:13px;color:rgba(255,255,255,.6)}
+
+    .hero-right{display:flex;flex-direction:column;gap:28px;padding-bottom:4px}
+    .hero-headline{display:flex;flex-direction:column;gap:4px;font-size:clamp(28px,4.5vw,52px);font-weight:800;color:#fff;line-height:1.25;letter-spacing:-.01em}
+    .hero-headline .hl-line{display:block}
+    .hero-headline .hl-line:first-child{color:rgba(255,255,255,.55)}
+    .hero-sub{font-size:14px;line-height:2;color:rgba(255,255,255,.42);max-width:480px}
+
+    @media(max-width:768px){
+      .detail-hero{min-height:auto;padding-bottom:0}
+      .hero-bg::after{background:linear-gradient(to bottom,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.92) 60%,rgba(0,0,0,0.98) 100%)}
+      .hero-inner{grid-template-columns:1fr;gap:32px;padding:100px 22px 60px}
+      .hero-left{order:2;gap:24px}.hero-right{order:1}
+      .hero-headline{font-size:clamp(24px,7vw,36px)}
+    }
+    @media(min-width:769px) and (max-width:1024px){
+      .hero-inner{grid-template-columns:260px 1fr;gap:44px;padding:120px 40px 80px}
+      .hero-headline{font-size:clamp(26px,3.5vw,42px)}
+    }
+
+    /* ── Body ── */
+    .detail-body{padding:0 64px 120px;max-width:1400px;margin:0 auto}
+    @media(max-width:768px){.detail-body{padding:0 18px 100px}}
+    @media(min-width:769px) and (max-width:1024px){.detail-body{padding:0 40px 120px}}
+
+    .body-section{padding-top:80px}
+    .bs-label{font-size:11px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.22);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:14px}
+    .bs-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.06)}
+
+    /* ── Gallery: 前4张 2列，后面全宽 ── */
+    .hb-gallery{display:flex;flex-direction:column;gap:48px}
+    .hb-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+    .hb-fullwidth{}
+    .hb-gallery-item{cursor:pointer;border-radius:12px;overflow:hidden;transition:transform .3s;position:relative}
+    .hb-gallery-item:hover{transform:scale(1.008)}
+    .hb-gallery-item img{width:100%;height:auto;display:block;border-radius:12px}
+
+    @media(max-width:768px){
+      .hb-grid-2{grid-template-columns:1fr;gap:24px}
+    }
+
+    /* ── Back link & Footer ── */
+    .back-link{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.08em;color:rgba(255,255,255,.3);text-decoration:none;margin-top:80px;margin-left:64px;transition:color .2s}
+    .back-link:hover{color:#fff}
+    @media(max-width:768px){.back-link{margin-left:18px}}
+
+    .detail-footer{text-align:center;font-size:11px;color:rgba(255,255,255,.12);padding:40px 0 60px}
+
+    /* ── Scroll fade-in ── */
+    .fade-in-on-scroll{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+    .fade-in-on-scroll.is-visible{opacity:1;transform:translateY(0)}
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ Floating Nav Pill ═══════════ -->
+  <div class="detail-nav-wrap">
+    <div class="detail-nav-pill">
+      <a href="index.html" class="dn-close">
+        <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M8 1L1 8M1 1l7 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Back
+      </a>
+      <a href="talk.html" class="dn-cta">Let&apos;s Talk</a>
+    </div>
+  </div>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="detail-hero">
+    <div class="hero-bg">
+      <img loading="lazy" src="img/HB/1 (3).webp" alt="海报KV主视觉">
+    </div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <p class="hero-tagline">Poster / KV Design</p>
+        <div class="info-card">
+          <div class="ic-title">视觉即传播力</div>
+          <div class="ic-desc">每一张 KV 都是品牌与受众之间的视觉契约。从构图到色彩，从情绪到叙事，让画面在第一眼就完成沟通。</div>
+        </div>
+        <div class="hero-credits">
+          <div class="hc-item"><span class="hc-label">Client</span><span class="hc-value">Champion · 多品牌</span></div>
+          <div class="hc-item"><span class="hc-label">Role</span><span class="hc-value">主视觉 · 海报设计 · 视觉策划</span></div>
+          <div class="hc-item"><span class="hc-label">Type</span><span class="hc-value">品牌KV / 社交媒体海报 / 节日视觉</span></div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-headline">
+          <span class="hl-line">用一张图，</span>
+          <span class="hl-line">讲好一个故事。</span>
+        </div>
+        <p class="hero-sub">从 Champion 品牌联名到节日限定，每张海报都在传递品牌的温度与态度。我们相信，最好的 KV 不只是好看——它让人想点开、想分享、想记住。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ BODY ═══════════ -->
+  <div class="detail-body">
+    <div class="body-section fade-in-on-scroll">
+      <div class="bs-label">KV Poster Gallery · 海报KV展示</div>
+      <div class="hb-gallery">
+
+        <!-- 前4张：2列网格 -->
+        <div class="hb-grid-2">
+          <div class="hb-gallery-item"><img src="img/HB/1 (1).jpg" alt="海报KV 01" loading="lazy"></div>
+          <div class="hb-gallery-item"><img src="img/HB/1 (1).webp" alt="海报KV 02" loading="lazy"></div>
+          <div class="hb-gallery-item"><img src="img/HB/1 (2).webp" alt="海报KV 03" loading="lazy"></div>
+          <div class="hb-gallery-item"><img src="img/HB/1 (3).webp" alt="海报KV 04" loading="lazy"></div>
+        </div>
+
+        <!-- 后面：全宽一行一张 -->
+        <div class="hb-fullwidth hb-gallery-item"><img src="img/HB/1 (4).webp" alt="海报KV 05" loading="lazy"></div>
+        <div class="hb-fullwidth hb-gallery-item"><img src="img/HB/08.webp" alt="海报KV 06" loading="lazy"></div>
+        <div class="hb-fullwidth hb-gallery-item"><img src="img/HB/09.webp" alt="海报KV 07" loading="lazy"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link">
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M9 5H1M1 5L5 1M1 5L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    返回作品集
+  </a>
+  <footer class="detail-footer">© 2026 ALILUYA · Visual Designer</footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="this.classList.remove('active')"><img loading="lazy" src="" alt="" id="lightbox-img"></div>
+
+  <script>
+    /* Lightbox */
+    (function(){
+      var items=document.querySelectorAll('.hb-gallery-item');
+      var lb=document.getElementById('lightbox'),lbi=document.getElementById('lightbox-img');
+      items.forEach(function(item){item.addEventListener('click',function(){lbi.src=this.querySelector('img').src;lbi.alt=this.querySelector('img').alt;lb.classList.add('active')})});
+    })();
+
+    /* Scroll fade-in */
+    document.addEventListener('DOMContentLoaded',function(){
+      var els=document.querySelectorAll('.fade-in-on-scroll');if(!els.length)return;
+      var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');obs.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+      els.forEach(function(el){obs.observe(el)});
+    });
+  </script>
+</body>
+</html>

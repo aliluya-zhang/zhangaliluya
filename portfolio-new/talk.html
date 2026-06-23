@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LET'S TALK — ALILUYA</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Extra styles for talk page */
+    body { overflow: hidden; }
+
+    /* Animated gradient orbs in background */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: .18;
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, #4f46e5, transparent 70%);
+      top: -200px; left: -100px;
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+    .orb-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, #7c3aed, transparent 70%);
+      bottom: -150px; right: -100px;
+      animation: drift 18s ease-in-out infinite alternate-reverse;
+    }
+    .orb-3 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #1e40af, transparent 70%);
+      top: 40%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: drift 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift {
+      from { transform: translate(0, 0); }
+      to   { transform: translate(40px, 30px); }
+    }
+    .orb-3 { animation-name: drift3; }
+    @keyframes drift3 {
+      from { transform: translate(-50%, -50%) scale(1); }
+      to   { transform: translate(-50%, -50%) scale(1.15); }
+    }
+
+    /* Content fade in */
+    .talk-headline { animation: fadeUp .8s .1s ease both; }
+    .contact-row   { animation: fadeUp .8s .3s ease both; }
+
+    /* Divider bar between headline lines */
+    .talk-headline .line2 { color: rgba(255,255,255,.45); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== GlassSurface SVG Filter ===== -->
+  <svg class="glass-filter-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <filter id="nav-glass-filter" color-interpolation-filters="sRGB"
+              x="-5%" y="-20%" width="110%" height="140%">
+        <feImage id="nav-glass-map" x="0" y="0" width="100%" height="100%"
+                 preserveAspectRatio="none" result="map" />
+        <feDisplacementMap id="nav-disp-r" in="SourceGraphic" in2="map"
+                           scale="-180" xChannelSelector="R" yChannelSelector="G" result="dispRed"/>
+        <feColorMatrix in="dispRed" type="matrix"
+          values="1 0 0 0 0   0 0 0 0 0   0 0 0 0 0   0 0 0 1 0" result="red"/>
+        <feDisplacementMap id="nav-disp-g" in="SourceGraphic" in2="map"
+                           scale="-170" xChannelSelector="R" yChannelSelector="G" result="dispGreen"/>
+        <feColorMatrix in="dispGreen" type="matrix"
+          values="0 0 0 0 0   0 1 0 0 0   0 0 0 0 0   0 0 0 1 0" result="green"/>
+        <feDisplacementMap id="nav-disp-b" in="SourceGraphic" in2="map"
+                           scale="-160" xChannelSelector="R" yChannelSelector="G" result="dispBlue"/>
+        <feColorMatrix in="dispBlue" type="matrix"
+          values="0 0 0 0 0   0 0 0 0 0   0 0 1 0 0   0 0 0 1 0" result="blue"/>
+        <feBlend in="red" in2="green" mode="screen" result="rg"/>
+        <feBlend in="rg"  in2="blue"  mode="screen" result="output"/>
+        <feGaussianBlur in="output" stdDeviation="0.7"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav-float" id="site-nav">
+    <div class="nav-pill" id="nav-pill">
+      <a href="index.html" class="nav-brand">
+        <img loading="lazy" src="img/LOGO12.png" class="brand-icon" alt="ALILUYA logo">
+        <span class="brand-name">ALILUYA</span>
+      </a>
+      <span class="nav-spacer"></span>
+      <a href="index.html" class="nav-link">HOME</a>
+      <a href="talk.html"  class="nav-link is-cta">
+        LET'S TALK
+        <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+          <path d="M1 7L7 1M7 1H2M7 1V6" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== TALK SECTION ===== -->
+  <section class="talk-page">
+
+    <!-- Background -->
+    <div class="talk-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="talk-content">
+
+      <h1 class="talk-headline">
+        Creative Meets Strategy.<br>
+        <span class="line2">Let's make something great.</span>
+      </h1>
+
+      <div class="contact-row">
+
+        <!-- 微信 -->
+        <div class="contact-pill">
+          <span class="cpill-label">微信</span>
+          <div class="cpill-sep"></div>
+          <span class="cpill-value">-AHahaha</span>
+        </div>
+
+        <!-- 电话 -->
+        <a class="contact-pill" href="tel:15813310508">
+          <span class="cpill-label">电话</span>
+          <div class="cpill-sep"></div>
+          <span class="cpill-value">158 1331 0508</span>
+        </a>
+
+        <!-- 小红书 -->
+        <div class="contact-pill">
+          <span class="cpill-label">小红书</span>
+          <div class="cpill-sep"></div>
+          <span class="cpill-value">阿莉路亚</span>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+  <script>
+  /* GlassSurface Nav */
+  (function(){
+    const pill=document.getElementById('nav-pill');
+    const feImg=document.getElementById('nav-glass-map');
+    if(!pill||!feImg)return;
+    const ok=/Chrome/.test(navigator.userAgent)&&!/Edg/.test(navigator.userAgent)&&CSS.supports('backdrop-filter','url(#x)');
+    if(!ok)return;
+    pill.classList.add('nav-glass-svg');
+    function build(){
+      const r=pill.getBoundingClientRect(),w=r.width||400,h=r.height||46,e=Math.min(w,h)*0.035;
+      const s=`<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="rg" x1="100%" y1="0%" x2="0%" y2="0%"><stop offset="0%" stop-color="#0000"/><stop offset="100%" stop-color="red"/></linearGradient><linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#0000"/><stop offset="100%" stop-color="blue"/></linearGradient></defs><rect x="0" y="0" width="${w}" height="${h}" fill="black"/><rect x="0" y="0" width="${w}" height="${h}" rx="999" fill="url(#rg)"/><rect x="0" y="0" width="${w}" height="${h}" rx="999" fill="url(#bg)" style="mix-blend-mode:difference"/><rect x="${e}" y="${e}" width="${w-e*2}" height="${h-e*2}" rx="50" fill="hsl(0 0% 50%/0.93)" style="filter:blur(11px)"/></svg>`;
+      feImg.setAttribute('href','data:image/svg+xml,'+encodeURIComponent(s));
+    }
+    build();
+    new ResizeObserver(()=>setTimeout(build,0)).observe(pill);
+  })();
+  </script>
+</body>
+</html>

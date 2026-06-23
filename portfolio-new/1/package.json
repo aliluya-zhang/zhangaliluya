@@ -1,0 +1,12 @@
+{
+  "name": "figma-to-code",
+  "version": "1.0.0",
+  "description": "Export Figma designs to HTML/CSS",
+  "main": "index.js",
+  "scripts": {
+    "export": "node index.js"
+  },
+  "dependencies": {
+    "figma-api": "^1.13.0"
+  }
+}

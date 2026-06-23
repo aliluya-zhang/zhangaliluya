@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALILUYA — Visual Designer</title>
+  <meta name="description" content="品牌视觉 · AI 图像生成 · 社媒海报 · 商业摄影后期">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- importmap -->
+  <script type="importmap">
+  {
+    "imports": {
+      "ogl": "https://cdn.jsdelivr.net/npm/ogl@1.0.11/src/index.js"
+    }
+  }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="is-home">
+
+
+
+
+  <!-- ===== GlassSurface SVG Filter ===== -->
+  <svg class="glass-filter-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <filter id="nav-glass-filter" color-interpolation-filters="sRGB"
+              x="-5%" y="-20%" width="110%" height="140%">
+        <feImage id="nav-glass-map" x="0" y="0" width="100%" height="100%"
+                 preserveAspectRatio="none" result="map" />
+        <feDisplacementMap id="nav-disp-r" in="SourceGraphic" in2="map"
+                           scale="-180" xChannelSelector="R" yChannelSelector="G" result="dispRed"/>
+        <feColorMatrix in="dispRed" type="matrix"
+          values="1 0 0 0 0   0 0 0 0 0   0 0 0 0 0   0 0 0 1 0" result="red"/>
+        <feDisplacementMap id="nav-disp-g" in="SourceGraphic" in2="map"
+                           scale="-170" xChannelSelector="R" yChannelSelector="G" result="dispGreen"/>
+        <feColorMatrix in="dispGreen" type="matrix"
+          values="0 0 0 0 0   0 1 0 0 0   0 0 0 0 0   0 0 0 1 0" result="green"/>
+        <feDisplacementMap id="nav-disp-b" in="SourceGraphic" in2="map"
+                           scale="-160" xChannelSelector="R" yChannelSelector="G" result="dispBlue"/>
+        <feColorMatrix in="dispBlue" type="matrix"
+          values="0 0 0 0 0   0 0 0 0 0   0 0 1 0 0   0 0 0 1 0" result="blue"/>
+        <feBlend in="red" in2="green" mode="screen" result="rg"/>
+        <feBlend in="rg"  in2="blue"  mode="screen" result="output"/>
+        <feGaussianBlur in="output" stdDeviation="0.7"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav-float" id="site-nav">
+    <div class="nav-pill" id="nav-pill">
+      <a href="index.html" class="nav-brand">
+        <img loading="lazy" src="img/LOGO12.png" class="brand-icon" alt="ALILUYA logo">
+        <span class="brand-name">ALILUYA</span>
+      </a>
+      <span class="nav-spacer"></span>
+      <a href="index.html"  class="nav-link is-active">HOME</a>
+      <a href="talk.html"   class="nav-link is-cta">
+        LET'S TALK
+        <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+          <path d="M1 7L7 1M7 1H2M7 1V6" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <!-- 背景视频 -->
+    <video class="hero-bg-video" src="img/hero.mp4" autoplay muted loop playsinline preload="auto"></video>
+    <!-- 底部黑色渐变遮罩 -->
+    <div class="hero-overlay"></div>
+    <!-- 背景粒子 -->
+    <div class="hero-grain"></div>
+
+    <!-- Hero 文字区 -->
+    <div class="hero-inner">
+        <!-- label：遮罩揭开 -->
+        <div class="reveal-clip">
+          <p class="hero-label" id="hero-label">
+            Hi, I'm&nbsp;<strong>阿莉路亚</strong>&nbsp;·&nbsp; Visual Designer &nbsp;·&nbsp; Brand &amp; IP Creative
+          </p>
+        </div>
+
+        <!-- TextPressure 大标题 Line 1：从下方压缩归位 -->
+        <div class="tp-wrap tp-line1" id="tp-line1"></div>
+        <!-- Line 2 -->
+        <div class="tp-wrap tp-line2" id="tp-line2"></div>
+
+        <!-- desc -->
+        <div class="reveal-clip reveal-clip--desc">
+          <p class="hero-desc" id="hero-desc">
+            品牌全案 &nbsp;·&nbsp; KV 主视觉 &nbsp;·&nbsp; IP 设计 &nbsp;·&nbsp; AI 图像创作 &nbsp;·&nbsp; 产品视觉
+          </p>
+        </div>
+
+        <!-- chips -->
+        <div class="hero-chips" id="hero-chips">
+          <span class="chip">Brand Visual</span>
+          <span class="chip">IP Design</span>
+          <span class="chip">KV Poster</span>
+          <span class="chip">AI Creative</span>
+          <span class="chip">Product Design</span>
+        </div>
+      </div>
+
+    <div class="scroll-hint" id="scroll-hint">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+  <!-- ===== SELECTED WORKS ===== -->
+  <section class="works-section" id="works">
+    <div class="works-header">
+      <span class="works-title">SELECTED WORKS</span>
+      <span class="works-sub">2021 — 2026</span>
+      <a href="work.html" class="works-viewall">VIEW ALL →</a>
+    </div>
+
+    <div class="works-grid" id="home-grid">
+
+      <!-- 01 王者荣耀 KV -->
+      <a href="work-wzry.html" class="card">
+        <div class="card-media">
+          <img src="img/image.png" alt="王者荣耀 KV 主视觉" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="card-foot">
+          <span class="card-title">王者荣耀 KV 主视觉</span>
+          <span class="card-tag">KV / 海报</span>
+        </div>
+      </a>
+
+      <!-- 02 亚马逊A+ -->
+      <a href="work-yms.html" class="card">
+        <div class="card-media">
+          <video src="img/YMS/wushuiyin.mp4" autoplay muted loop playsinline preload="none"></video>
+        </div>
+        <div class="card-foot">
+          <span class="card-title">AI 驱动 · 亚马逊A+</span>
+          <span class="card-tag">电商视觉</span>
+        </div>
+      </a>
+
+      <!-- 03 NenoVia -->
+      <a href="work-nenovia.html" class="card">
+        <div class="card-media">
+          <video src="img/nanovia-s.mp4" autoplay muted loop playsinline preload="none"></video>
+        </div>
+        <div class="card-foot">
+          <span class="card-title">NenoVia 产品全案设计</span>
+          <span class="card-tag">产品视觉</span>
+        </div>
+      </a>
+
+      <!-- 04 ODI 美容仪 -->
+      <a href="work-odi.html" class="card">
+        <div class="card-media">
+          <video src="img/SP_ODI.mp4" autoplay muted loop playsinline preload="none"></video>
+        </div>
+        <div class="card-foot">
+          <span class="card-title">ODI 美容仪器全案设计</span>
+          <span class="card-tag">品牌全案</span>
+        </div>
+      </a>
+
+      <!-- 05 LilWave -->
+      <a href="work-lilwave.html" class="card">
+        <div class="card-media">
+          <video src="img/wave/1/Video 16.mp4" autoplay muted loop playsinline preload="none"></video>
+        </div>
+        <div class="card-foot">
+          <span class="card-title">LilWave 品牌视觉</span>
+          <span class="card-tag">品牌 / IP</span>
+        </div>
+      </a>
+
+      <!-- 06 youer 品牌主视觉 -->
+      <a href="work-youer.html" class="card">
+        <div class="card-media">
+          <video src="img/youer/01.mp4" autoplay muted loop playsinline preload="none"></video>
+        </div>
+        <div class="card-foot">
+          <span class="card-title">社媒主视觉海报</span>
+          <span class="card-tag">Social Media Visual</span>
+        </div>
+      </a>
+
+      <!-- 07 包装设计 -->
+      <a href="work-bz.html" class="card">
+        <div class="card-media">
+          <img src="img/bz/设计工作室slogan及业务解读-(17).jpg" alt="包装设计" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="card-foot">
+          <span class="card-title">包装设计</span>
+          <span class="card-tag">包装设计</span>
+        </div>
+      </a>
+
+      <!-- 08 海报KV -->
+      <a href="work-hb.html" class="card">
+        <div class="card-media">
+          <img src="img/05/11.jpg" alt="海报KV" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <div class="card-foot">
+          <span class="card-title">海报KV</span>
+          <span class="card-tag">海报KV</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <span>© 2026 ALILUYA</span>
+    <span>Visual Designer · Brand &amp; AI Creative</span>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="data.js"></script>
+
+  <!-- GSAP + ScrollTrigger (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+  /* ============================================================
+     TextPressure — plain JS port
+  ============================================================ */
+  (function () {
+    const fontLink = document.createElement('link');
+    fontLink.rel  = 'stylesheet';
+    fontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap';
+    document.head.appendChild(fontLink);
+
+    const lines = [
+      { id: 'tp-line1', text: 'Hello~' },
+      { id: 'tp-line2', text: "{I'm阿莉路亚}"},
+    ];
+
+    const mouse  = { x: 0, y: 0 };
+    const cursor = { x: 0, y: 0 };
+    let allSpans = [];
+
+    function dist(a, b) {
+      const dx = b.x - a.x, dy = b.y - a.y;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+    function getAttr(d, maxDist, minVal, maxVal) {
+      const val = maxVal - Math.abs((maxVal * d) / maxDist);
+      return Math.max(minVal, val + minVal);
+    }
+
+    lines.forEach(({ id, text }) => {
+      const container = document.getElementById(id);
+      if (!container) return;
+      const h1 = document.createElement('h1');
+      h1.className = 'tp-title';
+      h1.style.cssText = [
+        'font-family:"Roboto Flex",sans-serif',
+        'text-transform:uppercase',
+        'font-weight:100',
+        'margin:0',
+        'line-height:1',
+        'white-space:nowrap',
+        'display:flex',
+        'justify-content:space-between',
+        'width:100%',
+        'user-select:none',
+        'color:#fff',
+      ].join(';');
+      text.split('').forEach(ch => {
+        const span = document.createElement('span');
+        span.textContent = ch === ' ' ? '\u00A0' : ch;
+        span.style.display = 'inline-block';
+        h1.appendChild(span);
+        allSpans.push({ span, h1 });
+      });
+      container.appendChild(h1);
+    });
+
+    function setFontSizes() {
+      lines.forEach(({ id, text }) => {
+        const container = document.getElementById(id);
+        if (!container) return;
+        const h1 = container.querySelector('h1');
+        if (!h1) return;
+        const cw  = container.offsetWidth || 900;
+        const len = text.replace(/ /g, '').length + (text.split(' ').length - 1) * 0.5;
+        const size = Math.max(48, Math.min(cw / (len * 0.52), 160));
+        h1.style.fontSize = size + 'px';
+      });
+    }
+    setFontSizes();
+    window.addEventListener('resize', setFontSizes);
+
+    function initCenter() {
+      const hero = document.querySelector('.hero-inner');
+      if (!hero) return;
+      const r = hero.getBoundingClientRect();
+      mouse.x = cursor.x = r.left + r.width / 2;
+      mouse.y = cursor.y = r.top  + r.height / 2;
+    }
+    initCenter();
+
+    window.addEventListener('mousemove', e => { cursor.x = e.clientX; cursor.y = e.clientY; });
+    window.addEventListener('touchmove', e => {
+      cursor.x = e.touches[0].clientX; cursor.y = e.touches[0].clientY;
+    }, { passive: true });
+
+    function animate() {
+      mouse.x += (cursor.x - mouse.x) / 12;
+      mouse.y += (cursor.y - mouse.y) / 12;
+      allSpans.forEach(({ span, h1 }) => {
+        const titleRect = h1.getBoundingClientRect();
+        const maxDist   = titleRect.width / 2 || 400;
+        const rect      = span.getBoundingClientRect();
+        const d         = dist(mouse, { x: rect.left + rect.width/2, y: rect.top + rect.height/2 });
+        const wght = Math.floor(getAttr(d, maxDist, 100, 900));
+        const wdth = Math.floor(getAttr(d, maxDist, 25,  151));
+        const ital = getAttr(d, maxDist, 0, 1).toFixed(2);
+        span.style.fontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'ital' ${ital}`;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  })();
+
+  /* ============================================================
+     GlassSurface Nav
+  ============================================================ */
+  (function () {
+    const pill    = document.getElementById('nav-pill');
+    const feImage = document.getElementById('nav-glass-map');
+    if (!pill || !feImage) return;
+    const isChrome  = /Chrome/.test(navigator.userAgent) && !/Edg/.test(navigator.userAgent);
+    const supported = isChrome && CSS.supports('backdrop-filter', 'url(#x)');
+    if (!supported) return;
+    pill.classList.add('nav-glass-svg');
+    function buildMap() {
+      const rect = pill.getBoundingClientRect();
+      const w = rect.width || 400, h = rect.height || 46;
+      const uid = 'ng', bw = 0.07, edge = Math.min(w,h)*(bw*0.5);
+      const svg = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="rg-${uid}" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="#0000"/><stop offset="100%" stop-color="red"/>
+          </linearGradient>
+          <linearGradient id="bg-${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#0000"/><stop offset="100%" stop-color="blue"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="${w}" height="${h}" fill="black"/>
+        <rect x="0" y="0" width="${w}" height="${h}" rx="999" fill="url(#rg-${uid})"/>
+        <rect x="0" y="0" width="${w}" height="${h}" rx="999" fill="url(#bg-${uid})" style="mix-blend-mode:difference"/>
+        <rect x="${edge}" y="${edge}" width="${w-edge*2}" height="${h-edge*2}" rx="50"
+              fill="hsl(0 0% 50% / 0.93)" style="filter:blur(11px)"/>
+      </svg>`;
+      feImage.setAttribute('href', 'data:image/svg+xml,' + encodeURIComponent(svg));
+    }
+    buildMap();
+    new ResizeObserver(() => setTimeout(buildMap, 0)).observe(pill);
+  })();
+
+  /* ============================================================
+     Render project cards
+  ============================================================ */
+  (function() {
+    const grid = document.getElementById('home-grid');
+    if (grid && typeof projects !== 'undefined') {
+      renderGrid(grid, projects);
+    }
+  })();
+
+  /* ============================================================
+     GSAP ANIMATIONS — Opening + ScrollTrigger
+  ============================================================ */
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ------ 直接触发 Hero Opening ------ */
+  runHeroOpening();
+
+  /* ------ Hero Opening Animation ------ */
+  function runHeroOpening() {
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+
+    // Nav 从上滑入
+    tl.fromTo('#site-nav',
+      { yPercent: -120, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: 1.0 },
+      0
+    );
+
+    // Hero label：遮罩揭开（clip-path）
+    tl.fromTo('#hero-label',
+      { yPercent: 110 },
+      { yPercent: 0, duration: 0.9 },
+      0.35
+    );
+
+    // Line1：从下方大幅压进来，scaleY 0.3 → 1
+    tl.fromTo('#tp-line1',
+      { yPercent: 80, scaleY: 0.4, transformOrigin: 'bottom center', opacity: 0 },
+      { yPercent: 0,  scaleY: 1,   opacity: 1, duration: 1.1 },
+      0.52
+    );
+
+    // Line2：稍慢，带 xPercent
+    tl.fromTo('#tp-line2',
+      { yPercent: 100, scaleY: 0.3, transformOrigin: 'bottom center', opacity: 0 },
+      { yPercent: 0,   scaleY: 1,   opacity: 1, duration: 1.2 },
+      0.66
+    );
+
+    // desc：遮罩揭开
+    tl.fromTo('#hero-desc',
+      { yPercent: 110 },
+      { yPercent: 0, duration: 0.8 },
+      0.88
+    );
+
+    // chips：stagger 逐个进场
+    tl.fromTo('#hero-chips .chip',
+      { yPercent: 60, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: 0.65, stagger: 0.08 },
+      1.0
+    );
+
+    // scroll hint
+    tl.fromTo('#scroll-hint',
+      { opacity: 0, yPercent: 20 },
+      { opacity: 1, yPercent: 0, duration: 0.8 },
+      1.3
+    );
+  }
+
+  </script>
+
+
+
+
+
+</body>
+</html>
