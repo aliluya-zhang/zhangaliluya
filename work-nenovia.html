@@ -38,7 +38,7 @@
     .hero-bg img{width:100%;height:100%;object-fit:cover}
     .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.95) 0%,rgba(0,0,0,0.72) 40%,rgba(0,0,0,0.42) 70%,rgba(0,0,0,0.22) 100%)}
 
-    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:minmax(280px,38%) 1fr;gap:80px;width:100%;max-width:1400px;margin:0 auto;padding:160px 64px 100px;align-items:end}
+    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:minmax(280px,38%) 1fr;gap:80px;width:100%;max-width:1400px;margin:0 auto;padding:160px 64px 100px;align-items:start}
     .hero-left{display:flex;flex-direction:column;gap:28px}
     .hero-tagline{font-size:12px;font-weight:600;letter-spacing:.1em;color:rgba(255,255,255,.28);text-transform:uppercase}
     .info-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px 26px;backdrop-filter:blur(12px)}
@@ -49,10 +49,9 @@
     .hc-label{font-size:10px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.22);text-transform:uppercase}
     .hc-value{font-size:13px;color:rgba(255,255,255,.6)}
 
-    .hero-right{display:flex;flex-direction:column;gap:28px;padding-bottom:4px}
+    .hero-right{display:flex;flex-direction:column;gap:28px;padding-top:40px;padding-bottom:4px}
     .hero-headline{display:flex;flex-direction:column;gap:4px;font-size:clamp(28px,4.5vw,52px);font-weight:800;color:#fff;line-height:1.25;letter-spacing:-.01em}
     .hero-headline .hl-line{display:block}
-    .hero-headline .hl-line:first-child{color:rgba(255,255,255,.55)}
     .hero-sub{font-size:14px;line-height:2;color:rgba(255,255,255,.42);max-width:480px}
 
     @media (max-width:768px){
@@ -112,16 +111,18 @@
 
     /* ── Brand Vision 3-Image Stepped Layout ── */
     .nv-step-row{display:flex;justify-content:center;align-items:flex-start;gap:0;padding:24px 0;position:relative;max-width:1400px;margin:0 auto}
-    .nv-step-img{width:32%;border-radius:12px;display:block;position:relative;z-index:1;transition:transform .35s cubic-bezier(.25,.8,.25,1)}
+    .nv-step-img{border-radius:12px;display:block;position:relative;flex:0 0 auto;width:17%;transition:transform .35s cubic-bezier(.25,.8,.25,1)}
     .nv-step-img:hover{transform:translateY(-4px)}
-    .nv-step-img[style*="--s:1"]{margin-top:60px;margin-left:-40px;z-index:2;width:34%}
-    .nv-step-img[style*="--s:2"]{margin-top:120px;margin-left:-40px;z-index:3;width:34%}
+    .nv-step-img[style*="--s:0"]{z-index:1}
+    .nv-step-img[style*="--s:1"]{margin-top:20px;margin-left:-20px;z-index:2}
+    .nv-step-img[style*="--s:2"]{margin-top:40px;margin-left:-20px;z-index:3}
+    .nv-step-img[style*="--s:3"]{margin-top:60px;margin-left:-20px;z-index:4}
+    .nv-step-img[style*="--s:4"]{margin-top:80px;margin-left:-20px;z-index:5}
+    .nv-step-img[style*="--s:5"]{margin-top:100px;margin-left:-20px;z-index:6}
 
     @media (max-width:768px){
-      .nv-step-row{flex-direction:column;align-items:center;gap:20px}
+      .nv-step-row{flex-direction:column;align-items:center;gap:16px}
       .nv-step-img{width:90%!important;margin-left:0!important;margin-top:0!important}
-      .nv-step-img[style*="--s:1"],
-      .nv-step-img[style*="--s:2"]{margin-top:0!important;margin-left:0!important}
     }
 
     /* legacy: fullbleed (kept in case needed) */
@@ -603,14 +604,14 @@
   <!-- ═══════════ HERO ═══════════ -->
   <section class="detail-hero">
     <div class="hero-bg">
-      <img loading="lazy" src="img/image/XNJSE.webp" alt="NenoVia Hero">
+      <img loading="lazy" src="img/xin/3_4低饱和冷调浴室素颜人像美容仪种草图-(4)2.jpg" alt="NenoVia Hero">
     </div>
     <div class="hero-inner">
       <div class="hero-left">
         <div class="hero-tagline">About / Product Introduction</div>
         <div class="info-card">
-          <div class="ic-title">NenoVia 产品全案设计</div>
-          <div class="ic-desc">面向海外25-40岁女性市场，从0到1搭建NenoVia美容仪品牌视觉体系，涵盖品牌策略、视觉语言、产品包装及全渠道物料设计。</div>
+          <div class="ic-title">项目名称：NenoVia DTC品牌视觉全案</div>
+          <div class="ic-desc">项目角色：品牌视觉设计师（独立完成）<br>项目成果：为面向欧美市场的美容仪品牌，从0到1搭建完整视觉体系，确立"暖调科技感"品牌视觉语言，完成Logo、配色、包装、物料全案设计，创建品牌虚拟人"Via"，统一品牌在所有海外社媒渠道的视觉输出，将品牌视觉从"黑色工具感"升级为"有温度的品牌系统"，精准触达25-35岁女性客群</div>
         </div>
         <div class="hero-credits">
           <div class="hc-item">
@@ -629,11 +630,9 @@
       </div>
       <div class="hero-right">
         <h1 class="hero-headline">
-          <span class="hl-line">从工具感到有温度，</span>
-          <span class="hl-line">面向海外市场的</span>
-          <span class="hl-line">品牌视觉重塑。</span>
+          <span class="hl-line">从0到1搭建面向欧美女性的品牌视觉体系</span>
         </h1>
-        <p class="hero-sub">面向海外25-40岁女性市场，从0到1搭建NenoVia美容仪品牌视觉体系，涵盖品牌策略、视觉语言、产品包装及全渠道物料设计。</p>
+        <p class="hero-sub">为出海品牌NenoVia提供完整的品牌视觉构建服务。项目涵盖：<br>品牌视觉定位与策略：确立"暖调科技感"视觉语言<br>Logo与VI系统设计：基于品牌首字母的符号化设计<br>产品视觉体系：配色重塑、材质升级、包装统一化<br>品牌虚拟人IP：创建品牌虚拟形象"Via"，统一全渠道视觉输出<br>全渠道物料落地：海外社媒海报、官网视觉、产品展示图</p>
       </div>
     </div>
   </section>
@@ -645,35 +644,36 @@
     <!-- ═══ SECTION 1: Brand Vision · 品牌愿景 ═══ -->
     <div class="body-section fade-in-on-scroll">
       <div class="nv-vision-label">Brand Vision · 品牌愿景</div>
-      <div class="nv-step-row">
-        <img class="nv-step-img" style="--s:0" src="img/image/pai.jpg" alt="排版展示" loading="lazy">
-        <img class="nv-step-img" style="--s:1" src="img/image/xuni-1.webp" alt="皮肤功效" loading="lazy">
-        <img class="nv-step-img" style="--s:2" src="img/image/pai2.jpg" alt="3X Penetration" loading="lazy">
-      </div>
-    </div>
-
-      <!-- ═══════════════ R1: From Tool to Touch (moved here per user edit) ═══════════════ -->
-      <div class="nv-ref" style="max-width:1560px">
+      <!-- From Tool to Touch 文案 -->
+      <div class="nv-ref" style="max-width:1560px;background:transparent!important">
         <div class="frame22">
-          <div class="frame1">
+          <div class="frame1" style="background:transparent!important">
             <div class="group4 fade-in-on-scroll">
-              <p class="fromToolToTouchAVisu">From Tool to Touch<br>A Visual Rebirth</p>
-              <p class="text">从黑色工具感，到有温度的视觉系统</p>
+              <p class="fromToolToTouchAVisu" style="color:#fff!important">From Tool to Touch<br>A Visual Rebirth</p>
+              <p class="text" style="color:rgba(255,255,255,.75)!important">从黑色工具感，到有温度的视觉系统</p>
               <div class="autoWrapper fade-in-on-scroll">
-                <p class="text4" style="font-size:12px;color:#727174;line-height:1.5"><span class="text2">NenoVia 品牌视觉全案<br></span><span class="text3">配色 / 符号 / 材质 / 物料 / 统一性</span></p>
-                <p class="text5" style="font-size:12px;color:#727174;line-height:1.5">在原产品模具不变的前提下，完成了一次从视觉到触觉的品牌重塑。<br><br>在"专业科技"与"女性温和"之间找到平衡，建立一套有辨识度、可执行、可感知的品牌视觉体系<br><span style="font-size:12px;color:#727174;line-height:1.5;display:inline-block;margin-top:8px">品牌调性，专业而不冰冷，科技而有温度</span></p>
+                <p class="text4" style="color:rgba(255,255,255,.65)!important"><span class="text2">NenoVia 品牌视觉全案<br></span><span class="text3">配色 / 符号 / 材质 / 物料 / 统一性</span></p>
+                <p class="text5" style="color:rgba(255,255,255,.75)!important">在原产品模具不变的前提下，完成了一次从视觉到触觉的品牌重塑。<br>在"专业科技"与"女性温和"之间找到平衡，建立一套有辨识度、可执行、可感知的品牌视觉体系<br><span>品牌调性，专业而不冰冷，科技而有温度</span></p>
               </div>
               <p class="balanceProfessionali">Balance professionalism &amp; tech with gentle femininity, build a distinctive, actionable, perceptible brand visual system.<br>Brand tonality: Professional without sterility, tech-driven yet warm-hearted.</p>
-              <div class="autoWrapper2 fade-in-on-scroll">
-                <img src="1/figma/image/webp/mpyx32yk-2ltihj8.webp" class="frame" loading="eager">
-                <p class="colorSymbolMaterialA">Color · Symbol · Material · Asset · Consistency</p>
-              </div>
-              <img src="1/figma/image/webp/mpyx32yk-en2qepz.webp" class="rectangle1 fade-in-on-scroll" loading="lazy">
             </div>
           </div>
         </div>
       </div>
-  </div>
+
+      <div class="nv-step-row">
+        <img class="nv-step-img" style="--s:0" src="img/xin/Group 11.png" alt="NenoVia 品牌视觉" loading="lazy">
+        <img class="nv-step-img" style="--s:1" src="img/xin/Group 12.png" alt="NenoVia 品牌视觉" loading="lazy">
+        <img class="nv-step-img" style="--s:2" src="img/xin/Group 13.png" alt="NenoVia 品牌视觉" loading="lazy">
+        <img class="nv-step-img" style="--s:3" src="img/xin/Group 14.png" alt="NenoVia 品牌视觉" loading="lazy">
+        <img class="nv-step-img" style="--s:4" src="img/xin/Group 15.png" alt="NenoVia 品牌视觉" loading="lazy">
+        <img class="nv-step-img" style="--s:5" src="img/xin/Group-10 1.png" alt="NenoVia 品牌视觉" loading="lazy">
+      </div>
+    </div>
+
+  <!-- From Tool to Touch 全屏图 -->
+  <img src="img/xin/3_4低饱和冷调浴室素颜人像美容仪种草图-(4).jpg" alt="NenoVia品牌视觉" loading="lazy" style="width:100vw;margin-left:calc(-50vw + 50%);display:block;max-width:none">
+
   </div><!-- /nv-gradient-wrap -->
 
   <!-- ═══════════════ SECTION 2: 核心问题分析 (swapped with R1 per user edit) ═══════════════ -->
@@ -721,24 +721,16 @@
   <div class="nv-white-wrap">
   <div class="detail-body">
 
-    <!-- ═══ Banner 上方插入图片 ═══ -->
-    <div class="nv-logo-visual" style="margin-bottom:0">
-      <img src="img/21d.jpg" alt="Logo Redesign Banner" style="width:100vw;margin-left:calc(-50vw + 50%);display:block;height:auto;max-width:none" loading="lazy">
-    </div>
     <!-- ═══ SECTION 3: Logo 标识重塑 ═══ -->
     <div class="body-section fade-in-on-scroll">
       <div class="bs-label">Logo Redesign</div>
       <h2 class="nv-section-title">Logo 标识重塑</h2>
       <div class="nv-logo-visual">
-        <img src="img/image/微信截图_20260622170445.png" alt="Logo Redesign 1" loading="lazy">
-      </div>
-      <div class="nv-logo-text" style="margin-top:32px">
-        <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7">Based on the letter "N," the logo uses diagonal lines and a gradient from dense to sparse to create a sense of "surface-to-deep" penetration. It directly echoes the product's core function — opening up skin channels and boosting serum absorption.</p>
-        <p style="font-size:12px;color:rgba(255,255,255,.32);font-style:italic;margin-top:8px">以字母"N"为基础，通过斜向线条与渐变疏密，塑造"由表及里"的渗透感，精准对应产品打开肌肤通道、促进精华吸收的核心功能。</p>
-      </div>
-      <div class="nv-logo-visual">
-        <img src="img/image/个人作品集_05.webp" alt="配色方案" loading="lazy">
         <img src="img/image/微信截图_20260622170831.png" alt="Logo Redesign 2" loading="lazy">
+      </div>
+      <div class="nv-logo-text" style="margin-top:24px;text-align:center">
+        <p style="font-size:13px;color:#727174;line-height:1.7">以字母"N"为基础，通过斜向线条与渐变疏密，塑造"由表及里"的渗透感，精准对应产品打开肌肤通道、促进精华吸收的核心功能。</p>
+        <p style="font-size:12px;color:#727174;font-style:italic;margin-top:8px">Logo uses diagonal lines and a gradient from dense to sparse to create a sense of "surface-to-deep" penetration. It directly echoes the product's core function — opening up skin channels and boosting serum absorption.</p>
       </div>
     </div>
 
@@ -753,17 +745,12 @@
           <p class="productColorRedesign">Product Color Redesign</p>
           <p class="text20">产品颜色重塑</p>
           <div class="autoWrapper21 fade-in-on-scroll">
-            <p class="text21" style="font-size:14px;color:#727174;line-height:1.5"><strong>建立"暖调科技感"主色调</strong><br>提升亲和力与专业温度。</p>
             <p class="text22" style="font-size:14px;color:#727174;line-height:1.5">主色采用哑光玫瑰金，配合底部细磨砂外壳，让金属不再冰冷，而是沉稳、有触感。<br>引入裸粉色作为辅助点缀，柔化产品与环境的对比，整体视觉从"实验室工具"转向"浴室里的安静伴侣"。</p>
           </div>
         </div>
-        <p class="thePrimaryColorIsAMa">The primary color is a matte rose gold, paired with a fine matte finish on the shell — turning the metal from cold to grounded and tactile.<br>Nude pink is introduced as an accent to soften the contrast between the product and its environment, shifting the overall visual perception from a lab tool to a quiet companion in the bathroom.</p>
+
 
         <div class="autoWrapper22 fade-in-on-scroll">
-          <div class="row1">
-            <img src="1/figma/image/webp/mpyx32yk-2k2276w.webp" class="rectBeforeAfter" loading="lazy">
-            <img src="1/figma/image/webp/mpywwrou-okf4vbh.webp" class="rectHero" loading="lazy">
-          </div>
           <div class="row2">
             <img src="1/figma/image/webp/mpyx32yg-p9vv4jf.webp" class="rectStep1" loading="lazy">
             <img src="1/figma/image/webp/mpyx32yg-n121a0o.webp" class="rectStep2" loading="lazy">
@@ -779,26 +766,21 @@
           </div>
           <div class="autoWrapper24 fade-in-on-scroll">
             <p class="text24">以纳米微晶笔为核心单品<br>构建覆盖"设备 + 耗材 + 修护"的全场景家用美容仪器产品线。<br></p>
-            <p class="text25"><br>核心设备：纳米微晶笔（Mini / Core / Pro 三档可选）<br>配套耗材：一次性无菌 · 可替换精华舱（补水 / 抗衰）<br>修护辅助：nano修复面膜（微晶后镇静舒缓）<br><br></p>
+            <p class="text25" style="font-size:12px"><br>核心设备：纳米微晶笔（Mini / Core / Pro 三档可选）<br>配套耗材：一次性无菌 · 可替换精华舱（补水 / 抗衰）<br>修护辅助：nano修复面膜（微晶后镇静舒缓）<br><br></p>
           </div>
-          <p class="text26">形成从导入 → 营养补充 → 术后修护的完整闭环，满足居家护肤的多层次需求。</p>
-          <p class="builtAroundTheNanoMi">Built around the nano‑microneedling pen as the core device, the product line forms a complete home‑use beauty ecosystem covering "device + consumables + recovery".<br>Core Device: Nano‑microneedling pen (available in Mini / Core / Pro tiers)<br>Consumables: Single‑use sterile tips · Refillable serum cartridges (Hydrating / Firming)<br>Recovery Aid: Centella recovery mask (post‑microneedling soothing)<br>The system creates a closed‑loop journey from infusion → nutrient delivery → post‑care recovery, addressing multi‑level skincare needs at home.<br></p>
           <div class="autoWrapper25 fade-in-on-scroll" style="display:flex;align-items:flex-start;justify-content:flex-start;gap:16px;margin-top:40px;flex-wrap:wrap">
             <img src="1/figma/image/webp/mpyx32yg-2pswpuf.webp" class="rectangle42 fade-in-on-scroll" loading="lazy" style="width:300px!important;height:auto!important;max-width:100%">
             <img src="1/figma/image/webp/mpyx32yg-3y0j4ir.webp" class="rectangle39 fade-in-on-scroll" loading="lazy" style="width:300px!important;height:auto!important;max-width:100%">
             <img src="1/figma/image/webp/mpyx32yg-5l6ooy9.webp" class="rectangle39 fade-in-on-scroll" loading="lazy" style="width:300px!important;height:auto!important;max-width:100%">
           </div>
-          <div class="autoWrapper26 fade-in-on-scroll" style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-          <!-- 第一张：横跨两列，独占一行 -->
-          <img src="img/image/Rectangle-39.jpg" alt="产品矩阵场景" loading="lazy" style="width:100%;border-radius:20px;grid-column:1 / -1;object-fit:cover">
-          <!-- 第二三张：并排一行2张 -->
-            <img src="img/image/图片精修-(23).webp" alt="产品矩阵场景 2" loading="lazy" style="width:100%;border-radius:14px;object-fit:cover">
-            <img src="img/image/网站产品阵列页面设计需求-(7).webp" alt="产品矩阵场景 3" loading="lazy" style="width:100%;border-radius:14px;object-fit:cover">
-        </div>
+          <p class="text26">形成从导入 → 营养补充 → 术后修护的完整闭环，满足居家护肤的多层次需求。</p>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Product Matrix 全屏图 -->
+  <img src="img/xin/3_4低饱和冷调浴室素颜人像美容仪种草图-(10).jpg" alt="产品矩阵场景" loading="lazy" style="width:100vw;margin-left:calc(-50vw + 50%);display:block;max-width:none">
 
     <!-- ═══ SECTION 7: 品牌虚拟模特 Via ═══ -->
     <div class="body-section fade-in-on-scroll">
@@ -807,7 +789,6 @@
       <div class="nv-via-intro">
         <h3>via</h3>
         <p>通过品牌虚拟模特统一视觉输出，建立与用户的长期情感连接。</p>
-        <p class="eng">Via is the brand's virtual identity, unifying every brand touchpoint with a consistent visual language.</p>
       </div>
       <div class="nv-via-needle">
         <div>
@@ -820,34 +801,14 @@
       </div>
     </div>
 
-    <!-- ═══ SECTION 8: 品牌版式 ═══ -->
+    <!-- ═══ SECTION 8: 文案排版 ═══ -->
     <div class="body-section fade-in-on-scroll">
-      <div class="bs-label">Brand Format</div>
-      <h2 class="nv-section-title">品牌版式</h2>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.22);text-transform:uppercase;margin-bottom:12px">Social Presence</div>
+      <h2 style="line-height:1.3;color:#727174;font-family:Italiana,sans-serif;font-size:clamp(28px,4vw,64px);font-weight:400;margin-bottom:48px">From Static to Dynamic<br>A Visual System for Global Social Presence</h2>
       <div class="nv-format-intro">
-        <p>品牌版式是品牌在视觉沟通之中使用最为频繁的形式之一，传递规范、专业、可信赖的品牌形象</p>
-        <p class="eng">Brand typography is among the most common visual communication tools — delivering a consistent, professional, and reliable brand image.</p>
+        <p>账号整体运营调性（Ins 主页、短视频、海报、互动统一标准）</p>
       </div>
-      <div class="nv-format-lr">
-        <div class="nv-format-left">
-          <img src="img/image/pai1.webp" alt="版式左" loading="lazy">
-        </div>
-        <div class="nv-format-right">
-          <div class="nv-format-r2">
-            <img src="img/image/pai2.jpg" alt="版式右1" loading="lazy">
-            <img src="img/image/pai.jpg" alt="版式右2" loading="lazy">
-          </div>
-          <div class="nv-format-r3">
-            <img src="img/image/新品1.webp" alt="新品1" loading="lazy">
-            <img src="img/image/新品12.webp" alt="新品12" loading="lazy">
-            <img src="img/image/新品14.webp" alt="新品14" loading="lazy">
-          </div>
-          <div class="nv-format-r2">
-            <img src="img/image/pai7.jpg" alt="版式右6" loading="lazy">
-            <img src="img/image/pai8.jpg" alt="版式右7" loading="lazy">
-          </div>
-        </div>
-      </div>
+      <img src="img/xin/Group 161.png" alt="Social Presence" loading="lazy" style="width:100%;max-width:1920px;border-radius:14px;display:block;margin:0 auto">
     </div>
 
     <!-- ═══ SECTION 9: 升级前后总结 ═══ -->
@@ -961,6 +922,13 @@
 
     /* Lazy loading */
     document.querySelectorAll('img:not([loading])').forEach(img => { img.loading = 'lazy'; });
+
+    /* 禁止右键保存 */
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+    document.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) e.preventDefault();
+    });
   </script>
 </body>
 </html>
