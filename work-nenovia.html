@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="img/xin/3_4低饱和冷调浴室素颜人像美容仪种草图-(4)2.jpg" fetchpriority="high">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Inter','Noto Sans SC',sans-serif;background:#000000;color:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -73,7 +74,7 @@
     @media (min-width:769px) and (max-width:1024px){.detail-body{padding:0 40px 120px}}
 
     /* ── Section ── */
-    .body-section{padding-top:80px}
+    .body-section{padding-top:80px;content-visibility:auto;contain-intrinsic-size:auto 500px}
     .body-section+.body-section{padding-top:56px}
     .bs-label{font-size:11px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.22);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:14px}
     .bs-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.06)}
@@ -382,7 +383,7 @@
     .nv-white-wrap .nv-problem-table th,.nv-white-wrap .nv-problem-table td{border-bottom-color:rgba(0,0,0,0.08)}
 
     /* ── Scroll fade-in ── */
-    .fade-in-on-scroll{opacity:0;transform:translateY(36px);transition:opacity .8s cubic-bezier(.25,.8,.25,1),transform .8s cubic-bezier(.25,.8,.25,1);will-change:opacity,transform}
+    .fade-in-on-scroll{opacity:0;transform:translateY(36px);transition:opacity .8s cubic-bezier(.25,.8,.25,1),transform .8s cubic-bezier(.25,.8,.25,1)}
     .fade-in-on-scroll.is-visible{opacity:1!important;transform:translateY(0)!important}
 
     /* ══════════════════ .nv-ref: 参考区块 (scoped) ══════════════════ */
@@ -604,7 +605,7 @@
   <!-- ═══════════ HERO ═══════════ -->
   <section class="detail-hero">
     <div class="hero-bg">
-      <img loading="lazy" src="img/xin/3_4低饱和冷调浴室素颜人像美容仪种草图-(4)2.jpg" alt="NenoVia Hero">
+      <img src="img/xin/3_4低饱和冷调浴室素颜人像美容仪种草图-(4)2.jpg" alt="NenoVia Hero" fetchpriority="high" decoding="sync" width="1920" height="1080">
     </div>
     <div class="hero-inner">
       <div class="hero-left">
@@ -662,17 +663,17 @@
       </div>
 
       <div class="nv-step-row">
-        <img class="nv-step-img" style="--s:0" src="img/xin/Group 11.png" alt="NenoVia 品牌视觉" loading="lazy">
-        <img class="nv-step-img" style="--s:1" src="img/xin/Group 12.png" alt="NenoVia 品牌视觉" loading="lazy">
-        <img class="nv-step-img" style="--s:2" src="img/xin/Group 13.png" alt="NenoVia 品牌视觉" loading="lazy">
-        <img class="nv-step-img" style="--s:3" src="img/xin/Group 14.png" alt="NenoVia 品牌视觉" loading="lazy">
-        <img class="nv-step-img" style="--s:4" src="img/xin/Group 15.png" alt="NenoVia 品牌视觉" loading="lazy">
-        <img class="nv-step-img" style="--s:5" src="img/xin/Group-10 1.png" alt="NenoVia 品牌视觉" loading="lazy">
+        <img class="nv-step-img" style="--s:0" src="img/xin/Group 11.png" alt="NenoVia 品牌视觉" loading="lazy" decoding="async">
+        <img class="nv-step-img" style="--s:1" src="img/xin/Group 12.png" alt="NenoVia 品牌视觉" loading="lazy" decoding="async">
+        <img class="nv-step-img" style="--s:2" src="img/xin/Group 13.png" alt="NenoVia 品牌视觉" loading="lazy" decoding="async">
+        <img class="nv-step-img" style="--s:3" src="img/xin/Group 14.png" alt="NenoVia 品牌视觉" loading="lazy" decoding="async">
+        <img class="nv-step-img" style="--s:4" src="img/xin/Group 15.png" alt="NenoVia 品牌视觉" loading="lazy" decoding="async">
+        <img class="nv-step-img" style="--s:5" src="img/xin/Group-10 1.png" alt="NenoVia 品牌视觉" loading="lazy" decoding="async">
       </div>
     </div>
 
   <!-- From Tool to Touch 全屏图 -->
-  <img src="img/xin/3_4低饱和冷调浴室素颜人像美容仪种草图-(4).jpg" alt="NenoVia品牌视觉" loading="lazy" style="width:100vw;margin-left:calc(-50vw + 50%);display:block;max-width:none">
+  <img src="img/xin/3_4低饱和冷调浴室素颜人像美容仪种草图-(4).jpg" alt="NenoVia品牌视觉" loading="lazy" decoding="async" style="width:100vw;margin-left:calc(-50vw + 50%);display:block;max-width:none">
 
   </div><!-- /nv-gradient-wrap -->
 
@@ -726,7 +727,7 @@
       <div class="bs-label">Logo Redesign</div>
       <h2 class="nv-section-title">Logo 标识重塑</h2>
       <div class="nv-logo-visual">
-        <img src="img/image/微信截图_20260622170831.png" alt="Logo Redesign 2" loading="lazy">
+        <img src="img/image/微信截图_20260622170831.png" alt="Logo Redesign 2" loading="lazy" decoding="async">
       </div>
       <div class="nv-logo-text" style="margin-top:24px;text-align:center">
         <p style="font-size:13px;color:#727174;line-height:1.7">以字母"N"为基础，通过斜向线条与渐变疏密，塑造"由表及里"的渗透感，精准对应产品打开肌肤通道、促进精华吸收的核心功能。</p>
@@ -752,9 +753,9 @@
 
         <div class="autoWrapper22 fade-in-on-scroll">
           <div class="row2">
-            <img src="1/figma/image/webp/mpyx32yg-p9vv4jf.webp" class="rectStep1" loading="lazy">
-            <img src="1/figma/image/webp/mpyx32yg-n121a0o.webp" class="rectStep2" loading="lazy">
-            <img src="1/figma/image/webp/mpyx32yg-jxbhkhp.webp" class="rectStep3" loading="lazy">
+            <img src="1/figma/image/webp/mpyx32yg-p9vv4jf.webp" class="rectStep1" loading="lazy" decoding="async">
+            <img src="1/figma/image/webp/mpyx32yg-n121a0o.webp" class="rectStep2" loading="lazy" decoding="async">
+            <img src="1/figma/image/webp/mpyx32yg-jxbhkhp.webp" class="rectStep3" loading="lazy" decoding="async">
           </div>
         </div>
 
@@ -769,9 +770,9 @@
             <p class="text25" style="font-size:12px"><br>核心设备：纳米微晶笔（Mini / Core / Pro 三档可选）<br>配套耗材：一次性无菌 · 可替换精华舱（补水 / 抗衰）<br>修护辅助：nano修复面膜（微晶后镇静舒缓）<br><br></p>
           </div>
           <div class="autoWrapper25 fade-in-on-scroll" style="display:flex;align-items:flex-start;justify-content:flex-start;gap:16px;margin-top:40px;flex-wrap:wrap">
-            <img src="1/figma/image/webp/mpyx32yg-2pswpuf.webp" class="rectangle42 fade-in-on-scroll" loading="lazy" style="width:300px!important;height:auto!important;max-width:100%">
-            <img src="1/figma/image/webp/mpyx32yg-3y0j4ir.webp" class="rectangle39 fade-in-on-scroll" loading="lazy" style="width:300px!important;height:auto!important;max-width:100%">
-            <img src="1/figma/image/webp/mpyx32yg-5l6ooy9.webp" class="rectangle39 fade-in-on-scroll" loading="lazy" style="width:300px!important;height:auto!important;max-width:100%">
+            <img src="1/figma/image/webp/mpyx32yg-2pswpuf.webp" class="rectangle42 fade-in-on-scroll" loading="lazy" decoding="async" style="width:300px!important;height:auto!important;max-width:100%">
+            <img src="1/figma/image/webp/mpyx32yg-3y0j4ir.webp" class="rectangle39 fade-in-on-scroll" loading="lazy" decoding="async" style="width:300px!important;height:auto!important;max-width:100%">
+            <img src="1/figma/image/webp/mpyx32yg-5l6ooy9.webp" class="rectangle39 fade-in-on-scroll" loading="lazy" decoding="async" style="width:300px!important;height:auto!important;max-width:100%">
           </div>
           <p class="text26">形成从导入 → 营养补充 → 术后修护的完整闭环，满足居家护肤的多层次需求。</p>
         </div>
@@ -780,7 +781,7 @@
   </div>
 
   <!-- Product Matrix 全屏图 -->
-  <img src="img/xin/3_4低饱和冷调浴室素颜人像美容仪种草图-(10).jpg" alt="产品矩阵场景" loading="lazy" style="width:100vw;margin-left:calc(-50vw + 50%);display:block;max-width:none">
+  <img src="img/xin/3_4低饱和冷调浴室素颜人像美容仪种草图-(10).jpg" alt="产品矩阵场景" loading="lazy" decoding="async" style="width:100vw;margin-left:calc(-50vw + 50%);display:block;max-width:none">
 
     <!-- ═══ SECTION 7: 品牌虚拟模特 Via ═══ -->
     <div class="body-section fade-in-on-scroll">
@@ -796,8 +797,8 @@
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;width:1920px;margin:0 auto">
-        <img id="via-main" src="img/image/XNJSE.webp" alt="Via 1" loading="lazy" style="width:100%;border-radius:14px;-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 15%,#000 85%,transparent 100%);mask-image:linear-gradient(to right,transparent 0%,#000 15%,#000 85%,transparent 100%)" onload="var t=this;var h=t.clientHeight;var b=document.getElementById('via-sub');if(b&&h){b.style.maxHeight=h+'px';b.style.width='auto'}">
-        <img id="via-sub" src="img/image/4.webp" alt="Via 4" loading="lazy" style="width:100%;border-radius:14px;object-fit:contain">
+        <img id="via-main" src="img/image/XNJSE.webp" alt="Via 1" loading="lazy" decoding="async" style="width:100%;border-radius:14px;-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 15%,#000 85%,transparent 100%);mask-image:linear-gradient(to right,transparent 0%,#000 15%,#000 85%,transparent 100%)" onload="var t=this;var h=t.clientHeight;var b=document.getElementById('via-sub');if(b&&h){b.style.maxHeight=h+'px';b.style.width='auto'}">
+        <img id="via-sub" src="img/image/4.webp" alt="Via 4" loading="lazy" decoding="async" style="width:100%;border-radius:14px;object-fit:contain">
       </div>
     </div>
 
@@ -808,7 +809,7 @@
       <div class="nv-format-intro">
         <p>账号整体运营调性（Ins 主页、短视频、海报、互动统一标准）</p>
       </div>
-      <img src="img/xin/Group 161.png" alt="Social Presence" loading="lazy" style="width:100%;max-width:1920px;border-radius:14px;display:block;margin:0 auto">
+      <img src="img/xin/Group 161.png" alt="Social Presence" loading="lazy" decoding="async" style="width:100%;max-width:1920px;border-radius:14px;display:block;margin:0 auto">
     </div>
 
     <!-- ═══ SECTION 9: 升级前后总结 ═══ -->
@@ -887,7 +888,7 @@
 
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
-    <img loading="lazy" src="" alt="" id="lightbox-img">
+    <img loading="lazy" decoding="async" src="" alt="" id="lightbox-img">
   </div>
 
   <script>
@@ -920,8 +921,9 @@
       els.forEach(function(el) { observer.observe(el); });
     });
 
-    /* Lazy loading */
+    /* Lazy loading + async decode */
     document.querySelectorAll('img:not([loading])').forEach(img => { img.loading = 'lazy'; });
+    document.querySelectorAll('img:not([decoding])').forEach(img => { img.decoding = 'async'; });
 
     /* 禁止右键保存 */
     document.addEventListener('contextmenu', e => e.preventDefault());
