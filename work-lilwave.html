@@ -461,6 +461,13 @@
 
   <!-- ===== FOOTER ===== -->
   <footer class="detail-footer">© 2026 ALILUYA · Visual Designer</footer>
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+    document.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) e.preventDefault();
+    });
+  </script>
 
 </body>
 </html>
