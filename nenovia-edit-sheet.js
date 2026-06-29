@@ -141,7 +141,7 @@ children.push(new Paragraph({
 
 // ── [H] Hero ──
 children.push(...sectionHeader("H", "Hero 封面", "Hero Section", "595-630"));
-children.push(...textBlock("背景图", "img/image/XNJSE.png"));
+children.push(...textBlock("背景图", "img/image/XNJSE.webp"));
 children.push(...textBlock("标签", "About / Product Introduction"));
 children.push(...textBlock("信息卡标题", "NenoVia 产品全案设计"));
 children.push(...textBlock("信息卡描述", "面向海外25-40岁女性市场，从0到1搭建NenoVia美容仪品牌视觉体系，涵盖品牌策略、视觉语言、产品包装及全渠道物料设计。"));
@@ -160,7 +160,7 @@ children.push(...textBlock("副标题", "面向海外25-40岁女性市场，从0
 // ── [1] Brand Vision ──
 children.push(...sectionHeader("1", "Brand Vision · 品牌愿景", "Brand Vision", "637-644"));
 children.push(...textBlock("图片1", "img/image/pai.jpg （排版展示）"));
-children.push(...textBlock("图片2", "img/image/xuni-1.png （皮肤功效）"));
+children.push(...textBlock("图片2", "img/image/xuni-1.webp （皮肤功效）"));
 children.push(...textBlock("图片3", "img/image/pai2.jpg （3X Penetration）"));
 
 // ── [2] Current Issue ──
@@ -214,9 +214,9 @@ children.push(...textBlock("英文描述", [
 children.push(...textBlock("中文描述", "以字母\"N\"为基础，通过斜向线条与渐变疏密，塑造\"由表及里\"的渗透感，精准对应产品打开肌肤通道、促进精华吸收的核心功能。"));
 children.push(...textBlock("小标题", "渗透 + N"));
 children.push(...textBlock("图片", [
-  "img/image/微信截图_20260622170445.png （Logo Redesign 1）",
-  "img/image/个人作品集_05.png （配色方案）",
-  "img/image/微信截图_20260622170831.png （Logo Redesign 2）",
+  "img/image/微信截图_20260622170445.webp （Logo Redesign 1）",
+  "img/image/个人作品集_05.webp （配色方案）",
+  "img/image/微信截图_20260622170831.webp （Logo Redesign 2）",
 ]));
 
 // ── [5] Product Color Redesign ──
@@ -243,7 +243,7 @@ children.push(...textBlock("中文描述", "通过品牌虚拟模特统一视觉
 children.push(...textBlock("英文描述", "Via is the brand's virtual identity, unifying every brand touchpoint with a consistent visual language."));
 children.push(...textBlock("详细描述", "Via 是 NenoVia 的品牌虚拟形象，以统一的视觉语言贯穿所有传播触点。她不是超模，也不是网红，而是一位 28 岁、住在哥本哈根的护肤品配方师。雀斑、浅金短发、温和自然的穿搭，让她看起来既真实又亲近。通过 Via 的品牌声线与视觉输出，我们与用户建立长期的情感连接——不是冷冰冰的代言，而是像朋友一样陪伴每一次护肤仪式。"));
 children.push(...textBlock("图片", [
-  "img/image/XNJSE.png （Via 1 - 主图）",
+  "img/image/XNJSE.webp （Via 1 - 主图）",
   "img/image/4.jpg （Via 4 - 副图）",
 ]));
 

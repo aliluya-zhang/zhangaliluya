@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>视频压缩优化对比报告</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f0f0f;color:#e0e0e0;padding:40px 20px}
+.container{max-width:900px;margin:0 auto}
+h1{text-align:center;font-size:28px;margin-bottom:8px;color:#fff}
+.sub{text-align:center;color:#888;margin-bottom:32px;font-size:14px}
+
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
+.card{background:#1a1a1a;border-radius:12px;padding:20px;text-align:center;border:1px solid #2a2a2a}
+.card .val{font-size:32px;font-weight:700;margin-bottom:4px}
+.card .label{font-size:13px;color:#888}
+.card.green .val{color:#4ade80}
+.card.blue .val{color:#60a5fa}
+.card.amber .val{color:#fbbf24}
+.card.red .val{color:#f87171}
+
+table{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid #2a2a2a}
+th{background:#1a1a1a;padding:12px 16px;text-align:left;font-size:13px;color:#888;font-weight:500;border-bottom:1px solid #2a2a2a}
+td{padding:10px 16px;font-size:14px;border-bottom:1px solid #1e1e1e}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#1e1e1e}
+.before{color:#f87171}
+.after{color:#4ade80}
+.badge{font-size:12px;padding:2px 8px;border-radius:6px;font-weight:600;display:inline-block}
+.badge-gold{background:#78350f;color:#fbbf24}
+.badge-green{background:#064e3b;color:#34d399}
+.badge-blue{background:#1e3a5f;color:#60a5fa}
+.badge-gray{background:#27272a;color:#a1a1aa}
+.tag{font-size:11px;margin-left:6px}
+.footer{text-align:center;color:#555;margin-top:32px;font-size:12px}
+.total-row td{background:#1a1a1a;font-weight:700;font-size:15px;border-top:2px solid #333}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>📹 视频压缩优化对比</h1>
+<p class="sub">H.265 (HEVC) · CRF 23~28 · 保留画质 · 2026-06-29</p>
+
+<div class="summary">
+  <div class="card green"><div class="val">12</div><div class="label">已优化文件</div></div>
+  <div class="card amber"><div class="val">35.4 MB</div><div class="label">优化前总大小</div></div>
+  <div class="card blue"><div class="val">11.1 MB</div><div class="label">优化后总大小</div></div>
+  <div class="card green"><div class="val">−69%</div><div class="label">总体积缩减</div></div>
+</div>
+
+<table>
+<thead>
+<tr>
+  <th>文件</th>
+  <th>原大小</th>
+  <th>优化后</th>
+  <th>节省</th>
+  <th>处理策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>video (3).mp4</code></td>
+  <td class="before">5.60 MB</td>
+  <td class="after">1.28 MB</td>
+  <td><span class="badge badge-green">−77%</span></td>
+  <td>降码率 9322→2000kbps</td>
+</tr>
+<tr>
+  <td><code>video3.mp4</code></td>
+  <td class="before">5.60 MB</td>
+  <td class="after">1.28 MB</td>
+  <td><span class="badge badge-green">−77%</span></td>
+  <td>降码率 9322→2000kbps <span class="tag badge badge-gold">重复</span></td>
+</tr>
+<tr>
+  <td><code>004.mp4</code></td>
+  <td class="before">4.56 MB</td>
+  <td class="after">1.04 MB</td>
+  <td><span class="badge badge-green">−77%</span></td>
+  <td>60fps→30fps + 降码率</td>
+</tr>
+<tr>
+  <td><code>5月11日(1).mp4</code></td>
+  <td class="before">3.39 MB</td>
+  <td class="after">0.67 MB</td>
+  <td><span class="badge badge-green">−80%</span></td>
+  <td>降码率 <span class="tag badge badge-blue">2K→1080p</span></td>
+</tr>
+<tr>
+  <td><code>Video 16.mp4</code></td>
+  <td class="before">3.07 MB</td>
+  <td class="after">0.96 MB</td>
+  <td><span class="badge badge-green">−69%</span></td>
+  <td>降码率 6365→2000kbps</td>
+</tr>
+<tr>
+  <td><code>02.mp4</code></td>
+  <td class="before">3.03 MB</td>
+  <td class="after">0.72 MB</td>
+  <td><span class="badge badge-green">−76%</span></td>
+  <td>降码率 10149→2000kbps <span class="tag badge badge-blue">2K→1080p</span></td>
+</tr>
+<tr>
+  <td><code>033.mp4</code></td>
+  <td class="before">2.58 MB</td>
+  <td class="after">0.78 MB</td>
+  <td><span class="badge badge-green">−70%</span></td>
+  <td>降码率 8645→2000kbps <span class="tag badge badge-blue">2K→1080p</span></td>
+</tr>
+<tr>
+  <td><code>5月11日.mp4</code></td>
+  <td class="before">2.57 MB</td>
+  <td class="after">0.97 MB</td>
+  <td><span class="badge badge-green">−62%</span></td>
+  <td>降码率 5704→2000kbps</td>
+</tr>
+<tr>
+  <td><code>youer/01.mp4</code></td>
+  <td class="before">1.87 MB</td>
+  <td class="after">1.37 MB</td>
+  <td><span class="badge badge-blue">−27%</span></td>
+  <td>CRF 28 轻量压缩</td>
+</tr>
+<tr>
+  <td><code>WZRY/04.mp4</code></td>
+  <td class="before">1.53 MB</td>
+  <td class="after">0.85 MB</td>
+  <td><span class="badge badge-blue">−44%</span></td>
+  <td>降码率 1601→1100kbps</td>
+</tr>
+<tr>
+  <td><code>05/06-1.mp4</code></td>
+  <td class="before">0.79 MB</td>
+  <td class="after">0.53 MB</td>
+  <td><span class="badge badge-blue">−32%</span></td>
+  <td>降分辨率 <span class="tag badge badge-blue">1440p→1080p</span></td>
+</tr>
+<tr>
+  <td><code>video3_.mp4</code></td>
+  <td class="before">0.76 MB</td>
+  <td class="after">0.69 MB</td>
+  <td><span class="badge badge-gray">−10%</span></td>
+  <td>CRF 26 轻量压缩</td>
+</tr>
+<tr class="total-row">
+  <td>📊 合计</td>
+  <td class="before">35.35 MB</td>
+  <td class="after">11.14 MB</td>
+  <td><span class="badge badge-gold">−68.5%</span></td>
+  <td>12 个文件</td>
+</tr>
+</tbody>
+</table>
+
+<div class="footer">
+  编码方案：H.265 (HEVC) · medium preset · faststart · 画质评定：肉眼无差异
+</div>
+
+</div>
+</body>
+</html>
