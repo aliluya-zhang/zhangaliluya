@@ -9,37 +9,40 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Extra styles for talk page */
-    body { overflow: hidden; }
+    /* ===== Base ===== */
+    body {
+      overflow: hidden;
+      background: #000000;
+    }
 
-    /* Animated gradient orbs in background */
+    /* ===== Animated orbs (black & white) ===== */
     .orb {
-      position: absolute;
+      position: fixed;
       border-radius: 50%;
       filter: blur(80px);
-      opacity: .18;
+      opacity: .10;
       pointer-events: none;
+      z-index: 0;
     }
     .orb-1 {
       width: 600px; height: 600px;
-      background: radial-gradient(circle, #4f46e5, transparent 70%);
+      background: radial-gradient(circle, #ffffff, transparent 70%);
       top: -200px; left: -100px;
       animation: drift 14s ease-in-out infinite alternate;
     }
     .orb-2 {
       width: 500px; height: 500px;
-      background: radial-gradient(circle, #7c3aed, transparent 70%);
+      background: radial-gradient(circle, #aaaaaa, transparent 70%);
       bottom: -150px; right: -100px;
       animation: drift 18s ease-in-out infinite alternate-reverse;
     }
     .orb-3 {
       width: 400px; height: 400px;
-      background: radial-gradient(circle, #1e40af, transparent 70%);
+      background: radial-gradient(circle, #888888, transparent 70%);
       top: 40%; left: 50%;
       transform: translate(-50%, -50%);
       animation: drift 22s ease-in-out infinite alternate;
     }
-
     @keyframes drift {
       from { transform: translate(0, 0); }
       to   { transform: translate(40px, 30px); }
@@ -50,12 +53,169 @@
       to   { transform: translate(-50%, -50%) scale(1.15); }
     }
 
-    /* Content fade in */
-    .talk-headline { animation: fadeUp .8s .1s ease both; }
-    .contact-row   { animation: fadeUp .8s .3s ease both; }
+    /* ===== Page layout ===== */
+    .talk-page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 24px 40px;
+    }
 
-    /* Divider bar between headline lines */
-    .talk-headline .line2 { color: rgba(255,255,255,.45); }
+    /* ===== Contact Card ===== */
+    .contact-card {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+      animation: fadeInUp 0.8s 0.2s ease both;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Left: Avatar ===== */
+    .card-left {
+      flex-shrink: 0;
+    }
+    .card-avatar {
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #2a2a2a;
+      border: 2px solid rgba(255,255,255,0.15);
+    }
+    .card-avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ===== Right: Dialog Bubble ===== */
+    .card-right {
+      flex: 1;
+      min-width: 0;
+      background: linear-gradient(to bottom, #0d0d0d, #2a2a2a);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 40px 48px;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    /* Arrow pointing left */
+    .card-right::before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 60px;
+      width: 0; height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 12px solid #1a1a1a;
+    }
+
+    /* ===== Text content ===== */
+    .card-body {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .card-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .card-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #999999;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .card-title {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 400;
+      line-height: 1.25;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin: 0 0 20px 0;
+      text-align: left;
+    }
+    .card-desc {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #aaaaaa;
+      margin: 0;
+      max-width: 520px;
+      text-align: left;
+    }
+
+    /* ===== QR Code ===== */
+    .card-qr {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-qr img {
+      width: 120px; height: 120px;
+      border-radius: 8px;
+      background: #fff;
+      padding: 4px;
+      display: block;
+    }
+    .card-qr-label {
+      font-size: 13px;
+      color: #aaaaaa;
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .contact-card {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+      }
+      .card-avatar {
+        width: 100px; height: 100px;
+      }
+      .card-right {
+        padding: 32px 24px;
+      }
+      .card-right::before {
+        left: 50%;
+        top: -12px;
+        transform: translateX(-50%);
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 12px solid #1a1a1a;
+        border-top: none;
+      }
+      .card-body {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .card-title {
+        font-size: 24px;
+      }
+      .card-qr {
+        align-self: center;
+      }
+      .card-qr img {
+        width: 100px; height: 100px;
+      }
+    }
+
+    /* Old contact-row kept for compatibility (hidden) */
+    .contact-row { display: none; }
+    .talk-headline { display: none; }
   </style>
 </head>
 <body>
@@ -105,51 +265,48 @@
     </div>
   </nav>
 
-  <!-- ===== TALK SECTION ===== -->
+  <!-- ===== BACKGROUND ===== -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- ===== MAIN CONTENT ===== -->
   <section class="talk-page">
+    <div class="contact-card">
 
-    <!-- Background -->
-    <div class="talk-bg">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-    </div>
-
-    <!-- Content -->
-    <div class="talk-content">
-
-      <h1 class="talk-headline">
-        Creative Meets Strategy.<br>
-        <span class="line2">Let's make something great.</span>
-      </h1>
-
-      <div class="contact-row">
-
-        <!-- 微信 -->
-        <div class="contact-pill">
-          <span class="cpill-label">微信</span>
-          <div class="cpill-sep"></div>
-          <span class="cpill-value">-AHahaha</span>
+      <!-- Left: Avatar -->
+      <div class="card-left">
+        <div class="card-avatar">
+          <img src="img/toux.jpg" alt="头像" loading="lazy">
         </div>
-
-        <!-- 电话 -->
-        <a class="contact-pill" href="tel:15813310508">
-          <span class="cpill-label">电话</span>
-          <div class="cpill-sep"></div>
-          <span class="cpill-value">158 1331 0508</span>
-        </a>
-
-        <!-- 小红书 -->
-        <div class="contact-pill">
-          <span class="cpill-label">小红书</span>
-          <div class="cpill-sep"></div>
-          <span class="cpill-value">阿莉路亚</span>
-        </div>
-
       </div>
-    </div>
 
+      <!-- Right: Dialog Bubble -->
+      <div class="card-right">
+        <div class="card-body">
+          <!-- Text -->
+          <div class="card-text">
+            <div class="card-label">Contact</div>
+            <h1 class="card-title">
+              用视觉把品牌<br>
+              讲成一个好故事。
+            </h1>
+            <p class="card-desc">
+              品牌全案 · KV主视觉 · IP角色设计 · 产品CG渲染 · AI电商素材。<br>从策略到落地，专注让品牌视觉真正驱动商业价值。
+            </p>
+          </div>
+
+          <!-- QR Code -->
+          <div class="card-qr">
+            <img src="img/微信截图_20260515160334.webp" alt="微信二维码" loading="lazy">
+            <span class="card-qr-label">扫码联系</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </section>
+
   <script>
   /* GlassSurface Nav */
   (function(){
@@ -161,7 +318,7 @@
     pill.classList.add('nav-glass-svg');
     function build(){
       const r=pill.getBoundingClientRect(),w=r.width||400,h=r.height||46,e=Math.min(w,h)*0.035;
-      const s=`<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="rg" x1="100%" y1="0%" x2="0%" y2="0%"><stop offset="0%" stop-color="#0000"/><stop offset="100%" stop-color="red"/></linearGradient><linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#0000"/><stop offset="100%" stop-color="blue"/></linearGradient></defs><rect x="0" y="0" width="${w}" height="${h}" fill="black"/><rect x="0" y="0" width="${w}" height="${h}" rx="999" fill="url(#rg)"/><rect x="0" y="0" width="${w}" height="${h}" rx="999" fill="url(#bg)" style="mix-blend-mode:difference"/><rect x="${e}" y="${e}" width="${w-e*2}" height="${h-e*2}" rx="50" fill="hsl(0 0% 50%/0.93)" style="filter:blur(11px)"/></svg>`;
+      const s=`<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="rg" x1="100%" y1="0%" x2="0%" y2="0%"><stop offset="0%" stop-color="#0000"/><stop offset="100%" stop-color="#fff"/></linearGradient><linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#0000"/><stop offset="100%" stop-color="#555"/></linearGradient></defs><rect x="0" y="0" width="${w}" height="${h}" fill="black"/><rect x="0" y="0" width="${w}" height="${h}" rx="999" fill="url(#rg)"/><rect x="0" y="0" width="${w}" height="${h}" rx="999" fill="url(#bg)" style="mix-blend-mode:difference"/><rect x="${e}" y="${e}" width="${w-e*2}" height="${h-e*2}" rx="50" fill="hsl(0 0% 50%/0.93)" style="filter:blur(11px)"/></svg>`;
       feImg.setAttribute('href','data:image/svg+xml,'+encodeURIComponent(s));
     }
     build();
