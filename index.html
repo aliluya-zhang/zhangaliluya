@@ -3,53 +3,199 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ALILUYA — Visual Designer</title>
-  <meta name="description" content="品牌视觉 · AI 图像生成 · 社媒海报 · 商业摄影后期">
-  <link rel="stylesheet" href="style.css">
+  <title>ALILUYA — Visual Designer · Portfolio</title>
+  <meta name="description" content="ALILUYA — 视觉设计师作品集，跨境品牌全案、海报KV、IP设计">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- importmap -->
-  <script type="importmap">
-  {
-    "imports": {
-      "ogl": "https://cdn.jsdelivr.net/npm/ogl@1.0.11/src/index.js"
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="preload" as="image" href="img/xin/图片节点-3-(3).webp" fetchpriority="high">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Playfair+Display:ital,opsz,wght@0,5..1200,400..900;1,5..1200,400..900&family=Noto+Serif+SC:opsz,wght@14..48,400..700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Playfair+Display:ital,opsz,wght@0,5..1200,400..900;1,5..1200,400..900&family=Noto+Serif+SC:opsz,wght@14..48,400..700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    html{scroll-behavior:smooth}
+    body.is-home #site-nav{opacity:0}
+    #site-nav{transition:opacity .6s ease}
+    /* Hero 左对齐排版 — 参考截图 */
+    .hero-inner{align-items:flex-start!important;text-align:left!important;padding-left:5vw}
+    .hero-title-group{display:flex;flex-direction:column;gap:4px;margin-bottom:36px}
+    .hero-hi{font-size:clamp(32px,4vw,56px);font-weight:300;font-style:italic;color:var(--cream);opacity:1;font-family:'Playfair Display',serif;letter-spacing:-.01em;line-height:1.2}
+    .hero-name-row{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+    .hero-name{font-size:clamp(48px,8vw,120px);font-weight:600;color:var(--cream);font-family:'Playfair Display',serif;letter-spacing:-.03em;line-height:1.05}
+    .hero-handle{font-size:13px;color:rgba(216,211,205,0.5);letter-spacing:.1em;align-self:flex-end;padding-bottom:12px}
+    .hero-desc{font-size:14px;color:rgba(216,211,205,0.5);letter-spacing:.06em;line-height:1.7;margin:0}
+    .hero-label,.tp-wrap,.hero-chips{display:none!important}
+
+    /* ===== CONTACT SECTION (from talk.html) ===== */
+    .index-contact{padding:40px 24px 120px max(80px, calc((100vw - 1300px)/2 + 80px));display:flex;align-items:center;position:relative}
+    .index-contact-card{width:100%;max-width:720px;margin:0;display:flex;align-items:flex-start;gap:20px}
+    .index-card-left{flex-shrink:0}
+    .index-card-avatar{width:110px;height:110px;border-radius:50%;overflow:hidden;background:#2a2a2a;border:1.5px solid rgba(216,211,205,0.15);transition:transform .4s, border-color .4s}
+    .index-card-avatar:hover{transform:scale(1.05);border-color:rgba(216,211,205,.35)}
+    .index-card-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    .index-card-right{flex:1;min-width:0;background:transparent;border:1px solid rgba(216,211,205,0.14);border-radius:16px;padding:28px 24px;position:relative;transition:border-color .4s, transform .4s, box-shadow .4s}
+    .index-card-right:hover{border-color:rgba(216,211,205,.35);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.3)}
+    .index-card-right::before{display:none}
+    .index-card-body{display:flex;align-items:center;gap:20px}
+    .index-card-text{flex:1;min-width:0}
+    .index-card-label{font-size:11px;font-weight:600;color:#d8d3cd;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px;text-align:left}
+    .index-card-title{font-size:clamp(18px,2.6vw,28px);font-weight:400;line-height:1.3;color:#d8d3cd;letter-spacing:-0.02em;margin:0 0 20px 0;text-align:left}
+    .index-card-desc{font-size:11px;line-height:2.4;color:#d8d3cd;margin:0;max-width:420px;text-align:left}
+    .index-card-qr{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:6px}
+    .index-card-qr img{width:90px;height:90px;border-radius:8px;display:block}
+    .index-card-qr-label{font-size:10px;color:#d8d3cd;letter-spacing:0.05em}
+
+    @media (max-width:768px){
+      /* ===== Navigation ===== */
+      .nav-float{top:10px;left:10px;right:10px;transform:none;width:auto}
+      .nav-pill{width:auto;max-width:100%;padding:4px;gap:0}
+      .nav-brand{padding:4px 8px 4px 4px;margin-right:0}
+      .brand-name{display:none}
+      .nav-spacer{display:none}
+      .nav-link{font-size:10px;padding:6px 10px;letter-spacing:.08em}
+      .nav-link.is-cta{padding:6px 12px;font-size:10px}
+
+      /* ===== Hero ===== */
+      .hero{padding:100px 20px 80px}
+      .hero-inner{padding-left:0!important;align-items:flex-start!important;text-align:left!important}
+      .hero-title-group{gap:2px;margin-bottom:24px}
+      .hero-hi{font-size:clamp(26px,5vw,40px)}
+      .hero-name{font-size:clamp(40px,11vw,72px)}
+      .hero-handle{font-size:11px;padding-bottom:8px}
+      .hero-desc{font-size:12px;line-height:1.6}
+
+      /* ===== SELECTED WORKS ===== */
+      .works-section{padding:60px 0 60px}
+      .works-header{padding:0 20px 20px;margin-bottom:40px;gap:20px}
+      .works-title{font-size:clamp(34px,9vw,52px)}
+      .works-sub{font-size:11px}
+      .works-tags{padding:0 20px;justify-content:flex-start;gap:6px;margin-bottom:32px}
+      .works-tag{font-size:10px;padding:5px 12px}
+      .works-grid{gap:32px}
+      .works-row{padding-left:20px!important;padding-right:20px!important;gap:14px}
+      .works-row .card{width:100%}
+      .card-foot{padding:10px 12px}
+      .card-title{font-size:12px}
+      .card-tag{font-size:9px}
+
+      /* ===== FlyingPosters ===== */
+      .posters-stage{height:55vh}
+      .posters-section-2{padding:40px 0 0}
+      .posters-hint{font-size:9px;bottom:18px}
+
+      /* ===== Professional Path ===== */
+      .pp-section{padding:40px 20px 0}
+      .pp-header{padding:0 20px 16px;margin-bottom:24px;flex-direction:column;align-items:flex-start;gap:16px}
+      .pp-header .circular-text{align-self:flex-end;width:72px;height:72px}
+      .pp-header .circular-text span{font-size:9px}
+      .pp-title{font-size:clamp(30px,8vw,48px)}
+      .pp-grid{padding:0;margin:0 0 24px 0;margin-left:0;gap:10px;grid-template-columns:repeat(2,1fr);max-width:100%}
+      .pp-card{padding:18px 12px}
+      .pp-card-text{font-size:clamp(12px,2.5vw,15px)}
+      .pp-timeline{padding:0 20px;flex-direction:column;gap:20px}
+      .pp-phase{flex-direction:row;gap:12px}
+      .pp-phase-marker{width:28px;height:auto;flex-direction:column;align-items:center;margin-bottom:0}
+      .pp-phase-line{width:1px;height:auto;flex:1}
+      .pp-phase:first-child .pp-phase-line:first-child{background:transparent}
+      .pp-phase:last-child .pp-phase-line:last-child{background:transparent}
+      .pp-phase-dot{width:8px;height:8px}
+      .pp-phase-body{padding:20px 16px}
+      .pp-phase-title{font-size:16px}
+      .pp-phase-years{font-size:10px}
+      .pp-phase-desc{font-size:11px;line-height:1.7}
+      .pp-phase-kw{font-size:9px;padding:2px 8px}
+
+      /* ===== Contact ===== */
+      .index-contact{padding:30px 20px 60px 20px}
+      .index-contact-card{flex-direction:column;align-items:center;gap:16px}
+      .index-card-avatar{width:80px;height:80px}
+      .index-card-right{padding:28px 20px;border:1px solid rgba(216,211,205,0.14);border-radius:14px;transition:border-color .4s, transform .4s, box-shadow .4s}
+      .index-card-right:hover{border-color:rgba(216,211,205,.35);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.3)}
+      .index-card-right::before{display:none}
+      .index-card-body{flex-direction:column;gap:18px}
+      .index-card-label{font-size:10px;margin-bottom:8px}
+      .index-card-title{font-size:16px;margin-bottom:18px}
+      .index-card-desc{font-size:10px;line-height:2.2;max-width:100%}
+      .index-card-qr{align-self:center}
+      .index-card-qr img{width:70px;height:70px}
+      .index-card-qr-label{font-size:9px}
+
+      /* ===== Footer ===== */
+      .index-footer{padding:12px 20px}
+      .index-footer-top{flex-direction:column;gap:4px;align-items:flex-start}
+      .index-footer-bottom{flex-direction:column;gap:4px;align-items:flex-start}
+      .index-footer-logo{font-size:12px}
+      .index-footer-links{gap:16px}
+      .index-footer-links a{font-size:10px}
+      .index-footer-copy{font-size:10px}
     }
-  }
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    /* ===== PROFESSIONAL PATH — Growth Timeline ===== */
+    .pp-section{background:var(--bg);padding:24px 24px 0;position:relative;overflow:hidden}
+    .pp-header{max-width:1300px;margin:0 auto 16px;padding:0 80px 24px;display:flex;flex-direction:row;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:relative;z-index:1}
+    .pp-header-left{display:flex;flex-direction:column;align-items:flex-start}
+    .pp-header .circular-text{flex-shrink:0}
+    .pp-header .circular-text span{font-size:11px}
+    .pp-title{font-family:'Playfair Display',serif;font-size:clamp(44px,8vw,110px);font-weight:700;letter-spacing:-.03em;color:#d8d3cd;line-height:.9}
+    .pp-timeline{max-width:960px;margin:0 0 0 auto;padding:0 60px;display:flex;flex-direction:row;gap:16px}
+    .pp-phase{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;min-width:0}
+    .pp-phase-marker{width:100%;height:24px;display:flex;flex-direction:row;align-items:center;margin-bottom:16px}
+    .pp-phase-line{flex:1;height:1px;background:rgba(216,211,205,0.12)}
+    .pp-phase-dot{width:8px;height:8px;border-radius:50%;background:var(--cream);flex-shrink:0}
+    .pp-phase:first-child .pp-phase-line:first-child{background:transparent}
+    .pp-phase:last-child .pp-phase-line:last-child{background:transparent}
+    .pp-phase-body{width:100%;min-width:0;background:rgba(216,211,205,0.02);border:1px solid rgba(216,211,205,0.06);border-radius:12px;padding:16px 16px;transition:border-color .3s;display:flex;flex-direction:column;flex:1}
+    .pp-phase-body:hover{border-color:rgba(216,211,205,0.14)}
+    .pp-phase-num{font-family:'Playfair Display',serif;font-size:11px;font-weight:700;color:var(--cream);letter-spacing:.1em;opacity:.5;margin-bottom:8px;display:block}
+    .pp-phase-head{display:flex;align-items:baseline;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+    .pp-phase-title{font-family:'Noto Serif SC',serif;font-size:clamp(16px,2vw,22px);font-weight:600;color:#d8d3cd;letter-spacing:.03em;line-height:1.4}
+    .pp-phase-years{font-size:11px;color:var(--cream);opacity:.4;font-family:'DM Sans',sans-serif;letter-spacing:.06em;white-space:nowrap}
+    .pp-phase-role{font-size:11px;color:var(--cream);opacity:.45;margin-bottom:10px;letter-spacing:.04em}
+    .pp-phase-desc{font-size:11px;line-height:1.8;color:#d8d3cd;opacity:.7;margin-bottom:14px}
+    .pp-phase-keywords{display:flex;flex-wrap:wrap;gap:6px}
+    .pp-phase-kw{font-size:10px;color:var(--cream);opacity:.35;padding:3px 10px;border:1px solid rgba(216,211,205,0.1);border-radius:20px;letter-spacing:.04em}
+
+    /* Keyword cards grid — 4 equal columns, text centered */
+    .pp-grid{max-width:770px;margin:0 auto 20px 0;margin-left:max(80px, calc((100vw - 1300px)/2 + 80px));padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;position:relative;z-index:1}
+    .pp-card{background:transparent;border:1px solid rgba(216,211,205,0.14);border-radius:6px;padding:28px 16px;display:flex;align-items:center;justify-content:center;cursor:default;transition:border-color .4s;position:relative;overflow:hidden}
+    .pp-card:hover{border-color:rgba(216,211,205,.35)}
+    .pp-card-text{font-family:'Noto Serif SC',serif;font-size:clamp(15px,1.6vw,20px);font-weight:500;color:#d8d3cd;letter-spacing:.06em;line-height:1.6;text-align:center}
+
+    /* Hide second posters section to close gap between PP and Contact */
+    .posters-section-2{display:none}
+
+    /* ===== FOOTER ===== */
+    .index-footer{background:var(--bg);border-top:1px solid var(--border);padding:16px 24px}
+    .index-footer-inner{max-width:1300px;margin:0 auto}
+    .index-footer-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+    .index-footer-logo{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--cream);letter-spacing:.08em}
+    .index-footer-links{display:flex;gap:24px}
+    .index-footer-links a{font-size:11px;color:#d8d3cd;letter-spacing:.08em;transition:opacity .2s}
+    .index-footer-links a:hover{opacity:.6}
+    .index-footer-bottom{display:flex;justify-content:space-between;align-items:center}
+    .index-footer-copy,.index-footer-beian{font-size:11px;color:#d8d3cd;letter-spacing:.04em;opacity:.35}
+  </style>
 </head>
 <body class="is-home">
 
+  <!-- SVG Glass Filters -->
+  <div class="glass-filter-defs">
+    <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
+      <defs>
+        <filter id="nav-glass-filter" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+          <feColorMatrix in="blur" mode="matrix"
+            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="glass" />
+          <feBlend in="SourceGraphic" in2="glass" mode="normal" />
+        </filter>
+      </defs>
+    </svg>
+  </div>
 
-
-
-  <!-- ===== GlassSurface SVG Filter ===== -->
-  <svg class="glass-filter-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs>
-      <filter id="nav-glass-filter" color-interpolation-filters="sRGB"
-              x="-5%" y="-20%" width="110%" height="140%">
-        <feImage id="nav-glass-map" x="0" y="0" width="100%" height="100%"
-                 preserveAspectRatio="none" result="map" />
-        <feDisplacementMap id="nav-disp-r" in="SourceGraphic" in2="map"
-                           scale="-180" xChannelSelector="R" yChannelSelector="G" result="dispRed"/>
-        <feColorMatrix in="dispRed" type="matrix"
-          values="1 0 0 0 0   0 0 0 0 0   0 0 0 0 0   0 0 0 1 0" result="red"/>
-        <feDisplacementMap id="nav-disp-g" in="SourceGraphic" in2="map"
-                           scale="-170" xChannelSelector="R" yChannelSelector="G" result="dispGreen"/>
-        <feColorMatrix in="dispGreen" type="matrix"
-          values="0 0 0 0 0   0 1 0 0 0   0 0 0 0 0   0 0 0 1 0" result="green"/>
-        <feDisplacementMap id="nav-disp-b" in="SourceGraphic" in2="map"
-                           scale="-160" xChannelSelector="R" yChannelSelector="G" result="dispBlue"/>
-        <feColorMatrix in="dispBlue" type="matrix"
-          values="0 0 0 0 0   0 0 0 0 0   0 0 1 0 0   0 0 0 1 0" result="blue"/>
-        <feBlend in="red" in2="green" mode="screen" result="rg"/>
-        <feBlend in="rg"  in2="blue"  mode="screen" result="output"/>
-        <feGaussianBlur in="output" stdDeviation="0.7"/>
-      </filter>
-    </defs>
-  </svg>
-
-  <!-- ===== NAV ===== -->
+  <!-- Navigation -->
   <nav class="nav-float" id="site-nav">
     <div class="nav-pill" id="nav-pill">
       <a href="index.html" class="nav-brand">
@@ -57,8 +203,9 @@
         <span class="brand-name">ALILUYA</span>
       </a>
       <span class="nav-spacer"></span>
-      <a href="index.html"  class="nav-link is-active">HOME</a>
-      <a href="talk.html"   class="nav-link is-cta">
+      <a href="index.html" class="nav-link is-active">HOME</a>
+      <a href="#works" class="nav-link">WORK</a>
+      <a href="#professionalPath" class="nav-link is-cta">
         LET'S TALK
         <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
           <path d="M1 7L7 1M7 1H2M7 1V6" stroke="currentColor" stroke-width="1.5"
@@ -68,401 +215,1356 @@
     </div>
   </nav>
 
-  <!-- ===== HERO ===== -->
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
   <section class="hero" id="hero">
-    <!-- 背景视频 -->
-    <video class="hero-bg-video" src="img/hero.mp4" autoplay muted loop playsinline preload="auto"></video>
-    <!-- 底部黑色渐变遮罩 -->
-    <div class="hero-overlay"></div>
-    <!-- 背景粒子 -->
     <div class="hero-grain"></div>
+    <img class="hero-bg-video" src="img/xin/图片节点-3-(3).webp" alt="hero background" fetchpriority="high">
+    <div class="hero-overlay"></div>
 
-    <!-- Hero 文字区 -->
-    <div class="hero-inner">
-        <!-- label：遮罩揭开 -->
-        <div class="reveal-clip">
-          <p class="hero-label" id="hero-label">
-            Hi, I'm&nbsp;<strong>阿莉路亚</strong>&nbsp;·&nbsp; Visual Designer &nbsp;·&nbsp; Brand &amp; IP Creative
-          </p>
-        </div>
-
-        <!-- TextPressure 大标题 Line 1：从下方压缩归位 -->
-        <div class="tp-wrap tp-line1" id="tp-line1"></div>
-        <!-- Line 2 -->
-        <div class="tp-wrap tp-line2" id="tp-line2"></div>
-
-        <!-- desc -->
-        <div class="reveal-clip reveal-clip--desc">
-          <p class="hero-desc" id="hero-desc">
-            品牌全案 &nbsp;·&nbsp; KV 主视觉 &nbsp;·&nbsp; IP 设计 &nbsp;·&nbsp; AI 图像创作 &nbsp;·&nbsp; 产品视觉
-          </p>
-        </div>
-
-        <!-- chips -->
-        <div class="hero-chips" id="hero-chips">
-          <span class="chip">Brand Visual</span>
-          <span class="chip">IP Design</span>
-          <span class="chip">KV Poster</span>
-          <span class="chip">AI Creative</span>
-          <span class="chip">Product Design</span>
+    <div class="hero-inner" id="heroInner">
+      <div class="hero-title-group">
+        <span class="hero-hi">Hi~</span>
+        <div class="hero-name-row">
+          <span class="hero-name">I'm aliluya</span>
+          <span class="hero-handle">@阿莉路亚</span>
         </div>
       </div>
-
-    <div class="scroll-hint" id="scroll-hint">
+      <span class="hero-desc">—品牌视觉 × AI 图像创作 × 产品视觉设计</span>
+    </div>
+    <div class="scroll-hint" id="scrollHint">
       <span>SCROLL</span>
       <div class="scroll-line"></div>
     </div>
   </section>
 
-
-
-
-
-
-
-
-
-
-
-  <!-- ===== SELECTED WORKS ===== -->
+  <!-- ============================================================
+       SELECTED WORKS
+  ============================================================ -->
   <section class="works-section" id="works">
     <div class="works-header">
-      <span class="works-title">SELECTED WORKS</span>
-      <span class="works-sub">2021 — 2026</span>
-      <a href="work.html" class="works-viewall">VIEW ALL →</a>
+      <div class="works-header-left">
+        <span class="works-title">SELECTED WORKS</span>
+        <span class="works-sub">精选案例</span>
+      </div>
+      <div class="works-header-right" id="circularTextWrap">
+        <!-- CircularText injected by JS -->
+      </div>
     </div>
 
-    <div class="works-grid" id="home-grid">
+    <!-- Category tags -->
+    <div class="works-tags" id="worksTags">
+      <span class="works-tag is-active" data-filter="all">全部</span>
+      <span class="works-tag" data-filter="产品视觉重塑">产品视觉重塑</span>
+      <span class="works-tag" data-filter="海报KV">海报KV</span>
+      <span class="works-tag" data-filter="亚马逊">亚马逊</span>
+      <span class="works-tag" data-filter="IP设计">IP设计</span>
+      <span class="works-tag" data-filter="包装设计">包装设计</span>
+    </div>
 
-      <!-- 01 NenoVia (大图) -->
-      <a href="work-nenovia.html" class="card" style="grid-column:1/-1">
-        <div class="card-media" style="aspect-ratio:16/7">
-          <img src="img/xin/xiug.webp" alt="NenoVia" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-        </div>
-        <div class="card-foot">
-          <span class="card-title">NenoVia DTC品牌视觉全案</span>
-          <span class="card-tag">产品视觉</span>
-        </div>
-      </a>
+    <!-- Works cards — alternating rows: left-aligned (70px from left) / right-aligned (70px from right) -->
+    <div class="works-grid" id="worksGrid">
+      <!-- Row 1: left-aligned -->
+      <div class="works-row row-left">
+        <a href="work-odi.html" class="card" data-category="产品视觉重塑">
+          <div class="card-media"><video autoplay muted loop playsinline preload="metadata" src="img/SP_ODI.mp4"></video></div>
+          <div class="card-foot"><span class="card-title">ODI美容仪器全案设计</span><span class="card-tag">全案设计</span></div>
+        </a>
+        <a href="work-nenovia.html" class="card" data-category="产品视觉重塑">
+          <div class="card-media"><img loading="lazy" src="img/xin/图片节点-4 1.webp" alt="NenoVia"></div>
+          <div class="card-foot"><span class="card-title">NenoVia DTC品牌视觉全案</span><span class="card-tag">全案设计</span></div>
+        </a>
+        <a href="work-youer.html" class="card" data-category="产品视觉重塑">
+          <div class="card-media"><video autoplay muted loop playsinline preload="metadata" src="img/youer/01.mp4"></video></div>
+          <div class="card-foot"><span class="card-title">婴幼儿玩具品牌视觉</span><span class="card-tag">全案设计</span></div>
+        </a>
+      </div>
+      <!-- Row 2: right-aligned -->
+      <div class="works-row row-right">
+        <a href="work-wzry.html" class="card" data-category="海报KV">
+          <div class="card-media"><video autoplay muted loop playsinline preload="metadata" src="img/WeChat_20260611182308.mp4"></video></div>
+          <div class="card-foot"><span class="card-title">王者荣耀·造物节海报KV</span><span class="card-tag">海报KV</span></div>
+        </a>
+        <a href="work-hb.html" class="card" data-category="海报KV">
+          <div class="card-media"><img loading="lazy" src="img/HB/1 (3).webp" alt="HB"></div>
+          <div class="card-foot"><span class="card-title">海报设计</span><span class="card-tag">海报KV</span></div>
+        </a>
+        <a href="work-yms.html" class="card" data-category="亚马逊">
+          <div class="card-media"><video autoplay muted loop playsinline preload="metadata" src="img/YMS/wushuiyin_c.mp4"></video></div>
+          <div class="card-foot"><span class="card-title">AI驱动·亚马逊A+</span><span class="card-tag">亚马逊A+</span></div>
+        </a>
+      </div>
+      <!-- Row 3: right-aligned -->
+      <div class="works-row row-right">
+        <a href="work-lilwave.html" class="card" data-category="IP设计">
+          <div class="card-media"><video autoplay muted loop playsinline preload="metadata" src="img/video3_compressed.mp4"></video></div>
+          <div class="card-foot"><span class="card-title">Lil Wave·自创IP设计</span><span class="card-tag">IP设计</span></div>
+        </a>
+        <a href="work-bz.html" class="card" data-category="包装设计">
+          <div class="card-media"><img loading="lazy" src="img/bz/设计工作室slogan及业务解读-(17).webp" alt="包装设计"></div>
+          <div class="card-foot"><span class="card-title">包装设计</span><span class="card-tag">包装设计</span></div>
+        </a>
+      </div>
+    </div>
 
-      <!-- 02 王者荣耀 KV -->
-      <a href="work-wzry.html" class="card">
-        <div class="card-media">
-          <img src="img/image.webp" alt="王者荣耀 KV 主视觉" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-        </div>
-        <div class="card-foot">
-          <span class="card-title">王者荣耀 KV 主视觉</span>
-          <span class="card-tag">KV / 海报</span>
-        </div>
-      </a>
-
-      <!-- 03 婴幼儿玩具品牌视觉 -->
-      <a href="work-youer.html" class="card">
-        <div class="card-media">
-          <video src="img/youer/01.mp4" autoplay muted loop playsinline preload="none"></video>
-        </div>
-        <div class="card-foot">
-          <span class="card-title">婴幼儿玩具品牌视觉</span>
-          <span class="card-tag">Social Media Visual</span>
-        </div>
-      </a>
-
-      <!-- 04 ODI 美容仪 -->
-      <a href="work-odi.html" class="card">
-        <div class="card-media">
-          <video src="img/SP_ODI.mp4" autoplay muted loop playsinline preload="none"></video>
-        </div>
-        <div class="card-foot">
-          <span class="card-title">ODI 美容仪器全案设计</span>
-          <span class="card-tag">品牌全案</span>
-        </div>
-      </a>
-
-      <!-- 05 LilWave -->
-      <a href="work-lilwave.html" class="card">
-        <div class="card-media">
-          <video src="img/wave/1/Video 16.mp4" autoplay muted loop playsinline preload="none"></video>
-        </div>
-        <div class="card-foot">
-          <span class="card-title">LilWave 品牌视觉</span>
-          <span class="card-tag">品牌 / IP</span>
-        </div>
-      </a>
-
-      <!-- 06 亚马逊A+ -->
-      <a href="work-yms.html" class="card">
-        <div class="card-media">
-          <video src="img/YMS/wushuiyin.mp4" autoplay muted loop playsinline preload="none"></video>
-        </div>
-        <div class="card-foot">
-          <span class="card-title">AI 驱动 · 亚马逊A+</span>
-          <span class="card-tag">电商视觉</span>
-        </div>
-      </a>
-
-      <!-- 07 包装设计 -->
-      <a href="work-bz.html" class="card">
-        <div class="card-media">
-          <img src="img/bz/设计工作室slogan及业务解读-(17).webp" alt="包装设计" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-        </div>
-        <div class="card-foot">
-          <span class="card-title">包装设计</span>
-          <span class="card-tag">包装设计</span>
-        </div>
-      </a>
-
-      <!-- 08 海报KV -->
-      <a href="work-hb.html" class="card">
-        <div class="card-media">
-          <img src="img/05/11.jpg" alt="海报KV" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-        </div>
-        <div class="card-foot">
-          <span class="card-title">海报KV</span>
-          <span class="card-tag">海报KV</span>
-        </div>
-      </a>
-
+    <div class="posters-stage" id="postersStage" style="display:none">
+      <canvas class="posters-canvas" id="postersCanvas"></canvas>
+      <div class="posters-hint">
+        <span>SCROLL TO EXPLORE</span>
+        <div class="posters-hint-line"></div>
+      </div>
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="site-footer">
-    <span>© 2026 ALILUYA</span>
-    <span>Visual Designer · Brand &amp; AI Creative</span>
+  <!-- ============================================================
+       PROFESSIONAL PATH
+  ============================================================ -->
+  <section class="pp-section" id="professionalPath">
+    <div class="pp-header">
+      <div class="pp-header-left">
+        <h2 class="pp-title">PROFESSIONAL PATH</h2>
+      </div>
+      <div id="ppCircularText" class="circular-text" style="width:100px;height:100px"></div>
+    </div>
+    <div class="pp-grid">
+      <div class="pp-card">
+        <div class="pp-card-text">视觉<br>思维</div>
+      </div>
+      <div class="pp-card">
+        <div class="pp-card-text">产品<br>逻辑</div>
+      </div>
+      <div class="pp-card">
+        <div class="pp-card-text">执行<br>制作</div>
+      </div>
+      <div class="pp-card">
+        <div class="pp-card-text">内容<br>统筹</div>
+      </div>
+    </div>
+    <div class="pp-timeline">
+      <!-- Phase I -->
+      <div class="pp-phase">
+        <div class="pp-phase-marker">
+          <div class="pp-phase-line"></div>
+          <div class="pp-phase-dot"></div>
+          <div class="pp-phase-line"></div>
+        </div>
+        <div class="pp-phase-body">
+          <span class="pp-phase-num">I</span>
+          <div class="pp-phase-head">
+            <span class="pp-phase-title">2015–2020</span>
+            <span class="pp-phase-years">设计经理</span>
+          </div>
+          <div class="pp-phase-desc">管理3人设计团队，负责跨境仪器全渠道视觉、产品外观与VI规范；主导5款仪器开发，爆款年销600万，获企业技术股参与品牌决策。</div>
+          <div class="pp-phase-keywords">
+            <span class="pp-phase-kw">产品开发</span>
+            <span class="pp-phase-kw">品牌VI</span>
+            <span class="pp-phase-kw">团队管理</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase II -->
+      <div class="pp-phase">
+        <div class="pp-phase-marker">
+          <div class="pp-phase-line"></div>
+          <div class="pp-phase-dot"></div>
+          <div class="pp-phase-line"></div>
+        </div>
+        <div class="pp-phase-body">
+          <span class="pp-phase-num">II</span>
+          <div class="pp-phase-head">
+            <span class="pp-phase-title">2021–2022</span>
+            <span class="pp-phase-years">设计主管</span>
+          </div>
+          <div class="pp-phase-desc">代工企业品牌升级，打造黑橙极简视觉体系，搭建CG素材库，作图效率提升30%；优化国际站页面，品牌形象升级，同行广泛借鉴视觉风格。</div>
+          <div class="pp-phase-keywords">
+            <span class="pp-phase-kw">品牌重塑</span>
+            <span class="pp-phase-kw">视觉标准化</span>
+            <span class="pp-phase-kw">转化设计</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase III -->
+      <div class="pp-phase">
+        <div class="pp-phase-marker">
+          <div class="pp-phase-line"></div>
+          <div class="pp-phase-dot"></div>
+          <div class="pp-phase-line"></div>
+        </div>
+        <div class="pp-phase-body">
+          <span class="pp-phase-num">III</span>
+          <div class="pp-phase-head">
+            <span class="pp-phase-title">2023–至今</span>
+            <span class="pp-phase-years">全案视觉设计师</span>
+          </div>
+          <div class="pp-phase-desc">服务小家电、美容仪器跨境DTC多平台视觉，完成王者荣耀官方IP海报；搭建AI设计流程，原创IP获上市公司独家授权。</div>
+          <div class="pp-phase-keywords">
+            <span class="pp-phase-kw">跨境全案</span>
+            <span class="pp-phase-kw">AI工作流</span>
+            <span class="pp-phase-kw">商业IP设计</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FLYING POSTERS — Row 2
+  ============================================================ -->
+  <section class="posters-section-2" id="postersSection2">
+    <div class="posters-stage" id="postersStage2">
+      <canvas class="posters-canvas" id="postersCanvas2"></canvas>
+      <div class="posters-hint">
+        <span>SCROLL TO EXPLORE</span>
+        <div class="posters-hint-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT — from talk.html
+  ============================================================ -->
+  <section class="index-contact">
+    <div class="index-contact-card">
+      <!-- Left: Avatar -->
+      <div class="index-card-left">
+        <div class="index-card-avatar">
+          <img src="img/toux.webp" alt="头像" loading="lazy">
+        </div>
+      </div>
+      <!-- Right: Dialog Bubble -->
+      <div class="index-card-right">
+        <div class="index-card-body">
+          <div class="index-card-text">
+            <div class="index-card-label">Contact</div>
+            <h1 class="index-card-title">用视觉把品牌<br>讲成一个好故事。</h1>
+            <p class="index-card-desc">
+              品牌全案 · KV主视觉 · IP角色设计 · 产品CG渲染 · AI电商素材。<br>从策略到落地，专注让品牌视觉真正驱动商业价值。
+            </p>
+          </div>
+          <div class="index-card-qr">
+            <img src="img/微信截图_20260515160334.webp" alt="微信二维码" loading="lazy">
+            <span class="index-card-qr-label">扫码联系</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="index-footer">
+    <div class="index-footer-inner">
+      <div class="index-footer-top">
+        <span class="index-footer-logo">ALILUYA</span>
+        <div class="index-footer-links">
+          <a href="#works">Works</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="index-footer-bottom">
+        <span class="index-footer-copy">© 2026 阿莉路亚 All rights reserved.</span>
+
+      </div>
+    </div>
   </footer>
 
-  <!-- ===== SCRIPTS ===== -->
-  <script src="data.js"></script>
-
-  <!-- GSAP + ScrollTrigger (CDN) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-  <script>
-  /* ============================================================
-     TextPressure — plain JS port
-  ============================================================ */
-  (function () {
-    const fontLink = document.createElement('link');
-    fontLink.rel  = 'stylesheet';
-    fontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap';
-    document.head.appendChild(fontLink);
-
-    const lines = [
-      { id: 'tp-line1', text: 'Hello~' },
-      { id: 'tp-line2', text: "{I'm阿莉路亚}"},
-    ];
-
-    const mouse  = { x: 0, y: 0 };
-    const cursor = { x: 0, y: 0 };
-    let allSpans = [];
-
-    function dist(a, b) {
-      const dx = b.x - a.x, dy = b.y - a.y;
-      return Math.sqrt(dx * dx + dy * dy);
-    }
-    function getAttr(d, maxDist, minVal, maxVal) {
-      const val = maxVal - Math.abs((maxVal * d) / maxDist);
-      return Math.max(minVal, val + minVal);
-    }
-
-    lines.forEach(({ id, text }) => {
-      const container = document.getElementById(id);
-      if (!container) return;
-      const h1 = document.createElement('h1');
-      h1.className = 'tp-title';
-      h1.style.cssText = [
-        'font-family:"Roboto Flex",sans-serif',
-        'text-transform:uppercase',
-        'font-weight:100',
-        'margin:0',
-        'line-height:1',
-        'white-space:nowrap',
-        'display:flex',
-        'justify-content:space-between',
-        'width:100%',
-        'user-select:none',
-        'color:#fff',
-      ].join(';');
-      text.split('').forEach(ch => {
-        const span = document.createElement('span');
-        span.textContent = ch === ' ' ? '\u00A0' : ch;
-        span.style.display = 'inline-block';
-        h1.appendChild(span);
-        allSpans.push({ span, h1 });
-      });
-      container.appendChild(h1);
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <!-- GSAP -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- OGL WebGL (jsDelivr — works in China) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/ogl@1.0.11/dist/ogl.umd.js"
+          onerror="window.__OGL_FAILED=true"></script>
+  <!-- Lenis smooth scroll -->
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <!-- TextPressure -->
+  <script type="module">
+    import { TextPressure } from './text-pressure.js';
+    const tp1 = new TextPressure('#tp1', {
+      font: 'Playfair Display',
+      weight: { min: 600, max: 700 },
+      minFontSize: 56,
+      maxFontSize: 180,
+      textAlign: 'center',
+      color: '#d8d3cd',
+      italic: false,
+      compress: 1.02,
     });
-
-    function setFontSizes() {
-      lines.forEach(({ id, text }) => {
-        const container = document.getElementById(id);
-        if (!container) return;
-        const h1 = container.querySelector('h1');
-        if (!h1) return;
-        const cw  = container.offsetWidth || 900;
-        const len = text.replace(/ /g, '').length + (text.split(' ').length - 1) * 0.5;
-        const size = Math.max(48, Math.min(cw / (len * 0.52), 160));
-        h1.style.fontSize = size + 'px';
-      });
-    }
-    setFontSizes();
-    window.addEventListener('resize', setFontSizes);
-
-    function initCenter() {
-      const hero = document.querySelector('.hero-inner');
-      if (!hero) return;
-      const r = hero.getBoundingClientRect();
-      mouse.x = cursor.x = r.left + r.width / 2;
-      mouse.y = cursor.y = r.top  + r.height / 2;
-    }
-    initCenter();
-
-    window.addEventListener('mousemove', e => { cursor.x = e.clientX; cursor.y = e.clientY; });
-    window.addEventListener('touchmove', e => {
-      cursor.x = e.touches[0].clientX; cursor.y = e.touches[0].clientY;
-    }, { passive: true });
-
-    function animate() {
-      mouse.x += (cursor.x - mouse.x) / 12;
-      mouse.y += (cursor.y - mouse.y) / 12;
-      allSpans.forEach(({ span, h1 }) => {
-        const titleRect = h1.getBoundingClientRect();
-        const maxDist   = titleRect.width / 2 || 400;
-        const rect      = span.getBoundingClientRect();
-        const d         = dist(mouse, { x: rect.left + rect.width/2, y: rect.top + rect.height/2 });
-        const wght = Math.floor(getAttr(d, maxDist, 100, 900));
-        const wdth = Math.floor(getAttr(d, maxDist, 25,  151));
-        const ital = getAttr(d, maxDist, 0, 1).toFixed(2);
-        span.style.fontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'ital' ${ital}`;
-      });
-      requestAnimationFrame(animate);
-    }
-    animate();
-  })();
-
-  /* ============================================================
-     GlassSurface Nav
-  ============================================================ */
-  (function () {
-    const pill    = document.getElementById('nav-pill');
-    const feImage = document.getElementById('nav-glass-map');
-    if (!pill || !feImage) return;
-    const isChrome  = /Chrome/.test(navigator.userAgent) && !/Edg/.test(navigator.userAgent);
-    const supported = isChrome && CSS.supports('backdrop-filter', 'url(#x)');
-    if (!supported) return;
-    pill.classList.add('nav-glass-svg');
-    function buildMap() {
-      const rect = pill.getBoundingClientRect();
-      const w = rect.width || 400, h = rect.height || 46;
-      const uid = 'ng', bw = 0.07, edge = Math.min(w,h)*(bw*0.5);
-      const svg = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="rg-${uid}" x1="100%" y1="0%" x2="0%" y2="0%">
-            <stop offset="0%" stop-color="#0000"/><stop offset="100%" stop-color="red"/>
-          </linearGradient>
-          <linearGradient id="bg-${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#0000"/><stop offset="100%" stop-color="blue"/>
-          </linearGradient>
-        </defs>
-        <rect x="0" y="0" width="${w}" height="${h}" fill="black"/>
-        <rect x="0" y="0" width="${w}" height="${h}" rx="999" fill="url(#rg-${uid})"/>
-        <rect x="0" y="0" width="${w}" height="${h}" rx="999" fill="url(#bg-${uid})" style="mix-blend-mode:difference"/>
-        <rect x="${edge}" y="${edge}" width="${w-edge*2}" height="${h-edge*2}" rx="50"
-              fill="hsl(0 0% 50% / 0.93)" style="filter:blur(11px)"/>
-      </svg>`;
-      feImage.setAttribute('href', 'data:image/svg+xml,' + encodeURIComponent(svg));
-    }
-    buildMap();
-    new ResizeObserver(() => setTimeout(buildMap, 0)).observe(pill);
-  })();
-
-  /* ============================================================
-     Render project cards
-  ============================================================ */
-  (function() {
-    const grid = document.getElementById('home-grid');
-    if (grid && typeof projects !== 'undefined') {
-      renderGrid(grid, projects);
-    }
-  })();
-
-  /* ============================================================
-     GSAP ANIMATIONS — Opening + ScrollTrigger
-  ============================================================ */
-  gsap.registerPlugin(ScrollTrigger);
-
-  /* ------ 直接触发 Hero Opening ------ */
-  runHeroOpening();
-
-  /* ------ Hero Opening Animation ------ */
-  function runHeroOpening() {
-    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
-
-    // Nav 从上滑入
-    tl.fromTo('#site-nav',
-      { yPercent: -120, opacity: 0 },
-      { yPercent: 0, opacity: 1, duration: 1.0 },
-      0
-    );
-
-    // Hero label：遮罩揭开（clip-path）
-    tl.fromTo('#hero-label',
-      { yPercent: 110 },
-      { yPercent: 0, duration: 0.9 },
-      0.35
-    );
-
-    // Line1：从下方大幅压进来，scaleY 0.3 → 1
-    tl.fromTo('#tp-line1',
-      { yPercent: 80, scaleY: 0.4, transformOrigin: 'bottom center', opacity: 0 },
-      { yPercent: 0,  scaleY: 1,   opacity: 1, duration: 1.1 },
-      0.52
-    );
-
-    // Line2：稍慢，带 xPercent
-    tl.fromTo('#tp-line2',
-      { yPercent: 100, scaleY: 0.3, transformOrigin: 'bottom center', opacity: 0 },
-      { yPercent: 0,   scaleY: 1,   opacity: 1, duration: 1.2 },
-      0.66
-    );
-
-    // desc：遮罩揭开
-    tl.fromTo('#hero-desc',
-      { yPercent: 110 },
-      { yPercent: 0, duration: 0.8 },
-      0.88
-    );
-
-    // chips：stagger 逐个进场
-    tl.fromTo('#hero-chips .chip',
-      { yPercent: 60, opacity: 0 },
-      { yPercent: 0, opacity: 1, duration: 0.65, stagger: 0.08 },
-      1.0
-    );
-
-    // scroll hint
-    tl.fromTo('#scroll-hint',
-      { opacity: 0, yPercent: 20 },
-      { opacity: 1, yPercent: 0, duration: 0.8 },
-      1.3
-    );
-  }
-
+    const tp2 = new TextPressure('#tp2', {
+      font: 'Noto Serif SC',
+      weight: { min: 300, max: 600 },
+      minFontSize: 56,
+      maxFontSize: 180,
+      textAlign: 'center',
+      color: '#d8d3cd',
+      italic: false,
+      compress: 1.02,
+    });
   </script>
 
-
-
-
-
-
-
   <script>
+    /* ═══════════════════════════════════════════
+       HERO — Opening Animation
+       ═══════════════════════════════════════════ */
+    function animateHeroIn() {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
+
+      // ❶ Background image — subtle slow zoom-out
+      tl.fromTo('.hero-bg-video',
+        { scale: 1.1 },
+        { scale: 1, duration: 2.6, ease: 'power3.out' }, 0);
+
+      // ❷ Overlay fades in
+      tl.fromTo('.hero-overlay',
+        { opacity: 0 },
+        { opacity: 1, duration: 1.5 }, 0);
+
+      // ❸ "HI~ I'M aliluya" — clip-reveal from bottom
+      tl.fromTo('.hero-title-group',
+        { clipPath: 'inset(0 0 100% 0)', y: 24 },
+        { clipPath: 'inset(0 0 0% 0)', y: 0, duration: 1.2, ease: 'power4.out' }, 0.4);
+
+      tl.fromTo('.hero-hi', { opacity: 0 }, { opacity: 1, duration: 0.6 }, 0.5);
+      tl.fromTo('.hero-name', { opacity: 0 }, { opacity: 1, duration: 0.6 }, 0.65);
+
+      // ❹ Description
+      tl.fromTo('.hero-desc',
+        { y: 28, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' }, 1.2);
+
+      // ❽ Navigation — slides down from top
+      tl.fromTo('#site-nav',
+        { yPercent: -140, opacity: 0 },
+        { yPercent: 0, opacity: 1, duration: 1.2, ease: 'power4.out' }, 1.4);
+
+      // ❾ Scroll hint — gentle fade
+      tl.to('#scrollHint', { opacity: 1, duration: 0.9 }, 2.3);
+    }
+
+    /* ═══════════════════════════════════════════
+       SCROLL HINT — fade on scroll
+       ═══════════════════════════════════════════ */
+    function updateScrollHint() {
+      const sh = document.getElementById('scrollHint');
+      if (!sh) return;
+      sh.style.opacity = window.scrollY > 60 ? '0' : '1';
+      sh.style.transition = 'opacity 0.4s ease';
+    }
+    window.addEventListener('scroll', updateScrollHint, { passive: true });
+
+    /* ═══════════════════════════════════════════
+       WORKS — GSAP title animations (header only)
+       ═══════════════════════════════════════════ */
+    function initWorksHeaderAnim() {
+      gsap.fromTo('.works-title', {
+        x: -180, opacity: 0, clipPath: 'inset(0 100% 0 0)',
+      }, {
+        x: 0, opacity: 1, clipPath: 'inset(0 0% 0 0)',
+        duration: 1.4, ease: 'power4.out',
+        scrollTrigger: { trigger: '#works', start: 'top 80%', toggleActions: 'play none none none' }
+      });
+      gsap.fromTo('.works-sub', {
+        x: 60, opacity: 0,
+      }, {
+        x: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: '#works', start: 'top 80%', toggleActions: 'play none none none' }
+      });
+    }
+
+    /* ═══════════════════════════════════════════
+       PROFESSIONAL PATH — GSAP animations
+       ═══════════════════════════════════════════ */
+    function initPPAnim() {
+      // Title: slide-in from left + clipPath reveal
+      gsap.fromTo('.pp-title', {
+        x: -180, opacity: 0, clipPath: 'inset(0 100% 0 0)',
+      }, {
+        x: 0, opacity: 1, clipPath: 'inset(0 0% 0 0)',
+        duration: 1.4, ease: 'power4.out',
+        scrollTrigger: { trigger: '#professionalPath', start: 'top 80%', toggleActions: 'play none none none' }
+      });
+      // Keyword cards: staggered fade-up
+      gsap.set('.pp-grid .pp-card', { y: 60, opacity: 0, rotateY: 5 });
+      gsap.utils.toArray('.pp-grid .pp-card').forEach(function(card, i) {
+        gsap.to(card, {
+          y: 0, opacity: 1, rotateY: 0,
+          duration: 1.0, delay: i * 0.10, ease: 'power3.out',
+          scrollTrigger: { trigger: '#professionalPath', start: 'top 70%', toggleActions: 'play none none none' }
+        });
+      });
+      // Timeline phases: stagger fade-up
+      gsap.set('.pp-phase', { y: 60, opacity: 0, rotateY: 5 });
+      gsap.utils.toArray('.pp-phase').forEach(function(phase, i) {
+        gsap.to(phase, {
+          y: 0, opacity: 1, rotateY: 0,
+          duration: 1.0, delay: i * 0.12, ease: 'power3.out',
+          scrollTrigger: { trigger: '#professionalPath', start: 'top 70%', toggleActions: 'play none none none' }
+        });
+      });
+    }
+
+    /* ═══════════════════════════════════════════
+       CIRCULAR TEXT — vanilla · React Bits
+       ═══════════════════════════════════════════ */
+    function initCircularText(containerId, options) {
+      var opts = options || {};
+      var text = opts.text || '';
+      var spinDuration = opts.spinDuration || 20;
+      var onHover = opts.onHover || 'speedUp';
+
+      var container = document.getElementById(containerId);
+      if (!container) return;
+
+      var el = document.createElement('div');
+      el.className = 'circular-text';
+
+      var letters = text.split('');
+      var r = 54; // radius from center (120px container)
+
+      letters.forEach(function(letter, i) {
+        var span = document.createElement('span');
+        span.textContent = letter;
+        var deg = (360 / letters.length) * i;
+        span.style.transform = 'rotate(' + deg + 'deg) translateY(-' + r + 'px)';
+        span.style.webkitTransform = 'rotate(' + deg + 'deg) translateY(-' + r + 'px)';
+        el.appendChild(span);
+      });
+
+      container.appendChild(el);
+
+      var angle = 0;
+      var normalSpeed = 360 / spinDuration;
+      var currentSpeed = normalSpeed;
+      var targetSpeed = normalSpeed;
+      var currentScale = 1;
+      var targetScale = 1;
+      var lastTime = performance.now();
+      var animId;
+
+      var speedMap = {
+        speedUp: 360 / (spinDuration / 4),
+        slowDown: 360 / (spinDuration * 2),
+        pause: 0,
+        goBonkers: 360 / (spinDuration / 20)
+      };
+
+      function animate(time) {
+        var dt = (time - lastTime) / 1000;
+        lastTime = time;
+        dt = Math.min(dt, 0.1);
+
+        currentSpeed += (targetSpeed - currentSpeed) * Math.min(dt * 8, 1);
+        currentScale += (targetScale - currentScale) * Math.min(dt * 8, 1);
+        angle += currentSpeed * dt;
+
+        el.style.transform = 'rotate(' + (angle % 360) + 'deg) scale(' + currentScale + ')';
+        animId = requestAnimationFrame(animate);
+      }
+
+      el.addEventListener('mouseenter', function() {
+        targetSpeed = speedMap[onHover] !== undefined ? speedMap[onHover] : normalSpeed;
+        targetScale = onHover === 'goBonkers' ? 0.8 : 1;
+      });
+
+      el.addEventListener('mouseleave', function() {
+        targetSpeed = normalSpeed;
+        targetScale = 1;
+      });
+
+      animId = requestAnimationFrame(animate);
+
+      return { destroy: function() { cancelAnimationFrame(animId); } };
+    }
+
+    /* ═══════════════════════════════════════════
+       WORKS TAGS — filter by category
+       ═══════════════════════════════════════════ */
+    function initWorksTags() {
+      var tags = document.querySelectorAll('.works-tag');
+      var cards = document.querySelectorAll('#worksGrid .card');
+      if (!tags.length || !cards.length) return;
+
+      tags.forEach(function(tag) {
+        tag.addEventListener('click', function() {
+          var filter = this.dataset.filter;
+          // Toggle active state
+          tags.forEach(function(t) { t.classList.remove('is-active'); });
+          this.classList.add('is-active');
+          // Filter cards
+          cards.forEach(function(card) {
+            if (filter === 'all' || card.dataset.category === filter) {
+              card.style.display = '';
+              gsap.fromTo(card, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    }
+
+    /* ═══════════════════════════════════════════
+       FLYING POSTERS — WebGL (ogl) · React Bits
+       ═══════════════════════════════════════════ */
+    const POSTERS_IMAGES = [
+      'img/xin/xiug.webp',
+      'img/image.webp',
+      'img/bz/设计工作室slogan及业务解读-(17).webp',
+      'img/05/11.webp',
+      'img/lilwave-poster.webp',
+      'img/xin.webp',
+      'img/01.loop.webp',
+      'img/K.jpeg',
+    ];
+
+    // --- Shaders (from React Bits source) ---
+
+    const FP_VERTEX = `precision highp float;
+
+attribute vec3 position;
+attribute vec2 uv;
+attribute vec3 normal;
+
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+uniform mat3 normalMatrix;
+
+uniform float uPosition;
+uniform float uTime;
+uniform float uSpeed;
+uniform vec3 distortionAxis;
+uniform vec3 rotationAxis;
+uniform float uDistortion;
+
+varying vec2 vUv;
+varying vec3 vNormal;
+
+float PI = 3.141592653589793238;
+
+mat4 rotationMatrix(vec3 axis, float angle) {
+    axis = normalize(axis);
+    float s = sin(angle);
+    float c = cos(angle);
+    float oc = 1.0 - c;
+
+    return mat4(
+      oc * axis.x * axis.x + c,         oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,  0.0,
+      oc * axis.x * axis.y + axis.z * s, oc * axis.y * axis.y + c,          oc * axis.y * axis.z - axis.x * s,  0.0,
+      oc * axis.z * axis.x - axis.y * s, oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
+      0.0,                               0.0,                               0.0,                                1.0
+    );
+}
+
+vec3 rotate(vec3 v, vec3 axis, float angle) {
+    mat4 m = rotationMatrix(axis, angle);
+    return (m * vec4(v, 1.0)).xyz;
+}
+
+float qinticInOut(float t) {
+    return t < 0.5
+      ? 16.0 * pow(t, 5.0)
+      : -0.5 * abs(pow(2.0 * t - 2.0, 5.0)) + 1.0;
+}
+
+void main() {
+    vUv = uv;
+
+    float norm = 0.5;
+    vec3 newpos = position;
+    float offset = (dot(distortionAxis, position) + norm / 2.) / norm;
+    float localprogress = clamp(
+      (fract(uPosition * 5.0 * 0.01) - 0.01 * uDistortion * offset) / (1. - 0.01 * uDistortion),
+      0.,
+      2.
+    );
+    localprogress = qinticInOut(localprogress) * PI;
+    newpos = rotate(newpos, rotationAxis, localprogress);
+
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(newpos, 1.0);
+}`;
+
+    const FP_FRAGMENT = `precision highp float;
+
+uniform vec2 uImageSize;
+uniform vec2 uPlaneSize;
+uniform sampler2D tMap;
+
+varying vec2 vUv;
+
+void main() {
+    vec2 imageSize = uImageSize;
+    vec2 planeSize = uPlaneSize;
+
+    float imageAspect = imageSize.x / imageSize.y;
+    float planeAspect = planeSize.x / planeSize.y;
+    vec2 scale = vec2(1.0, 1.0);
+
+    if (planeAspect > imageAspect) {
+        scale.x = imageAspect / planeAspect;
+    } else {
+        scale.y = planeAspect / imageAspect;
+    }
+
+    vec2 uv = vUv * scale + (1.0 - scale) * 0.5;
+
+    gl_FragColor = texture2D(tMap, uv);
+}`;
+
+    // --- Helpers ---
+
+    function fp_lerp(p1, p2, t) { return p1 + (p2 - p1) * t; }
+    function fp_map(num, min1, max1, min2, max2, round) {
+      var num1 = (num - min1) / (max1 - min1);
+      var num2 = num1 * (max2 - min2) + min2;
+      return round ? Math.round(num2) : num2;
+    }
+
+    function fp_AutoBind(self, opts) {
+      opts = opts || {};
+      var include = opts.include;
+      var exclude = opts.exclude;
+      var getAllProperties = function(object) {
+        var properties = [];
+        do {
+          var keys = Object.getOwnPropertyNames(object);
+          for (var i = 0; i < keys.length; i++) properties.push([object, keys[i]]);
+          var symbols = Object.getOwnPropertySymbols(object);
+          for (var j = 0; j < symbols.length; j++) properties.push([object, symbols[j]]);
+          object = Object.getPrototypeOf(object);
+        } while (object && object !== Object.prototype);
+        return properties;
+      };
+      var filter = function(key) {
+        var match = function(pattern) { return typeof pattern === 'string' ? key === pattern : pattern.test(key); };
+        if (include) return include.some(match);
+        if (exclude) return !exclude.some(match);
+        return true;
+      };
+      var props = getAllProperties(self.constructor.prototype);
+      for (var k = 0; k < props.length; k++) {
+        var obj = props[k][0], key = props[k][1];
+        if (key === 'constructor' || !filter(key)) continue;
+        var desc = Object.getOwnPropertyDescriptor(obj, key);
+        if (desc && typeof desc.value === 'function') self[key] = self[key].bind(self);
+      }
+      return self;
+    }
+
+    // --- Media class (same structure as React Bits source) ---
+
+    class FP_Media {
+      constructor({ gl, geometry, scene, screen, viewport, image, length, index, planeWidth, planeHeight, distortion }) {
+        this.extra = 0;
+        this.gl = gl;
+        this.geometry = geometry;
+        this.scene = scene;
+        this.screen = screen;
+        this.viewport = viewport;
+        this.image = image;
+        this.length = length;
+        this.index = index;
+        this.planeWidth = planeWidth;
+        this.planeHeight = planeHeight;
+        this.distortion = distortion;
+        this.createShader();
+        this.createMesh();
+        this.onResize();
+      }
+
+      createShader() {
+        var texture = new OGL.Texture(this.gl, { generateMipmaps: false });
+        this.program = new OGL.Program(this.gl, {
+          depthTest: false,
+          depthWrite: false,
+          fragment: FP_FRAGMENT,
+          vertex: FP_VERTEX,
+          uniforms: {
+            tMap: { value: texture },
+            uPosition: { value: 0 },
+            uPlaneSize: { value: [0, 0] },
+            uImageSize: { value: [0, 0] },
+            uSpeed: { value: 0 },
+            rotationAxis: { value: [0, 1, 0] },
+            distortionAxis: { value: [1, 1, 0] },
+            uDistortion: { value: this.distortion },
+            uViewportSize: { value: [this.viewport.width, this.viewport.height] },
+            uTime: { value: 0 }
+          },
+          cullFace: false
+        });
+
+        var img = new Image();
+        // crossOrigin='anonymous' breaks image loading on file:// protocol
+        if (location.protocol === 'http:' || location.protocol === 'https:') {
+          img.crossOrigin = 'anonymous';
+        }
+        img.src = this.image;
+
+        var self = this;
+        img.onload = function () {
+          texture.image = img;
+          self.program.uniforms.uImageSize.value = [img.naturalWidth, img.naturalHeight];
+        };
+        img.onerror = function () {
+          console.warn('FlyingPosters: texture load failed →', self.image);
+        };
+      }
+
+      createMesh() {
+        this.plane = new OGL.Mesh(this.gl, { geometry: this.geometry, program: this.program });
+        this.plane.setParent(this.scene);
+      }
+
+      setScale() {
+        this.plane.scale.x = (this.viewport.width * this.planeWidth) / this.screen.width;
+        this.plane.scale.y = (this.viewport.height * this.planeHeight) / this.screen.height;
+        this.plane.position.x = 0;
+        this.plane.program.uniforms.uPlaneSize.value = [this.plane.scale.x, this.plane.scale.y];
+      }
+
+      onResize({ screen, viewport } = {}) {
+        if (screen) this.screen = screen;
+        if (viewport) {
+          this.viewport = viewport;
+          this.plane.program.uniforms.uViewportSize.value = [this.viewport.width, this.viewport.height];
+        }
+        this.setScale();
+        this.padding = 5;
+        this.height = this.plane.scale.y + this.padding;
+        this.heightTotal = this.height * this.length;
+        this.y = -this.heightTotal / 2 + (this.index + 0.5) * this.height;
+      }
+
+      update(scroll) {
+        this.plane.position.y = this.y - scroll.current - this.extra;
+
+        var position = fp_map(this.plane.position.y, -this.viewport.height, this.viewport.height, 5, 15);
+        this.program.uniforms.uPosition.value = position;
+        this.program.uniforms.uTime.value += 0.04;
+        this.program.uniforms.uSpeed.value = scroll.current;
+
+        var planeHeight = this.plane.scale.y;
+        var viewportHeight = this.viewport.height;
+        var topEdge = this.plane.position.y + planeHeight / 2;
+        var bottomEdge = this.plane.position.y - planeHeight / 2;
+
+        if (topEdge < -viewportHeight / 2) {
+          this.extra -= this.heightTotal;
+        } else if (bottomEdge > viewportHeight / 2) {
+          this.extra += this.heightTotal;
+        }
+      }
+    }
+
+    // --- Canvas class (same structure as React Bits source) ---
+
+    class FlyingPostersCanvas {
+      constructor({ container, canvas, items, planeWidth, planeHeight, distortion, scrollEase, cameraFov, cameraZ }) {
+        this.container = container;
+        this.canvas = canvas;
+        this.items = items;
+        this.planeWidth = planeWidth;
+        this.planeHeight = planeHeight;
+        this.distortion = distortion;
+        this.scroll = { ease: scrollEase, current: 0, target: 0, last: 0 };
+        this.cameraFov = cameraFov;
+        this.cameraZ = cameraZ;
+
+        fp_AutoBind(this);
+
+        this.createRenderer();
+        this.createCamera();
+        this.createScene();
+        this.onResize();
+        this.createGeometry();
+        this.createMedias();
+        this.update();
+        this.addEventListeners();
+        this.createPreloader();
+      }
+
+      createRenderer() {
+        this.renderer = new OGL.Renderer({
+          canvas: this.canvas,
+          alpha: true,
+          antialias: true,
+          dpr: Math.min(window.devicePixelRatio, 2)
+        });
+        this.gl = this.renderer.gl;
+      }
+
+      createCamera() {
+        this.camera = new OGL.Camera(this.gl);
+        this.camera.fov = this.cameraFov;
+        this.camera.position.z = this.cameraZ;
+      }
+
+      createScene() {
+        this.scene = new OGL.Transform();
+      }
+
+      createGeometry() {
+        this.planeGeometry = new OGL.Plane(this.gl, { heightSegments: 1, widthSegments: 100 });
+      }
+
+      createMedias() {
+        var self = this;
+        this.medias = this.items.map(function (image, index) {
+          return new FP_Media({
+            gl: self.gl,
+            geometry: self.planeGeometry,
+            scene: self.scene,
+            screen: self.screen,
+            viewport: self.viewport,
+            image: image,
+            length: self.items.length,
+            index: index,
+            planeWidth: self.planeWidth,
+            planeHeight: self.planeHeight,
+            distortion: self.distortion
+          });
+        });
+      }
+
+      createPreloader() {
+        this.loaded = 0;
+        if (!this.items.length) return;
+        var self = this;
+        this.items.forEach(function (src) {
+          var image = new Image();
+          if (location.protocol === 'http:' || location.protocol === 'https:') {
+            image.crossOrigin = 'anonymous';
+          }
+          image.src = src;
+          image.onload = image.onerror = function () {
+            self.loaded += 1;
+            if (self.loaded === self.items.length) {
+              document.documentElement.classList.remove('loading');
+              document.documentElement.classList.add('loaded');
+            }
+          };
+        });
+      }
+
+      onResize() {
+        var rect = this.container.getBoundingClientRect();
+        this.screen = { width: rect.width, height: rect.height };
+        this.renderer.setSize(this.screen.width, this.screen.height);
+        this.camera.perspective({ aspect: this.gl.canvas.width / this.gl.canvas.height });
+
+        var fov = (this.camera.fov * Math.PI) / 180;
+        var height = 2 * Math.tan(fov / 2) * this.camera.position.z;
+        var width = height * this.camera.aspect;
+        this.viewport = { height: height, width: width };
+
+        if (this.medias) {
+          this.medias.forEach(function (m) {
+            m.onResize({ screen: this.screen, viewport: this.viewport });
+          }.bind(this));
+        }
+      }
+
+      onWheel(e) {
+        this.scroll.target += e.deltaY * 0.005;
+      }
+
+      onTouchDown(e) {
+        this.isDown = true;
+        this.scrollPosition = this.scroll.current;
+        this.start = e.touches ? e.touches[0].clientY : e.clientY;
+      }
+
+      onTouchMove(e) {
+        if (!this.isDown) return;
+        var y = e.touches ? e.touches[0].clientY : e.clientY;
+        this.scroll.target = this.scrollPosition + (this.start - y) * 0.1;
+      }
+
+      onTouchUp() {
+        this.isDown = false;
+      }
+
+      update() {
+        this.scroll.current = fp_lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
+        if (this.medias) {
+          this.medias.forEach(function (m) { m.update(this.scroll); }.bind(this));
+        }
+        this.renderer.render({ scene: this.scene, camera: this.camera });
+        this.scroll.last = this.scroll.current;
+        requestAnimationFrame(this.update.bind(this));
+      }
+
+      addEventListeners() {
+        window.addEventListener('resize', this.onResize);
+        window.addEventListener('wheel', this.onWheel);
+        window.addEventListener('mousewheel', this.onWheel);
+        window.addEventListener('mousedown', this.onTouchDown);
+        window.addEventListener('mousemove', this.onTouchMove);
+        window.addEventListener('mouseup', this.onTouchUp);
+        window.addEventListener('touchstart', this.onTouchDown);
+        window.addEventListener('touchmove', this.onTouchMove);
+        window.addEventListener('touchend', this.onTouchUp);
+      }
+      destroy() {
+        window.removeEventListener('resize', this.onResize);
+        window.removeEventListener('wheel', this.onWheel);
+        window.removeEventListener('mousewheel', this.onWheel);
+        window.removeEventListener('mousedown', this.onTouchDown);
+        window.removeEventListener('mousemove', this.onTouchMove);
+        window.removeEventListener('mouseup', this.onTouchUp);
+        window.removeEventListener('touchstart', this.onTouchDown);
+        window.removeEventListener('touchmove', this.onTouchMove);
+        window.removeEventListener('touchend', this.onTouchUp);
+      }
+    }
+
+    // --- Init & fallback ---
+
+    var fpInstance = null;
+
+    function initFlyingPosters() {
+      var stage = document.getElementById('postersStage');
+      var canvas = document.getElementById('postersCanvas');
+      var fallback = document.getElementById('worksGrid');
+
+      // Guard: OGL loaded?
+      if (window.__OGL_FAILED || typeof OGL === 'undefined' || !stage || !canvas) {
+        if (stage) stage.style.display = 'none';
+        if (fallback) fallback.style.display = '';
+        return;
+      }
+
+      // Guard: WebGL available?
+      var testCanvas = document.createElement('canvas');
+      var gl = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl');
+      if (!gl) {
+        stage.style.display = 'none';
+        if (fallback) fallback.style.display = '';
+        return;
+      }
+
+      // All good — swap visibility
+      if (fallback) fallback.style.display = 'none';
+      stage.style.display = '';
+
+      try {
+        fpInstance = new FlyingPostersCanvas({
+          container: stage,
+          canvas: canvas,
+          items: POSTERS_IMAGES,
+          planeWidth: 400,
+          planeHeight: 400,
+          distortion: 3,
+          scrollEase: 0.01,
+          cameraFov: 45,
+          cameraZ: 20
+        });
+
+        // Safety net: if textures aren't ready after 5s, fall back to HTML cards
+        setTimeout(function () {
+          if (fpInstance && fpInstance.loaded < POSTERS_IMAGES.length) {
+            console.warn('FlyingPosters: timed out, switching to fallback cards');
+            stage.style.display = 'none';
+            if (fallback) fallback.style.display = '';
+            setupFallbackCards();
+          }
+        }, 5000);
+      } catch (e) {
+        console.warn('FlyingPosters: init crashed →', e);
+        stage.style.display = 'none';
+        if (fallback) fallback.style.display = '';
+        setupFallbackCards();
+      }
+    }
+
+    /* ═══════════════════════════════════════════
+       FLYING POSTERS — Row 2 init
+       ═══════════════════════════════════════════ */
+    var fpInstance2 = null;
+
+    function initFlyingPosters2() {
+      var stage2 = document.getElementById('postersStage2');
+      var canvas2 = document.getElementById('postersCanvas2');
+
+      if (window.__OGL_FAILED || typeof OGL === 'undefined' || !stage2 || !canvas2) {
+        if (stage2) stage2.style.display = 'none';
+        return;
+      }
+
+      var testCanvas = document.createElement('canvas');
+      var gl = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl');
+      if (!gl) {
+        stage2.style.display = 'none';
+        return;
+      }
+
+      stage2.style.display = '';
+
+      try {
+        fpInstance2 = new FlyingPostersCanvas({
+          container: stage2,
+          canvas: canvas2,
+          items: POSTERS_IMAGES,
+          planeWidth: 320,
+          planeHeight: 320,
+          distortion: 3,
+          scrollEase: 0.01,
+          cameraFov: 45,
+          cameraZ: 20
+        });
+
+        setTimeout(function () {
+          if (fpInstance2 && fpInstance2.loaded < POSTERS_IMAGES.length) {
+            console.warn('FlyingPosters #2: timed out');
+            stage2.style.display = 'none';
+          }
+        }, 5000);
+      } catch (e) {
+        console.warn('FlyingPosters #2: init crashed →', e);
+        stage2.style.display = 'none';
+      }
+    }
+
+    /* ═══════════════════════════════════════════
+       VARIABLE PROXIMITY — mouse-driven font weight
+       ═══════════════════════════════════════════ */
+    function createVariableProximity(el, container, opts = {}) {
+      const {
+        fromSettings = "'wght' 400, 'opsz' 9",
+        toSettings = "'wght' 900, 'opsz' 60",
+        radius = 180,
+        falloff = 'gaussian'
+      } = opts;
+
+      // Split text into letter spans
+      const text = el.textContent || '';
+      el.textContent = '';
+      el.style.display = 'inline-block';
+      el.style.whiteSpace = 'nowrap';
+
+      const letters = [];
+      text.split('').forEach(char => {
+        const span = document.createElement('span');
+        span.style.display = 'inline-block';
+        span.style.fontVariationSettings = fromSettings;
+        span.style.willChange = 'font-variation-settings';
+        span.textContent = char;
+        letters.push(span);
+        el.appendChild(span);
+      });
+
+      // Mouse tracking
+      let mx = -9999, my = -9999;
+      const onMove = (e) => {
+        const x = e.touches ? e.touches[0].clientX : e.clientX;
+        const y = e.touches ? e.touches[0].clientY : e.clientY;
+        const rect = container.getBoundingClientRect();
+        mx = x - rect.left;
+        my = y - rect.top;
+      };
+      window.addEventListener('mousemove', onMove, { passive: true });
+      window.addEventListener('touchmove', onMove, { passive: true });
+
+      // Parse settings
+      const parse = (s) => s.split(',').map(p => {
+        const parts = p.trim().split(' ');
+        return { axis: parts[0].replace(/['"]/g, ''), value: parseFloat(parts[1]) };
+      });
+      const fromParsed = parse(fromSettings);
+      const toParsed = parse(toSettings);
+
+      const calcFalloff = (dist) => {
+        const n = Math.min(Math.max(1 - dist / radius, 0), 1);
+        switch (falloff) {
+          case 'exponential': return n ** 2;
+          case 'gaussian': return Math.exp(-((dist / (radius / 2.5)) ** 2) / 2);
+          default: return n;
+        }
+      };
+
+      // Animation loop
+      (function loop() {
+        const cr = container.getBoundingClientRect();
+        letters.forEach(letter => {
+          const r = letter.getBoundingClientRect();
+          const lx = r.left + r.width / 2 - cr.left;
+          const ly = r.top + r.height / 2 - cr.top;
+          const dist = Math.hypot(mx - lx, my - ly);
+          if (dist >= radius) {
+            letter.style.fontVariationSettings = fromSettings;
+            return;
+          }
+          const t = calcFalloff(dist);
+          letter.style.fontVariationSettings = fromParsed.map(
+            (f, i) => `'${f.axis}' ${f.value + (toParsed[i].value - f.value) * t}`
+          ).join(', ');
+        });
+        requestAnimationFrame(loop);
+      })();
+    }
+
+    /* ═══════════════════════════════════════════
+       BOOT
+       ═══════════════════════════════════════════ */
+    document.addEventListener('DOMContentLoaded', () => {
+      // Register GSAP plugin (deferred scripts are now loaded)
+      if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+      }
+
+      // Video lazy-play: pause when off-screen, play when visible
+      var videos = document.querySelectorAll('video[autoplay]');
+      if (videos.length && 'IntersectionObserver' in window) {
+        var vObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.play().catch(function(){});
+            } else {
+              entry.target.pause();
+            }
+          });
+        }, { rootMargin: '100px' });
+        videos.forEach(function(v) { vObserver.observe(v); });
+      }
+
+      // VariableProximity on hero greeting text
+      const heroWrap = document.getElementById('heroHiWrap');
+      const heroHi = document.querySelector('.hero-hi');
+      const heroHiName = document.querySelector('.hero-hi-name');
+      if (heroHi && heroWrap) createVariableProximity(heroHi, heroWrap, {
+        fromSettings: "'wght' 300, 'opsz' 9",
+        toSettings: "'wght' 900, 'opsz' 100",
+        radius: 180,
+        falloff: 'gaussian'
+      });
+      if (heroHiName && heroWrap) createVariableProximity(heroHiName, heroWrap, {
+        fromSettings: "'wght' 200",
+        toSettings: "'wght' 900",
+        radius: 180,
+        falloff: 'gaussian'
+      });
+
+      animateHeroIn();
+      initWorksHeaderAnim();
+      initPPAnim();
+      initContactAnim();
+      initMagnet();
+      initCircularText('circularTextWrap', {
+        text: 'ALILUYA*Portfolio*',
+        spinDuration: 20,
+        onHover: 'speedUp'
+      });
+      initCircularText('ppCircularText', {
+        text: 'PROFESSIONAL*PATH*',
+        spinDuration: 24,
+        onHover: 'speedUp'
+      });
+      initWorksTags();
+      initFlyingPosters();
+      // initFlyingPosters2() — skipped (section hidden via CSS display:none)
+      // Fallback card animations — reusable
+      var fallbackCardsSt = null;
+      function setupFallbackCards(){
+        var grid = document.getElementById('worksGrid');
+        if(!grid || grid.style.display==='none')return;
+        // Kill existing animation if any
+        if(fallbackCardsSt){fallbackCardsSt.forEach(function(s){s.kill();});fallbackCardsSt=null;}
+        // Reset cards to hidden state
+        gsap.set('.works-grid .card',{y:60,opacity:0,rotateY:5});
+        fallbackCardsSt = gsap.utils.toArray('.works-grid .card').map(function(card,i){
+          return gsap.to(card,{
+            y:0,opacity:1,rotateY:0,
+            duration:1.0,delay:i*0.10,ease:'power3.out',
+            scrollTrigger:{trigger:'#works',start:'top 70%'}
+          });
+        });
+      }
+      // Run immediately if WebGL didn't activate
+      setupFallbackCards();
+
+      // Keep nav hidden until GSAP reveals it, then clean up
+      gsap.delayedCall(2.8, () => {
+        document.body.classList.remove('is-home');
+      });
+    });
+
+    // Refresh ScrollTrigger after everything loads (images etc.)
+    window.addEventListener('load', () => {
+      ScrollTrigger.refresh();
+    });
+
+    /* ═══════════════════════════════════════════
+       MAGNET — vanilla JS · React Bits
+       ═══════════════════════════════════════════ */
+    function initMagnet() {
+      var wrappers = document.querySelectorAll('[data-magnet]');
+      if (!wrappers.length) return;
+      var padding = 80;
+      var magnetStrength = 3;
+      var state = new Map();
+
+      wrappers.forEach(function(wrapper) {
+        var inner = wrapper.querySelector('.pp-card-inner');
+        if (!inner) return;
+        state.set(wrapper, { x: 0, y: 0, isActive: false, inner: inner });
+      });
+
+      function handleMove(e) {
+        var clientX = e.clientX;
+        var clientY = e.clientY;
+        state.forEach(function(st, wrapper) {
+          var rect = wrapper.getBoundingClientRect();
+          var centerX = rect.left + rect.width / 2;
+          var centerY = rect.top + rect.height / 2;
+          var distX = Math.abs(centerX - clientX);
+          var distY = Math.abs(centerY - clientY);
+          if (distX < rect.width / 2 + padding && distY < rect.height / 2 + padding) {
+            st.isActive = true;
+            st.x = (clientX - centerX) / magnetStrength;
+            st.y = (clientY - centerY) / magnetStrength;
+          } else {
+            st.isActive = false;
+            st.x = 0;
+            st.y = 0;
+          }
+          st.inner.style.transition = st.isActive ? 'transform 0.3s ease-out' : 'transform 0.5s ease-in-out';
+          st.inner.style.transform = 'translate3d(' + st.x.toFixed(2) + 'px, ' + st.y.toFixed(2) + 'px, 0)';
+        });
+      }
+
+      window.addEventListener('mousemove', handleMove, { passive: true });
+    }
+
+    /* ═══════════════════════════════════════════
+       CONTACT — GSAP scroll animation
+       ═══════════════════════════════════════════ */
+    function initContactAnim() {
+      // Card: fade-up on scroll
+      gsap.fromTo('.index-contact-card', {
+        y: 60, opacity: 0, rotateY: 3
+      }, {
+        y: 0, opacity: 1, rotateY: 0,
+        duration: 1.0, ease: 'power3.out',
+        scrollTrigger: { trigger: '.index-contact', start: 'top 80%', toggleActions: 'play none none none' }
+      });
+    }
+
+    /* Right-click / drag protection */
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
-    document.addEventListener('keydown', e => {
-      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) e.preventDefault();
+  </script>
+
+  <!-- ============================================================
+       CLICKSPARK — vanilla JS · React Bits
+  ============================================================ -->
+  <script>
+  (function initClickSpark(options) {
+    var opts = options || {};
+    var sparkColor = opts.sparkColor || '#d8d3cd';
+    var sparkSize = opts.sparkSize || 10;
+    var sparkRadius = opts.sparkRadius || 15;
+    var sparkCount = opts.sparkCount || 8;
+    var duration = opts.duration || 400;
+    var easing = opts.easing || 'ease-out';
+    var extraScale = opts.extraScale || 1.0;
+
+    // Wrap everything already in <body> inside a container
+    var body = document.body;
+    var container = document.createElement('div');
+    container.id = 'click-spark-container';
+    container.style.position = 'relative';
+    container.style.width = '100%';
+    container.style.minHeight = '100vh';
+    while (body.firstChild) {
+      container.appendChild(body.firstChild);
+    }
+    body.appendChild(container);
+
+    // Create canvas
+    var canvas = document.createElement('canvas');
+    canvas.id = 'click-spark-canvas';
+    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;display:block;user-select:none;pointer-events:none;z-index:9999';
+    body.appendChild(canvas);
+
+    var sparks = [];
+    var ctx = canvas.getContext('2d');
+    var animId = null;
+    var startTime = 0;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', function () {
+      clearTimeout(window.__csResizeTO);
+      window.__csResizeTO = setTimeout(resizeCanvas, 100);
     });
+
+    function easeFunc(t) {
+      switch (easing) {
+        case 'linear': return t;
+        case 'ease-in': return t * t;
+        case 'ease-in-out': return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        default: return t * (2 - t); // ease-out
+      }
+    }
+
+    function draw(timestamp) {
+      if (!startTime) startTime = timestamp;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (var i = sparks.length - 1; i >= 0; i--) {
+        var s = sparks[i];
+        var elapsed = timestamp - s.startTime;
+        if (elapsed >= duration) {
+          sparks.splice(i, 1);
+          continue;
+        }
+        var progress = elapsed / duration;
+        var eased = easeFunc(progress);
+        var dist = eased * sparkRadius * extraScale;
+        var len = sparkSize * (1 - eased);
+
+        var x1 = s.x + dist * Math.cos(s.angle);
+        var y1 = s.y + dist * Math.sin(s.angle);
+        var x2 = s.x + (dist + len) * Math.cos(s.angle);
+        var y2 = s.y + (dist + len) * Math.sin(s.angle);
+
+        ctx.strokeStyle = sparkColor;
+        ctx.lineWidth = 1.5;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
+
+      animId = requestAnimationFrame(draw);
+    }
+
+    animId = requestAnimationFrame(draw);
+
+    document.addEventListener('click', function (e) {
+      var x = e.clientX;
+      var y = e.clientY;
+      var now = performance.now();
+      for (var i = 0; i < sparkCount; i++) {
+        sparks.push({
+          x: x,
+          y: y,
+          angle: (2 * Math.PI * i) / sparkCount,
+          startTime: now
+        });
+      }
+    });
+  })();
   </script>
 </body>
 </html>

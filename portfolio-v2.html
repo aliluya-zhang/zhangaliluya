@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>阿莉路亚 - 作品集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==================== 全局重置与基础 ==================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: #1a1a1a;
+      background: #ffffff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ==================== 树叶装饰系统 ==================== */
+    .leaf-deco {
+      position: absolute;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* 顶部树叶 - Hero 上边缘 */
+    .leaf-hero-tl {
+      top: -40px;
+      left: -60px;
+      width: 280px;
+      height: 240px;
+      background: radial-gradient(ellipse 160px 130px at 35% 45%, rgba(58, 120, 58, 0.42), transparent 75%);
+      filter: blur(14px);
+    }
+    .leaf-hero-tr {
+      top: -30px;
+      right: -50px;
+      width: 260px;
+      height: 220px;
+      background: radial-gradient(ellipse 150px 120px at 65% 35%, rgba(58, 120, 58, 0.38), transparent 70%);
+      filter: blur(12px);
+    }
+    .leaf-hero-tm {
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 100px;
+      background: radial-gradient(ellipse 140px 70px at 50% 50%, rgba(58, 120, 58, 0.2), transparent 70%);
+      filter: blur(16px);
+    }
+
+    /* 区块缝隙树叶 - Works 上方 */
+    .leaf-works-top {
+      top: -60px;
+      left: 20%;
+      width: 180px;
+      height: 150px;
+      background: radial-gradient(ellipse 120px 100px at 40% 50%, rgba(58, 120, 58, 0.28), transparent 70%);
+      filter: blur(18px);
+    }
+
+    /* 底部树叶 - Contact 区域 */
+    .leaf-contact-bl {
+      bottom: -30px;
+      left: -40px;
+      width: 220px;
+      height: 200px;
+      background: radial-gradient(ellipse 140px 120px at 30% 60%, rgba(58, 120, 58, 0.35), transparent 70%);
+      filter: blur(16px);
+    }
+    .leaf-contact-br {
+      bottom: -20px;
+      right: -30px;
+      width: 180px;
+      height: 160px;
+      background: radial-gradient(ellipse 120px 100px at 70% 50%, rgba(58, 120, 58, 0.3), transparent 70%);
+      filter: blur(14px);
+    }
+    .leaf-contact-bm {
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 160px;
+      height: 120px;
+      background: radial-gradient(ellipse 100px 80px at 50% 50%, rgba(58, 120, 58, 0.18), transparent 70%);
+      filter: blur(20px);
+    }
+
+    /* ==================== 区块1：Hero Banner ==================== */
+    .hero {
+      width: 100%;
+      height: 32vh;
+      min-height: 300px;
+      max-height: 420px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.94) contrast(0.96) brightness(1.02);
+    }
+
+    /* ==================== 区块2：SELECTED WORKS ==================== */
+    .works {
+      background: #E8E4DD;
+      padding: 56px 24px 64px;
+      position: relative;
+    }
+
+    .works-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* 标题区 */
+    .works-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .works-title-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .works-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5.5vw, 64px);
+      font-weight: 600;
+      line-height: 1.05;
+      color: #1a1a1a;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+
+    .works-title span {
+      display: block;
+    }
+
+    .works-author {
+      font-size: 12px;
+      color: #8a8278;
+      margin-top: 6px;
+      letter-spacing: 0.02em;
+      font-weight: 400;
+    }
+
+    /* 标签导航 */
+    .works-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 44px;
+    }
+
+    .tag {
+      padding: 7px 20px;
+      border-radius: 24px;
+      font-size: 13px;
+      font-weight: 400;
+      cursor: default;
+      transition: all 0.35s ease;
+      border: 1px solid #c4bdb3;
+      background: transparent;
+      color: #4a4238;
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+
+    .tag:hover {
+      border-color: #1a1a1a;
+      color: #1a1a1a;
+    }
+
+    .tag.active {
+      background: #1a1a1a;
+      color: #f5f2ee;
+      border-color: #1a1a1a;
+    }
+
+    /* 作品卡片 */
+    .work-card {
+      margin-bottom: 44px;
+    }
+
+    .work-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .work-card-media {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #d8d3cd;
+      position: relative;
+    }
+
+    .work-card-media img,
+    .work-card-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.92) contrast(0.95) brightness(1.01);
+      transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), filter 0.6s ease;
+    }
+
+    .work-card:hover .work-card-media img,
+    .work-card:hover .work-card-media video {
+      transform: scale(1.02);
+      filter: saturate(0.95) contrast(0.97) brightness(1.03);
+    }
+
+    .work-card-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      padding: 0 2px;
+    }
+
+    .work-card-title {
+      font-size: 13px;
+      color: #3a3530;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+
+    .work-card-meta {
+      font-size: 12px;
+      color: #9a9186;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    /* ==================== 区块3：CONTACT ==================== */
+    .contact {
+      background: #121212;
+      padding: 72px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .contact-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .contact-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      filter: saturate(0.9) contrast(0.95);
+    }
+
+    .contact-bubble {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 20px 26px;
+      flex: 1;
+      max-width: 420px;
+    }
+
+    .contact-bubble-label {
+      font-size: 11px;
+      color: #7a7a7a;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+
+    .contact-bubble-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f0ebe5;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      font-family: 'Noto Serif SC', serif;
+    }
+
+    .contact-bubble-desc {
+      font-size: 12px;
+      color: #888888;
+      line-height: 1.9;
+    }
+
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .contact-qr {
+      width: 96px;
+      height: 96px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      padding: 4px;
+    }
+
+    .contact-qr img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .contact-qr-text {
+      font-size: 11px;
+      color: #999999;
+      letter-spacing: 0.05em;
+    }
+
+    /* ==================== 响应式 ==================== */
+    @media (max-width: 768px) {
+      .hero {
+        height: 28vh;
+        min-height: 220px;
+      }
+
+      .works {
+        padding: 40px 20px 48px;
+      }
+
+      .works-title {
+        font-size: 36px;
+      }
+
+      .works-tags {
+        gap: 8px;
+        margin-bottom: 32px;
+      }
+
+      .tag {
+        padding: 6px 14px;
+        font-size: 12px;
+      }
+
+      .work-card {
+        margin-bottom: 32px;
+      }
+
+      .work-card-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .contact {
+        padding: 48px 20px 56px;
+      }
+
+      .contact-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 32px;
+      }
+
+      .contact-left {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .contact-bubble {
+        max-width: 100%;
+        padding: 18px 20px;
+      }
+
+      .contact-bubble-title {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .works-title {
+        font-size: 32px;
+      }
+
+      .contact-bubble-title {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== 区块1：Hero Banner ==================== -->
+  <section class="hero">
+    <img src="img/xin/图片节点-3-(3).png" alt="设计师工位" class="hero-img">
+    <!-- 顶部树叶装饰 -->
+    <div class="leaf-deco leaf-hero-tl"></div>
+    <div class="leaf-deco leaf-hero-tr"></div>
+    <div class="leaf-deco leaf-hero-tm"></div>
+  </section>
+
+  <!-- ==================== 区块2：SELECTED WORKS ==================== -->
+  <section class="works">
+    <!-- 区块缝隙树叶 -->
+    <div class="leaf-deco leaf-works-top"></div>
+
+    <div class="works-inner">
+      <!-- 标题区 -->
+      <div class="works-header">
+        <div class="works-title-group">
+          <div>
+            <h2 class="works-title">
+              <span>SELECTED</span>
+              <span>WORKS</span>
+            </h2>
+          </div>
+          <div class="works-author">@阿莉路亚</div>
+        </div>
+      </div>
+
+      <!-- 标签导航 -->
+      <div class="works-tags">
+        <span class="tag active">产品视觉重塑</span>
+        <span class="tag">海报kv</span>
+        <span class="tag">亚马逊A+</span>
+        <span class="tag">IP设计</span>
+        <span class="tag">包装设计</span>
+      </div>
+
+      <!-- 作品卡片1 -->
+      <div class="work-card">
+        <div class="work-card-media">
+          <img src="img/xin/Group 306.png" alt="NenoVia DTC品牌视觉全案">
+        </div>
+        <div class="work-card-info">
+          <span class="work-card-title">NenoVia DTC品牌视觉全案</span>
+          <span class="work-card-meta">Brand · Product Design</span>
+        </div>
+      </div>
+
+      <!-- 作品卡片2 -->
+      <div class="work-card">
+        <div class="work-card-media">
+          <img src="img/ODI/02.webp" alt="ODI 品牌视觉">
+        </div>
+        <div class="work-card-info">
+          <span class="work-card-title">ODI 品牌视觉全案</span>
+          <span class="work-card-meta">Brand · Product Design</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 区块3：CONTACT ==================== -->
+  <section class="contact">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <img src="img/avatar_talk.png" alt="头像" class="contact-avatar">
+        <div class="contact-bubble">
+          <div class="contact-bubble-label">CONTACT</div>
+          <div class="contact-bubble-title">用视觉把品牌<br>讲成一个好故事。</div>
+          <div class="contact-bubble-desc">
+            品牌全案·KV主视觉·IP角色设计·产品CG渲染·AI电商素材。<br>
+            从策略到落地，专注让品牌视觉真正驱动商业价值。
+          </div>
+        </div>
+      </div>
+      <div class="contact-right">
+        <div class="contact-qr">
+          <img src="img/微信截图_20260515160334.png" alt="微信二维码">
+        </div>
+        <div class="contact-qr-text">扫码联系</div>
+      </div>
+    </div>
+
+    <!-- 底部树叶装饰 -->
+    <div class="leaf-deco leaf-contact-bl"></div>
+    <div class="leaf-deco leaf-contact-br"></div>
+    <div class="leaf-deco leaf-contact-bm"></div>
+  </section>
+
+</body>
+</html>

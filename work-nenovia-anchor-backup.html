@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NenoVia DTC品牌视觉全案</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:auto}
+    body{overflow-x:hidden}
+    .anchor-section{}
+    a{text-decoration:none}
+    img{max-width:100%;display:block}
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:#faf5ec}
+    ::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.12);border-radius:3px}
+
+    :root{
+      --bg:#faf5ec;
+      --bg-white:#fff;
+      --bg-alt:#f3ede0;
+      --text:#1a1a1a;
+      --text-sec:rgba(26,25,24,0.5);
+      --text-muted:rgba(26,25,24,0.3);
+      --border:rgba(0,0,0,0.08);
+      --radius:20px;
+      --transition:0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    body{
+      margin:0;padding:0;
+      font-family:'Inter','Noto Sans SC',-apple-system,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden
+    }
+
+    /* Scroll Reveal */
+    .reveal{opacity:0;transform:translateY(40px);transition:opacity 1s ease,transform 1s cubic-bezier(0.22,1,0.36,1)}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* Side Navigation — default: dark bg (hero), .nav-light: light bg */
+    .side-nav{position:fixed;left:32px;top:50%;transform:translateY(-50%);z-index:1000;opacity:0.85;transition:opacity 0.3s}
+    .side-nav:hover{opacity:1}
+    .side-nav-inner{display:flex;flex-direction:column;gap:18px;position:relative;padding-left:24px}
+    .side-nav-line{position:absolute;left:0;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.15) 20%,rgba(255,255,255,0.15) 80%,transparent)}
+    .side-nav-item{display:flex;align-items:center;gap:12px;text-decoration:none;cursor:pointer}
+    .side-nav-tick{width:10px;height:2px;background:rgba(255,255,255,0.2);transition:var(--transition);flex-shrink:0;border-radius:1px}
+    .side-nav-item.active .side-nav-tick{width:28px;background:#fff}
+    .side-nav-label{font-size:11px;letter-spacing:0.12em;color:rgba(255,255,255,0.5);transition:var(--transition);white-space:nowrap;font-weight:500}
+    .side-nav-item.active .side-nav-label{color:#fff;text-shadow:0 0 0 rgba(255,255,255,0.7)}
+    .side-nav.animating .side-nav-tick,.side-nav.animating .side-nav-label{transition:none !important}
+    /* On light background */
+    .side-nav.nav-light .side-nav-line{background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.12) 20%,rgba(255,255,255,0.12) 80%,transparent)}
+    .side-nav.nav-light .side-nav-tick{background:rgba(255,255,255,0.2)}
+    .side-nav.nav-light .side-nav-item.active .side-nav-tick{background:#fff}
+    .side-nav.nav-light .side-nav-label{color:rgba(255,255,255,0.5)}
+    .side-nav.nav-light .side-nav-item.active .side-nav-label{color:#fff}
+    @media(max-width:1024px){.side-nav{display:none}}
+
+    /* Section Base */
+    .anchor-section{min-height:100vh;padding:120px 0;position:relative;scroll-margin-top:0}
+    .section-inner{max-width:1280px;margin:0 auto;padding:0 80px}
+
+    /* Slide Label */
+    .slide-label{font-size:10px;font-weight:500;letter-spacing:0.2em;color:var(--text-muted);text-transform:uppercase;margin-bottom:16px}
+
+    /* Slide Title */
+    .slide-title{font-size:clamp(40px,6vw,72px);font-weight:600;color:var(--text);line-height:1.1;letter-spacing:-0.02em;font-family:'Playfair Display','Noto Serif SC',serif}
+
+    /* Slide Subtitle */
+    .slide-sub{font-size:15px;color:var(--text-sec);line-height:1.9;max-width:560px;margin-top:24px}
+
+    /* ── Hero (unchanged) ── */
+    .hero-section{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;margin:0}
+    .hero-bg{position:absolute;inset:0}
+    .hero-bg img{width:100%;height:100%;object-fit:cover}
+    .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.95) 0%,rgba(0,0,0,0.72) 40%,rgba(0,0,0,0.42) 70%,rgba(0,0,0,0.22) 100%)}
+    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:minmax(280px,38%) 1fr;gap:80px;width:100%;max-width:1400px;margin:0 auto;padding:160px 64px 100px;align-items:start}
+    .hero-left{display:flex;flex-direction:column;gap:28px}
+    .hero-tagline{font-size:12px;font-weight:600;letter-spacing:.1em;color:rgba(255,255,255,.28);text-transform:uppercase}
+    .info-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px 26px;backdrop-filter:blur(12px)}
+    .ic-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:10px}
+    .ic-desc{font-size:13px;line-height:1.85;color:rgba(255,255,255,.5)}
+    .hero-credits{display:flex;flex-direction:column;gap:20px}
+    .hc-item{display:flex;flex-direction:column;gap:3px}
+    .hc-label{font-size:10px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.22);text-transform:uppercase}
+    .hc-value{font-size:13px;color:rgba(255,255,255,.6)}
+    .hero-right{display:flex;flex-direction:column;gap:28px;padding-top:40px;padding-bottom:4px}
+    .hero-headline{display:flex;flex-direction:column;gap:4px;font-size:clamp(28px,4.5vw,52px);font-weight:800;color:#fff;line-height:1.25;letter-spacing:-.01em}
+    .hero-headline .hl-line{display:block}
+    .hero-sub{font-size:14px;line-height:2;color:rgba(255,255,255,.42);max-width:480px}
+    @media(max-width:768px){
+      .hero-section{min-height:100vh;padding-bottom:0}
+      .hero-bg::after{background:linear-gradient(to bottom,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.92) 60%,rgba(0,0,0,0.98) 100%)}
+      .hero-inner{grid-template-columns:1fr;gap:32px;padding:100px 22px 60px}
+      .hero-left{order:2;gap:24px}
+      .hero-right{order:1}
+      .hero-headline{font-size:clamp(24px,7vw,36px)}
+    }
+    @media(min-width:769px) and (max-width:1024px){
+      .hero-inner{grid-template-columns:260px 1fr;gap:44px;padding:120px 40px 80px}
+      .hero-headline{font-size:clamp(26px,3.5vw,42px)}
+    }
+
+    /* ── Card System ── */
+    .card,.card-light{background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:var(--transition);box-shadow:0 2px 12px rgba(0,0,0,0.03)}
+    .card-hover:hover,.card-hover-light:hover{transform:translateY(-8px);box-shadow:0 24px 64px rgba(0,0,0,0.08)}
+    .card-img{width:100%;display:block;transition:transform 0.7s ease}
+    .card:hover .card-img,.card-light:hover .card-img{transform:scale(1.04)}
+
+    /* ── 01 Overview ── */
+    #overview{background:transparent;position:relative;height:auto;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;scroll-margin-top:0;margin-bottom:0;overflow:hidden}
+    #overview::before{content:'';position:absolute;inset:-8px;background:linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)),var(--bg) url('img/xin/豆包---2026-07-09T175614.webp') no-repeat center/cover;filter:blur(6px);z-index:-1}
+    #overview + section{margin-top:0;padding-top:0}
+    .overview-title{display:block;position:static;width:100%;text-align:center;color:#fff;font-size:clamp(24px,3vw,40px);font-weight:600;letter-spacing:0.02em;font-family:'Playfair Display','Noto Serif SC',serif;padding:48px 80px 24px;margin:0}
+    .overview-desc{display:none}
+    .overview-staggered{display:flex;align-items:flex-start;justify-content:center;gap:48px;padding:48px 80px 80px;width:100%;max-width:1600px;margin:0 auto}
+    .overview-card{flex:0 1 320px;position:relative;border-radius:24px;overflow:hidden;transition:transform 0.6s ease,opacity 0.6s ease;opacity:0;transform:translateY(40px);box-shadow:0 24px 64px rgba(101,93,78,0.08)}
+    .overview-card.visible{opacity:1;transform:translateY(0)}
+    .overview-card:nth-child(1){margin-top:0}
+    .overview-card:nth-child(2){margin-top:80px}
+    .overview-card:nth-child(3){margin-top:160px}
+    .overview-card img{width:100%;height:auto;display:block;border-radius:24px;pointer-events:none}
+    @media(max-width:900px){
+      .overview-title{display:block;position:static;width:100%;text-align:center;font-size:clamp(18px,2.5vw,26px);padding:24px 32px 12px;margin:0}
+      .overview-staggered{flex-direction:column;align-items:center;gap:24px;padding:80px 32px 60px}
+      .overview-card{flex:0 1 auto;width:100%;max-width:360px;margin-top:0 !important}
+    }
+    .ov-value{font-size:14px;color:var(--text-sec)}
+
+
+    /* ── 品牌视觉全链条文案栏 ── */
+    .brand-chain-section{min-height:auto;background:var(--bg);padding:0;margin:0;display:flex;align-items:center;justify-content:center}
+    .brand-chain-text{text-align:center;color:#fff;font-size:16px;font-weight:500;line-height:1.7;letter-spacing:0.02em;padding:24px 40px;margin:24px auto 0;border-radius:24px;background:rgba(80,71,58,0.85)}
+    @media(max-width:900px){.brand-chain-text{font-size:13px;padding:50px 32px}}
+
+    /* ── 02 Problem Analysis ── */
+    .problem-section{min-height:911px;height:911px;background:transparent;padding:0;position:relative;margin:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .problem-section::before{content:'';position:absolute;inset:-8px;background:linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)),var(--bg) url('img/xin/22.webp') no-repeat center/cover;filter:blur(6px);z-index:-1}
+    .problem-inner{max-width:1200px;margin:0 auto;padding:60px 80px}
+    .problem-title{font-size:clamp(24px,3vw,40px);font-weight:600;color:#fff;line-height:1.2;margin-bottom:32px;text-align:left;font-family:'Playfair Display','Noto Serif SC',serif}
+    .problem-table-wrap{margin-top:0;background:rgba(255,255,255,0.75);border:1px solid rgba(101,93,78,0.12);border-radius:24px;overflow:hidden;box-shadow:0 24px 64px rgba(101,93,78,0.06);backdrop-filter:blur(4px)}
+    .problem-table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.7;color:var(--text)}
+    .problem-table thead th{font-weight:600;text-align:left;padding:20px 28px;font-size:14px;letter-spacing:0.03em;color:#faf5ec}
+    .problem-table thead th:nth-child(1){background:rgba(110,100,82,0.82)}
+    .problem-table thead th:nth-child(2){background:rgba(94,85,70,0.82)}
+    .problem-table thead th:nth-child(3){background:rgba(80,71,58,0.82)}
+    .problem-table tbody td{padding:24px 28px;border-bottom:1px solid rgba(101,93,78,0.08);vertical-align:top;color:#1a1a1a;transition:background 0.3s}
+    .problem-table tbody tr:last-child td{border-bottom:none}
+    .problem-table tbody tr:hover td{background:rgba(255,255,255,0.85) !important}
+    .problem-table tbody tr:nth-child(1) td{background:rgba(248,243,232,0.7)}
+    .problem-table tbody tr:nth-child(2) td{background:rgba(240,233,218,0.7)}
+    .problem-table tbody tr:nth-child(3) td{background:rgba(230,220,200,0.7)}
+    .problem-table tbody tr:nth-child(4) td{background:rgba(221,208,181,0.7)}
+    .problem-dim{font-weight:700;white-space:nowrap;width:140px;color:var(--text)}
+    @media(max-width:900px){
+      .problem-section{min-height:auto;padding:0 0;margin:0}
+      .problem-inner{padding:50px 32px 50px}
+      .problem-title{display:none}
+      .problem-table-wrap{box-shadow:none;border-radius:0;border:none}
+      .problem-table thead th{padding:14px 16px;font-size:13px}
+      .problem-table tbody td{padding:16px;font-size:14px}
+      .problem-dim{width:100px}
+    }
+    .problem-table th{font-size:11px;font-weight:600;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;padding:20px 24px;text-align:left;border-bottom:1px solid var(--border);background:var(--bg-alt)}
+    .problem-table td{padding:20px 24px;font-size:13px;line-height:1.7;color:var(--text-sec);border-bottom:1px solid var(--border);transition:all 0.3s}
+    .problem-table tr:last-child td{border-bottom:none}
+    .problem-table tr:hover td{background:rgba(0,0,0,0.015)}
+    .problem-table td:first-child{font-weight:500;color:var(--text);font-size:14px;width:140px}
+
+    /* ── Full-screen gallery component (03/04/05) ── */
+    .fs-gallery{position:relative;height:100vh;display:flex;align-items:center;padding:0;scroll-margin-top:0;overflow:hidden;margin:0}
+    .fs-gallery::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.1) 60%,transparent 100%);pointer-events:none;z-index:1}
+    .fs-gallery-title{position:absolute;top:48px;left:250px;color:#fff;font-size:28px;font-weight:700;z-index:20;letter-spacing:0.02em;font-family:'Inter','Noto Sans SC',sans-serif}
+    /* 04 VI layout: image above, title below */
+    #vi.fs-gallery{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;height:911px;padding:90px 0 0;overflow:hidden}
+    #vi .fs-gallery-track{flex:1 1 auto;height:auto;padding:0 250px 0 362px;align-items:flex-start}
+    #vi .fs-gallery-title{position:static;flex:0 0 auto;text-align:left;padding:30px 250px 30px 362px;color:#fff;font-size:clamp(24px,3vw,40px);font-weight:600;z-index:5;pointer-events:none;font-family:'Playfair Display','Noto Serif SC',serif}
+    #vi .fs-gallery-subtitle{color:rgba(255,255,255,0.55);font-size:13px;font-weight:400;margin-top:6px;line-height:1.5;max-width:520px;letter-spacing:0.01em}
+    #vi .fs-gallery-arrow{position:absolute;z-index:30;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.5);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;pointer-events:auto;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0.8;transition:background 0.25s,opacity 0.25s}
+    #vi .fs-gallery-arrow:hover{background:rgba(255,255,255,0.5);opacity:1}
+    #vi .fs-gallery-arrow-left{right:calc(362px + 44px + 12px);bottom:40px;left:auto;top:auto}
+    #vi .fs-gallery-arrow-right{right:362px;bottom:40px;left:auto;top:auto}
+    @media(max-width:900px){#vi .fs-gallery-track{padding:30px 40px 0 40px} #vi .fs-gallery-title{padding:30px 40px 30px 40px;font-size:clamp(18px,2.5vw,26px)} #vi .fs-gallery-arrow{width:36px;height:36px;font-size:14px} #vi .fs-gallery-subtitle{font-size:11px;max-width:260px}}
+    /* 03 Color layout: same as 04 VI */
+    #color.fs-gallery{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;height:911px;padding:90px 0 0;overflow:hidden}
+    #color .fs-gallery-track{flex:1 1 auto;height:auto;padding:0 250px 0 362px;align-items:flex-start}
+    #color .fs-gallery-title{position:static;flex:0 0 auto;text-align:left;padding:30px 250px 30px 362px;color:#655D4E;font-size:clamp(24px,3vw,40px);font-weight:600;z-index:5;pointer-events:none;font-family:'Playfair Display','Noto Serif SC',serif}
+    #color .fs-gallery-subtitle{color:#655D4E;font-size:13px;font-weight:400;margin-top:6px;line-height:1.5;max-width:520px;letter-spacing:0.01em}
+    #color .fs-gallery-arrow{position:absolute;z-index:30;width:56px;height:56px;border-radius:50%;background:#655D4E;border:1px solid #655D4E;color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;pointer-events:auto;opacity:1;transition:background 0.25s,opacity 0.25s}
+    #color .fs-gallery-arrow:hover{background:#5E5546;opacity:1}
+    #color .fs-gallery-arrow-left{right:calc(362px + 56px + 12px);bottom:40px;left:auto;top:auto}
+    #color .fs-gallery-arrow-right{right:362px;bottom:40px;left:auto;top:auto}
+    @media(max-width:900px){#color .fs-gallery-track{padding:30px 40px 0 40px} #color .fs-gallery-title{padding:30px 40px 30px 40px;font-size:clamp(18px,2.5vw,26px)} #color .fs-gallery-arrow{width:36px;height:36px;font-size:14px} #color .fs-gallery-subtitle{font-size:11px;max-width:260px}}
+    .fs-gallery-track{display:flex;gap:24px;padding:0 250px;width:100%;height:100%;align-items:center;overflow-x:auto;-webkit-overflow-scrolling:touch;cursor:grab;user-select:none;-ms-user-select:none;scrollbar-width:none;position:relative;z-index:2}
+    .fs-gallery-track::-webkit-scrollbar{display:none}
+    .fs-gallery-item{flex:0 0 auto;height:min(70vh,680px);transition:transform 0.6s ease}
+    .fs-gallery-item img{height:100%;width:auto;max-width:none;display:block;pointer-events:none}
+    @media(max-width:900px){.fs-gallery-item{height:min(55vh,420px)}}
+    .fs-gallery-arrow{position:absolute;bottom:40px;z-index:20;width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.25s,opacity 0.25s;opacity:0.8;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+    .fs-gallery-arrow:hover{background:rgba(255,255,255,0.35);opacity:1}
+    .fs-gallery-arrow-left{left:calc(50% - 52px)}
+    .fs-gallery-arrow-right{left:calc(50% + 4px)}
+    @media(max-width:900px){.fs-gallery-arrow{width:36px;height:36px;font-size:14px;bottom:24px}.fs-gallery-arrow-left{left:calc(50% - 40px)}.fs-gallery-arrow-right{left:calc(50% + 4px)}}
+
+    /* ── 03 Color System ── */
+    .problem-section + section,#color{margin-top:0;padding-top:0}
+    #color{background:var(--bg);padding-bottom:0;margin-bottom:0}
+    #color + section,#vi{margin-top:0;padding-top:0}
+    #vi{background:#faf5ec url('img/BJ.webp') center/cover no-repeat;padding-bottom:0}
+    #vi + section,#virtual{margin-top:0;padding-top:0}
+
+    /* ── 05 Virtual Model Gallery ── */
+    #virtual{background:var(--bg);margin-top:0;padding:0;min-height:100vh}
+    .virtual-hero-section{min-height:100vh;height:100vh;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:0}
+    .virtual-hero{width:100%;display:flex;justify-content:center;background:var(--bg);padding:0}
+    .virtual-hero img{width:100%;min-width:100%;max-width:1920px;height:100vh;display:block;object-fit:cover;object-position:center top;pointer-events:none}
+    .virtual-gallery-section{min-height:911px;height:911px;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:0}
+    .virtual-gallery-wrap{position:relative;height:911px;width:100%;display:flex;align-items:center;overflow:hidden;background:transparent}
+    .virtual-gallery-wrap .fs-gallery-track{padding:0 250px;height:100%;align-items:center}
+    .virtual-gallery-wrap .fs-gallery-item{height:640px;max-height:100%}
+    .virtual-gallery-wrap .fs-gallery-arrow{bottom:40px;background:#655D4E;border:1px solid #655D4E;color:#fff;opacity:1;font-size:24px;width:56px;height:56px;pointer-events:auto}
+    .virtual-gallery-wrap .fs-gallery-arrow-left{left:calc(50% - 56px)}
+    .virtual-gallery-wrap .fs-gallery-arrow-right{left:calc(50% + 4px)}
+
+    /* ── 06 Social ── */
+    #social{background:var(--bg);min-height:auto;padding:0;margin:0}
+    .social-section{min-height:auto}
+    .social-hero{width:100%;display:flex;justify-content:center;background:var(--bg);margin:0}
+    .social-hero img{width:100%;max-width:1920px;height:auto;display:block;pointer-events:none}
+    /* ── 06b Site Design Mockup ── */
+    .site-mockup-section{min-height:auto;height:600vh;padding:0;margin:0;scroll-margin-top:0;position:relative;overflow:hidden}
+    .site-mockup-section::before{content:'';position:absolute;inset:0;background:url('img/xin/bj.webp') center/cover no-repeat;background-attachment:fixed;z-index:0;pointer-events:none}
+    .site-mockup-frame{z-index:2}
+    .site-mockup-frame{position:sticky;top:0;height:100vh;width:100%;display:flex;align-items:center;justify-content:center;z-index:2;gap:18px}
+    .site-mockup-device{position:relative;width:min(90vw,1100px);height:600px;background:#1a1a1a;border-radius:24px;padding:12px 8px;box-shadow:0 20px 60px rgba(0,0,0,0.3),0 0 0 2px #333,0 0 0 4px #1a1a1a,0 0 0 6px #2a2a2a}
+    .site-mockup-screen{width:100%;height:calc(100% - 24px);max-height:calc(100% - 24px);overflow:hidden;position:relative;background:#fff;border-radius:14px}
+    .site-mockup-content{will-change:transform}
+    .site-mockup-content img{width:100%;display:block}
+    /* Custom scrollbar beside iPad */
+    .site-mockup-scrollbar{width:10px;height:540px;background:rgba(255,255,255,0.25);border-radius:26px;position:relative;flex-shrink:0;overflow:hidden}
+    .site-mockup-scrollbar-thumb{position:absolute;left:0;width:100%;min-height:60px;background:#fff;border-radius:18px;cursor:pointer;transition:background 0.15s}
+    .site-mockup-scrollbar-thumb:hover{background:#fff}
+    .site-mockup-scrollbar-thumb:active{background:#fff}
+    .social-browser-wrap{display:flex;justify-content:center;padding:60px 80px 80px;background:var(--bg)}
+    .social-browser{width:100%;max-width:1100px;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 32px 80px rgba(101,93,78,0.12),0 8px 24px rgba(101,93,78,0.06);border:1px solid rgba(101,93,78,0.08)}
+    .browser-topbar{display:flex;align-items:center;gap:12px;padding:14px 20px;background:#f5f0e8;border-bottom:1px solid rgba(101,93,78,0.1)}
+    .browser-dots{display:flex;gap:6px}
+    .browser-dots span{width:12px;height:12px;border-radius:50%;background:#c4b8a4;display:block}
+    .browser-dots span:nth-child(1){background:#e06050}
+    .browser-dots span:nth-child(2){background:#e0a840}
+    .browser-dots span:nth-child(3){background:#50c060}
+    .browser-url{flex:1;background:#faf5ec;border-radius:8px;padding:6px 16px;font-size:13px;color:#655D4E;font-family:'Inter',monospace;text-align:center;letter-spacing:0.01em}
+    .browser-actions{width:60px}
+    .browser-content{height:560px;overflow-y:auto;overflow-x:hidden;background:#fff;scrollbar-width:thin;scrollbar-color:rgba(101,93,78,0.3) transparent}
+    .browser-content::-webkit-scrollbar{width:6px}
+    .browser-content::-webkit-scrollbar-track{background:transparent}
+    .browser-content::-webkit-scrollbar-thumb{background:rgba(101,93,78,0.3);border-radius:3px}
+    .browser-page-img{width:100%;height:auto;display:block;pointer-events:none}
+    @media(max-width:900px){
+      .social-browser-wrap{padding:30px 16px 40px}
+      .browser-content{height:400px}
+      .browser-url{font-size:11px}
+      .social-hero img{max-width:100%}
+    }
+
+    /* ── 07 Summary ── */
+    #summary{background:transparent;position:relative;min-height:911px;height:911px;display:flex;align-items:center;justify-content:center;padding:40px 0;overflow:hidden}
+    #summary::before{content:'';position:absolute;inset:-8px;background:rgba(0,0,0,0.25) url('img/xin/图片节点 7 1.webp') no-repeat center/cover;filter:blur(4px);z-index:-1}
+    #summary .section-inner{width:100%;position:relative;z-index:1}
+    #summary .slide-title{color:#fff;margin-bottom:40px;font-size:clamp(28px,4vw,48px)}
+    .comp-table-wrap{margin-top:0;background:rgba(255,255,255,0.75);border:1px solid rgba(101,93,78,0.12);border-radius:24px;overflow:hidden;box-shadow:0 24px 64px rgba(101,93,78,0.06);backdrop-filter:blur(4px)}
+    .comp-table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.5;color:var(--text)}
+    .comp-table thead th{font-weight:600;text-align:left;padding:14px 24px;font-size:13px;letter-spacing:0.03em;color:#faf5ec}
+    .comp-table thead th:nth-child(1){background:rgba(110,100,82,0.82)}
+    .comp-table thead th:nth-child(2){background:rgba(94,85,70,0.82)}
+    .comp-table thead th:nth-child(3){background:rgba(80,71,58,0.82)}
+    .comp-table tbody td{padding:12px 24px;border-bottom:1px solid rgba(101,93,78,0.08);vertical-align:top}
+    .comp-table tbody tr:last-child td{border-bottom:none}
+    .comp-table tbody tr:nth-child(1) td{background:rgba(248,243,232,0.7)}
+    .comp-table tbody tr:nth-child(2) td{background:rgba(240,233,218,0.7)}
+    .comp-table tbody tr:nth-child(3) td{background:rgba(230,220,200,0.7)}
+    .comp-table tbody tr:nth-child(4) td{background:rgba(221,208,181,0.7)}
+    .comp-table tbody tr:nth-child(5) td{background:rgba(213,197,168,0.7)}
+    .comp-table tbody tr:nth-child(6) td{background:rgba(205,187,156,0.7)}
+    .comp-table tbody tr:nth-child(7) td{background:rgba(197,177,144,0.7)}
+    .comp-table td:first-child{font-weight:700;white-space:nowrap;width:140px;color:var(--text)}
+    .comp-conclusion{text-align:center;padding:20px;background:rgba(80,71,58,0.85);border-top:1px solid rgba(101,93,78,0.12)}
+    .comp-conclusion p{font-size:16px;font-weight:500;color:#faf5ec;letter-spacing:0.02em;font-family:'Noto Serif SC',serif}
+
+    /* Footer */
+    .anchor-footer{text-align:center;padding:80px 24px;background:var(--bg);border-top:1px solid var(--border)}
+    .anchor-footer p{font-size:11px;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase}
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;z-index:9999;background:rgba(10,10,10,0.96);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.4s;cursor:pointer}
+    .lightbox.active{opacity:1;pointer-events:all}
+    .lightbox img{max-width:94vw;max-height:92vh;border-radius:var(--radius);object-fit:contain}
+
+    /* Back Button — always on light bg (appears after scroll) */
+    .back-btn{position:fixed;bottom:32px;right:32px;z-index:500;background:rgba(0,0,0,0.04);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:999px;padding:14px 24px;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text-sec);font-size:12px;letter-spacing:0.05em;transition:var(--transition);opacity:0;transform:translateY(24px)}
+    .back-btn.visible{opacity:1;transform:translateY(0)}
+    .back-btn:hover{background:var(--text);color:#fff;border-color:var(--text)}
+    .back-btn svg{width:16px;height:16px;fill:currentColor}
+
+    /* Section Placeholder — empty frame for content */
+    .section-placeholder{
+      margin-top:64px;
+      min-height:360px;
+      border:1px dashed rgba(0,0,0,0.12);
+      border-radius:var(--radius);
+      background:rgba(0,0,0,0.015);
+    }
+
+    @media(max-width:900px){
+      .section-inner{padding:0 32px}
+      .hero-content{padding:140px 32px 80px}
+      .hero-brand{left:32px}
+      .color-grid,.logo-grid,.via-layout{grid-template-columns:1fr}
+      .packaging-grid{grid-template-columns:repeat(2,1fr)}
+      .social-grid{grid-template-columns:repeat(2,1fr)}
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="side-nav">
+    <div class="side-nav-inner">
+      <div class="side-nav-line"></div>
+      <a href="#hero" class="side-nav-item active"><span class="side-nav-tick"></span><span class="side-nav-label">Hero</span></a>
+      <a href="#overview" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">项目概览·三阶段结构</span></a>
+      <a href="#problem" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">核心问题诊断</span></a>
+      <a href="#color" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">重塑配色定调</span></a>
+      <a href="#vi" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">VI设计·logo /包装</span></a>
+      <a href="#virtual" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">虚拟角色设计A</span></a>
+      <a href="#virtual-gallery" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">虚拟角色设计B</span></a>
+
+      <a href="#social" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">海外社媒设计</span></a>
+      <a href="#site-design" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">独立站设计</span></a>
+      <a href="#summary" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">升级前后对比</span></a>
+    </div>
+  </nav>
+
+  <!-- ═══ Hero ═══ -->
+  <section id="hero" class="hero-section">
+    <div class="hero-bg">
+      <img src="img/xin/豆包 - 2026-06-26T140529.483.webp" alt="NenoVia Hero" fetchpriority="high" decoding="sync" width="1920" height="1080">
+    </div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-tagline">About / Product Introduction</div>
+        <div class="info-card">
+          <div class="ic-title">项目名称：NenoVia DTC品牌视觉全案</div>
+          <div class="ic-desc">项目角色：品牌视觉设计师（独立完成）<br>项目成果：从0到1搭建完整视觉体系，确立"暖调科技感"品牌视觉语言，完成Logo、配色、包装、物料全案设计，创建品牌虚拟人"Via"<br>目标客群：25-35岁欧美女性</div>
+        </div>
+        <div class="hero-credits">
+          <div class="hc-item">
+            <div class="hc-label">CREDITS</div>
+            <div class="hc-value">Brand Identity</div>
+          </div>
+          <div class="hc-item">
+            <div class="hc-label">OUTPUT</div>
+            <div class="hc-value">Full Case</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <h1 class="hero-headline">
+          <span class="hl-line" style="font-size:.85em;opacity:.7">从科技工具，到有温度的护肤伴侣</span>
+          <span class="hl-line">美容仪DTC出海视觉全案</span>
+        </h1>
+        <p class="hero-sub">为出海品牌NenoVia提供完整的品牌视觉构建服务。项目涵盖：<br>品牌视觉定位与策略：确立"暖调科技感"视觉语言<br>Logo与VI系统设计：基于品牌首字母的符号化设计<br>产品视觉体系：配色重塑、材质升级、包装统一化<br>品牌虚拟人IP：创建品牌虚拟形象"Via"，统一全渠道视觉输出<br>全渠道物料落地：海外社媒海报、官网视觉、产品展示图</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 01 项目概览 ═══ -->
+  <section id="overview" class="anchor-section overview-section">
+    <h2 class="overview-title">项目概览·三阶段结构</h2>
+    <div class="overview-staggered">
+      <div class="overview-card"><img src="img/xin/Group 173.webp" alt="项目概览图1"></div>
+      <div class="overview-card"><img src="img/xin/Group 174.webp" alt="项目概览图2"></div>
+      <div class="overview-card"><img src="img/xin/Group 175.webp" alt="项目概览图3"></div>
+    </div>
+  </section>
+
+  <!-- ═══ 02 核心问题分析 ═══ -->
+  <section id="problem" class="anchor-section problem-section">
+    <div class="problem-inner">
+      <h2 class="problem-title">核心问题诊断</h2>
+      <div class="problem-table-wrap">
+        <table class="problem-table">
+          <thead>
+            <tr>
+              <th>设计维度</th>
+              <th>当前问题</th>
+              <th>设计策略</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="problem-dim">整体视觉定位</td>
+              <td>视觉体系混乱，偏男性化，缺乏统一性与品牌识别度。</td>
+              <td>确立「暖调科技感」为核心视觉语言：在专业护肤科技框架中融入柔和温暖的气质，避免冷硬或过度女性化。</td>
+            </tr>
+            <tr>
+              <td class="problem-dim">产品配色重塑</td>
+              <td>配色偏男性化（如深蓝、黑、灰），无法传递温和与柔肤感。</td>
+              <td>主色：裸粉色、淡玫瑰金。辅色：暖灰、深灰。点缀色：柔光珊瑚橙或香槟金，用于科技感细节。</td>
+            </tr>
+            <tr>
+              <td class="problem-dim">Logo 标识重塑</td>
+              <td>现无形或缺乏专业与温和的平衡感。</td>
+              <td>将连体花体 NV 图形标与柔化小写衬线品牌字上下排布</td>
+            </tr>
+            <tr>
+              <td class="problem-dim">包装配件重塑</td>
+              <td>包装风格不统一，材质与结构缺乏品牌感。</td>
+              <td>统一盒型结构、内衬材质与开合方式，强调触感与仪式感。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="brand-chain-text">本项目不仅是一次视觉升级，更是一次 [ 定义标准→执行落地→沉淀复用 ] 的品牌视觉全链条实践。</p>
+    </div>
+  </section>
+
+  <!-- ═══ 03 配色修改 ═══ -->
+  <section id="color" class="anchor-section fs-gallery">
+    <div class="fs-gallery-track" id="colorGalleryTrack">
+      <div class="fs-gallery-item"><img src="img/xin/Group 205.webp" alt="原版配色"></div>
+      <div class="fs-gallery-item"><img src="img/xin/Group 306.webp" alt="配色方案"></div>
+      <div class="fs-gallery-item"><img src="img/xin/Group 202.webp" alt="品牌重塑"></div>
+      <div class="fs-gallery-item"><img src="img/xin/Group 203.webp" alt="导光结构"></div>
+      <div class="fs-gallery-item"><img src="img/xin/Group 204.webp" alt="产品外观"></div>
+    </div>
+    <button class="fs-gallery-arrow fs-gallery-arrow-left" id="colorArrowLeft">‹</button>
+    <button class="fs-gallery-arrow fs-gallery-arrow-right" id="colorArrowRight">›</button>
+    <div class="fs-gallery-title">重塑配色定调<div class="fs-gallery-subtitle">在原产品模具不变的前提下，完成一次从视觉到触觉的品牌重塑。在「专业科技」与「女性温和」之间找到平衡，建立一套有辨识度、可执行、可感知的品牌视觉体系。</div></div>
+  </section>
+
+  <!-- ═══ 04 VI设计 · logo / 包装 ═══ -->
+  <section id="vi" class="anchor-section fs-gallery">
+    <div class="fs-gallery-track" id="viGalleryTrack">
+      <div class="fs-gallery-item"><img src="img/xin/111.webp" alt="VI设计 1"></div>
+      <div class="fs-gallery-item"><img src="img/xin/222.webp" alt="VI设计 2"></div>
+      <div class="fs-gallery-item"><img src="img/xin/333.webp" alt="VI设计 3"></div>
+      <div class="fs-gallery-item"><img src="img/xin/444.webp" alt="VI设计 4"></div>
+      <div class="fs-gallery-item"><img src="img/xin/Group 300.webp" alt="VI设计 5"></div>
+      <div class="fs-gallery-item"><img src="img/xin/Group 296.webp" alt="VI设计 6"></div>
+      <div class="fs-gallery-item"><img src="img/xin/Group 305.webp" alt="VI设计 7"></div>
+    </div>
+    <button class="fs-gallery-arrow fs-gallery-arrow-left" id="viArrowLeft">‹</button>
+    <button class="fs-gallery-arrow fs-gallery-arrow-right" id="viArrowRight">›</button>
+    <div class="fs-gallery-title">VI设计·logo /包装<div class="fs-gallery-subtitle">统一盒型结构与材质语言，建立开箱仪式感。从主机包装到配件套装，每一处细节都传递「专业而有温度」的品牌感知</div></div>
+  </section>
+
+  <!-- ═══ 05a 虚拟人Via · 顶部大图 ═══ -->
+  <section id="virtual" class="anchor-section virtual-hero-section">
+    <div class="virtual-hero">
+      <img src="img/xin/Group 186.webp" alt="虚拟人 Via">
+    </div>
+  </section>
+
+  <!-- ═══ 05b 虚拟人Via · 画廊前半 ═══ -->
+  <section id="virtual-gallery" class="anchor-section virtual-gallery-section">
+    <div class="virtual-gallery-wrap fs-gallery">
+      <div class="fs-gallery-track" id="virtualGalleryTrack">
+        <div class="fs-gallery-item"><img src="img/xin/Group 191.webp" alt="Via 1"></div>
+        <div class="fs-gallery-item"><img src="img/xin/Group 192.webp" alt="Via 2"></div>
+        <div class="fs-gallery-item"><img src="img/xin/Group 193.webp" alt="Via 3"></div>
+        <div class="fs-gallery-item"><img src="img/xin/Group 190.webp" alt="Via 4"></div>
+      </div>
+      <button class="fs-gallery-arrow fs-gallery-arrow-left" id="virtualArrowLeft">‹</button>
+      <button class="fs-gallery-arrow fs-gallery-arrow-right" id="virtualArrowRight">›</button>
+    </div>
+  </section>
+
+  <!-- ═══ 06 社媒广告 ═══ -->
+  <section id="social" class="anchor-section social-section">
+    <div class="social-hero">
+      <img src="img/xin/Group 299.webp" alt="社媒广告">
+    </div>
+  </section>
+
+  <!-- ═══ 06b 独立站设计 ═══ -->
+  <section id="site-design" class="anchor-section site-mockup-section">
+    <div class="site-mockup-frame">
+      <div class="site-mockup-device">
+        <div class="site-mockup-screen">
+          <div class="site-mockup-content">
+            <img src="img/xin/Group-292.webp" alt="独立站设计">
+          </div>
+        </div>
+      </div>
+      <div class="site-mockup-scrollbar">
+        <div class="site-mockup-scrollbar-thumb"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 07 总结列表 ═══ -->
+  <section id="summary" class="anchor-section">
+    <div class="section-inner">
+      <p class="slide-label">07 / 总结列表</p>
+      <h2 class="slide-title">升级前后总结</h2>
+      <div class="comp-table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>维度</th>
+              <th>升级前</th>
+              <th>升级后</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>目标客群</td><td>模糊 / 偏男性化</td><td>25-40岁欧美女性</td></tr>
+            <tr><td>品牌主张</td><td>未明确</td><td>专业而不冰冷，科技而有温度</td></tr>
+            <tr><td>配色</td><td>黑色70% + 银色30%</td><td>暗调玫瑰金70% + 裸色20% + 暖白10%</td></tr>
+            <tr><td>产品外观</td><td>黑银磨砂，指纹明显</td><td>暗调玫瑰金细磨砂 + 抗指纹涂层</td></tr>
+            <tr><td>充电方式</td><td>有线充电，易忘充</td><td>磁吸底座，随放随充，无电池焦虑</td></tr>
+            <tr><td>营销内容</td><td>产品参数堆砌</td><td>系列海外海报 + 虚拟角色 Via</td></tr>
+            <tr><td>耗材</td><td>—</td><td>一次性无菌针头 + 可替换精华</td></tr>
+          </tbody>
+        </table>
+        <div class="comp-conclusion"><p>从冰冷工具到有温度的伙伴</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="anchor-footer">
+    <p>© 2026 ALILUYA · Visual Designer</p>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Lightbox">
+  </div>
+
+  <a href="index.html" class="back-btn">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back
+  </a>
+
+  <script>
+    // Scroll reveal
+    const revealElements = document.querySelectorAll('.slide-label,.slide-title,.comp-table-wrap,.problem-title,.problem-table-wrap');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    revealElements.forEach(el => { el.classList.add('reveal'); observer.observe(el); });
+
+    // Active nav
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.side-nav-item');
+    function updateNav() {
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      let activeId = '';
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        const id = section.getAttribute('id');
+        if (scrollPos >= top && scrollPos < top + height) activeId = id;
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + activeId);
+      });
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    // Side nav color: switch between dark(hero) and light(content)
+    const sideNav = document.querySelector('.side-nav');
+    const heroSection = document.querySelector('#hero');
+    function updateNavColor() {
+      const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+      if (window.scrollY > heroBottom - 200) {
+        sideNav.classList.add('nav-light');
+      } else {
+        sideNav.classList.remove('nav-light');
+      }
+    }
+    window.addEventListener('scroll', updateNavColor, { passive: true });
+    updateNavColor();
+
+    // Back button
+    const backBtn = document.querySelector('.back-btn');
+    window.addEventListener('scroll', () => {
+      backBtn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+
+    // 06b Scroll-driven mockup with custom scrollbar
+    (function initSiteMockup() {
+      const screen = document.querySelector('.site-mockup-screen');
+      const content = document.querySelector('.site-mockup-content');
+      const section = document.querySelector('.site-mockup-section');
+      const scrollbar = document.querySelector('.site-mockup-scrollbar');
+      const thumb = document.querySelector('.site-mockup-scrollbar-thumb');
+      if (!screen || !content || !section || !scrollbar || !thumb) return;
+
+      let syncing = false;
+      let currentProgress = 0;
+      let activationThreshold = 3; // wheel events before iPad starts scrolling
+      let wheelCount = 0;
+      let activationProgress = 0; // page progress when activated
+
+      function getContentHeight() {
+        return content.scrollHeight;
+      }
+
+      function updateThumb() {
+        const contentH = getContentHeight();
+        const screenH = screen.offsetHeight;
+        const trackH = scrollbar.offsetHeight;
+        const ratio = Math.min(1, screenH / contentH);
+        thumb.style.height = Math.max(60, ratio * trackH) + 'px';
+      }
+
+      function setScroll(progress) {
+        currentProgress = Math.max(0, Math.min(1, progress));
+        const maxScroll = getContentHeight() - screen.offsetHeight;
+        const offset = maxScroll > 0 ? currentProgress * maxScroll : 0;
+        content.style.transform = 'translateY(-' + offset + 'px)';
+        const trackH = scrollbar.offsetHeight - thumb.offsetHeight;
+        thumb.style.top = (currentProgress * trackH) + 'px';
+      }
+
+      // Page scroll → screen + thumb
+      function onPageScroll() {
+        if (syncing) return;
+        syncing = true;
+        updateThumb();
+        const rect = section.getBoundingClientRect();
+        const sectionH = section.offsetHeight;
+        const viewH = window.innerHeight;
+        const rawProgress = Math.max(0, Math.min(1, -rect.top / (sectionH - viewH)));
+        let progress = rawProgress;
+        if (wheelCount < activationThreshold) {
+          progress = 0;
+        } else if (activationProgress < 1) {
+          progress = Math.max(0, Math.min(1, (rawProgress - activationProgress) / (1 - activationProgress)));
+        }
+        setScroll(progress);
+        requestAnimationFrame(() => { syncing = false; });
+      }
+
+      // Thumb drag
+      let dragging = false;
+      thumb.addEventListener('mousedown', (e) => {
+        dragging = true;
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', (e) => {
+        if (!dragging) return;
+        const trackRect = scrollbar.getBoundingClientRect();
+        const thumbH = thumb.offsetHeight;
+        const trackH = trackRect.height - thumbH;
+        if (trackH <= 0) return;
+        const ratio = Math.max(0, Math.min(1, (e.clientY - trackRect.top - thumbH/2) / trackH));
+        syncing = true;
+        setScroll(ratio);
+        requestAnimationFrame(() => { syncing = false; });
+      });
+      document.addEventListener('mouseup', () => { dragging = false; });
+
+      // Scrollbar track click
+      scrollbar.addEventListener('click', (e) => {
+        if (e.target === thumb) return;
+        const trackRect = scrollbar.getBoundingClientRect();
+        const thumbH = thumb.offsetHeight;
+        const trackH = trackRect.height - thumbH;
+        if (trackH <= 0) return;
+        const ratio = Math.max(0, Math.min(1, (e.clientY - trackRect.top - thumbH/2) / trackH));
+        setScroll(ratio);
+      });
+
+      // Mouse wheel scroll iPad content
+      const frame = document.querySelector('.site-mockup-frame');
+      let boundaryCount = 0;
+      if (frame) {
+        frame.addEventListener('wheel', (e) => {
+          // Count wheel events for activation
+          if (wheelCount < activationThreshold) {
+            wheelCount++;
+            if (wheelCount >= activationThreshold) {
+              const rect = section.getBoundingClientRect();
+              const sectionH = section.offsetHeight;
+              const viewH = window.innerHeight;
+              activationProgress = Math.max(0, Math.min(1, -rect.top / (sectionH - viewH)));
+            }
+          }
+
+          const maxScroll = getContentHeight() - screen.offsetHeight;
+          if (maxScroll <= 0) return;
+
+          const scrollingDown = e.deltaY > 0;
+          const scrollingUp = e.deltaY < 0;
+          const atTop = currentProgress <= 0 && scrollingUp;
+          const atBottom = currentProgress >= 1 && scrollingDown;
+
+          // At boundary → count consecutive boundary scrolls
+          if (atTop || atBottom) {
+            boundaryCount++;
+            if (boundaryCount < 3) {
+              e.preventDefault();
+              e.stopPropagation();
+              return;
+            }
+            // 3rd consecutive boundary scroll → let page scroll
+            boundaryCount = 0;
+            return;
+          }
+
+          // Scrolling within content → reset boundary count
+          boundaryCount = 0;
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          syncing = true;
+          const delta = e.deltaY / maxScroll;
+          setScroll(currentProgress + delta);
+          syncing = false;
+        }, { capture: true, passive: false });
+      }
+
+      window.addEventListener('scroll', onPageScroll, { passive: true });
+      window.addEventListener('resize', () => { updateThumb(); onPageScroll(); }, { passive: true });
+      updateThumb();
+      onPageScroll();
+    })();
+
+    // Full-screen gallery — ping-pong auto-scroll, stops on user interaction
+    function initFsGallery(trackId, leftArrowId, rightArrowId, autoPlay) {
+      var track = document.getElementById(trackId);
+      if (!track) return;
+
+      track.classList.add('reveal');
+      var revealObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObs.unobserve(entry.target); }
+        });
+      }, { threshold: 0.1 });
+      revealObs.observe(track);
+
+      var items = Array.from(track.querySelectorAll('.fs-gallery-item'));
+      if (items.length === 0) return;
+      // NO cloning — ping-pong reverses at boundaries
+
+      var isDragging = false, startX = 0, lastX = 0, dragDist = 0;
+      var dragThreshold = 60;
+
+      // ── Ping-pong auto-scroll ──
+      var rafId = null;
+      var autoStopped = false;   // permanently stopped after user interaction
+      var direction = 1;         // 1 = scroll right, -1 = scroll left
+      var SCROLL_SPEED = 0.8;
+      var EDGE_PADDING = 2;      // px tolerance for boundary detection
+
+      function startAuto() {
+        if (!autoPlay || items.length <= 1) return;
+        stopAuto();
+        rafId = requestAnimationFrame(function step() {
+          if (!isDragging && !autoStopped) {
+            track.scrollLeft += SCROLL_SPEED * direction;
+            // Reverse at right edge
+            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - EDGE_PADDING) {
+              direction = -1;
+            }
+            // Reverse at left edge
+            else if (track.scrollLeft <= EDGE_PADDING) {
+              direction = 1;
+            }
+          }
+          rafId = requestAnimationFrame(step);
+        });
+      }
+
+      function stopAuto() {
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      }
+
+      // Start/stop based on section visibility
+      if (autoPlay) {
+        var section = track.closest('.anchor-section');
+        if (section) {
+          var visObs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                autoStopped = false; // reset on re-entry
+                direction = 1;
+                startAuto();
+              } else {
+                stopAuto();
+              }
+            });
+          }, { threshold: 0.05 });
+          visObs.observe(section);
+
+          // If section is already visible on init, start immediately (observer may not fire initial state)
+          var rect = section.getBoundingClientRect();
+          var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+          if (rect.top < viewportHeight && rect.bottom > 0 && rect.height > 0) {
+            autoStopped = false;
+            direction = 1;
+            startAuto();
+          }
+        } else {
+          startAuto();
+        }
+      }
+
+      // Smooth scroll to a specific item
+      function gentleScrollTo(index) {
+        if (index < 0) index = 0;
+        if (index >= items.length) index = items.length - 1;
+        var target = items[index];
+        if (!target) return;
+        var start = track.scrollLeft;
+        var end = target.offsetLeft + target.offsetWidth / 2 - track.clientWidth / 2;
+        var duration = 500;
+        var startTime = performance.now();
+        var ease = function(t) { return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2; };
+        function step(now) {
+          var elapsed = now - startTime;
+          var progress = Math.min(elapsed / duration, 1);
+          track.scrollLeft = start + (end - start) * ease(progress);
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      function getCurrentIndex() {
+        var nearest = 0, minDist = Infinity;
+        items.forEach(function(item, i) {
+          var center = item.offsetLeft + item.offsetWidth / 2 - track.clientWidth / 2;
+          var dist = Math.abs(track.scrollLeft - center);
+          if (dist < minDist) { minDist = dist; nearest = i; }
+        });
+        return nearest;
+      }
+
+      // Mouse drag
+      track.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        startX = e.clientX;
+        lastX = e.clientX;
+        dragDist = 0;
+        track.style.cursor = 'grabbing';
+        autoStopped = true; // stop auto permanently
+        stopAuto();
+      });
+      window.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        var dx = e.clientX - lastX;
+        dragDist += Math.abs(dx);
+        track.scrollLeft -= dx;
+        lastX = e.clientX;
+      });
+      window.addEventListener('mouseup', function() {
+        if (!isDragging) return;
+        isDragging = false;
+        track.style.cursor = 'grab';
+        gentleScrollTo(getCurrentIndex());
+      });
+
+      // Touch
+      var touchStartX = 0, touchLastX = 0, touchDragDist = 0;
+      track.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchLastX = e.touches[0].clientX;
+        touchDragDist = 0;
+        autoStopped = true;
+        stopAuto();
+      });
+      track.addEventListener('touchmove', function(e) {
+        var dx = e.touches[0].clientX - touchLastX;
+        touchDragDist += Math.abs(dx);
+        track.scrollLeft -= dx;
+        touchLastX = e.touches[0].clientX;
+      });
+      track.addEventListener('touchend', function() {
+        gentleScrollTo(getCurrentIndex());
+      });
+
+      // Arrows — stop auto permanently after click
+      var arrowLeft = document.getElementById(leftArrowId);
+      var arrowRight = document.getElementById(rightArrowId);
+      if (arrowLeft) arrowLeft.addEventListener('click', function() {
+        gentleScrollTo(getCurrentIndex() - 1);
+        autoStopped = true;
+        stopAuto();
+      });
+      if (arrowRight) arrowRight.addEventListener('click', function() {
+        gentleScrollTo(getCurrentIndex() + 1);
+        autoStopped = true;
+        stopAuto();
+      });
+    }
+
+    initFsGallery('colorGalleryTrack', 'colorArrowLeft', 'colorArrowRight', true);
+    initFsGallery('viGalleryTrack', 'viArrowLeft', 'viArrowRight', true);
+    initFsGallery('virtualGalleryTrack', 'virtualArrowLeft', 'virtualArrowRight', true);
+
+
+
+    // 01 Overview cards reveal animation
+    const overviewCards = document.querySelectorAll('.overview-card');
+    if (overviewCards.length) {
+      const overviewObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, idx) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('visible'), idx * 120);
+            overviewObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      overviewCards.forEach(card => overviewObserver.observe(card));
+    }
+
+    // Lightbox (only for images outside galleries)
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    document.querySelectorAll('img').forEach(img => {
+      if (!img.closest('.hero-bg') && !img.closest('.fs-gallery-track') && !img.closest('.overview-staggered')) {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => {
+          lightboxImg.src = img.src;
+          lightbox.classList.add('active');
+        });
+      }
+    });
+
+    // Disable right-click on all images
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('contextmenu', e => e.preventDefault());
+    });
+    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+
+    // ── Fullpage scroll: one wheel = one section ──
+    (function(){
+      // Hero + all anchor-sections
+      const hero = document.getElementById('hero');
+      const anchors = document.querySelectorAll('.anchor-section');
+      const sections = [hero, ...anchors];
+      let current = 0;
+      let locked = false;
+      let isAnimating = false;
+
+      function setActiveNav(idx){
+        var targetId = sections[idx] ? sections[idx].id : '';
+        document.querySelectorAll('.side-nav-item').forEach(function(link){
+          link.classList.toggle('active', link.getAttribute('href') === '#' + targetId);
+        });
+      }
+
+      function goTo(idx){
+        if(idx < 0 || idx >= sections.length || locked) return;
+        locked = true;
+        isAnimating = true;
+        current = idx;
+        var target = sections[idx];
+        var nav = document.querySelector('.side-nav');
+        if(nav) nav.classList.add('animating');
+
+        // Pre-trigger all reveal animations INSTANTLY (no transition) to prevent visual shift
+        target.querySelectorAll('.reveal, .overview-card').forEach(function(el){
+          el.style.transition = 'none';
+          el.classList.add('visible');
+          el.offsetHeight; // force reflow
+          el.style.transition = '';
+        });
+
+        // Update nav active state immediately on click (prevents delayed transition jitter)
+        setActiveNav(idx);
+
+        var targetTop = target.getBoundingClientRect().top + window.scrollY;
+        var startTop = window.scrollY;
+        var distance = targetTop - startTop;
+
+        if(Math.abs(distance) < 2){
+          isAnimating = false;
+          if(nav) nav.classList.remove('animating');
+          setTimeout(function(){ locked = false; }, 200);
+          return;
+        }
+
+        var duration = Math.min(Math.max(Math.abs(distance) / 1.5, 500), 900);
+        var startTime = performance.now();
+        var ease = function(t){ return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2; };
+
+        function step(now){
+          var elapsed = now - startTime;
+          var progress = Math.min(elapsed / duration, 1);
+          window.scrollTo(0, Math.round(startTop + distance * ease(progress)));
+          if(progress < 1) requestAnimationFrame(step);
+          else {
+            current = idx;
+            isAnimating = false;
+            if(nav) nav.classList.remove('animating');
+            setTimeout(function(){ locked = false; }, 350);
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      // Side nav clicks use goTo instead of native scroll
+      document.querySelectorAll('.side-nav-item').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href').replace('#','');
+          const idx = [...sections].findIndex(s => s && s.id === targetId);
+          if(idx >= 0) goTo(idx);
+        });
+      });
+
+      document.addEventListener('wheel', function(e){
+        e.preventDefault();
+        if(locked) return;
+        if(e.deltaY > 0) goTo(current + 1);
+        else if(e.deltaY < 0) goTo(current - 1);
+      }, {passive:false});
+
+      // Touch support
+      let touchY = 0;
+      document.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, {passive:true});
+      document.addEventListener('touchend', e => {
+        const dy = touchY - e.changedTouches[0].clientY;
+        if(Math.abs(dy) > 50){
+          if(dy > 0) goTo(current + 1);
+          else goTo(current - 1);
+        }
+      }, {passive:true});
+
+      // Sync current index via IntersectionObserver (skip during goTo animation)
+      const observer = new IntersectionObserver(entries => {
+        if(isAnimating) return; // don't change current during programmatic scroll
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            const idx = [...sections].indexOf(entry.target);
+            if(idx >= 0) current = idx;
+            // Update side nav active state
+            const id = entry.target.id;
+            document.querySelectorAll('.side-nav-item').forEach(link => {
+              link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      }, {threshold:0.5});
+      sections.forEach(s => { if(s) observer.observe(s); });
+
+      // Init: if page already scrolled, find correct current
+      function initCurrent(){
+        const viewMid = window.scrollY + window.innerHeight / 2;
+        for(let i = sections.length - 1; i >= 0; i--){
+          if(sections[i] && sections[i].offsetTop <= viewMid){
+            current = i;
+            break;
+          }
+        }
+      }
+      initCurrent();
+    })();
+  </script>
+
+</body>
+</html>

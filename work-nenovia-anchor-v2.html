@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NenoVia DTC品牌视觉全案</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Noto+Serif+SC:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:auto}
+    body{overflow-x:hidden}
+    a{text-decoration:none}
+    img{max-width:100%;display:block}
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:rgba(139,115,85,0.15);border-radius:2px}
+
+    :root{
+      --bg:#f8f5f0;
+      --bg-warm:#f3ede2;
+      --bg-white:#fffdfa;
+      --bg-card:#fffdf8;
+      --text:#2a2520;
+      --text-sec:rgba(42,37,32,0.58);
+      --text-muted:rgba(42,37,32,0.35);
+      --accent:#8b7355;
+      --accent-dark:#6b5540;
+      --accent-light:#c4b49a;
+      --border:rgba(139,115,85,0.1);
+      --border-soft:rgba(139,115,85,0.06);
+      --radius:16px;
+      --radius-lg:24px;
+      --transition:0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+      --ease-out:cubic-bezier(0.16,1,0.3,1);
+    }
+
+    body{
+      margin:0;padding:0;
+      font-family:'Inter','Noto Sans SC',-apple-system,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.75;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+      font-feature-settings:"kern" 1,"liga" 1;
+    }
+
+    /* Scroll Reveal */
+    .reveal{opacity:0;transform:translateY(36px);transition:opacity 1.1s var(--ease-out),transform 1.1s var(--ease-out)}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* ═══ Side Navigation ═══ */
+    .side-nav{position:fixed;left:36px;top:50%;transform:translateY(-50%);z-index:1000;opacity:0.7;transition:opacity 0.4s}
+    .side-nav:hover{opacity:1}
+    .side-nav-inner{display:flex;flex-direction:column;gap:20px;position:relative;padding-left:28px}
+    .side-nav-line{position:absolute;left:0;top:10px;bottom:10px;width:1px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.12) 20%,rgba(255,255,255,0.12) 80%,transparent)}
+    .side-nav-item{display:flex;align-items:center;gap:14px;cursor:pointer}
+    .side-nav-tick{width:12px;height:1px;background:rgba(255,255,255,0.18);transition:var(--transition);flex-shrink:0}
+    .side-nav-item.active .side-nav-tick{width:32px;background:#fff}
+    .side-nav-label{font-size:10px;letter-spacing:0.14em;color:rgba(255,255,255,0.42);transition:var(--transition);white-space:nowrap;font-weight:500;text-transform:uppercase}
+    .side-nav-item.active .side-nav-label{color:#fff;font-weight:600}
+    .side-nav.animating .side-nav-tick,.side-nav.animating .side-nav-label{transition:none !important}
+    .side-nav.nav-light .side-nav-line{background:linear-gradient(to bottom,transparent,rgba(139,115,85,0.1) 20%,rgba(139,115,85,0.1) 80%,transparent)}
+    .side-nav.nav-light .side-nav-tick{background:rgba(139,115,85,0.18)}
+    .side-nav.nav-light .side-nav-item.active .side-nav-tick{background:var(--accent-dark)}
+    .side-nav.nav-light .side-nav-label{color:rgba(139,115,85,0.42)}
+    .side-nav.nav-light .side-nav-item.active .side-nav-label{color:var(--accent-dark)}
+    @media(max-width:1024px){.side-nav{display:none}}
+
+    /* ═══ Section Base ═══ */
+    .anchor-section{min-height:100vh;position:relative;scroll-margin-top:0}
+    .section-inner{max-width:1200px;margin:0 auto;padding:0 80px}
+
+    .slide-label{font-size:10px;font-weight:600;letter-spacing:0.28em;color:var(--accent);text-transform:uppercase;margin-bottom:20px}
+    .slide-title{font-size:clamp(36px,5.5vw,64px);font-weight:600;color:var(--text);line-height:1.15;letter-spacing:-0.02em;font-family:'Playfair Display','Noto Serif SC',serif}
+    .slide-sub{font-size:15px;color:var(--text-sec);line-height:2;max-width:580px;margin-top:28px;font-weight:300}
+
+    /* ═══ Hero ═══ */
+    .hero-section{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;margin:0}
+    .hero-bg{position:absolute;inset:0}
+    .hero-bg img{width:100%;height:100%;object-fit:cover}
+    .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.7) 35%,rgba(0,0,0,0.38) 65%,rgba(0,0,0,0.18) 100%)}
+    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:minmax(260px,36%) 1fr;gap:80px;width:100%;max-width:1400px;margin:0 auto;padding:180px 80px 120px;align-items:start}
+    .hero-left{display:flex;flex-direction:column;gap:32px}
+    .hero-tagline{font-size:10px;font-weight:600;letter-spacing:0.24em;color:rgba(255,255,255,0.28);text-transform:uppercase}
+    .info-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:32px 28px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+    .ic-title{font-size:14px;font-weight:600;color:rgba(255,255,255,0.9);margin-bottom:14px;letter-spacing:0.01em}
+    .ic-desc{font-size:12px;line-height:2;color:rgba(255,255,255,0.42);font-weight:300}
+    .hero-credits{display:flex;gap:40px}
+    .hc-item{display:flex;flex-direction:column;gap:4px}
+    .hc-label{font-size:9px;font-weight:700;letter-spacing:0.16em;color:rgba(255,255,255,0.2);text-transform:uppercase}
+    .hc-value{font-size:12px;color:rgba(255,255,255,0.5);font-weight:400}
+    .hero-right{display:flex;flex-direction:column;gap:32px;padding-top:60px;padding-bottom:20px}
+    .hero-headline{display:flex;flex-direction:column;gap:6px;font-size:clamp(26px,4.2vw,50px);font-weight:700;color:#fff;line-height:1.25;letter-spacing:-0.015em}
+    .hero-headline .hl-line{display:block}
+    .hero-headline .hl-pre{font-size:0.48em;opacity:0.55;font-weight:300;letter-spacing:0.02em;margin-bottom:8px;font-family:'Cormorant Garamond','Noto Serif SC',serif;font-style:italic}
+    .hero-sub{font-size:13px;line-height:2.1;color:rgba(255,255,255,0.38);max-width:500px;font-weight:300}
+    @media(max-width:768px){
+      .hero-bg::after{background:linear-gradient(to bottom,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.92) 60%,rgba(0,0,0,0.98) 100%)}
+      .hero-inner{grid-template-columns:1fr;gap:32px;padding:90px 20px 70px}
+      .hero-left{order:2;gap:18px}
+      .hero-right{order:1;padding-top:0}
+      .hero-headline{font-size:clamp(24px,8vw,38px);gap:4px}
+      .hero-headline .hl-pre{font-size:0.46em;margin-bottom:4px}
+      .hero-sub{font-size:14px;line-height:2.05;color:rgba(255,255,255,0.55);max-width:100%}
+      .info-card{padding:22px 18px}
+      .hero-credits{gap:20px}
+      .hero-credits{gap:20px;flex-wrap:wrap}
+    }
+    @media(min-width:769px) and (max-width:1024px){
+      .hero-inner{grid-template-columns:240px 1fr;gap:48px;padding:140px 48px 100px}
+    }
+
+    /* ═══ 01 Overview ═══ */
+    #overview{background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:140px 0;min-height:100vh;overflow:hidden}
+    .overview-header{text-align:center;margin-bottom:80px;padding:0 80px}
+    .overview-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.28em;color:var(--accent);text-transform:uppercase;margin-bottom:18px}
+    .overview-title{font-size:clamp(28px,3.8vw,48px);font-weight:600;color:var(--text);line-height:1.2;font-family:'Playfair Display','Noto Serif SC',serif;letter-spacing:-0.01em}
+    .overview-staggered{display:flex;align-items:flex-start;justify-content:center;gap:40px;padding:0 80px;width:100%;max-width:1400px;margin:0 auto}
+    .overview-card{flex:0 1 300px;position:relative;border-radius:var(--radius-lg);overflow:hidden;transition:transform 0.8s var(--ease-out),opacity 0.8s var(--ease-out);opacity:0;transform:translateY(50px);box-shadow:0 20px 60px rgba(107,85,64,0.08)}
+    .overview-card.visible{opacity:1;transform:translateY(0)}
+    .overview-card:nth-child(1){margin-top:0}
+    .overview-card:nth-child(2){margin-top:72px}
+    .overview-card:nth-child(3){margin-top:144px}
+    .overview-card img{width:100%;height:auto;display:block;border-radius:var(--radius-lg);pointer-events:none}
+    @media(max-width:900px){
+      .overview-header{padding:0 24px;margin-bottom:48px}
+      .overview-title{font-size:clamp(24px,6vw,34px)}
+      .overview-staggered{flex-direction:column;align-items:center;gap:32px;padding:0 24px}
+      .overview-card{flex:0 1 auto;width:100%;max-width:380px;margin-top:0 !important}
+    }
+
+    /* ═══ 02 Problem Analysis ═══ */
+    #problem{background:var(--bg);padding:140px 0;min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    #problem::before{content:'';position:absolute;inset:0;background:var(--bg-warm) url('img/xin/bj.webp') no-repeat center/cover;opacity:0.06;z-index:0}
+    .problem-inner{max-width:1100px;margin:0 auto;padding:0 80px;position:relative;z-index:1;width:100%}
+    .problem-header{margin-bottom:56px}
+    .problem-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.28em;color:var(--accent);text-transform:uppercase;margin-bottom:16px}
+    .problem-title{font-size:clamp(28px,3.8vw,48px);font-weight:600;color:var(--text);line-height:1.2;font-family:'Playfair Display','Noto Serif SC',serif;letter-spacing:-0.01em}
+    .problem-table-wrap{background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 16px 48px rgba(107,85,64,0.06)}
+    .problem-table{width:100%;border-collapse:collapse}
+    .problem-table thead th{font-weight:600;text-align:left;padding:24px 32px;font-size:11px;letter-spacing:0.14em;color:var(--bg-white);text-transform:uppercase;background:var(--accent-dark)}
+    .problem-table thead th:nth-child(2){background:var(--accent)}
+    .problem-table thead th:nth-child(3){background:#9c8268}
+    .problem-table tbody td{padding:28px 32px;border-bottom:1px solid var(--border-soft);vertical-align:top;font-size:14px;line-height:1.8;color:var(--text-sec);transition:background 0.3s}
+    .problem-table tbody tr:last-child td{border-bottom:none}
+    .problem-table tbody tr:hover td{background:rgba(139,115,85,0.02)}
+    .problem-dim{font-weight:600;white-space:nowrap;width:140px;color:var(--text);font-size:14px}
+    .problem-tagline{text-align:center;margin-top:0;padding:24px 48px;background:var(--accent-dark);border-radius:var(--radius);display:inline-block;box-shadow:0 12px 36px rgba(107,85,64,0.15)}
+    .problem-tagline p{font-size:14px;font-weight:400;color:rgba(255,255,255,0.9);letter-spacing:0.02em;line-height:1.7;font-family:'Noto Serif SC',serif}
+    .problem-tagline-center{text-align:center;margin-top:64px;margin-bottom:40px}
+    @media(max-width:900px){
+      #problem{padding:60px 0}
+      .problem-inner{padding:0 20px}
+      .problem-header{margin-bottom:28px}
+      .problem-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+      .problem-table{min-width:550px}
+      .problem-table thead th{padding:12px 12px;font-size:10px;letter-spacing:0.06em}
+      .problem-table tbody td{padding:14px 12px;font-size:13px;line-height:1.8}
+      .problem-dim{width:70px;font-size:12px}
+      .problem-tagline{padding:18px 22px}
+      .problem-tagline p{font-size:13px;line-height:1.8}
+      .problem-tagline-center{margin-top:40px;margin-bottom:24px}
+    }
+
+    /* ═══ Gallery System ═══ */
+    .gallery-section{position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden}
+    .gallery-header{flex-shrink:0;padding:100px 80px 0 250px;position:relative;z-index:5}
+    .gallery-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;margin-bottom:16px}
+    .gallery-title{font-size:clamp(28px,3.8vw,48px);font-weight:600;line-height:1.2;font-family:'Playfair Display','Noto Serif SC',serif;letter-spacing:-0.01em}
+    .gallery-subtitle{font-size:14px;font-weight:300;line-height:1.9;max-width:560px;margin-top:18px}
+    .gallery-track-wrap{flex:1;display:flex;align-items:center;padding:40px 0 60px;position:relative}
+    .gallery-track{display:flex;gap:28px;padding:0 80px 0 250px;width:100%;align-items:center;overflow-x:auto;-webkit-overflow-scrolling:touch;cursor:grab;user-select:none;-ms-user-select:none;scrollbar-width:none;position:relative;z-index:2}
+    .gallery-track::-webkit-scrollbar{display:none}
+    .gallery-item{flex:0 0 auto;height:min(68vh,640px);transition:transform 0.5s var(--ease-out),opacity 0.5s var(--ease-out)}
+    .gallery-item img{height:100%;width:auto;max-width:none;display:block;pointer-events:none}
+    .gallery-item:hover{transform:translateY(-12px)}
+    @media(max-width:900px){.gallery-item{height:min(52vh,400px)}}
+
+    .gallery-arrow{position:absolute;top:150px;z-index:30;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;transition:var(--transition);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+    .gallery-arrow-left{right:calc(80px + 60px)}
+    .gallery-arrow-right{right:80px}
+    @media(max-width:900px){
+      .gallery-header{padding:48px 20px 0}
+      .gallery-title{font-size:clamp(22px,6vw,30px)}
+      .gallery-subtitle{font-size:13px;max-width:100%;margin-top:10px;line-height:1.75}
+      .gallery-track{padding:20px 20px 0 20px;gap:14px}
+      .gallery-track-wrap{padding:20px 0 36px}
+      .gallery-arrow{width:34px;height:34px;font-size:16px;top:52px}
+      .gallery-arrow-left{right:60px}
+      .gallery-arrow-right{right:16px}
+    }
+
+    /* 03 Color */
+    #color{background:var(--bg)}
+    #color .gallery-eyebrow{color:var(--accent)}
+    #color .gallery-title{color:var(--text)}
+    #color .gallery-subtitle{color:var(--text-sec)}
+    #color .gallery-arrow{background:var(--accent-dark);border:1px solid var(--accent-dark);color:#fff;opacity:0.9}
+    #color .gallery-arrow:hover{background:var(--text);opacity:1;transform:scale(1.06)}
+
+    /* 04 VI — left large + right thumbnails */
+    #vi{background:#f0ebe0 url('img/BJ.webp') center/cover no-repeat;background-blend-mode:multiply;background-color:rgba(240,235,224,0.92);min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 0;overflow:hidden}
+    .vi-header{padding-left:250px;padding-right:80px;margin-bottom:24px;position:relative;z-index:5}
+    .vi-header .gallery-eyebrow{color:rgba(255,255,255,0.6)}
+    .vi-header .gallery-title{color:#fff}
+    .vi-header .gallery-subtitle{color:rgba(255,255,255,0.5)}
+    .vi-layout{display:flex;gap:28px;align-items:stretch;justify-content:center;padding-left:80px;padding-right:80px;max-width:1600px;margin:0 auto;width:100%}
+    .vi-main{flex:0 0 1100px;max-width:100%;height:600px;border-radius:14px;overflow:hidden;background:rgba(0,0,0,0.1);box-shadow:0 24px 70px rgba(0,0,0,0.18);position:relative;display:flex;align-items:center;justify-content:center}
+    .vi-main img{max-width:100%;max-height:100%;width:auto;height:auto;display:block;transition:opacity 0.4s ease;cursor:pointer;object-fit:contain}
+    .vi-thumbs{flex:0 0 140px;display:grid;grid-template-columns:1fr;gap:8px;padding-right:4px;align-content:space-between}
+    .vi-thumbs::-webkit-scrollbar{display:none}
+    .vi-thumb{border-radius:10px;overflow:hidden;cursor:pointer;opacity:0.4;transition:opacity 0.35s ease,transform 0.35s ease;position:relative}
+    .vi-thumb img{width:100%;height:auto;display:block}
+    .vi-thumb:hover{opacity:0.8;transform:translateY(-4px)}
+    .vi-thumb.active{opacity:1}
+    .vi-thumb.active::after{content:'';position:absolute;inset:0;border:2px solid rgba(255,255,255,0.7);border-radius:10px;pointer-events:none}
+
+    /* ═══ 05 Virtual Model ═══ */
+    #virtual{background:var(--bg);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 0;overflow:hidden}
+    .virtual-hero{width:100%;display:flex;justify-content:center}
+    .virtual-hero img{width:100%;max-width:1600px;height:auto;max-height:90vh;object-fit:contain;pointer-events:none;border-radius:8px}
+
+    #virtual-gallery{background:var(--bg);min-height:100vh}
+    #virtual-gallery .gallery-eyebrow{color:var(--accent)}
+    #virtual-gallery .gallery-title{color:var(--text)}
+    #virtual-gallery .gallery-subtitle{color:var(--text-sec)}
+    #virtual-gallery .gallery-arrow{background:var(--accent-dark);border:1px solid var(--accent-dark);color:#fff;opacity:0.9}
+    #virtual-gallery .gallery-arrow:hover{background:var(--text);opacity:1;transform:scale(1.06)}
+
+    /* ═══ 06 Social ═══ */
+    #social{background:var(--bg);padding:0;min-height:auto;display:block}
+    .social-hero{width:100%;padding:0;max-width:none;margin:0}
+    .social-hero img{width:100vw;max-width:100vw;height:auto;display:block;border-radius:0;box-shadow:none}
+    @media(max-width:900px){
+      .social-hero img{width:100%}
+    }
+
+    /* ═══ 06b Site Design ═══ */
+    #site-design{background:var(--bg);padding:80px 0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .site-design-header{text-align:center;margin-bottom:64px;padding:0 80px}
+    .site-design-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.28em;color:var(--accent);text-transform:uppercase;margin-bottom:16px}
+    .site-design-title{font-size:clamp(28px,3.8vw,48px);font-weight:600;color:var(--text);line-height:1.2;font-family:'Playfair Display','Noto Serif SC',serif;letter-spacing:-0.01em}
+    .site-design-desc{font-size:14px;color:var(--text-sec);line-height:1.9;max-width:480px;margin:18px auto 0;font-weight:300}
+    .ipad-wrap{display:flex;align-items:flex-start;gap:32px;padding:0 80px;margin:0 auto;justify-content:center}
+    .ipad-frame{position:relative;background:linear-gradient(160deg,#1c1c1e,#2a2a2d);border-radius:36px;padding:16px;box-shadow:0 32px 80px rgba(107,85,64,0.14),0 12px 36px rgba(107,85,64,0.08),inset 0 1px 0 rgba(255,255,255,0.06);flex-shrink:0}
+    .ipad-frame::before{content:'';position:absolute;top:50%;left:16px;transform:translateY(-50%);width:2px;height:32px;background:rgba(255,255,255,0.06);border-radius:1px}
+    .ipad-screen{width:1030px;border-radius:22px;overflow:hidden;background:#fff;border:1px solid rgba(0,0,0,0.2)}
+    .ipad-statusbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:#f7f3eb;font-size:11px;color:var(--accent);border-bottom:1px solid var(--border);font-weight:500;letter-spacing:0.02em}
+    .ipad-status-dot{width:7px;height:7px;border-radius:50%;background:#50c060;margin-right:10px;display:inline-block}
+    .ipad-content{height:550px;overflow:hidden;background:#fff}
+    .ipad-page-img{width:100%;height:auto;display:block}
+    /* iPad 右侧滚动条 */
+    .ipad-scrollbar{position:relative;width:6px;height:550px;background:rgba(0,0,0,0.06);border-radius:3px;flex-shrink:0;cursor:pointer;margin-top:16px}
+    .ipad-scrollbar-thumb{position:absolute;top:0;left:0;width:100%;min-height:40px;background:rgba(139,115,85,0.35);border-radius:3px;transition:background 0.2s;cursor:grab}
+    .ipad-scrollbar-thumb:hover,.ipad-scrollbar-thumb:active{background:rgba(139,115,85,0.6)}
+    @media(max-width:900px){
+      #virtual{padding:60px 0;min-height:auto}
+      .virtual-hero img{max-height:55vh}
+      #vi{padding:60px 0;min-height:auto}
+      .vi-header{padding-left:20px;padding-right:20px;margin-bottom:24px}
+      .vi-header .gallery-title{font-size:clamp(22px,6vw,30px)}
+      .vi-header .gallery-subtitle{font-size:13px;max-width:100%;line-height:1.75}
+      .vi-layout{flex-direction:column;align-items:center;padding-left:20px;padding-right:20px;gap:16px}
+      .vi-main{flex:none;width:100%;height:auto;min-height:280px}
+      .vi-main img{width:100%;height:auto;max-height:none}
+      .vi-thumbs{display:flex;flex-direction:row;overflow-x:auto;max-height:none;gap:10px;padding-bottom:8px;width:100%}
+      .vi-thumb{flex:0 0 auto;width:72px}
+      .vi-thumb:hover{transform:translateY(-4px)}
+      #site-design{padding:60px 0;min-height:auto}
+      .site-design-header{padding:0 20px;margin-bottom:32px}
+      .site-design-title{font-size:clamp(22px,6vw,30px)}
+      .site-design-desc{font-size:13px;max-width:100%;line-height:1.8}
+      .ipad-wrap{flex-direction:column;align-items:center;padding:0 16px;gap:0}
+      .ipad-frame{border-radius:0;padding:0}
+      .ipad-screen{width:100%;border-radius:16px}
+      .ipad-content{height:400px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+      .ipad-scrollbar{display:none}
+    }
+
+    /* ═══ 07 Summary ═══ */
+    #summary{background:#1a1a1a;padding:140px 0;min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    #summary::before{content:'';position:absolute;inset:0;background:url('img/xin/图片节点 7 1.webp') no-repeat center/cover;opacity:0.35;z-index:0}
+    #summary::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.3);z-index:1}
+    .summary-inner{max-width:1000px;margin:0 auto;padding:0 80px;position:relative;z-index:2;width:100%}
+    .summary-header{margin-bottom:56px;text-align:center}
+    .summary-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.28em;color:rgba(255,255,255,0.55);text-transform:uppercase;margin-bottom:16px}
+    .summary-title{font-size:clamp(28px,3.8vw,48px);font-weight:600;color:#fff;line-height:1.2;font-family:'Playfair Display','Noto Serif SC',serif;letter-spacing:-0.01em}
+    .comp-table-wrap{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+    .comp-table{width:100%;border-collapse:collapse}
+    .comp-table thead th{font-weight:600;text-align:left;padding:20px 28px;font-size:11px;letter-spacing:0.14em;color:#fff;text-transform:uppercase}
+    .comp-table thead th:nth-child(1){background:var(--accent-dark)}
+    .comp-table thead th:nth-child(2){background:var(--accent)}
+    .comp-table thead th:nth-child(3){background:#9c8268}
+    .comp-table tbody td{padding:18px 28px;border-bottom:1px solid rgba(255,255,255,0.08);vertical-align:top;font-size:13px;line-height:1.7;color:rgba(255,255,255,0.75)}
+    .comp-table tbody tr:last-child td{border-bottom:none}
+    .comp-table tbody tr:hover td{background:rgba(255,255,255,0.04)}
+    .comp-table td:first-child{font-weight:600;white-space:nowrap;width:120px;color:rgba(255,255,255,0.95)}
+    .comp-conclusion{text-align:center;padding:28px;background:var(--accent-dark)}
+    .comp-conclusion p{font-size:18px;font-weight:500;color:#fff;letter-spacing:0.04em;font-family:'Noto Serif SC',serif}
+    @media(max-width:900px){
+      #summary{padding:60px 0}
+      .summary-inner{padding:0 20px}
+      .summary-header{margin-bottom:28px}
+      .summary-title{font-size:clamp(24px,7vw,34px)}
+      .comp-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+      .comp-table{min-width:500px}
+      .comp-table thead th{padding:12px 12px;font-size:10px;letter-spacing:0.06em}
+      .comp-table tbody td{padding:12px 12px;font-size:13px;line-height:1.8}
+      .comp-table td:first-child{width:70px;font-size:12px}
+      .comp-conclusion{padding:18px}
+      .comp-conclusion p{font-size:15px}
+    }
+
+    /* ═══ Footer ═══ */
+    .anchor-footer{text-align:center;padding:60px 24px;background:var(--bg);border-top:1px solid var(--border-soft)}
+    .anchor-footer p{font-size:10px;letter-spacing:0.24em;color:var(--text-muted);text-transform:uppercase;font-weight:500}
+    @media(max-width:900px){
+      .anchor-footer{padding:48px 24px}
+    }
+
+    /* ═══ Lightbox ═══ */
+    .lightbox{position:fixed;inset:0;z-index:9999;background:rgba(15,12,8,0.96);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.4s;cursor:pointer;backdrop-filter:blur(8px)}
+    .lightbox.active{opacity:1;pointer-events:all}
+    .lightbox img{max-width:92vw;max-height:90vh;border-radius:8px;object-fit:contain}
+
+    /* ═══ Back Button ═══ */
+    .back-btn{position:fixed;bottom:36px;right:36px;z-index:500;background:rgba(255,253,248,0.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:999px;padding:14px 24px;display:flex;align-items:center;gap:10px;color:var(--text-sec);font-size:11px;letter-spacing:0.08em;transition:var(--transition);opacity:0;transform:translateY(24px);font-weight:500}
+    .back-btn.visible{opacity:1;transform:translateY(0)}
+    .back-btn:hover{background:var(--text);color:#fff;border-color:var(--text)}
+    .back-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+    /* ═══ Section Divider ═══ */
+    .section-divider{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--border),transparent);margin:0}
+
+    @media(max-width:900px){
+      .section-inner{padding:0 20px}
+      body{font-size:15px;line-height:1.9}
+      .anchor-section{min-height:auto}
+      #overview{padding:80px 0}
+      .back-btn{bottom:20px;right:20px;padding:10px 18px;font-size:10px}
+      .lightbox img{max-width:96vw;max-height:85vh}
+      ::-webkit-scrollbar{width:2px}
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="side-nav">
+    <div class="side-nav-inner">
+      <div class="side-nav-line"></div>
+      <a href="#hero" class="side-nav-item active"><span class="side-nav-tick"></span><span class="side-nav-label">Hero</span></a>
+      <a href="#overview" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">项目概览</span></a>
+      <a href="#problem" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">问题诊断</span></a>
+      <a href="#color" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">配色定调</span></a>
+      <a href="#vi" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">VI设计</span></a>
+      <a href="#virtual" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">虚拟角色A</span></a>
+      <a href="#virtual-gallery" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">虚拟角色B</span></a>
+      <a href="#social" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">社媒设计</span></a>
+      <a href="#site-design" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">独立站设计</span></a>
+      <a href="#summary" class="side-nav-item"><span class="side-nav-tick"></span><span class="side-nav-label">升级对比</span></a>
+    </div>
+  </nav>
+
+  <!-- ═══ Hero ═══ -->
+  <section id="hero" class="hero-section">
+    <div class="hero-bg">
+      <img src="img/xin/豆包 - 2026-06-26T140529.483.webp" alt="NenoVia Hero" fetchpriority="high" decoding="sync">
+    </div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-tagline">About / Product Introduction</div>
+        <div class="info-card">
+          <div class="ic-title">项目名称：NenoVia DTC品牌视觉全案</div>
+          <div class="ic-desc">项目角色：品牌视觉设计师（独立完成）<br>项目成果：从0到1搭建完整视觉体系，确立"暖调科技感"品牌视觉语言，完成Logo、配色、包装、物料全案设计，创建品牌虚拟人"Via"<br>目标客群：25-35岁欧美女性</div>
+        </div>
+        <div class="hero-credits">
+          <div class="hc-item">
+            <div class="hc-label">Credits</div>
+            <div class="hc-value">Brand Identity</div>
+          </div>
+          <div class="hc-item">
+            <div class="hc-label">Output</div>
+            <div class="hc-value">Full Case</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <h1 class="hero-headline">
+          <span class="hl-pre">从科技工具，到有温度的护肤伴侣</span>
+          <span class="hl-line">美容仪DTC出海视觉全案</span>
+        </h1>
+        <p class="hero-sub">为出海品牌NenoVia提供完整的品牌视觉构建服务。项目涵盖：<br>品牌视觉定位与策略：确立"暖调科技感"视觉语言<br>Logo与VI系统设计：基于品牌首字母的符号化设计<br>产品视觉体系：配色重塑、材质升级、包装统一化<br>品牌虚拟人IP：创建品牌虚拟形象"Via"，统一全渠道视觉输出<br>全渠道物料落地：海外社媒海报、官网视觉、产品展示图</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 01 项目概览 ═══ -->
+  <section id="overview" class="anchor-section">
+    <div class="overview-header">
+      <div class="overview-eyebrow">01 / Overview</div>
+      <h2 class="overview-title">项目概览 · 三阶段结构</h2>
+    </div>
+    <div class="overview-staggered">
+      <div class="overview-card"><img src="img/xin/Group 173.webp" alt="项目概览图1"></div>
+      <div class="overview-card"><img src="img/xin/Group 174.webp" alt="项目概览图2"></div>
+      <div class="overview-card"><img src="img/xin/Group 175.webp" alt="项目概览图3"></div>
+    </div>
+  </section>
+
+  <!-- ═══ 02 核心问题分析 ═══ -->
+  <section id="problem" class="anchor-section">
+    <div class="problem-inner">
+      <div class="problem-header">
+        <div class="problem-eyebrow">02 / Diagnosis</div>
+        <h2 class="problem-title">核心问题诊断</h2>
+      </div>
+      <div class="problem-table-wrap">
+        <table class="problem-table">
+          <thead>
+            <tr>
+              <th>设计维度</th>
+              <th>当前问题</th>
+              <th>设计策略</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="problem-dim">整体视觉定位</td>
+              <td>视觉体系混乱，偏男性化，缺乏统一性与品牌识别度。</td>
+              <td>确立「暖调科技感」为核心视觉语言：在专业护肤科技框架中融入柔和温暖的气质，避免冷硬或过度女性化。</td>
+            </tr>
+            <tr>
+              <td class="problem-dim">产品配色重塑</td>
+              <td>配色偏男性化（如深蓝、黑、灰），无法传递温和与柔肤感。</td>
+              <td>主色：裸粉色、淡玫瑰金。辅色：暖灰、深灰。点缀色：柔光珊瑚橙或香槟金，用于科技感细节。</td>
+            </tr>
+            <tr>
+              <td class="problem-dim">Logo 标识重塑</td>
+              <td>现无形或缺乏专业与温和的平衡感。</td>
+              <td>将连体花体 NV 图形标与柔化小写衬线品牌字上下排布</td>
+            </tr>
+            <tr>
+              <td class="problem-dim">包装配件重塑</td>
+              <td>包装风格不统一，材质与结构缺乏品牌感。</td>
+              <td>统一盒型结构、内衬材质与开合方式，强调触感与仪式感。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="problem-tagline-center">
+        <div class="problem-tagline">
+          <p>本项目不仅是一次视觉升级，更是一次「定义标准 → 执行落地 → 沉淀复用」的品牌视觉全链条实践</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 03 配色修改 ═══ -->
+  <section id="color" class="anchor-section gallery-section">
+    <div class="gallery-header">
+      <div class="gallery-eyebrow">03 / Color System</div>
+      <h2 class="gallery-title">重塑配色定调</h2>
+      <p class="gallery-subtitle">在原产品模具不变的前提下，完成一次从视觉到触觉的品牌重塑。在「专业科技」与「女性温和」之间找到平衡，建立一套有辨识度、可执行、可感知的品牌视觉体系。</p>
+    </div>
+    <button class="gallery-arrow gallery-arrow-left" id="colorArrowLeft">&#8249;</button>
+    <button class="gallery-arrow gallery-arrow-right" id="colorArrowRight">&#8250;</button>
+    <div class="gallery-track-wrap">
+      <div class="gallery-track" id="colorGalleryTrack">
+        <div class="gallery-item"><img src="img/xin/Group 205.webp" alt="原版配色"></div>
+        <div class="gallery-item"><img src="img/xin/Group 306.webp" alt="配色方案"></div>
+        <div class="gallery-item"><img src="img/xin/Group 202.webp" alt="品牌重塑"></div>
+        <div class="gallery-item"><img src="img/xin/Group 203.webp" alt="导光结构"></div>
+        <div class="gallery-item"><img src="img/xin/Group 204.webp" alt="产品外观"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 04 VI设计 ═══ -->
+  <section id="vi" class="anchor-section vi-section">
+    <div class="vi-header">
+      <div class="gallery-eyebrow">04 / VI Design</div>
+      <h2 class="gallery-title">VI设计 · Logo / 包装</h2>
+      <p class="gallery-subtitle">统一盒型结构与材质语言，建立开箱仪式感。从主机包装到配件套装，每一处细节都传递「专业而有温度」的品牌感知。</p>
+    </div>
+    <div class="vi-layout">
+      <div class="vi-main">
+        <img src="img/xin/111.webp" alt="VI设计" id="viMainImg">
+      </div>
+      <div class="vi-thumbs" id="viThumbs">
+        <div class="vi-thumb active" data-src="img/xin/111.webp"><img src="img/xin/111.webp" alt="VI设计 1"></div>
+        <div class="vi-thumb" data-src="img/xin/222.webp"><img src="img/xin/222.webp" alt="VI设计 2"></div>
+        <div class="vi-thumb" data-src="img/xin/333.webp"><img src="img/xin/333.webp" alt="VI设计 3"></div>
+        <div class="vi-thumb" data-src="img/xin/444.webp"><img src="img/xin/444.webp" alt="VI设计 4"></div>
+        <div class="vi-thumb" data-src="img/xin/Group 300.webp"><img src="img/xin/Group 300.webp" alt="VI设计 5"></div>
+        <div class="vi-thumb" data-src="img/xin/Group 296.webp"><img src="img/xin/Group 296.webp" alt="VI设计 6"></div>
+        <div class="vi-thumb" data-src="img/xin/Group 305.webp"><img src="img/xin/Group 305.webp" alt="VI设计 7"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 05a 虚拟人Via · 顶部大图 ═══ -->
+  <section id="virtual" class="anchor-section">
+    <div class="virtual-hero">
+      <img src="img/xin/Group 186.webp" alt="虚拟人 Via">
+    </div>
+  </section>
+
+  <!-- ═══ 05b 虚拟人Via · 画廊 ═══ -->
+  <section id="virtual-gallery" class="anchor-section gallery-section">
+    <div class="gallery-header">
+      <div class="gallery-eyebrow">05 / Virtual Character</div>
+      <h2 class="gallery-title">品牌虚拟形象 · Via</h2>
+      <p class="gallery-subtitle">创建品牌专属虚拟人"Via"，统一全渠道视觉输出，为品牌注入人格化温度。</p>
+    </div>
+    <button class="gallery-arrow gallery-arrow-left" id="virtualArrowLeft">&#8249;</button>
+    <button class="gallery-arrow gallery-arrow-right" id="virtualArrowRight">&#8250;</button>
+    <div class="gallery-track-wrap">
+      <div class="gallery-track" id="virtualGalleryTrack">
+        <div class="gallery-item"><img src="img/xin/32 2.webp" alt="Via 1"></div>
+        <div class="gallery-item"><img src="img/xin/图片节点-4 1.webp" alt="Via 2"></div>
+        <div class="gallery-item"><img src="img/xin/Group 313.webp" alt="Via 3"></div>
+        <div class="gallery-item"><img src="img/xin/Group 314.webp" alt="Via 4"></div>
+        <div class="gallery-item"><img src="img/xin/XNJSE.webp" alt="Via 5"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 06 社媒广告 ═══ -->
+  <section id="social" class="anchor-section">
+    <div class="social-hero">
+      <img src="img/xin/Group 299.webp" alt="社媒广告">
+    </div>
+  </section>
+
+  <!-- ═══ 06b 独立站设计 ═══ -->
+  <section id="site-design" class="anchor-section">
+    <div class="site-design-header">
+      <div class="site-design-eyebrow">06 / Website Design</div>
+      <h2 class="site-design-title">独立站设计</h2>
+      <p class="site-design-desc">从首页到产品详情页，构建完整的DTC品牌官网视觉体验。</p>
+    </div>
+    <div class="ipad-wrap">
+      <div class="ipad-frame">
+        <div class="ipad-screen">
+          <div class="ipad-content" id="ipadContent">
+            <img class="ipad-page-img" src="img/xin/Group-292.webp" alt="独立站设计" id="ipadPageImg">
+          </div>
+        </div>
+      </div>
+      <div class="ipad-scrollbar" id="ipadScrollbar">
+        <div class="ipad-scrollbar-thumb" id="ipadScrollbarThumb"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 07 总结列表 ═══ -->
+  <section id="summary" class="anchor-section">
+    <div class="summary-inner">
+      <div class="summary-header">
+        <div class="summary-eyebrow">07 / Summary</div>
+        <h2 class="summary-title">升级前后对比</h2>
+      </div>
+      <div class="comp-table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>维度</th>
+              <th>升级前</th>
+              <th>升级后</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>目标客群</td><td>模糊 / 偏男性化</td><td>25-40岁欧美女性</td></tr>
+            <tr><td>品牌主张</td><td>未明确</td><td>专业而不冰冷，科技而有温度</td></tr>
+            <tr><td>配色</td><td>黑色70% + 银色30%</td><td>暗调玫瑰金70% + 裸色20% + 暖白10%</td></tr>
+            <tr><td>产品外观</td><td>黑银磨砂，指纹明显</td><td>暗调玫瑰金细磨砂 + 抗指纹涂层</td></tr>
+            <tr><td>充电方式</td><td>有线充电，易忘充</td><td>磁吸底座，随放随充，无电池焦虑</td></tr>
+            <tr><td>营销内容</td><td>产品参数堆砌</td><td>系列海外海报 + 虚拟角色 Via</td></tr>
+            <tr><td>耗材</td><td>—</td><td>一次性无菌针头 + 可替换精华</td></tr>
+          </tbody>
+        </table>
+        <div class="comp-conclusion"><p>从冰冷工具到有温度的伙伴</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="anchor-footer">
+    <p>&copy; 2026 ALILUYA &middot; Visual Designer</p>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Lightbox">
+  </div>
+
+  <a href="index.html" class="back-btn">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back
+  </a>
+
+  <script>
+    // Scroll reveal
+    const revealElements = document.querySelectorAll('.slide-label,.slide-title,.comp-table-wrap,.problem-header,.problem-table-wrap,.overview-header,.summary-header,.gallery-header,.vi-header,.site-design-header,.problem-tagline');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    revealElements.forEach(el => { el.classList.add('reveal'); observer.observe(el); });
+
+    // Active nav
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.side-nav-item');
+    function updateNav() {
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      let activeId = '';
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        const id = section.getAttribute('id');
+        if (scrollPos >= top && scrollPos < top + height) activeId = id;
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + activeId);
+      });
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    // Side nav color: dark on hero, light on content
+    const sideNav = document.querySelector('.side-nav');
+    const heroSection = document.querySelector('#hero');
+    function updateNavColor() {
+      const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+      if (window.scrollY > heroBottom - 200) {
+        sideNav.classList.add('nav-light');
+      } else {
+        sideNav.classList.remove('nav-light');
+      }
+    }
+    window.addEventListener('scroll', updateNavColor, { passive: true });
+    updateNavColor();
+
+    // Back button
+    const backBtn = document.querySelector('.back-btn');
+    window.addEventListener('scroll', () => {
+      backBtn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+
+    // Gallery — ping-pong auto-scroll, stops on user interaction
+    function initGallery(trackId, leftArrowId, rightArrowId, autoPlay) {
+      var track = document.getElementById(trackId);
+      if (!track) return;
+
+      var items = Array.from(track.querySelectorAll('.gallery-item'));
+      if (items.length === 0) return;
+
+      var isDragging = false, startX = 0, lastX = 0, dragDist = 0;
+      var dragThreshold = 60;
+
+      // Ping-pong auto-scroll
+      var rafId = null;
+      var autoStopped = false;
+      var direction = 1;
+      var SCROLL_SPEED = 0.6;
+      var EDGE_PADDING = 2;
+
+      function startAuto() {
+        if (!autoPlay || items.length <= 1) return;
+        stopAuto();
+        rafId = requestAnimationFrame(function step() {
+          if (!isDragging && !autoStopped) {
+            track.scrollLeft += SCROLL_SPEED * direction;
+            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - EDGE_PADDING) {
+              direction = -1;
+            } else if (track.scrollLeft <= EDGE_PADDING) {
+              direction = 1;
+            }
+          }
+          rafId = requestAnimationFrame(step);
+        });
+      }
+
+      function stopAuto() {
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      }
+
+      // Start/stop based on section visibility
+      if (autoPlay) {
+        var section = track.closest('.anchor-section');
+        if (section) {
+          var visObs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                autoStopped = false;
+                direction = 1;
+                startAuto();
+              } else {
+                stopAuto();
+              }
+            });
+          }, { threshold: 0.05 });
+          visObs.observe(section);
+
+          var rect = section.getBoundingClientRect();
+          var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+          if (rect.top < viewportHeight && rect.bottom > 0 && rect.height > 0) {
+            autoStopped = false;
+            direction = 1;
+            startAuto();
+          }
+        } else {
+          startAuto();
+        }
+      }
+
+      // Smooth scroll to item
+      function gentleScrollTo(index) {
+        if (index < 0) index = 0;
+        if (index >= items.length) index = items.length - 1;
+        var target = items[index];
+        if (!target) return;
+        var start = track.scrollLeft;
+        var end = target.offsetLeft + target.offsetWidth / 2 - track.clientWidth / 2;
+        var duration = 600;
+        var startTime = performance.now();
+        var ease = function(t) { return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2; };
+        function step(now) {
+          var elapsed = now - startTime;
+          var progress = Math.min(elapsed / duration, 1);
+          track.scrollLeft = start + (end - start) * ease(progress);
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      function getCurrentIndex() {
+        var nearest = 0, minDist = Infinity;
+        items.forEach(function(item, i) {
+          var center = item.offsetLeft + item.offsetWidth / 2 - track.clientWidth / 2;
+          var dist = Math.abs(track.scrollLeft - center);
+          if (dist < minDist) { minDist = dist; nearest = i; }
+        });
+        return nearest;
+      }
+
+      // Mouse drag
+      track.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        startX = e.clientX;
+        lastX = e.clientX;
+        dragDist = 0;
+        track.style.cursor = 'grabbing';
+        autoStopped = true;
+        stopAuto();
+      });
+      window.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        var dx = e.clientX - lastX;
+        dragDist += Math.abs(dx);
+        track.scrollLeft -= dx;
+        lastX = e.clientX;
+      });
+      window.addEventListener('mouseup', function() {
+        if (!isDragging) return;
+        isDragging = false;
+        track.style.cursor = 'grab';
+        gentleScrollTo(getCurrentIndex());
+      });
+
+      // Touch
+      var touchStartX = 0, touchLastX = 0, touchDragDist = 0;
+      track.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchLastX = e.touches[0].clientX;
+        touchDragDist = 0;
+        autoStopped = true;
+        stopAuto();
+      });
+      track.addEventListener('touchmove', function(e) {
+        var dx = e.touches[0].clientX - touchLastX;
+        touchDragDist += Math.abs(dx);
+        track.scrollLeft -= dx;
+        touchLastX = e.touches[0].clientX;
+      });
+      track.addEventListener('touchend', function() {
+        gentleScrollTo(getCurrentIndex());
+      });
+
+      // Arrows
+      var arrowLeft = document.getElementById(leftArrowId);
+      var arrowRight = document.getElementById(rightArrowId);
+      if (arrowLeft) arrowLeft.addEventListener('click', function() {
+        gentleScrollTo(getCurrentIndex() - 1);
+        autoStopped = true;
+        stopAuto();
+      });
+      if (arrowRight) arrowRight.addEventListener('click', function() {
+        gentleScrollTo(getCurrentIndex() + 1);
+        autoStopped = true;
+        stopAuto();
+      });
+    }
+
+    initGallery('colorGalleryTrack', 'colorArrowLeft', 'colorArrowRight', true);
+    initGallery('virtualGalleryTrack', 'virtualArrowLeft', 'virtualArrowRight', true);
+
+    // Overview cards reveal
+    const overviewCards = document.querySelectorAll('.overview-card');
+    if (overviewCards.length) {
+      const overviewObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, idx) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('visible'), idx * 150);
+            overviewObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      overviewCards.forEach(card => overviewObserver.observe(card));
+    }
+
+    // Lightbox (only for images outside galleries)
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    document.querySelectorAll('img').forEach(img => {
+      if (!img.closest('.hero-bg') && !img.closest('.gallery-track') && !img.closest('.overview-staggered') && !img.closest('.ipad-content') && !img.closest('.vi-thumb')) {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => {
+          lightboxImg.src = img.src;
+          lightbox.classList.add('active');
+        });
+      }
+    });
+
+    // Disable right-click on all images
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('contextmenu', e => e.preventDefault());
+    });
+    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+
+    // Fullpage scroll: one wheel = one section
+    (function(){
+      const hero = document.getElementById('hero');
+      const anchors = document.querySelectorAll('.anchor-section');
+      const sections = [hero, ...anchors];
+      let current = 0;
+      let locked = false;
+      let isAnimating = false;
+
+      function setActiveNav(idx){
+        var targetId = sections[idx] ? sections[idx].id : '';
+        document.querySelectorAll('.side-nav-item').forEach(function(link){
+          link.classList.toggle('active', link.getAttribute('href') === '#' + targetId);
+        });
+      }
+
+      function goTo(idx){
+        if(idx < 0 || idx >= sections.length || locked) return;
+        locked = true;
+        isAnimating = true;
+        current = idx;
+        var target = sections[idx];
+        var nav = document.querySelector('.side-nav');
+        if(nav) nav.classList.add('animating');
+
+        target.querySelectorAll('.reveal, .overview-card').forEach(function(el){
+          el.style.transition = 'none';
+          el.classList.add('visible');
+          el.offsetHeight;
+          el.style.transition = '';
+        });
+
+        setActiveNav(idx);
+
+        var targetTop = target.getBoundingClientRect().top + window.scrollY;
+        var startTop = window.scrollY;
+        var distance = targetTop - startTop;
+
+        if(Math.abs(distance) < 2){
+          isAnimating = false;
+          if(nav) nav.classList.remove('animating');
+          setTimeout(function(){ locked = false; }, 200);
+          return;
+        }
+
+        var duration = Math.min(Math.max(Math.abs(distance) / 1.2, 600), 1000);
+        var startTime = performance.now();
+        var ease = function(t){ return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2; };
+
+        function step(now){
+          var elapsed = now - startTime;
+          var progress = Math.min(elapsed / duration, 1);
+          window.scrollTo(0, Math.round(startTop + distance * ease(progress)));
+          if(progress < 1) requestAnimationFrame(step);
+          else {
+            current = idx;
+            isAnimating = false;
+            if(nav) nav.classList.remove('animating');
+            setTimeout(function(){ locked = false; }, 350);
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      document.querySelectorAll('.side-nav-item').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href').replace('#','');
+          const idx = [...sections].findIndex(s => s && s.id === targetId);
+          if(idx >= 0) goTo(idx);
+        });
+      });
+
+      document.addEventListener('wheel', function(e){
+        e.preventDefault();
+        if(locked) return;
+        if(e.deltaY > 0) goTo(current + 1);
+        else if(e.deltaY < 0) goTo(current - 1);
+      }, {passive:false});
+
+      // Touch support
+      let touchY = 0;
+      document.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, {passive:true});
+      document.addEventListener('touchend', e => {
+        const dy = touchY - e.changedTouches[0].clientY;
+        if(Math.abs(dy) > 50){
+          if(dy > 0) goTo(current + 1);
+          else goTo(current - 1);
+        }
+      }, {passive:true});
+
+      // Sync current index
+      const syncObserver = new IntersectionObserver(entries => {
+        if(isAnimating) return;
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            const idx = [...sections].indexOf(entry.target);
+            if(idx >= 0) current = idx;
+            const id = entry.target.id;
+            document.querySelectorAll('.side-nav-item').forEach(link => {
+              link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      }, {threshold:0.5});
+      sections.forEach(s => { if(s) syncObserver.observe(s); });
+
+      function initCurrent(){
+        const viewMid = window.scrollY + window.innerHeight / 2;
+        for(let i = sections.length - 1; i >= 0; i--){
+          if(sections[i] && sections[i].offsetTop <= viewMid){
+            current = i;
+            break;
+          }
+        }
+      }
+      initCurrent();
+    })();
+
+    // VI Design — thumbnail switcher
+    (function(){
+      var thumbs = document.querySelectorAll('#viThumbs .vi-thumb');
+      var mainImg = document.getElementById('viMainImg');
+      if (!thumbs.length || !mainImg) return;
+      thumbs.forEach(function(thumb){
+        thumb.addEventListener('click', function(){
+          var src = this.getAttribute('data-src');
+          thumbs.forEach(function(t){ t.classList.remove('active'); });
+          this.classList.add('active');
+          mainImg.style.opacity = '0';
+          setTimeout(function(){
+            mainImg.src = src;
+            mainImg.style.opacity = '1';
+          }, 220);
+        });
+      });
+    })();
+
+    // iPad scrollbar — external track controls internal content
+    (function(){
+      var content = document.getElementById('ipadContent');
+      var scrollbar = document.getElementById('ipadScrollbar');
+      var thumb = document.getElementById('ipadScrollbarThumb');
+      var img = document.getElementById('ipadPageImg');
+      if (!content || !scrollbar || !thumb || !img) return;
+
+      function updateThumb(){
+        var totalH = img.naturalHeight || img.clientHeight;
+        var viewH = content.clientHeight;
+        if (totalH <= viewH) { thumb.style.height = '100%'; return; }
+        var ratio = viewH / totalH;
+        thumb.style.height = Math.max(ratio * scrollbar.clientHeight, 40) + 'px';
+        thumb.style.top = scrollPos * (scrollbar.clientHeight - thumb.clientHeight) / (totalH - viewH) + 'px';
+      }
+
+      var scrollPos = 0;
+      function setScroll(rawY){
+        var totalH = img.naturalHeight || img.clientHeight;
+        var viewH = content.clientHeight;
+        if (totalH <= viewH) return;
+        var trackH = scrollbar.clientHeight - thumb.clientHeight;
+        var ratio = Math.max(0, Math.min(1, rawY / trackH));
+        scrollPos = ratio * (totalH - viewH);
+        img.style.transform = 'translateY(-' + scrollPos + 'px)';
+        thumb.style.top = rawY + 'px';
+      }
+
+      var dragging = false, startY = 0, startTop = 0;
+      thumb.addEventListener('mousedown', function(e){
+        dragging = true;
+        startY = e.clientY;
+        startTop = parseFloat(thumb.style.top) || 0;
+        e.preventDefault();
+      });
+      scrollbar.addEventListener('mousedown', function(e){
+        if (e.target === thumb) return;
+        var rect = scrollbar.getBoundingClientRect();
+        setScroll(e.clientY - rect.top - thumb.clientHeight / 2);
+        dragging = true;
+        startY = e.clientY;
+        startTop = parseFloat(thumb.style.top) || 0;
+      });
+      document.addEventListener('mousemove', function(e){
+        if (!dragging) return;
+        var rect = scrollbar.getBoundingClientRect();
+        var rawY = startTop + e.clientY - startY;
+        rawY = Math.max(0, Math.min(rawY, scrollbar.clientHeight - thumb.clientHeight));
+        setScroll(rawY);
+      });
+      document.addEventListener('mouseup', function(){ dragging = false; });
+
+      // Wheel on scrollbar
+      scrollbar.addEventListener('wheel', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var totalH = img.naturalHeight || img.clientHeight;
+        var viewH = content.clientHeight;
+        if (totalH <= viewH) return;
+        var trackH = scrollbar.clientHeight - thumb.clientHeight;
+        var currentTop = parseFloat(thumb.style.top) || 0;
+        var newTop = currentTop + e.deltaY * (trackH / (totalH - viewH)) * 8;
+        newTop = Math.max(0, Math.min(newTop, trackH));
+        setScroll(newTop);
+      }, { passive: false });
+
+      // Wheel on iPad content itself
+      content.addEventListener('wheel', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var totalH = img.naturalHeight || img.clientHeight;
+        var viewH = content.clientHeight;
+        if (totalH <= viewH) return;
+        scrollPos = Math.max(0, Math.min(totalH - viewH, scrollPos + e.deltaY));
+        img.style.transform = 'translateY(-' + scrollPos + 'px)';
+        updateThumb();
+      }, { passive: false });
+
+      img.addEventListener('load', updateThumb);
+      window.addEventListener('resize', updateThumb);
+      setTimeout(updateThumb, 300);
+    })();
+  </script>
+
+</body>
+</html>

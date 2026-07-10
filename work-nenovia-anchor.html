@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NenoVia DTC品牌视觉全案</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:#fff}
+    ::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:2px}
+
+    :root{
+      --black:#0a0a0a;
+      --white:#ffffff;
+      --off-white:#f8f8f8;
+      --gray-light:#e5e5e5;
+      --gray-mid:#888888;
+      --gray-dark:#333333;
+      --transition:0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    body{
+      font-family:'Inter','Noto Sans SC',-apple-system,sans-serif;
+      background:var(--white);
+      color:var(--black);
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+      cursor:default
+    }
+
+    /* Selection */
+    ::selection{background:var(--black);color:var(--white)}
+
+    /* Reveal */
+    .reveal{opacity:0;transform:translateY(60px);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(0.16,1,0.3,1)}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .reveal-delay-1{transition-delay:0.1s}
+    .reveal-delay-2{transition-delay:0.2s}
+    .reveal-delay-3{transition-delay:0.3s}
+
+    /* Typography */
+    .font-display{font-family:'Playfair Display','Noto Serif SC',serif}
+    .font-sans{font-family:'Inter','Noto Sans SC',sans-serif}
+
+    /* Progress Line */
+    .progress-line{position:fixed;left:0;top:0;height:2px;background:var(--black);z-index:9999;transition:width 0.1s linear;width:0}
+
+    /* Section Numbering */
+    .section-number{
+      position:fixed;
+      right:48px;
+      bottom:48px;
+      z-index:100;
+      font-family:'Playfair Display',serif;
+      font-size:14px;
+      font-weight:400;
+      color:rgba(0,0,0,0.2);
+      letter-spacing:0.05em;
+      mix-blend-mode:difference;
+      transition:var(--transition)
+    }
+    .section-number.dark{color:rgba(255,255,255,0.3)}
+    .section-number .current{font-size:48px;display:block;line-height:1;color:var(--black)}
+    .section-number .total{font-size:11px;letter-spacing:0.2em;text-transform:uppercase}
+
+    /* Navigation Dots */
+    .nav-dots{position:fixed;right:48px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:16px}
+    .nav-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(0,0,0,0.2);transition:var(--transition);cursor:pointer;position:relative}
+    .nav-dot::before{content:'';position:absolute;inset:-6px;border-radius:50%;border:1px solid transparent;transition:var(--transition)}
+    .nav-dot.active{background:var(--black);border-color:var(--black);transform:scale(1.2)}
+    .nav-dot.active::before{border-color:var(--black)}
+    .nav-dot-label{position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(0,0,0,0.4);white-space:nowrap;opacity:0;transition:var(--transition);pointer-events:none}
+    .nav-dot:hover .nav-dot-label{opacity:1}
+    @media(max-width:1024px){.nav-dots,.section-number{display:none}}
+
+    /* Base */
+    .section{min-height:100vh;position:relative;scroll-margin-top:0;display:flex;flex-direction:column;justify-content:center}
+    .section-inner{width:100%;max-width:1440px;margin:0 auto;padding:0 80px;position:relative}
+
+    /* ── Hero ── */
+    .hero{min-height:100vh;display:grid;grid-template-columns:55% 45%;background:var(--white)}
+    .hero-visual{position:relative;overflow:hidden;min-height:100vh}
+    .hero-visual img{width:100%;height:100%;object-fit:cover;filter:grayscale(30%);transition:filter 1.2s ease,transform 8s ease}
+    .hero:hover .hero-visual img{filter:grayscale(0);transform:scale(1.03)}
+    .hero-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(255,255,255,0.3) 0%,transparent 40%)}
+    .hero-content{padding:120px 80px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;z-index:2}
+    .hero-brand{font-size:11px;font-weight:600;letter-spacing:0.4em;text-transform:uppercase;color:var(--gray-mid);margin-bottom:32px;position:absolute;top:80px;left:80px}
+    .hero-title{font-size:clamp(42px,5vw,78px);font-weight:600;line-height:1.05;letter-spacing:-0.03em;font-family:'Playfair Display','Noto Serif SC',serif;color:var(--black);margin-bottom:32px}
+    .hero-title em{font-style:italic;font-weight:400;color:var(--gray-mid)}
+    .hero-desc{font-size:14px;color:var(--gray-dark);max-width:420px;line-height:1.9;margin-bottom:48px}
+    .hero-meta{display:flex;gap:40px;border-top:1px solid var(--gray-light);padding-top:32px}
+    .hero-meta-item{display:flex;flex-direction:column;gap:6px}
+    .hero-meta-label{font-size:9px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray-mid)}
+    .hero-meta-value{font-size:13px;color:var(--black);font-weight:500}
+    .hero-scroll{position:absolute;bottom:48px;right:80px;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray-mid);transform:rotate(90deg);transform-origin:right bottom}
+
+    /* ── Editorial Text Blocks ── */
+    .overline{font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--gray-mid);margin-bottom:20px}
+    .headline{font-size:clamp(36px,4.5vw,64px);font-weight:600;line-height:1.05;letter-spacing:-0.02em;font-family:'Playfair Display','Noto Serif SC',serif}
+    .headline-serif{font-family:'Noto Serif SC',serif}
+    .body-text{font-size:14px;color:var(--gray-dark);line-height:1.9;max-width:520px}
+
+    /* ── 01 Problem ── */
+    #problem{background:var(--off-white)}
+    .problem-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:center;min-height:100vh;padding:120px 0}
+    .problem-text{display:flex;flex-direction:column;gap:40px}
+    .problem-statement{font-size:clamp(22px,2.5vw,32px);font-weight:400;line-height:1.6;color:var(--black);font-family:'Noto Serif SC',serif;max-width:600px}
+    .problem-list{display:grid;grid-template-columns:1fr 1fr;gap:32px 40px}
+    .problem-item{padding:28px 0;border-top:1px solid var(--gray-light)}
+    .problem-item h4{font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--black);margin-bottom:12px}
+    .problem-item p{font-size:13px;color:var(--gray-dark);line-height:1.75}
+    .problem-image{position:relative}
+    .problem-image img{width:100%;height:70vh;object-fit:cover;border-radius:4px;filter:grayscale(20%)}
+    .problem-image::before{content:'01';position:absolute;top:-40px;left:-40px;font-family:'Playfair Display',serif;font-size:120px;font-weight:400;color:transparent;-webkit-text-stroke:1px rgba(0,0,0,0.15);z-index:0}
+
+    /* ── 02 Color ── */
+    #color{background:var(--black);color:var(--white)}
+    .color-layout{min-height:100vh;display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:center;padding:120px 0}
+    .color-text .overline{color:rgba(255,255,255,0.5)}
+    .color-text .headline{color:var(--white);margin-bottom:40px}
+    .color-quote{font-size:clamp(24px,2.8vw,38px);line-height:1.5;font-family:'Noto Serif SC',serif;font-weight:400;color:var(--white);margin-bottom:40px}
+    .color-palette{display:flex;gap:20px;margin-top:48px}
+    .color-swatch{flex:1;display:flex;flex-direction:column;gap:12px}
+    .color-swatch-tone{height:80px;border-radius:4px;transition:transform 0.4s ease}
+    .color-swatch:hover .color-swatch-tone{transform:scaleY(1.1)}
+    .color-swatch-name{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
+    .color-swatch-value{font-size:13px;color:var(--white)}
+    .color-swatch:nth-child(1) .color-swatch-tone{background:#bfa49a}
+    .color-swatch:nth-child(2) .color-swatch-tone{background:#d9c4bb}
+    .color-swatch:nth-child(3) .color-swatch-tone{background:#e8e0db}
+    .color-visual{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
+    .color-visual img{width:100%;height:45vh;object-fit:cover;border-radius:4px}
+    .color-visual-note{padding:32px;border:1px solid rgba(255,255,255,0.1);border-radius:4px}
+    .color-visual-note h4{font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:16px}
+    .color-visual-note p{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.8}
+
+    /* ── 03 Logo ── */
+    #logo{background:var(--white)}
+    .logo-layout{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 0;gap:80px}
+    .logo-header{text-align:center;max-width:800px;margin:0 auto}
+    .logo-header .overline{color:var(--gray-mid)}
+    .logo-header .headline{margin-bottom:24px}
+    .logo-header p{font-size:16px;color:var(--gray-dark);line-height:1.8}
+    .logo-showcase{display:grid;grid-template-columns:repeat(2,1fr);gap:40px;max-width:1000px;margin:0 auto;width:100%}
+    .logo-card{aspect-ratio:4/3;border:1px solid var(--gray-light);border-radius:4px;display:flex;align-items:center;justify-content:center;position:relative;transition:var(--transition);cursor:pointer}
+    .logo-card:hover{border-color:var(--black);transform:translateY(-4px)}
+    .logo-card img{max-width:240px;transition:var(--transition)}
+    .logo-card:hover img{transform:scale(1.05)}
+    .logo-card-label{position:absolute;bottom:24px;left:24px;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray-mid)}
+    .logo-card-dark{background:var(--black);border-color:var(--black)}
+
+    /* ── 04 Packaging ── */
+    #packaging{background:var(--off-white)}
+    .packaging-layout{min-height:100vh;padding:120px 0;display:flex;flex-direction:column;justify-content:center}
+    .packaging-header{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:64px;align-items:end}
+    .packaging-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+    .pack-item{position:relative;overflow:hidden;border-radius:4px;cursor:pointer}
+    .pack-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.8s ease}
+    .pack-item:hover img{transform:scale(1.06)}
+    .pack-item-1{grid-column:span 5;aspect-ratio:3/4}
+    .pack-item-2{grid-column:span 4;aspect-ratio:1/1}
+    .pack-item-3{grid-column:span 3;aspect-ratio:1/1}
+    .pack-item-4{grid-column:span 7;aspect-ratio:16/9}
+    .pack-item-5{grid-column:span 5;aspect-ratio:16/9}
+    .pack-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 50%);opacity:0;transition:opacity 0.4s}
+    .pack-item:hover .pack-overlay{opacity:1}
+    .pack-label{position:absolute;bottom:24px;left:24px;color:var(--white);font-size:12px;letter-spacing:0.15em;text-transform:uppercase;opacity:0;transform:translateY(12px);transition:all 0.4s ease}
+    .pack-item:hover .pack-label{opacity:1;transform:translateY(0)}
+
+    /* ── 05 Virtual Model ── */
+    #virtual{background:var(--black);color:var(--white);overflow:hidden}
+    .virtual-layout{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center}
+    .virtual-image{height:100vh;position:relative}
+    .virtual-image img{width:100%;height:100%;object-fit:cover;filter:grayscale(20%)}
+    .virtual-text{padding:120px 80px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+    .virtual-text .overline{color:rgba(255,255,255,0.5)}
+    .virtual-name{font-size:clamp(80px,12vw,180px);font-weight:400;letter-spacing:0.02em;font-family:'Playfair Display',serif;line-height:0.85;margin:40px 0 48px;color:var(--white)}
+    .virtual-bio{font-size:15px;line-height:2;color:rgba(255,255,255,0.7);max-width:480px;margin-bottom:48px}
+    .virtual-traits{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+    .virtual-traits dt{font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:8px}
+    .virtual-traits dd{font-size:14px;color:var(--white);font-weight:500}
+    .virtual-number{position:absolute;right:0;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:35vw;font-weight:400;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,0.08);line-height:1;pointer-events:none}
+
+    /* ── 06 Social ── */
+    #social{background:var(--white)}
+    .social-layout{min-height:100vh;padding:120px 0;display:flex;flex-direction:column;justify-content:center}
+    .social-header{margin-bottom:64px;max-width:700px}
+    .social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--gray-light);border:1px solid var(--gray-light)}
+    .social-item{position:relative;overflow:hidden;aspect-ratio:1;background:var(--white);cursor:pointer}
+    .social-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.7s ease,filter 0.5s ease}
+    .social-item:hover img{transform:scale(1.05);filter:grayscale(0)}
+    .social-item img{filter:grayscale(100%)}
+    .social-item::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0);transition:background 0.4s}
+    .social-item:hover::after{background:rgba(0,0,0,0.2)}
+
+    /* ── 07 Website ── */
+    #website{background:var(--off-white)}
+    .website-layout{min-height:100vh;display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:center;padding:120px 0}
+    .website-text{display:flex;flex-direction:column;gap:32px;position:sticky;top:120px}
+    .website-text h2{font-size:clamp(32px,4vw,52px);font-weight:600;line-height:1.1;font-family:'Playfair Display','Noto Serif SC',serif}
+    .website-text p{font-size:15px;color:var(--gray-dark);line-height:1.9;max-width:440px}
+    .website-link{display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:var(--black);font-weight:600;margin-top:16px;position:relative}
+    .website-link::after{content:'';position:absolute;bottom:-4px;left:0;width:100%;height:1px;background:var(--black);transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease}
+    .website-link:hover::after{transform:scaleX(1)}
+    .website-mockup{position:relative}
+    .website-mockup img{width:100%;border-radius:4px;box-shadow:0 40px 100px rgba(0,0,0,0.15)}
+    .website-mockup::before{content:'';position:absolute;top:-24px;left:-24px;right:24px;bottom:24px;border:1px solid var(--gray-light);border-radius:4px;z-index:-1}
+
+    /* ── 08 Comparison ── */
+    #comparison{background:var(--black);color:var(--white)}
+    .comparison-layout{min-height:100vh;padding:120px 0;display:flex;flex-direction:column;justify-content:center}
+    .comparison-header{text-align:center;margin-bottom:80px;max-width:800px;margin-left:auto;margin-right:auto}
+    .comparison-table{width:100%;border-collapse:collapse;border:1px solid rgba(255,255,255,0.1)}
+    .comparison-table th{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;padding:24px 32px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5)}
+    .comparison-table td{padding:28px 32px;font-size:14px;border-bottom:1px solid rgba(255,255,255,0.08);vertical-align:middle}
+    .comparison-table tr:last-child td{border-bottom:none}
+    .comparison-table td:first-child{font-weight:600;color:var(--white);width:160px;font-size:12px;letter-spacing:0.05em}
+    .comparison-table td:nth-child(2){color:rgba(255,255,255,0.4);width:35%}
+    .comparison-table td:nth-child(3){color:var(--white);background:rgba(255,255,255,0.03);width:35%}
+    .comparison-table tr:hover td{background:rgba(255,255,255,0.02)}
+    .comparison-footer{text-align:center;margin-top:64px;padding-top:48px;border-top:1px solid rgba(255,255,255,0.1)}
+    .comparison-footer p{font-size:clamp(20px,2.5vw,32px);font-family:'Noto Serif SC',serif;color:var(--white);font-weight:400}
+
+    /* Footer */
+    .page-footer{text-align:center;padding:80px 24px;background:var(--white);border-top:1px solid var(--gray-light)}
+    .page-footer p{font-size:10px;letter-spacing:0.2em;color:var(--gray-mid);text-transform:uppercase}
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;z-index:9999;background:rgba(255,255,255,0.98);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.4s;cursor:pointer}
+    .lightbox.active{opacity:1;pointer-events:all}
+    .lightbox img{max-width:90vw;max-height:88vh;border-radius:4px;object-fit:contain;box-shadow:0 40px 120px rgba(0,0,0,0.2)}
+    .lightbox-close{position:fixed;top:40px;right:40px;width:40px;height:40px;border:1px solid var(--black);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--black);transition:var(--transition)}
+    .lightbox-close:hover{background:var(--black);color:var(--white)}
+
+    /* Back Button */
+    .back-btn{position:fixed;bottom:32px;left:32px;z-index:500;background:var(--white);border:1px solid var(--gray-light);border-radius:0;padding:14px 28px;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--black);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;transition:var(--transition);opacity:0;transform:translateY(24px)}
+    .back-btn.visible{opacity:1;transform:translateY(0)}
+    .back-btn:hover{background:var(--black);color:var(--white);border-color:var(--black)}
+
+    @media(max-width:1024px){
+      .section-inner{padding:0 32px}
+      .hero{grid-template-columns:1fr}
+      .hero-visual{min-height:60vh}
+      .hero-content{padding:80px 32px}
+      .hero-brand{left:32px;top:40px}
+      .hero-scroll{display:none}
+      .problem-grid{grid-template-columns:1fr;gap:48px}
+      .problem-image img{height:50vh}
+      .problem-image::before{left:0;top:-20px;font-size:80px}
+      .color-layout{grid-template-columns:1fr}
+      .color-visual{grid-template-columns:1fr}
+      .packaging-header{grid-template-columns:1fr}
+      .packaging-grid{grid-template-columns:repeat(2,1fr)}
+      .pack-item-1,.pack-item-2,.pack-item-3,.pack-item-4,.pack-item-5{grid-column:span 1}
+      .virtual-layout{grid-template-columns:1fr}
+      .virtual-image{height:60vh}
+      .virtual-text{padding:80px 32px}
+      .virtual-number{display:none}
+      .website-layout{grid-template-columns:1fr}
+      .website-text{position:static}
+      .social-grid{grid-template-columns:repeat(2,1fr)}
+      .comparison-table td,.comparison-table th{padding:16px}
+      .logo-showcase{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-line" id="progress"></div>
+
+  <div class="nav-dots" id="navDots">
+    <div class="nav-dot active" data-target="hero"><span class="nav-dot-label">Hero</span></div>
+    <div class="nav-dot" data-target="problem"><span class="nav-dot-label">01 Problem</span></div>
+    <div class="nav-dot" data-target="color"><span class="nav-dot-label">02 Color</span></div>
+    <div class="nav-dot" data-target="logo"><span class="nav-dot-label">03 Logo</span></div>
+    <div class="nav-dot" data-target="packaging"><span class="nav-dot-label">04 Packaging</span></div>
+    <div class="nav-dot" data-target="virtual"><span class="nav-dot-label">05 Model</span></div>
+    <div class="nav-dot" data-target="social"><span class="nav-dot-label">06 Social</span></div>
+    <div class="nav-dot" data-target="website"><span class="nav-dot-label">07 Website</span></div>
+    <div class="nav-dot" data-target="comparison"><span class="nav-dot-label">08 Summary</span></div>
+  </div>
+
+  <div class="section-number" id="sectionNumber">
+    <span class="current" id="currentNum">01</span>
+    <span class="total">/ 09</span>
+  </div>
+
+  <!-- Hero -->
+  <section id="hero" class="section hero" data-index="01">
+    <div class="hero-visual reveal">
+      <img src="img/xin/豆包 - 2026-06-26T140529.483.webp" alt="NenoVia Hero">
+    </div>
+    <div class="hero-content">
+      <span class="hero-brand reveal">NenoVia</span>
+      <h1 class="hero-title reveal reveal-delay-1">
+        从科技工具<br>到<em>有温度</em>的<br>护肤伴侣
+      </h1>
+      <p class="hero-desc reveal reveal-delay-2">美容仪 DTC 出海视觉全案。从 0 到 1 搭建完整视觉体系，确立「暖调科技感」品牌视觉语言，完成 Logo、配色、包装、物料全案设计，创建品牌虚拟人「Via」。</p>
+      <div class="hero-meta reveal reveal-delay-3">
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Project</span>
+          <span class="hero-meta-value">NenoVia DTC品牌视觉全案</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Role</span>
+          <span class="hero-meta-value">品牌视觉设计师（独立完成）</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Target</span>
+          <span class="hero-meta-value">25-35岁欧美女性</span>
+        </div>
+      </div>
+      <span class="hero-scroll">Scroll</span>
+    </div>
+  </section>
+
+  <!-- 01 Problem -->
+  <section id="problem" class="section" data-index="02">
+    <div class="section-inner">
+      <div class="problem-grid">
+        <div class="problem-text">
+          <p class="overline reveal">01 / 问题分析</p>
+          <h2 class="headline reveal reveal-delay-1">核心问题诊断</h2>
+          <p class="problem-statement reveal reveal-delay-2">在原产品模具不变的前提下，完成一次从视觉到触觉的品牌重塑。在「专业科技」与「女性温和」之间找到平衡，建立一套有辨识度、可执行、可感知的品牌视觉体系。</p>
+          <div class="problem-list reveal reveal-delay-3">
+            <div class="problem-item">
+              <h4>整体视觉定位</h4>
+              <p>视觉体系混乱，偏男性化，缺乏统一性与品牌识别度。</p>
+            </div>
+            <div class="problem-item">
+              <h4>产品配色重塑</h4>
+              <p>配色偏男性化，无法传递温和与柔肤感。</p>
+            </div>
+            <div class="problem-item">
+              <h4>Logo 标识重塑</h4>
+              <p>现无形或缺乏专业与温和的平衡感。</p>
+            </div>
+            <div class="problem-item">
+              <h4>包装配件重塑</h4>
+              <p>包装风格不统一，材质与结构缺乏品牌感。</p>
+            </div>
+          </div>
+        </div>
+        <div class="problem-image reveal reveal-delay-2">
+          <img src="img/xin/图片精修-(23).webp" alt="NenoVia Product Analysis">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 Color -->
+  <section id="color" class="section" data-index="03">
+    <div class="section-inner">
+      <div class="color-layout">
+        <div class="color-text">
+          <p class="overline reveal">02 / 产品配色重塑</p>
+          <h2 class="headline reveal reveal-delay-1">Color System</h2>
+          <p class="color-quote reveal reveal-delay-2">专业而不冰冷，科技而有温度。暗调玫瑰金成为主色，裸粉与香槟金作为辅色与点缀，构建有层次的「暖调科技感」。</p>
+          <div class="color-palette reveal reveal-delay-3">
+            <div class="color-swatch">
+              <div class="color-swatch-tone"></div>
+              <div class="color-swatch-name">Primary</div>
+              <div class="color-swatch-value">暗调玫瑰金</div>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch-tone"></div>
+              <div class="color-swatch-name">Secondary</div>
+              <div class="color-swatch-value">裸粉色</div>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch-tone"></div>
+              <div class="color-swatch-name">Accent</div>
+              <div class="color-swatch-value">香槟金</div>
+            </div>
+          </div>
+        </div>
+        <div class="color-visual">
+          <div class="reveal reveal-delay-1">
+            <img src="img/xin/哑光玫瑰金美容仪视频制作-(13).webp" alt="Before Color">
+          </div>
+          <div class="color-visual-note reveal reveal-delay-2">
+            <h4>Before / After</h4>
+            <p>原配色以黑银为主，工具感强。新配色以暗调玫瑰金 70%、裸粉色 20%、香槟金 10% 重新分配，柔化科技感知，增强女性亲和力。</p>
+          </div>
+          <div class="reveal reveal-delay-3">
+            <img src="1/figma/image/webp/mpyx32yg-n121a0o.webp" alt="After Package">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 Logo -->
+  <section id="logo" class="section" data-index="04">
+    <div class="section-inner">
+      <div class="logo-layout">
+        <div class="logo-header">
+          <p class="overline reveal">03 / Logo 重塑</p>
+          <h2 class="headline reveal reveal-delay-1">Logo Redesign</h2>
+          <p class="reveal reveal-delay-2">以字母「N」为基础，通过斜向线条与渐变疏密，塑造「由表及里」的渗透感，精准对应产品打开肌肤通道、促进精华吸收的核心功能。</p>
+        </div>
+        <div class="logo-showcase reveal reveal-delay-3">
+          <div class="logo-card">
+            <img src="img/logo-light.svg" alt="Logo Light" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+            <span style="font-size:56px;font-weight:200;letter-spacing:0.05em;color:var(--black);display:none;font-family:'Playfair Display',serif">NenoVia</span>
+            <span class="logo-card-label">Light Version</span>
+          </div>
+          <div class="logo-card logo-card-dark">
+            <img src="img/logo-dark.svg" alt="Logo Dark" style="filter:brightness(0) invert(1)" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+            <span style="font-size:56px;font-weight:200;letter-spacing:0.05em;color:rgba(255,255,255,0.9);display:none;font-family:'Playfair Display',serif">NenoVia</span>
+            <span class="logo-card-label">Dark Version</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Packaging -->
+  <section id="packaging" class="section" data-index="05">
+    <div class="section-inner">
+      <div class="packaging-layout">
+        <div class="packaging-header">
+          <div>
+            <p class="overline reveal">04 / 配件包装</p>
+            <h2 class="headline reveal reveal-delay-1">Packaging</h2>
+          </div>
+          <p class="body-text reveal reveal-delay-2">统一盒型结构与材质语言，建立开箱仪式感。从主机包装到配件套装，每一处细节都传递「专业而有温度」的品牌感知。</p>
+        </div>
+        <div class="packaging-grid reveal reveal-delay-3">
+          <div class="pack-item pack-item-1">
+            <img src="img/xin/哑光玫瑰金美容仪视频制作-(7).jpg" alt="Packaging 1">
+            <div class="pack-overlay"></div>
+            <span class="pack-label">主机包装</span>
+          </div>
+          <div class="pack-item pack-item-2">
+            <img src="img/xin/哑光玫瑰金美容仪视频制作-(8).jpg" alt="Packaging 2">
+            <div class="pack-overlay"></div>
+            <span class="pack-label">配件套装</span>
+          </div>
+          <div class="pack-item pack-item-3">
+            <img src="img/xin/哑光玫瑰金美容仪视频制作-(9).jpg" alt="Packaging 3">
+            <div class="pack-overlay"></div>
+            <span class="pack-label">开箱体验</span>
+          </div>
+          <div class="pack-item pack-item-4">
+            <img src="img/xin/精修包装盒-(1).webp" alt="Packaging 4">
+            <div class="pack-overlay"></div>
+            <span class="pack-label">礼盒设计</span>
+          </div>
+          <div class="pack-item pack-item-5">
+            <img src="img/xin/图片精修 (31).webp" alt="Packaging 5">
+            <div class="pack-overlay"></div>
+            <span class="pack-label">产品陈列</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 Virtual Model -->
+  <section id="virtual" class="section" data-index="06">
+    <div class="virtual-layout">
+      <div class="virtual-image reveal">
+        <img src="img/image/XNJSE.webp" alt="Via Virtual Model">
+      </div>
+      <div class="virtual-text">
+        <span class="virtual-number">05</span>
+        <p class="overline reveal">05 / 虚拟模特</p>
+        <h2 class="virtual-name reveal reveal-delay-1">Via</h2>
+        <p class="virtual-bio reveal reveal-delay-2">Via 是 NenoVia 的品牌虚拟形象，以统一的视觉语言贯穿所有传播触点。她不是超模，也不是网红，而是一位 28 岁、住在哥本哈根的护肤品配方师。雀斑、浅金短发、温和自然的穿搭，让她看起来既真实又亲近。</p>
+        <dl class="virtual-traits reveal reveal-delay-3">
+          <div>
+            <dt>身份定义</dt>
+            <dd>NenoVia 品牌虚拟形象大使</dd>
+          </div>
+          <div>
+            <dt>视觉风格</dt>
+            <dd>自然光感 / 简约背景 / 护肤场景</dd>
+          </div>
+          <div>
+            <dt>应用场景</dt>
+            <dd>社媒内容 / 官网视觉 / 产品场景图</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 Social -->
+  <section id="social" class="section" data-index="07">
+    <div class="section-inner">
+      <div class="social-layout">
+        <div class="social-header">
+          <p class="overline reveal">06 / IG 社媒设计</p>
+          <h2 class="headline reveal reveal-delay-1">Social Presence</h2>
+          <p class="body-text reveal reveal-delay-2">账号整体运营调性统一：Ins 主页、短视频、海报、互动标准一致。以 Via 为核心，围绕护肤场景输出系列内容，建立真实、可信赖的品牌人格。</p>
+        </div>
+        <div class="social-grid reveal reveal-delay-3">
+          <div class="social-item"><img src="img/xin/哑光玫瑰金美容仪视频制作-(1).jpg" alt="Social 1"></div>
+          <div class="social-item"><img src="img/xin/哑光玫瑰金美容仪视频制作-(2).jpg" alt="Social 2"></div>
+          <div class="social-item"><img src="img/xin/哑光玫瑰金美容仪视频制作-(3).jpg" alt="Social 3"></div>
+          <div class="social-item"><img src="img/xin/哑光玫瑰金美容仪视频制作-(4).jpg" alt="Social 4"></div>
+          <div class="social-item"><img src="img/xin/哑光玫瑰金美容仪视频制作-(5).jpg" alt="Social 5"></div>
+          <div class="social-item"><img src="img/xin/哑光玫瑰金美容仪视频制作-(6).jpg" alt="Social 6"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 Website -->
+  <section id="website" class="section" data-index="08">
+    <div class="section-inner">
+      <div class="website-layout">
+        <div class="website-text">
+          <p class="overline reveal">07 / 独立站设计</p>
+          <h2 class="reveal reveal-delay-1">Website Design</h2>
+          <p class="reveal reveal-delay-2">建立品牌数字化门面，从首页到产品详情页，统一视觉语言与交互体验。通过大图展示、清晰的信息架构、以及品牌色的贯穿应用，让用户在浏览过程中感受到 NenoVia 的专业与温度。</p>
+          <p class="reveal reveal-delay-2">网站设计以暗调玫瑰金为主色，搭配大量留白与精致的产品摄影，营造出高端护肤品牌的质感。响应式设计确保在移动端同样拥有出色的浏览体验。</p>
+          <a href="#" class="website-link reveal reveal-delay-3">
+            View Website
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </a>
+        </div>
+        <div class="website-mockup reveal reveal-delay-2">
+          <img src="1/figma/image/webp/screenshot_84_2.webp" alt="Website Design">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 Comparison -->
+  <section id="comparison" class="section" data-index="09">
+    <div class="section-inner">
+      <div class="comparison-layout">
+        <div class="comparison-header">
+          <p class="overline reveal" style="color:rgba(255,255,255,0.5)">08 / 升级总结</p>
+          <h2 class="headline reveal reveal-delay-1" style="color:var(--white)">Before & After</h2>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>维度</th>
+                <th>升级前</th>
+                <th>升级后</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>目标客群</td>
+                <td>模糊 / 偏男性化</td>
+                <td>25-40岁欧美女性</td>
+              </tr>
+              <tr>
+                <td>品牌主张</td>
+                <td>未明确</td>
+                <td>专业而不冰冷，科技而有温度</td>
+              </tr>
+              <tr>
+                <td>配色</td>
+                <td>黑色70% + 银色30%</td>
+                <td>暗调玫瑰金70% + 裸色20% + 暖白10%</td>
+              </tr>
+              <tr>
+                <td>产品外观</td>
+                <td>黑银磨砂，指纹明显</td>
+                <td>暗调玫瑰金细磨砂 + 抗指纹涂层</td>
+              </tr>
+              <tr>
+                <td>充电方式</td>
+                <td>有线充电，易忘充</td>
+                <td>磁吸底座，随放随充</td>
+              </tr>
+              <tr>
+                <td>营销内容</td>
+                <td>产品参数堆砌</td>
+                <td>系列海外海报 + 虚拟角色 Via</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="comparison-footer reveal reveal-delay-3">
+          <p>从「黑色工具感」到「有温度的品牌系统」</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <p>© 2026 ALILUYA · Visual Designer</p>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-close">×</div>
+    <img src="" alt="Lightbox">
+  </div>
+
+  <a href="index.html" class="back-btn">Back to Home</a>
+
+  <script>
+    // Reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Progress line
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = (scrollTop / docHeight * 100) + '%';
+    }, { passive: true });
+
+    // Section number and nav dots
+    const sections = document.querySelectorAll('section[id]');
+    const currentNum = document.getElementById('currentNum');
+    const sectionNumber = document.getElementById('sectionNumber');
+    const dots = document.querySelectorAll('.nav-dot');
+
+    function updateActive() {
+      const scrollPos = window.scrollY + window.innerHeight / 2;
+      let activeSection = sections[0];
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const top = rect.top + window.scrollY;
+        if (scrollPos >= top) {
+          activeSection = section;
+        }
+      });
+      const num = activeSection.getAttribute('data-index');
+      currentNum.textContent = num;
+      sectionNumber.classList.toggle('dark', activeSection.id === 'color' || activeSection.id === 'virtual' || activeSection.id === 'comparison');
+      const activeId = activeSection.id;
+      dots.forEach((dot) => {
+        dot.classList.toggle('active', dot.getAttribute('data-target') === activeId);
+      });
+    }
+
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+
+    // Nav dots click
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const target = document.getElementById(dot.getAttribute('data-target'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Back button
+    const backBtn = document.querySelector('.back-btn');
+    window.addEventListener('scroll', () => {
+      backBtn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    document.querySelectorAll('img').forEach(img => {
+      if (!img.closest('.hero-visual') && !img.closest('.virtual-image')) {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => {
+          lightboxImg.src = img.src;
+          lightbox.classList.add('active');
+        });
+      }
+    });
+    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+  </script>
+</body>
+</html>
