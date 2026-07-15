@@ -1019,7 +1019,7 @@
       if (!content || !scrollbar || !thumb || !img) return;
 
       function updateThumb(){
-        var totalH = img.naturalHeight || img.clientHeight;
+        var totalH = img.clientHeight || img.naturalHeight;
         var viewH = content.clientHeight;
         if (totalH <= viewH) { thumb.style.height = '100%'; return; }
         var ratio = viewH / totalH;
@@ -1029,7 +1029,7 @@
 
       var scrollPos = 0;
       function setScroll(rawY){
-        var totalH = img.naturalHeight || img.clientHeight;
+        var totalH = img.clientHeight || img.naturalHeight;
         var viewH = content.clientHeight;
         if (totalH <= viewH) return;
         var trackH = scrollbar.clientHeight - thumb.clientHeight;
@@ -1067,7 +1067,7 @@
       scrollbar.addEventListener('wheel', function(e){
         e.preventDefault();
         e.stopPropagation();
-        var totalH = img.naturalHeight || img.clientHeight;
+        var totalH = img.clientHeight || img.naturalHeight;
         var viewH = content.clientHeight;
         if (totalH <= viewH) return;
         var trackH = scrollbar.clientHeight - thumb.clientHeight;
@@ -1081,7 +1081,7 @@
       content.addEventListener('wheel', function(e){
         e.preventDefault();
         e.stopPropagation();
-        var totalH = img.naturalHeight || img.clientHeight;
+        var totalH = img.clientHeight || img.naturalHeight;
         var viewH = content.clientHeight;
         if (totalH <= viewH) return;
         scrollPos = Math.max(0, Math.min(totalH - viewH, scrollPos + e.deltaY));
